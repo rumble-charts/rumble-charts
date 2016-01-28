@@ -1,0 +1,37 @@
+{
+  "name": "rumble-charts",
+  "version": "0.1.0",
+  "description": "React charts components based on d3.js",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir lib ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RumbleInc/rumble-js-charts.git"
+  },
+  "keywords": [
+    "react",
+    "d3",
+    "charts"
+  ],
+  "author": "Alexey Volkov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RumbleInc/rumble-js-charts/issues"
+  },
+  "homepage": "https://github.com/RumbleInc/rumble-js-charts#readme",
+  "dependencies": {
+    "d3": "3.5.6",
+    "d3-cloud": "1.2.1",
+    "lodash": "3.10.1",
+    "react": "0.14.4",
+    "react-dom": "0.14.4"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "6.4.0",
+    "babel-preset-es2015": "6.3.13",
+    "jscs": "2.9.0"
+  }
+}
