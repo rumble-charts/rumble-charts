@@ -40,10 +40,10 @@ var DropShadow = React.createClass({
     </feMerge>
 </filter>
           `;
-        /* jshint ignore:start */
+
         return <g dangerouslySetInnerHTML={{__html: html}}>
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

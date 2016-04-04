@@ -155,7 +155,7 @@ var helpers = {
         var limits = _.pick(seriesProps, limitsPropNames);
         seriesProps = helpers.normalizeSeries(seriesProps);
         var limitsCalculated = _.pick(seriesProps, limitsPropNames);
-        var { series } = seriesProps;
+        var {series} = seriesProps;
 
         return React.Children.map(children, child => {
 
@@ -204,9 +204,9 @@ var helpers = {
 
     transforms: {
         stack(props, options) {
-            var { normalize } = options || {};
+            var {normalize} = options || {};
 
-            let { series, seriesNormalized, maxX, maxY, minX, minY } = props;
+            let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
             var stackedY = [], lowestY = [];
             series = _.map(series, series => {
@@ -262,10 +262,10 @@ var helpers = {
         },
 
         sort(props, options) {
-            var { direction } = options || {};
+            var {direction} = options || {};
             direction = ('' + direction).toLowerCase() || 'asc';
 
-            let { series, seriesNormalized, maxX, maxY, minX, minY } = props;
+            let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
             series = _.map(series, series => {
                 var newSeries = {};
@@ -296,7 +296,7 @@ var helpers = {
 
         unstack(props) {
 
-            let { series, seriesNormalized, maxX, maxY, minX, minY } = props;
+            let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
             series = _.map(series, series => {
                 var newSeries = {};
@@ -321,7 +321,7 @@ var helpers = {
 
         transpose(props) {
 
-            let { series, seriesNormalized, minX, maxY, minY } = props;
+            let {series, seriesNormalized, minX, maxY, minY} = props;
 
             var maxX = 0;
             let newSeries = [];
@@ -347,11 +347,13 @@ var helpers = {
         },
 
         rotate(props) {
-            let { series, seriesNormalized, minX, maxX, maxY, minY,
-                scaleX, scaleY, layerWidth, layerHeight } = props;
+            let {
+                series, seriesNormalized, minX, maxX, maxY, minY,
+                scaleX, scaleY, layerWidth, layerHeight
+            } = props;
 
-            let { paddingLeft, paddingRight } = scaleX;
-            let { paddingTop, paddingBottom } = scaleY;
+            let {paddingLeft, paddingRight} = scaleX;
+            let {paddingTop, paddingBottom} = scaleY;
             scaleX = _.cloneDeep(scaleX);
             scaleY = _.cloneDeep(scaleY);
             scaleX.paddingLeft = paddingTop;

@@ -29,24 +29,24 @@ var Layer = React.createClass({
     // helpers
 
     getWidth() {
-        var { width, layerWidth } = this.props;
+        var {width, layerWidth} = this.props;
         return helpers.normalizeNumber(width, layerWidth);
     },
 
     getHeight() {
-        var { height, layerHeight } = this.props;
+        var {height, layerHeight} = this.props;
         return helpers.normalizeNumber(height, layerHeight);
     },
 
     getCoords() {
-        var { position, layerWidth, layerHeight } = this.props;
+        var {position, layerWidth, layerHeight} = this.props;
         return helpers.getCoords(position, layerWidth, layerHeight, this.getWidth(), this.getHeight());
     },
 
     // render
 
     render: function () {
-        let { className, scaleX, scaleY, style } = this.props;
+        let {className, scaleX, scaleY, style} = this.props;
 
         let layerWidth = this.getWidth();
         let layerHeight = this.getHeight();
@@ -79,11 +79,11 @@ var Layer = React.createClass({
             }
         );
 
-        /* jshint ignore:start */
+
         return <g className={className} style={layerStyle}>
             {children}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

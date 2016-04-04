@@ -68,8 +68,8 @@ var Lines = React.createClass({
     // render
 
     render: function () {
-        let { props } = this;
-        let { className, style, scaleX, scaleY, asAreas, colors, series } = props;
+        let {props} = this;
+        let {className, style, scaleX, scaleY, asAreas, colors, series} = props;
 
         let rotate = scaleX.swap || scaleY.swap;
 
@@ -79,12 +79,12 @@ var Lines = React.createClass({
         let _y0 = y(0);
         let color = helpers.colorFunc(colors);
 
-        /* jshint ignore:start */
+
         return <g className={className} style={style}>
             {_.map(series, (series, index) => {
 
-                let { seriesVisible, seriesStyle, seriesAttributes } = props;
-                let { lineVisible, lineStyle, lineAttributes, lineWidth } = props;
+                let {seriesVisible, seriesStyle, seriesAttributes} = props;
+                let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
 
                 seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
@@ -142,11 +142,11 @@ var Lines = React.createClass({
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
-                        />
+                    />
                 </g>;
             })}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

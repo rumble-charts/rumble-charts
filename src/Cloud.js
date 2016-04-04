@@ -99,9 +99,9 @@ var Dots = React.createClass({
     // helpers
 
     buildCloud(props) {
-        const { layerWidth, layerHeight, series } = props;
-        const { font, fontStyle, fontWeight, rotate, spiral, padding, random } = props;
-        const { minFontSize, maxFontSize, minY, maxY } = props;
+        const {layerWidth, layerHeight, series} = props;
+        const {font, fontStyle, fontWeight, rotate, spiral, padding, random} = props;
+        const {minFontSize, maxFontSize, minY, maxY} = props;
 
         const scale = d3.scale.linear().range([minFontSize, maxFontSize]).domain([minY, maxY]);
 
@@ -154,17 +154,17 @@ var Dots = React.createClass({
     // render
 
     render: function () {
-        const { props, state } = this;
-        let { className, style, colors, layerWidth, layerHeight } = props;
+        const {props, state} = this;
+        let {className, style, colors, layerWidth, layerHeight} = props;
 
         const color = helpers.colorFunc(colors);
 
-        /* jshint ignore:start */
+
         return <g className={className} style={style}
                   transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
             {_.map(state.series, (series, seriesIndex) => {
 
-                let { seriesVisible, seriesStyle, seriesAttributes } = props;
+                let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
                 seriesVisible = helpers.value(seriesVisible, {seriesIndex, series, props});
                 if (!seriesVisible) {
@@ -181,7 +181,7 @@ var Dots = React.createClass({
                     {...seriesAttributes}>
                     {_.map(series.data, (point, pointIndex) => {
 
-                        let { labelVisible, labelAttributes, labelStyle } = props;
+                        let {labelVisible, labelAttributes, labelStyle} = props;
                         let label = state.labels[seriesIndex][pointIndex];
                         if (!label) {
                             return;
@@ -218,7 +218,7 @@ var Dots = React.createClass({
                 </g>;
             })}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

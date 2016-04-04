@@ -37,8 +37,8 @@ var Handlers = React.createClass({
     },
 
     updateScales() {
-        let { props } = this;
-        let { scaleX, scaleY } = props;
+        let {props} = this;
+        let {scaleX, scaleY} = props;
         this.x = scaleX.factory(props);
         this.y = scaleY.factory(props);
         this.scaleX = scaleX.factory(props);
@@ -62,9 +62,9 @@ var Handlers = React.createClass({
     handleMouseMove(event) {
         this.updatePoint0();
 
-        let { clientX, clientY } = event;
-        let { left, top, props } = this;
-        let { onMouseMove, series, sensitivity, optimized } = props;
+        let {clientX, clientY} = event;
+        let {left, top, props} = this;
+        let {onMouseMove, series, sensitivity, optimized} = props;
         let realX = clientX - left;
         let realY = clientY - top;
         let x = this.x(realX);
@@ -106,9 +106,9 @@ var Handlers = React.createClass({
     // render
 
     render() {
-        let { props } = this;
-        let { className, scaleX, scaleY, layerWidth, layerHeight } = props;
-        let { onMouseMove, onMouseLeave } = props;
+        let {props} = this;
+        let {className, scaleX, scaleY, layerWidth, layerHeight} = props;
+        let {onMouseMove, onMouseLeave} = props;
 
         this.updateScales();
 
@@ -123,7 +123,7 @@ var Handlers = React.createClass({
             }
         );
 
-        /* jshint ignore:start */
+
         return <g
             className={className}
             onMouseMove={onMouseMove && this.handleMouseMove}
@@ -135,7 +135,7 @@ var Handlers = React.createClass({
                 fill='transparent' stroke='transparent'/>
             {children}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

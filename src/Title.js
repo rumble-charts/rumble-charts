@@ -36,13 +36,13 @@ var Title = React.createClass({
 
         currentStyle.transform = 'translate(' + x + 'px,' + y + 'px)';
 
-        /* jshint ignore:start */
+
         return <g className={className} style={currentStyle}>
             {_.isString(children) ?
                 <text>{children}</text> :
                 (_.isFunction(children) ? children(props) : children)}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

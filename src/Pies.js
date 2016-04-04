@@ -97,7 +97,7 @@ var Pies = React.createClass({
     },
 
     getPaddings(props) {
-        let { innerPadding, groupPadding } = props;
+        let {innerPadding, groupPadding} = props;
         let outerRadius = this.getOuterRadius(props);
         innerPadding = helpers.normalizeNumber(innerPadding, outerRadius) || 0;
         groupPadding = helpers.normalizeNumber(groupPadding, outerRadius) || 0;
@@ -108,8 +108,8 @@ var Pies = React.createClass({
     },
 
     getPieWidth(x, props) {
-        var { pieWidth } = props;
-        var { innerPadding, groupPadding } = this.getPaddings(props);
+        var {pieWidth} = props;
+        var {innerPadding, groupPadding} = this.getPaddings(props);
         if (pieWidth) {
             return helpers.normalizeNumber(pieWidth, this.getOuterRadius(props));
         } else {
@@ -142,21 +142,21 @@ var Pies = React.createClass({
             });
             startAngle += maxAngle;
 
-            /* jshint ignore:start */
+
             pathList.push(<path
                 key={'' + key + lapIndex}
                 {...pathProps}
                 d={d}
             />);
-            /* jshint ignore:end */
+
             lapIndex++;
         }
         return pathList;
     },
 
     renderArc(startAngle, endAngle, radius, pieWidth, seriesIndex, pointIndex, point) {
-        let { props } = this;
-        let { className, pieVisible, pieAttributes, pieStyle, groupStyle, cornerRadius } = props;
+        let {props} = this;
+        let {className, pieVisible, pieAttributes, pieStyle, groupStyle, cornerRadius} = props;
         let series = props.series[seriesIndex];
 
         pieVisible = helpers.value(pieVisible, {seriesIndex, pointIndex, point, props});
@@ -233,19 +233,19 @@ var Pies = React.createClass({
 
         groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <g
             key={pointIndex}
             className={className && (className + '-bar')}
             style={groupStyle}>
             {pathList}
         </g>;
-        /* jshint ignore:end */
+
     },
 
     render: function () {
-        let { props } = this;
-        let { className, style, minX, maxX, minY, maxY, position, layerWidth, layerHeight, colors } = props;
+        let {props} = this;
+        let {className, style, minX, maxX, minY, maxY, position, layerWidth, layerHeight, colors} = props;
 
         let innerRadius = this.getInnerRadius(props);
         let outerRadius = this.getOuterRadius(props);
@@ -258,9 +258,9 @@ var Pies = React.createClass({
             .range([props.startAngle, props.endAngle])
             .domain(props.scaleY.direction >= 0 ? [minY, maxY] : [maxY, minY]);
 
-        let { series } = props;
+        let {series} = props;
 
-        let { innerPadding } = this.getPaddings(props);
+        let {innerPadding} = this.getPaddings(props);
         let pieWidth = this.getPieWidth(radialScale, props);
         let _startAngle = circularScale(0);
         this.color = helpers.colorFunc(colors);
@@ -276,11 +276,11 @@ var Pies = React.createClass({
 
         let halfPadAngle = props.padAngle / 2 || 0;
 
-        /* jshint ignore:start */
+
         return <g className={className} style={chartStyle}>
             {_.map(series, (series, index) => {
 
-                let { seriesVisible, seriesAttributes, seriesStyle } = props;
+                let {seriesVisible, seriesAttributes, seriesStyle} = props;
 
                 seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
@@ -312,7 +312,7 @@ var Pies = React.createClass({
                 </g>;
             })}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

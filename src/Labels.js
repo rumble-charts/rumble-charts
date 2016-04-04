@@ -54,9 +54,9 @@ var Labels = React.createClass({
     },
 
     render() {
-        /* jshint ignore:start */
-        return <Dots {...this.props} dotType='labels' />;
-        /* jshint ignore:end */
+
+        return <Dots {...this.props} dotType='labels'/>;
+
     }
 
 });

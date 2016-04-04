@@ -18,7 +18,7 @@ var Transform = React.createClass({
     },
 
     render: function () {
-        let { className, method, layerWidth, layerHeight, scaleX, scaleY } = this.props;
+        let {className, method, layerWidth, layerHeight, scaleX, scaleY} = this.props;
 
         let props = helpers.transform(this.props, method);
 
@@ -33,11 +33,11 @@ var Transform = React.createClass({
             }
         );
 
-        /* jshint ignore:start */
+
         return <g className={className}>
             {children}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

@@ -112,13 +112,13 @@ var Dots = React.createClass({
     // render
 
     renderCircle({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let { circleRadius, circleAttributes, className } = props;
+        let {circleRadius, circleAttributes, className} = props;
         let series = props.series[seriesIndex];
 
         circleRadius = helpers.value(circleRadius, {seriesIndex, pointIndex, point, props});
         circleAttributes = helpers.value(circleAttributes, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <circle
             key={key}
             className={className && (className + '-circle ' + className + '-circle-' + seriesIndex + '-' + pointIndex)}
@@ -131,18 +131,18 @@ var Dots = React.createClass({
             {...dotAttributes}
             {...circleAttributes}
         />;
-        /* jshint ignore:end */
+
     },
 
     renderEllipse({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let { ellipseRadiusX, ellipseRadiusY, ellipseAttributes, className } = props;
+        let {ellipseRadiusX, ellipseRadiusY, ellipseAttributes, className} = props;
         let series = props.series[seriesIndex];
 
         ellipseRadiusX = helpers.value(ellipseRadiusX, {seriesIndex, pointIndex, point, props});
         ellipseRadiusY = helpers.value(ellipseRadiusY, {seriesIndex, pointIndex, point, props});
         ellipseAttributes = helpers.value(ellipseAttributes, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <ellipse
             key={key}
             className={className && (className + '-ellipse ' +
@@ -157,17 +157,17 @@ var Dots = React.createClass({
             {...dotAttributes}
             {...ellipseAttributes}
         />;
-        /* jshint ignore:end */
+
     },
 
     renderPath({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let { path, pathAttributes, className } = props;
+        let {path, pathAttributes, className} = props;
         let series = props.series[seriesIndex];
 
         path = helpers.value(path, {seriesIndex, pointIndex, point, props});
         pathAttributes = helpers.value(pathAttributes, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <path
             key={key}
             className={className && (className + '-path ' + className + '-path-' + seriesIndex + '-' + pointIndex)}
@@ -178,17 +178,17 @@ var Dots = React.createClass({
             {...dotAttributes}
             {...pathAttributes}
         />;
-        /* jshint ignore:end */
+
     },
 
     renderSymbol({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let { symbolType, symbolAttributes, className } = props;
+        let {symbolType, symbolAttributes, className} = props;
         let series = props.series[seriesIndex];
 
         symbolType = helpers.value(symbolType, {seriesIndex, pointIndex, point, props});
         symbolAttributes = helpers.value(symbolAttributes, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <path
             key={key}
             className={className && (className + '-symbol ' + className + '-symbol-' + seriesIndex + '-' + pointIndex)}
@@ -199,17 +199,17 @@ var Dots = React.createClass({
             {...dotAttributes}
             {...symbolAttributes}
         />;
-        /* jshint ignore:end */
+
     },
 
     renderLabel({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let { label, labelAttributes, className } = props;
+        let {label, labelAttributes, className} = props;
         let series = props.series[seriesIndex];
 
         label = helpers.value(label, {seriesIndex, pointIndex, point, props});
         labelAttributes = helpers.value(labelAttributes, {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
+
         return <text
             key={key}
             className={className && (className + '-label ' + className + '-label-' + seriesIndex + '-' + pointIndex)}
@@ -220,12 +220,12 @@ var Dots = React.createClass({
             {...labelAttributes}>
             {label}
         </text>;
-        /* jshint ignore:end */
+
     },
 
     renderDot(x, y, seriesIndex, pointIndex, point) {
-        let { props } = this;
-        let { className, groupStyle, dotVisible, dotAttributes, dotStyle, dotType, dotRender } = props;
+        let {props} = this;
+        let {className, groupStyle, dotVisible, dotAttributes, dotStyle, dotType, dotRender} = props;
         let series = props.series[seriesIndex];
 
         dotVisible = helpers.value(dotVisible, {seriesIndex, pointIndex, point, props});
@@ -270,30 +270,30 @@ var Dots = React.createClass({
             dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
         }
 
-        /* jshint ignore:start */
+
         return <g
             key={pointIndex}
             className={className && (className + '-dot ' + className + '-dot-' + pointIndex)}
             style={style}>
             {dot}
         </g>;
-        /* jshint ignore:end */
+
     },
 
     render: function () {
-        let { props } = this;
-        let { className, style, scaleX, scaleY, colors } = props;
+        let {props} = this;
+        let {className, style, scaleX, scaleY, colors} = props;
 
         let x = scaleX.factory(props);
         let y = scaleY.factory(props);
         let rotate = scaleX.swap || scaleY.swap;
         this.color = helpers.colorFunc(colors);
 
-        /* jshint ignore:start */
+
         return <g className={className} style={style}>
             {_.map(props.series, (series, index) => {
 
-                let { seriesVisible, seriesStyle, seriesAttributes } = props;
+                let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
                 seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
@@ -323,7 +323,7 @@ var Dots = React.createClass({
                 </g>;
             })}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

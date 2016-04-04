@@ -87,9 +87,9 @@ var Ticks = React.createClass({
     // helpers
 
     generateTicks(config) {
-        let { props } = this;
-        let { axis, maxX, maxY, minX, minY } = props;
-        let { maxTicks, minDistance, distance } = config;
+        let {props} = this;
+        let {axis, maxX, maxY, minX, minY} = props;
+        let {maxTicks, minDistance, distance} = config;
 
         let max = axis === 'y' ? maxY : maxX;
         let min = axis === 'y' ? minY : minX;
@@ -114,9 +114,11 @@ var Ticks = React.createClass({
     // render
 
     renderTick(ticksLength, tick, index) {
-        let { props, x, y, position } = this;
-        let { axis, className, layerWidth, layerHeight,
-            tickStyle, tickAttributes, tickVisible, scaleX, scaleY } = props;
+        let {props, x, y, position} = this;
+        let {
+            axis, className, layerWidth, layerHeight,
+            tickStyle, tickAttributes, tickVisible, scaleX, scaleY
+        } = props;
 
         if (_.isNumber(tick)) {
             tick = {[axis]: tick};
@@ -144,7 +146,7 @@ var Ticks = React.createClass({
             MozTransform: transform
         }, tickStyle);
 
-        /* jshint ignore:start */
+
         return <g
             key={index} style={style}
             className={className && (className + '-tick ' + className + '-tick-' + index)}
@@ -152,13 +154,13 @@ var Ticks = React.createClass({
             {this.renderLabel(ticksLength, tick, index)}
             {this.renderLine(ticksLength, tick, index)}
         </g>;
-        /* jshint ignore:end */
+
     },
 
     renderLabel(ticksLength, tick, index) {
-        let { props } = this;
-        let { className, axis } = props;
-        let { labelStyle, labelFormat, labelVisible, labelAttributes, label } = props;
+        let {props} = this;
+        let {className, axis} = props;
+        let {labelStyle, labelFormat, labelVisible, labelAttributes, label} = props;
 
         labelVisible = helpers.value(labelVisible, {index, ticksLength, tick, props});
         if (labelVisible) {
@@ -170,24 +172,24 @@ var Ticks = React.createClass({
             labelFormat = helpers.value(labelFormat, label) || label;
 
             if (_.isString(label) || _.isNumber(label)) {
-                /* jshint ignore:start */
+
                 label = <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
                     {...labelAttributes}>
                     {labelFormat}
                 </text>;
-                /* jshint ignore:end */
+
             }
             return label;
         }
     },
 
     renderLine(ticksLength, tick, index) {
-        let { props, horizontal } = this;
-        let { layerWidth, layerHeight, className } = props;
+        let {props, horizontal} = this;
+        let {layerWidth, layerHeight, className} = props;
 
-        let { lineVisible, lineAttributes, lineStyle, lineLength, lineOffset } = props;
+        let {lineVisible, lineAttributes, lineStyle, lineLength, lineOffset} = props;
         let line;
         lineVisible = helpers.value(lineVisible, {index, ticksLength, tick, props});
         if (lineVisible) {
@@ -208,20 +210,20 @@ var Ticks = React.createClass({
                 ('M' + lineOffset + ',0 h' + lineLength) :
                 ('M0,' + lineOffset + ' v' + lineLength);
 
-            /* jshint ignore:start */
+
             line = <path
                 style={lineStyle}
                 className={className && (className + '-line ' + className + '-line-' + index)}
                 d={d}
                 {...lineAttributes}/>;
-            /* jshint ignore:end */
+
         }
         return line;
     },
 
     render: function () {
-        let { props } = this;
-        let { className, position, ticks, scaleX, scaleY, axis, style } = props;
+        let {props} = this;
+        let {className, position, ticks, scaleX, scaleY, axis, style} = props;
 
         this.x = scaleX.factory(props);
         this.y = scaleY.factory(props);
@@ -240,11 +242,11 @@ var Ticks = React.createClass({
             ticks = this.generateTicks(ticks);
         }
 
-        /* jshint ignore:start */
+
         return <g className={className} style={style}>
             {_.map(ticks, this.renderTick.bind(this, ticks.length))}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

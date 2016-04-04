@@ -57,7 +57,7 @@ var Animate = React.createClass({
             _.pick(nextProps, this.props.interpolateProps)
         );
 
-        var { duration, ease, onStart, onEnd } = this.props;
+        var {duration, ease, onStart, onEnd} = this.props;
         ease = _.isString(ease) ?
             d3.ease(ease) :
             (_.isFunction(ease) ? ease : d3.ease('linear'));
@@ -70,7 +70,7 @@ var Animate = React.createClass({
             if (p >= duration) {
                 onEnd && onEnd();
                 if (this.props.logFPS) {
-                    console.log(i * (1000 / duration) + 'fps; ' + i + ' frames');
+                    console.warn(i * (1000 / duration) + 'fps; ' + i + ' frames');
                 }
                 return true;
             } else {
@@ -82,9 +82,8 @@ var Animate = React.createClass({
     // render
 
     render: function () {
-        let { props, state } = this;
+        let {props, state} = this;
 
-        /* jshint ignore:start */
         return <g className={props.className}>
             {helpers.proxyChildren(
                 props.children,
@@ -97,7 +96,6 @@ var Animate = React.createClass({
                 }
             )}
         </g>;
-        /* jshint ignore:end */
     }
 
 });

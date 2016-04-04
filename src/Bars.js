@@ -2,7 +2,6 @@
 
 var React = require('react'),
     _ = require('lodash'),
-    d3 = require('d3'),
     helpers = require('./helpers');
 
 var Bars = React.createClass({
@@ -72,8 +71,8 @@ var Bars = React.createClass({
     // helpers
 
     getPaddings() {
-        let { props } = this;
-        var { innerPadding, groupPadding, layerWidth } = props;
+        let {props} = this;
+        var {innerPadding, groupPadding, layerWidth} = props;
         innerPadding = helpers.value(innerPadding, props);
         innerPadding = helpers.normalizeNumber(innerPadding, layerWidth);
         groupPadding = helpers.value(groupPadding, props);
@@ -85,9 +84,9 @@ var Bars = React.createClass({
     },
 
     getBarWidth() {
-        let { props, x } = this;
-        var { barWidth, layerWidth } = props;
-        var { innerPadding, groupPadding } = this.getPaddings(props);
+        let {props, x} = this;
+        var {barWidth, layerWidth} = props;
+        var {innerPadding, groupPadding} = this.getPaddings(props);
         if (barWidth) {
             barWidth = helpers.value(barWidth, props);
             return helpers.normalizeNumber(barWidth, layerWidth);
@@ -104,8 +103,8 @@ var Bars = React.createClass({
     // render
 
     renderSeries(series, index) {
-        let { x, y, barWidth, props } = this;
-        let { scaleX, scaleY, className, seriesVisible, seriesStyle, seriesAttributes } = props;
+        let {x, y, barWidth, props} = this;
+        let {scaleX, scaleY, className, seriesVisible, seriesStyle, seriesAttributes} = props;
 
         seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
         if (!seriesVisible) {
@@ -122,7 +121,7 @@ var Bars = React.createClass({
                 (index - ((props.series || []).length - 1) / 2) * this.innerPadding;
         }
 
-        /* jshint ignore:start */
+
         return <g
             key={index}
             className={className && (className + '-series ' + className + '-series-' + index)}
@@ -142,13 +141,13 @@ var Bars = React.createClass({
             })}
 
         </g>;
-        /* jshint ignore:end */
+
     },
 
     renderBar(x, y, width, height, seriesIndex, pointIndex, point) {
-        let { props } = this;
-        let { className, scaleX, scaleY } = props;
-        let { barVisible, barAttributes, barStyle, groupStyle } = props;
+        let {props} = this;
+        let {className, scaleX, scaleY} = props;
+        let {barVisible, barAttributes, barStyle, groupStyle} = props;
         let series = props.series[seriesIndex];
 
         barVisible = helpers.value(barVisible, {seriesIndex, pointIndex, point, props});
@@ -172,7 +171,6 @@ var Bars = React.createClass({
         barAttributes = helpers.value(barAttributes, {seriesIndex, pointIndex, point, props});
         barStyle = helpers.value([point.style, series.style, barStyle], {seriesIndex, pointIndex, point, props});
 
-        /* jshint ignore:start */
         return <g
             key={pointIndex}
             className={className && (className + '-bar ' + className + '-bar-'  + seriesIndex + '-' + pointIndex)}
@@ -184,12 +182,11 @@ var Bars = React.createClass({
                 d={d}
                 {...barAttributes}/>
         </g>;
-        /* jshint ignore:end */
     },
 
     render: function () {
-        let { props } = this;
-        let { className, style, colors, seriesReverse } = props;
+        let {props} = this;
+        let {className, style, colors} = props;
 
         this.x = props.scaleX.factory(props);
         this.y = props.scaleY.factory(props);
@@ -209,11 +206,10 @@ var Bars = React.createClass({
         this._y0 = this.y(0);
         this.color = helpers.colorFunc(colors);
 
-        /* jshint ignore:start */
         return <g className={className} style={style}>
             {_.map(props.series, this.renderSeries)}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });

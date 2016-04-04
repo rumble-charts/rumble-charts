@@ -50,8 +50,8 @@ var Chart = React.createClass({
                     paddingLeft: 0,
                     paddingRight: 0,
                     factory(props) {
-                        let { paddingStart, paddingEnd, paddingLeft, paddingRight, direction, swap } = props.scaleX;
-                        let { layerWidth, layerHeight } = props;
+                        let {paddingStart, paddingEnd, paddingLeft, paddingRight, direction, swap} = props.scaleX;
+                        let {layerWidth, layerHeight} = props;
                         if (swap) {
                             layerWidth = layerHeight;
                         }
@@ -73,8 +73,8 @@ var Chart = React.createClass({
                     paddingTop: 0,
                     paddingBottom: 0,
                     factory(props) {
-                        let { paddingStart, paddingEnd, paddingBottom, paddingTop, direction, swap } = props.scaleY;
-                        let { layerWidth, layerHeight } = props;
+                        let {paddingStart, paddingEnd, paddingBottom, paddingTop, direction, swap} = props.scaleY;
+                        let {layerWidth, layerHeight} = props;
                         if (swap) {
                             layerHeight = layerWidth;
                         }
@@ -94,11 +94,11 @@ var Chart = React.createClass({
 
         var Tag = this.props.tag;
 
-        /* jshint ignore:start */
+
         return <Tag {...this.props}>
             {children}
         </Tag>;
-        /* jshint ignore:end */
+
     }
 
 });

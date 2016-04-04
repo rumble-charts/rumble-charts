@@ -85,8 +85,8 @@ var RadialLines = React.createClass({
     },
 
     render: function () {
-        let { props } = this;
-        let { className, style, asAreas, colors, minX, maxX, minY, maxY, position, layerWidth, layerHeight } = props;
+        let {props} = this;
+        let {className, style, asAreas, colors, minX, maxX, minY, maxY, position, layerWidth, layerHeight} = props;
 
         let innerRadius = this.getInnerRadius(props);
         let outerRadius = this.getOuterRadius(props);
@@ -99,7 +99,7 @@ var RadialLines = React.createClass({
             .range([props.startAngle, props.endAngle])
             .domain(props.scaleX.direction >= 0 ? [minX - 0.5, maxX + 0.5] : [maxX + 0.5, minX - 0.5]);
 
-        let { series } = props;
+        let {series} = props;
 
         let _radius0 = radialScale(0);
 
@@ -114,7 +114,7 @@ var RadialLines = React.createClass({
 
         let color = helpers.colorFunc(colors);
 
-        /* jshint ignore:start */
+
         return <g
             className={className} style={chartStyle}
             fillOpacity={this.props.opacity}
@@ -122,8 +122,8 @@ var RadialLines = React.createClass({
 
             {_.map(series, (series, index) => {
 
-                let { seriesVisible, seriesAttributes, seriesStyle } = props;
-                let { lineVisible, lineStyle, lineAttributes, lineWidth } = props;
+                let {seriesVisible, seriesAttributes, seriesStyle} = props;
+                let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
 
                 seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
@@ -168,11 +168,11 @@ var RadialLines = React.createClass({
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
-                        />
+                    />
                 </g>;
             })}
         </g>;
-        /* jshint ignore:end */
+
     }
 
 });
