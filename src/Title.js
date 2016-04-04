@@ -28,8 +28,8 @@ var Title = React.createClass({
     // render
 
     render() {
-        let { props } = this;
-        let { className, position, layerWidth, layerHeight, width, height, series, children } = props;
+        let {props} = this;
+        let {className, position, layerWidth, layerHeight, width, height, children} = props;
         let currentStyle = _.assign({}, props.style);
 
         let {x, y} = helpers.getCoords(position, layerWidth, layerHeight, width, height) || {};
