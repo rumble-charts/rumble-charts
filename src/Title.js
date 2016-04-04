@@ -32,7 +32,7 @@ var Title = React.createClass({
         let { className, position, layerWidth, layerHeight, width, height, series, children } = props;
         let currentStyle = _.assign({}, props.style);
 
-        let {x, y} = helpers.getCoords(position, layerWidth, layerHeight, width, height);
+        let {x, y} = helpers.getCoords(position, layerWidth, layerHeight, width, height) || {};
 
         currentStyle.transform = 'translate(' + x + 'px,' + y + 'px)';
 
