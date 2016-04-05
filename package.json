@@ -7,6 +7,7 @@
     "build": "./node_modules/.bin/babel src --out-dir lib",
     "start": "./node_modules/.bin/babel --watch src --out-dir lib",
     "test": "./node_modules/.bin/jest",
+    "watch": "./node_modules/.bin/jest --watch",
     "publish-patch": "npm run build && npm version patch && npm publish",
     "publish-minor": "npm run build && npm version minor && npm publish",
     "publish-major": "npm run build && npm version major && npm publish"

@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react'),
-    _ = require('lodash'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
@@ -94,11 +93,9 @@ var Chart = React.createClass({
 
         var Tag = this.props.tag;
 
-
         return <Tag {...this.props}>
             {children}
         </Tag>;
-
     }
 
 });
