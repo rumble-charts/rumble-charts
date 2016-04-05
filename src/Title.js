@@ -16,7 +16,11 @@ const Title = React.createClass({
         height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
 
-        children: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string, React.PropTypes.node]).isRequired,
+        children: React.PropTypes.oneOfType([
+            React.PropTypes.func,
+            React.PropTypes.string,
+            React.PropTypes.node
+        ]).isRequired,
         layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         series: React.PropTypes.array

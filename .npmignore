@@ -66,3 +66,13 @@ test-dist
 .DS_Store
 
 src/*
+tests/*
+
+.babelrc
+.editorconfig
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+.nvmrc
+npm-debug.log
