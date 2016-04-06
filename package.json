@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir lib",
-    "test": "npm run build && ./node_modules/.bin/jest",
-    "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch",
+    "test": "npm run build && ./node_modules/.bin/jest --coverage",
+    "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch --noStackTrace",
     "check": "./node_modules/.bin/eslint src/*; exit 0",
     "publish-patch": "npm test && npm version patch && npm publish",
     "publish-minor": "npm test && npm version minor && npm publish",

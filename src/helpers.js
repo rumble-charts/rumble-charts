@@ -347,10 +347,7 @@ var helpers = {
         },
 
         rotate(props) {
-            let {
-                series, seriesNormalized, minX, maxX, maxY, minY,
-                scaleX, scaleY, layerWidth, layerHeight
-            } = props;
+            let {series, seriesNormalized, minX, maxX, maxY, minY, scaleX, scaleY} = props;
 
             let {paddingLeft, paddingRight} = scaleX;
             let {paddingTop, paddingBottom} = scaleY;
@@ -434,13 +431,15 @@ var helpers = {
     },
 
     colorFunc(colors) {
-        return _.isEmpty(colors) ?
-            d3.scale.category20() :
-            (_.isString(colors) ?
-                d3.scale[colors]() :
-                (_.isFunction(colors) ?
-                    colors :
-                    d3.scale.ordinal().range(colors)));
+        if (_.isFunction(colors)) {
+            return colors;
+        } else if (_.isEmpty(colors)) {
+            return d3.scale.category20();
+        } else if (_.isString(colors)) {
+            return d3.scale[colors]();
+        } else {
+            return d3.scale.ordinal().range(colors);
+        }
     }
 
 };

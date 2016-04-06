@@ -10,6 +10,10 @@ var Lines = React.createClass({
     displayName: 'Lines',
 
     propTypes: {
+        className: React.PropTypes.string,
+        style: React.PropTypes.object,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
         seriesIndex: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.array,
@@ -79,7 +83,6 @@ var Lines = React.createClass({
         let _y0 = y(0);
         let color = helpers.colorFunc(colors);
 
-
         return <g className={className} style={style}>
             {_.map(series, (series, index) => {
 
@@ -90,50 +93,43 @@ var Lines = React.createClass({
                 if (!seriesVisible) {
                     return;
                 }
-                lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
-                if (!lineVisible) {
-                    return;
-                }
 
                 seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
                 seriesStyle = helpers.value([series.style, seriesStyle], {seriesIndex: index, series, props});
 
-                var line;
-                if (rotate) {
-                    line = asAreas ?
-                        d3.svg.area()
-                            .x0(point => point.y0 ? y(point.y0) : _y0)
-                            .x1(point => y(point.y)) :
-                        d3.svg.line()
-                            .x(point => y(point.y));
+                var linePath;
+                lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
+                if (lineVisible) {
+                    var line;
+                    if (rotate) {
+                        line = asAreas ?
+                            d3.svg.area()
+                                .x0(point => point.y0 ? y(point.y0) : _y0)
+                                .x1(point => y(point.y)) :
+                            d3.svg.line()
+                                .x(point => y(point.y));
 
-                    line.y(point => x(point.x));
-                } else {
-                    line = asAreas ?
-                        d3.svg.area()
-                            .y0(point => point.y0 ? y(point.y0) : _y0)
-                            .y1(point => y(point.y)) :
-                        d3.svg.line()
-                            .y(point => y(point.y));
+                        line.y(point => x(point.x));
+                    } else {
+                        line = asAreas ?
+                            d3.svg.area()
+                                .y0(point => point.y0 ? y(point.y0) : _y0)
+                                .y1(point => y(point.y)) :
+                            d3.svg.line()
+                                .y(point => y(point.y));
 
-                    line.x(point => x(point.x));
-                }
+                        line.x(point => x(point.x));
+                    }
 
-                let lineColor = series.color || color(index);
+                    let lineColor = series.color || color(index);
 
-                line.defined(point => _.isNumber(point.y))
-                    .interpolate(this.props.interpolation);
+                    line.defined(point => _.isNumber(point.y))
+                        .interpolate(this.props.interpolation);
 
-                lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
-                lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
-                lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
-
-                return <g
-                    key={index}
-                    className={className && (className + '-series ' + className + '-series-' + index)}
-                    style={seriesStyle}
-                    {...seriesAttributes}>
-                    <path
+                    lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
+                    lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
+                    lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
+                    linePath = <path
                         style={lineStyle}
                         fill={asAreas ? lineColor : 'transparent'}
                         fillOpacity={series.opacity}
@@ -142,7 +138,15 @@ var Lines = React.createClass({
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
-                    />
+                    />;
+                }
+
+                return <g
+                    key={index}
+                    className={className && (className + '-series ' + className + '-series-' + index)}
+                    style={seriesStyle}
+                    {...seriesAttributes}>
+                    {linePath}
                 </g>;
             })}
         </g>;
