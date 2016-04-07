@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('lodash'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
-var Lines = React.createClass({
+const Lines = React.createClass({
 
     displayName: 'Lines',
 
@@ -38,10 +38,11 @@ var Lines = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.string),
             React.PropTypes.func
         ]),
+        opacity: React.PropTypes.number,
 
         asAreas: React.PropTypes.bool,
         interpolation: React.PropTypes.oneOf([
-            'linear', 'linear-close', 'step', 'step-before', 'step-after',
+            'linear', 'linear-closed', 'step', 'step-before', 'step-after',
             'basis', 'basis-open', 'basis-closed', 'bundle',
             'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
         ]),
@@ -73,7 +74,7 @@ var Lines = React.createClass({
 
     render: function () {
         let {props} = this;
-        let {className, style, scaleX, scaleY, asAreas, colors, series} = props;
+        let {className, style, scaleX, scaleY, asAreas, colors, series, opacity} = props;
 
         let rotate = scaleX.swap || scaleY.swap;
 
@@ -83,7 +84,10 @@ var Lines = React.createClass({
         let _y0 = y(0);
         let color = helpers.colorFunc(colors);
 
-        return <g className={className} style={style}>
+        return <g
+            className={className} style={style}
+            fillOpacity={opacity}
+            strokeOpacity={opacity}>
             {_.map(series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
@@ -95,12 +99,12 @@ var Lines = React.createClass({
                 }
 
                 seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-                seriesStyle = helpers.value([series.style, seriesStyle], {seriesIndex: index, series, props});
+                seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
 
-                var linePath;
+                let linePath;
                 lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
                 if (lineVisible) {
-                    var line;
+                    let line;
                     if (rotate) {
                         line = asAreas ?
                             d3.svg.area()

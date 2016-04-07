@@ -1,15 +1,25 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('lodash'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
-var RadialLines = React.createClass({
+const RadialLines = React.createClass({
 
     displayName: 'RadialLines',
 
     propTypes: {
+        className: React.PropTypes.string,
+        style: React.PropTypes.object,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         seriesIndex: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.array,
@@ -34,7 +44,9 @@ var RadialLines = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.string),
             React.PropTypes.func
         ]),
+        position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
 
+        opacity: React.PropTypes.number,
         asAreas: React.PropTypes.bool,
         innerRadius: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         startAngle: React.PropTypes.number,
@@ -48,8 +60,6 @@ var RadialLines = React.createClass({
         seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
         seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
         seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-
-        groupStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
         lineVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
         lineAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
@@ -86,7 +96,10 @@ var RadialLines = React.createClass({
 
     render: function () {
         let {props} = this;
-        let {className, style, asAreas, colors, minX, maxX, minY, maxY, position, layerWidth, layerHeight} = props;
+        let {
+            className, style, asAreas, colors, minX, maxX, minY, maxY,
+            position, layerWidth, layerHeight, opacity
+        } = props;
 
         let innerRadius = this.getInnerRadius(props);
         let outerRadius = this.getOuterRadius(props);
@@ -114,11 +127,10 @@ var RadialLines = React.createClass({
 
         let color = helpers.colorFunc(colors);
 
-
         return <g
             className={className} style={chartStyle}
-            fillOpacity={this.props.opacity}
-            strokeOpacity={this.props.opacity}>
+            fillOpacity={opacity}
+            strokeOpacity={opacity}>
 
             {_.map(series, (series, index) => {
 
@@ -129,37 +141,31 @@ var RadialLines = React.createClass({
                 if (!seriesVisible) {
                     return;
                 }
-                lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
-                if (!lineVisible) {
-                    return;
-                }
 
                 seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
                 seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
 
-                let line = asAreas ?
-                    d3.svg.area.radial()
-                        .innerRadius(point => point.y0 ? radialScale(point.y0) : _radius0)
-                        .outerRadius(point => radialScale(point.y)) :
-                    d3.svg.line.radial()
-                        .radius(point => radialScale(point.y));
+                let linePath;
+                lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
+                if (lineVisible) {
+                    let line = asAreas ?
+                        d3.svg.area.radial()
+                            .innerRadius(point => point.y0 ? radialScale(point.y0) : _radius0)
+                            .outerRadius(point => radialScale(point.y)) :
+                        d3.svg.line.radial()
+                            .radius(point => radialScale(point.y));
 
-                let lineColor = series.color || color(index);
+                    let lineColor = series.color || color(index);
 
-                line.angle(point => circularScale(point.x))
-                    .defined(point => _.isNumber(point.y))
-                    .interpolate(this.props.interpolation);
+                    line.angle(point => circularScale(point.x))
+                        .defined(point => _.isNumber(point.y))
+                        .interpolate(this.props.interpolation);
 
-                lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
-                lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
-                lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
+                    lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
+                    lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
+                    lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
 
-                return <g
-                    key={index}
-                    className={className && (className + '-series ' + className + '-series-' + index)}
-                    style={seriesStyle}
-                    {...seriesAttributes}>
-                    <path
+                    linePath = <path
                         style={lineStyle}
                         fill={asAreas ? lineColor : 'transparent'}
                         fillOpacity={series.opacity}
@@ -168,7 +174,15 @@ var RadialLines = React.createClass({
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
-                    />
+                    />;
+                }
+
+                return <g
+                    key={index}
+                    className={className && (className + '-series ' + className + '-series-' + index)}
+                    style={seriesStyle}
+                    {...seriesAttributes}>
+                    {linePath}
                 </g>;
             })}
         </g>;
@@ -178,3 +192,4 @@ var RadialLines = React.createClass({
 });
 
 module.exports = RadialLines;
+

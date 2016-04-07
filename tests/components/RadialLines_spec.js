@@ -1,23 +1,31 @@
 'use strict';
 
-const Lines = require('../../lib/Lines');
+const RadialLines = require('../../lib/RadialLines');
 const graphicsComponent = require('../helpers/graphicsComponent');
 const linesComponent = require('../helpers/linesComponent');
 
-// TODO:
-// - check asAreas proprty
+// TODO
+// check next properties
+// - asAreas
+// - innerRadius
+// - startAngle
+// - endAngle
 
-describe('Lines', () => {
+describe('RadialLines', () => {
 
-    // Lines should be a graphics renderer component
-    graphicsComponent(Lines, {
+    // RadialLines should be a graphics renderer component
+    graphicsComponent(RadialLines, {
         colorProperty: 'stroke',
         defaultProps: {
             colors: 'category20',
-            interpolation: 'monotone',
             seriesVisible: true,
             lineVisible: true,
-            lineWidth: 3
+            lineWidth: 3,
+            startAngle: 0,
+            endAngle: 2 * Math.PI,
+            innerRadius: 0,
+            position: 'center middle',
+            interpolation: 'cardinal-closed'
         },
         visibleProperties: {
             seriesVisible: ['g', 'series'],
@@ -32,8 +40,8 @@ describe('Lines', () => {
             lineStyle: ['path']
         }
     });
-    
-    linesComponent(Lines, {
+
+    linesComponent(RadialLines, {
         lineWidth: true,
         lineInterpolations: [
             'linear', 'linear-closed', 'step', 'step-before', 'step-after',

@@ -55,7 +55,7 @@
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "testDirectoryName": "tests",
     "testPathDirs": [
-      "<rootDir>/tests/components"
+      "<rootDir>/tests"
     ],
     "unmockedModulePathPatterns": [
       "react",
@@ -76,7 +76,8 @@
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",
-      "/fakeData/"
+      "/fakeData/",
+      "[^_spec]\\.js"
     ],
     "setupTestFrameworkScriptFile": "./tests/init.js"
   }
