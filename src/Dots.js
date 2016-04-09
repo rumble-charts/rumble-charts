@@ -1,11 +1,11 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('lodash'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
-var methods = {
+const methods = {
     dots: 'renderCircle',
     dot: 'renderCircle',
     circles: 'renderCircle',
@@ -19,7 +19,7 @@ var methods = {
     path: 'renderPath'
 };
 
-var Dots = React.createClass({
+const Dots = React.createClass({
 
     displayName: 'Dots',
 
@@ -46,11 +46,14 @@ var Dots = React.createClass({
                 })
             ]))
         })),
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
             React.PropTypes.func
         ]),
+        opacity: React.PropTypes.number,
         style: React.PropTypes.object,
         className: React.PropTypes.string,
 
@@ -112,36 +115,33 @@ var Dots = React.createClass({
     // render
 
     renderCircle({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let {circleRadius, circleAttributes, className} = props;
-        let series = props.series[seriesIndex];
+        const {className} = props;
+        let {circleRadius, circleAttributes} = props;
+        const series = props.series[seriesIndex];
 
-        circleRadius = helpers.value(circleRadius, {seriesIndex, pointIndex, point, props});
-        circleAttributes = helpers.value(circleAttributes, {seriesIndex, pointIndex, point, props});
-
+        circleRadius = helpers.value(circleRadius, {seriesIndex, pointIndex, point, series, props});
+        circleAttributes = helpers.value(circleAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <circle
             key={key}
             className={className && (className + '-circle ' + className + '-circle-' + seriesIndex + '-' + pointIndex)}
-            cx={0}
-            cy={0}
-            r={circleRadius}
+            cx={0} cy={0} r={circleRadius}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
-            fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+            fillOpacity={point.opacity}
             {...dotAttributes}
             {...circleAttributes}
         />;
-
     },
 
     renderEllipse({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let {ellipseRadiusX, ellipseRadiusY, ellipseAttributes, className} = props;
-        let series = props.series[seriesIndex];
+        const {className} = props;
+        let {ellipseRadiusX, ellipseRadiusY, ellipseAttributes} = props;
+        const series = props.series[seriesIndex];
 
-        ellipseRadiusX = helpers.value(ellipseRadiusX, {seriesIndex, pointIndex, point, props});
-        ellipseRadiusY = helpers.value(ellipseRadiusY, {seriesIndex, pointIndex, point, props});
-        ellipseAttributes = helpers.value(ellipseAttributes, {seriesIndex, pointIndex, point, props});
-
+        ellipseRadiusX = helpers.value(ellipseRadiusX, {seriesIndex, pointIndex, point, series, props});
+        ellipseRadiusY = helpers.value(ellipseRadiusY, {seriesIndex, pointIndex, point, series, props});
+        ellipseAttributes = helpers.value(ellipseAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <ellipse
             key={key}
@@ -153,20 +153,19 @@ var Dots = React.createClass({
             ry={ellipseRadiusY}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
-            fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+            fillOpacity={point.opacity}
             {...dotAttributes}
             {...ellipseAttributes}
         />;
-
     },
 
     renderPath({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let {path, pathAttributes, className} = props;
-        let series = props.series[seriesIndex];
+        const {className} = props;
+        let {path, pathAttributes} = props;
+        const series = props.series[seriesIndex];
 
-        path = helpers.value(path, {seriesIndex, pointIndex, point, props});
-        pathAttributes = helpers.value(pathAttributes, {seriesIndex, pointIndex, point, props});
-
+        path = helpers.value(path, {seriesIndex, pointIndex, point, series, props});
+        pathAttributes = helpers.value(pathAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <path
             key={key}
@@ -174,20 +173,19 @@ var Dots = React.createClass({
             d={path}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
-            fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+            fillOpacity={point.opacity}
             {...dotAttributes}
             {...pathAttributes}
         />;
-
     },
 
     renderSymbol({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let {symbolType, symbolAttributes, className} = props;
-        let series = props.series[seriesIndex];
+        const {className} = props;
+        let {symbolType, symbolAttributes} = props;
+        const series = props.series[seriesIndex];
 
-        symbolType = helpers.value(symbolType, {seriesIndex, pointIndex, point, props});
-        symbolAttributes = helpers.value(symbolAttributes, {seriesIndex, pointIndex, point, props});
-
+        symbolType = helpers.value(symbolType, {seriesIndex, pointIndex, point, series, props});
+        symbolAttributes = helpers.value(symbolAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <path
             key={key}
@@ -195,58 +193,64 @@ var Dots = React.createClass({
             d={d3.svg.symbol().type(symbolType)(point, pointIndex)}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
-            fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+            fillOpacity={point.opacity}
             {...dotAttributes}
             {...symbolAttributes}
         />;
-
     },
 
     renderLabel({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
-        let {label, labelAttributes, className} = props;
-        let series = props.series[seriesIndex];
+        const {className} = props;
+        let {label, labelAttributes} = props;
+        const series = props.series[seriesIndex];
 
-        label = helpers.value(label, {seriesIndex, pointIndex, point, props});
-        labelAttributes = helpers.value(labelAttributes, {seriesIndex, pointIndex, point, props});
-
+        label = helpers.value(label, {seriesIndex, pointIndex, point, series, props});
+        labelAttributes = helpers.value(labelAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <text
             key={key}
             className={className && (className + '-label ' + className + '-label-' + seriesIndex + '-' + pointIndex)}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
-            fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+            fillOpacity={point.opacity}
             {...dotAttributes}
             {...labelAttributes}>
             {label}
         </text>;
-
     },
 
     renderDot(x, y, seriesIndex, pointIndex, point) {
-        let {props} = this;
-        let {className, groupStyle, dotVisible, dotAttributes, dotStyle, dotType, dotRender} = props;
-        let series = props.series[seriesIndex];
+        const {props} = this;
+        const {className} = props;
+        let {groupStyle, dotVisible, dotAttributes, dotStyle, dotType, dotRender} = props;
+        const series = props.series[seriesIndex];
 
-        dotVisible = helpers.value(dotVisible, {seriesIndex, pointIndex, point, props});
+        dotVisible = helpers.value(dotVisible, {seriesIndex, pointIndex, point, series, props});
         if (!dotVisible) {
             return;
         }
 
-        groupStyle = helpers.value([series.style, groupStyle], {seriesIndex, pointIndex, point, props});
+        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
-        let transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
-        let style = _.defaults({
+        const transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
+        const style = _.defaults({
             transform,
             WebkitTransform: transform,
             MozTransform: transform
         }, groupStyle);
 
-        dotType = helpers.value([dotType], {seriesIndex, pointIndex, point, props});
-        dotAttributes = helpers.value(dotAttributes, {seriesIndex, pointIndex, point, dotType, props});
-        dotStyle = helpers.value([point.style, dotStyle], {seriesIndex, pointIndex, point, dotType, props});
+        dotType = helpers.value([dotType], {seriesIndex, pointIndex, point, series, props});
+        dotAttributes = helpers.value(dotAttributes, {seriesIndex, pointIndex, point, dotType, series, props});
+        dotStyle = helpers.value([point.style, series.style, dotStyle], {
+            seriesIndex,
+            pointIndex,
+            point,
+            dotType,
+            series,
+            props
+        });
 
-        let color = this.color;
+        const color = this.color;
         let dot;
 
         if (_.isString(dotType)) {
@@ -255,14 +259,7 @@ var Dots = React.createClass({
         } else if (_.isArray(dotType)) {
             dot = _.map(dotType, (dotType, key) => {
                 return this[methods[dotType]]({
-                    key,
-                    seriesIndex,
-                    pointIndex,
-                    point,
-                    dotStyle,
-                    dotAttributes,
-                    props,
-                    color
+                    key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color
                 });
             });
 
@@ -270,27 +267,24 @@ var Dots = React.createClass({
             dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
         }
 
-
         return <g
             key={pointIndex}
             className={className && (className + '-dot ' + className + '-dot-' + pointIndex)}
             style={style}>
             {dot}
         </g>;
-
     },
 
     render: function () {
-        let {props} = this;
-        let {className, style, scaleX, scaleY, colors} = props;
+        const {props} = this;
+        const {className, style, scaleX, scaleY, colors, opacity} = props;
 
-        let x = scaleX.factory(props);
-        let y = scaleY.factory(props);
-        let rotate = scaleX.swap || scaleY.swap;
+        const x = scaleX.factory(props);
+        const y = scaleY.factory(props);
+        const rotate = scaleX.swap || scaleY.swap;
         this.color = helpers.colorFunc(colors);
 
-
-        return <g className={className} style={style}>
+        return <g className={className} style={style} opacity={opacity}>
             {_.map(props.series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
@@ -307,6 +301,7 @@ var Dots = React.createClass({
                     key={index}
                     className={className && (className + '-series ' + className + '-series-' + index)}
                     style={seriesStyle}
+                    opacity={series.opacity}
                     {...seriesAttributes}>
 
                     {_.map(series.data, (point, pointIndex) => {
@@ -323,7 +318,6 @@ var Dots = React.createClass({
                 </g>;
             })}
         </g>;
-
     }
 
 });

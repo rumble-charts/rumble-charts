@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     Dots = require('./Dots');
 
-var Labels = React.createClass({
+const Labels = React.createClass({
 
     displayName: 'Labels',
 
@@ -35,6 +35,7 @@ var Labels = React.createClass({
             React.PropTypes.arrayOf(React.PropTypes.string),
             React.PropTypes.func
         ]),
+        opacity: React.PropTypes.number,
         style: React.PropTypes.object,
         className: React.PropTypes.string,
 
@@ -53,10 +54,19 @@ var Labels = React.createClass({
         dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
     },
 
+    getDefaultProps() {
+        return {
+            colors: 'category20',
+            circleRadius: 4,
+            ellipseRadiusX: 6,
+            ellipseRadiusY: 4,
+            seriesVisible: true,
+            dotVisible: true
+        };
+    },
+
     render() {
-
         return <Dots {...this.props} dotType='labels'/>;
-
     }
 
 });
