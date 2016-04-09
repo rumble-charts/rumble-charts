@@ -124,6 +124,11 @@ module.exports = function (Component, options = {}) {
                  so:
                  - don't normalize child's series
                  - or add series normalization in graphics renderer
+                 or
+                 we can make normalization only as a transfer method,
+                 in that case graphics renderers will support just only normalized series data (object {x,y})
+                 but it will increase complexity
+                 but also it will increase performance
                  */
             });
 
