@@ -11,6 +11,7 @@ const generateRandomSeries = require('./generateRandomSeries');
 module.exports = function (Component, options = {}) {
     options = _.defaults({}, options, {
         deepestTag: 'path',
+        oneDeepestTagPerSeries: false,
         pointGroupClassName: '', // dot, bar
         colorProperty: 'fill', // fill, stroke
         defaultProps: {
@@ -80,10 +81,10 @@ module.exports = function (Component, options = {}) {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].opacity = 0.85;
                     const wrapper = shallow(<Chart width={100} height={100} series={series}>
-                        <Component/>
+                        <Component className='chart'/>
                     </Chart>);
-                    const path = wrapper.render().find(options.deepestTag).first();
-                    expect(path.prop(options.colorProperty + '-opacity')).toEqual('0.85');
+                    const path = wrapper.render().find('g.chart-series').first();
+                    expect(path.prop('opacity')).toEqual('0.85');
                 });
             });
 
@@ -198,7 +199,8 @@ module.exports = function (Component, options = {}) {
                     expect(points0.length).toEqual(3);
                 }
                 const path = series0.find(options.deepestTag);
-                expect(path.length).toEqual(1);
+                // we have at least 1 or 5 paths
+                expect(path.length + 1).toBeGreaterThan(options.oneDeepestTagPerSeries ? 1 : 5);
             });
 
             it('should be correctly defined in propTypes', () => {
@@ -280,13 +282,12 @@ module.exports = function (Component, options = {}) {
 
         describe('should support opacity property', () => {
 
-            it('should apply fillOpacity and strokeOpacity attributes to the root element', () => {
+            it('should apply opacity attribute to the root element', () => {
                 const wrapper = shallow(<Chart width={100} height={100} series={seriesObjects3x5}>
                     <Component className='chart' opacity={0.9}/>
                 </Chart>);
                 const root = wrapper.render().find('g.chart');
-                expect(root.prop('fill-opacity')).toEqual('0.9');
-                expect(root.prop('stroke-opacity')).toEqual('0.9');
+                expect(root.prop('opacity')).toEqual('0.9');
             });
 
             it('should be correctly defined in propTypes', () => {
@@ -310,6 +311,10 @@ module.exports = function (Component, options = {}) {
 
                 describe(visibleProperty, () => {
 
+                    const elementsCount = shallow(<Chart width={100} height={100} series={seriesObjects3x5}>
+                        <Component className='chart'/>
+                    </Chart>).render().find(selector).length;
+
                     it('can be a boolean', () => {
                         const render = shallow(<Chart width={100} height={100} series={seriesObjects3x5}>
                             <Component
@@ -327,7 +332,7 @@ module.exports = function (Component, options = {}) {
                                 {...{[visibleProperty]: ({seriesIndex}) => seriesIndex !== 0}}
                             />
                         </Chart>).render();
-                        expect(render.find(selector).length).toEqual(2);
+                        expect(render.find(selector).length).toBeLessThan(elementsCount);
                         if (!_.isUndefined(className)) {
                             expect(render.find(selector + '-0').length).toEqual(0);
                             expect(render.find(selector + '-1').length).toEqual(1);
@@ -437,13 +442,13 @@ module.exports = function (Component, options = {}) {
                                 className='chart'
                                 {...{
                                     [styleProperty]: ({series}) => ({
-                                        transform: 'translateX(1' + series.data[0].y + 'px)'
+                                        transition: '1' + series.data[0].y + 'ms'
                                     })
                                 }}
                             />
                         </Chart>).render();
                         const style = render.find(selector).last().prop('style');
-                        expect(style.transform).toEqual('translateX(1' + seriesObjects3x5[2].data[0].y + 'px)');
+                        expect(style.transition).toEqual('1' + seriesObjects3x5[2].data[0].y + 'ms');
                     });
 
                     it('should be correctly defined in propTypes', () => {

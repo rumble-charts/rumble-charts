@@ -16,6 +16,7 @@ describe('RadialLines', () => {
     // RadialLines should be a graphics renderer component
     graphicsComponent(RadialLines, {
         colorProperty: 'stroke',
+        oneDeepestTagPerSeries: true,
         defaultProps: {
             colors: 'category20',
             seriesVisible: true,

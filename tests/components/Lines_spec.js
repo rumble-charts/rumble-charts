@@ -16,6 +16,7 @@ describe('Lines', () => {
     // Lines should be a graphics renderer component
     graphicsComponent(Lines, {
         colorProperty: 'stroke',
+        oneDeepestTagPerSeries: true,
         defaultProps: {
             colors: 'category20',
             interpolation: 'monotone',

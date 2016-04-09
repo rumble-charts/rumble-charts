@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
-var Bars = React.createClass({
+const Bars = React.createClass({
 
     displayName: 'Bars',
 
@@ -31,11 +31,16 @@ var Bars = React.createClass({
                 })
             ]))
         })),
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
             React.PropTypes.func
         ]),
+        opacity: React.PropTypes.number,
         style: React.PropTypes.object,
         className: React.PropTypes.string,
 
@@ -71,8 +76,8 @@ var Bars = React.createClass({
     // helpers
 
     getPaddings() {
-        let {props} = this;
-        var {innerPadding, groupPadding, layerWidth} = props;
+        const {props} = this;
+        let {innerPadding, groupPadding, layerWidth} = props;
         innerPadding = helpers.value(innerPadding, props);
         innerPadding = helpers.normalizeNumber(innerPadding, layerWidth);
         groupPadding = helpers.value(groupPadding, props);
@@ -84,14 +89,14 @@ var Bars = React.createClass({
     },
 
     getBarWidth() {
-        let {props, x} = this;
-        var {barWidth, layerWidth} = props;
-        var {innerPadding, groupPadding} = this.getPaddings(props);
+        const {props, x} = this;
+        let {barWidth, layerWidth} = props;
+        let {innerPadding, groupPadding} = this.getPaddings(props);
         if (barWidth) {
             barWidth = helpers.value(barWidth, props);
             return helpers.normalizeNumber(barWidth, layerWidth);
         } else {
-            var baseWidth = Math.abs(x(1) - x(0));
+            const baseWidth = Math.abs(x(1) - x(0));
             if (props.combined) {
                 return baseWidth - innerPadding;
             } else {
@@ -103,8 +108,9 @@ var Bars = React.createClass({
     // render
 
     renderSeries(series, index) {
-        let {x, y, barWidth, props} = this;
-        let {scaleX, scaleY, className, seriesVisible, seriesStyle, seriesAttributes} = props;
+        const {x, y, barWidth, props} = this;
+        const {scaleX, scaleY, className} = props;
+        let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
         seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
         if (!seriesVisible) {
@@ -114,7 +120,7 @@ var Bars = React.createClass({
         seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
         seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
 
-        var deltaX = 0;
+        let deltaX = 0;
         if (!props.combined) {
             deltaX = barWidth * index -
                 ((props.series || []).length - 1) * 0.5 * barWidth +
@@ -125,6 +131,7 @@ var Bars = React.createClass({
         return <g
             key={index}
             className={className && (className + '-series ' + className + '-series-' + index)}
+            opacity={series.opacity}
             style={seriesStyle}
             {...seriesAttributes}>
 
@@ -146,53 +153,55 @@ var Bars = React.createClass({
 
     renderBar(x, y, width, height, seriesIndex, pointIndex, point) {
         let {props} = this;
-        let {className, scaleX, scaleY} = props;
+        const {className, scaleX, scaleY} = props;
         let {barVisible, barAttributes, barStyle, groupStyle} = props;
-        let series = props.series[seriesIndex];
+        const series = props.series[seriesIndex];
 
-        barVisible = helpers.value(barVisible, {seriesIndex, pointIndex, point, props});
+        barVisible = helpers.value(barVisible, {seriesIndex, pointIndex, point, series, props});
         if (!barVisible) {
             return;
         }
 
-        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, props});
+        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
-        let transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
-        let style = _.defaults({
+        const transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
+        const style = _.defaults({
             transform,
             WebkitTransform: transform,
             MozTransform: transform
         }, groupStyle);
 
-        let d = (scaleX.swap || scaleY.swap) ?
+        const d = (scaleX.swap || scaleY.swap) ?
             ('M0,' + (-height / 2) + ' h' + (width) + ' v' + height + ' h' + (-width) + ' Z') :
             ('M' + (-width / 2) + ',0 v' + height + ' h' + width + ' v' + (-height) + ' Z');
 
-        barAttributes = helpers.value(barAttributes, {seriesIndex, pointIndex, point, props});
-        barStyle = helpers.value([point.style, series.style, barStyle], {seriesIndex, pointIndex, point, props});
+        barAttributes = helpers.value(barAttributes, {seriesIndex, pointIndex, point, series, props});
+        barStyle = helpers.value([point.style, series.style, barStyle], {
+            seriesIndex, pointIndex, point, series, props
+        });
 
         return <g
             key={pointIndex}
-            className={className && (className + '-bar ' + className + '-bar-'  + seriesIndex + '-' + pointIndex)}
+            className={className && (className + '-bar ' + className + '-bar-'  + pointIndex)}
             style={style}>
             <path
                 style={barStyle}
                 fill={point.color || series.color || this.color(seriesIndex)}
-                fillOpacity={_.isUndefined(point.opacity) ? series.opacity : point.opacity}
+                fillOpacity={point.opacity}
                 d={d}
                 {...barAttributes}/>
         </g>;
     },
 
     render: function () {
-        let {props} = this;
-        let {className, style, colors} = props;
+        const {props} = this;
+        const {className, style, colors, opacity} = props;
 
         this.x = props.scaleX.factory(props);
         this.y = props.scaleY.factory(props);
 
-        var domainX = this.x.domain();
-        var naturalDirection = domainX[1] > domainX[0];
+        let domainX = this.x.domain();
+        let naturalDirection = domainX[1] > domainX[0];
         if (domainX[0] === props.minX || domainX[0] === props.maxX) {
             this.x.domain([domainX[0] + (naturalDirection ? -0.5 : 0.5), domainX[1]]);
             domainX = this.x.domain();
@@ -206,7 +215,10 @@ var Bars = React.createClass({
         this._y0 = this.y(0);
         this.color = helpers.colorFunc(colors);
 
-        return <g className={className} style={style}>
+        return <g
+            className={className}
+            style={style}
+            opacity={opacity}>
             {_.map(props.series, this.renderSeries)}
         </g>;
 

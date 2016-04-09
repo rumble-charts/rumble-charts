@@ -84,10 +84,7 @@ const Lines = React.createClass({
         let _y0 = y(0);
         let color = helpers.colorFunc(colors);
 
-        return <g
-            className={className} style={style}
-            fillOpacity={opacity}
-            strokeOpacity={opacity}>
+        return <g className={className} style={style} opacity={opacity}>
             {_.map(series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
@@ -136,9 +133,7 @@ const Lines = React.createClass({
                     linePath = <path
                         style={lineStyle}
                         fill={asAreas ? lineColor : 'transparent'}
-                        fillOpacity={series.opacity}
                         stroke={asAreas ? 'transparent' : lineColor}
-                        strokeOpacity={series.opacity}
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
@@ -149,6 +144,7 @@ const Lines = React.createClass({
                     key={index}
                     className={className && (className + '-series ' + className + '-series-' + index)}
                     style={seriesStyle}
+                    opacity={series.opacity}
                     {...seriesAttributes}>
                     {linePath}
                 </g>;

@@ -129,8 +129,7 @@ const RadialLines = React.createClass({
 
         return <g
             className={className} style={chartStyle}
-            fillOpacity={opacity}
-            strokeOpacity={opacity}>
+            opacity={opacity}>
 
             {_.map(series, (series, index) => {
 
@@ -168,9 +167,7 @@ const RadialLines = React.createClass({
                     linePath = <path
                         style={lineStyle}
                         fill={asAreas ? lineColor : 'transparent'}
-                        fillOpacity={series.opacity}
                         stroke={asAreas ? 'transparent' : lineColor}
-                        strokeOpacity={series.opacity}
                         strokeWidth={lineWidth}
                         d={line(series.data)}
                         {...lineAttributes}
@@ -181,6 +178,7 @@ const RadialLines = React.createClass({
                     key={index}
                     className={className && (className + '-series ' + className + '-series-' + index)}
                     style={seriesStyle}
+                    opacity={series.opacity}
                     {...seriesAttributes}>
                     {linePath}
                 </g>;
