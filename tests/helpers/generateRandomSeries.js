@@ -5,9 +5,10 @@ const _ = require('lodash');
 const generateRandomSeries = function (seriesCount, pointsCount, options = {}) {
     options = _.defaults({}, options, {
         type: 'number', // number, integer, array, object
-        min: 0,
+        min: 1,
         max: 100,
-        float: false // integer or floating-point values
+        float: false,
+        point: null // integer or floating-point values
     });
     const type = options.type.toLowerCase();
 
@@ -19,7 +20,11 @@ const generateRandomSeries = function (seriesCount, pointsCount, options = {}) {
                 if (type === 'array') {
                     return [pointIndex, value];
                 } else if (type === 'object') {
-                    return {x: pointIndex, y: value};
+                    let point = options.point;
+                    if (_.isFunction(point)) {
+                        point = point({seriesIndex, pointIndex, value});
+                    }
+                    return _.extend({x: pointIndex, y: value}, point);
                 } else {
                     return value;
                 }

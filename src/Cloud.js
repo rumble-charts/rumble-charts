@@ -8,7 +8,7 @@ const React = require('react'),
 
 const Dots = React.createClass({
 
-    displayName: 'Dots',
+    displayName: 'Cloud',
 
     propTypes: {
         seriesIndex: React.PropTypes.oneOfType([
@@ -140,7 +140,11 @@ const Dots = React.createClass({
             .timeInterval(15)
             .fontSize(d => scale(d.size))
             .on('end', function (series, labels) {
-                this.setState({series, labels: _.groupBy(labels, 'seriesIndex')});
+                labels = _.map(
+                    _.groupBy(labels, 'seriesIndex'),
+                    labels => _.sortBy(labels, 'pointIndex')
+                );
+                this.setState({series, labels});
             }.bind(this, series))
             .start();
     },
@@ -170,7 +174,6 @@ const Dots = React.createClass({
         const {className, style, layerWidth, layerHeight, opacity} = props;
 
         const color = helpers.colorFunc(props.colors);
-
 
         return <g className={className} style={style} opacity={opacity}
                   transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
@@ -211,20 +214,23 @@ const Dots = React.createClass({
                         labelAttributes = helpers.value(labelAttributes, {
                             seriesIndex, pointIndex, point, label, series, props
                         });
-                        labelStyle = helpers.value([{
-                            fontSize: label.size + 'px',
-                            fontFamily: label.font
-                        }, point.style, labelStyle], {seriesIndex, pointIndex, point, label, series, props});
+                        labelStyle = helpers.value([point.style, series.style, labelStyle],
+                            {seriesIndex, pointIndex, point, label, series, props}
+                        );
 
                         return <g
                             key={pointIndex}
                             className={className && (className + '-label ' + className + '-label-' + + pointIndex)}
-                            style={labelStyle}>
+                            style={{
+                                fontSize: label.size + 'px',
+                                fontFamily: label.font
+                            }}>
                             <text
                                 transform={'translate(' + label.x + ',' + label.y + ')'}
                                 fill={point.color || series.color || color(seriesIndex)}
                                 fillOpacity={point.opacity}
                                 textAnchor='middle'
+                                style={labelStyle}
                                 {...labelAttributes}>
                                 {label.text}
                             </text>
@@ -234,7 +240,6 @@ const Dots = React.createClass({
                 </g>;
             })}
         </g>;
-
     }
 
 });

@@ -10,10 +10,10 @@ describe('Pies', () => {
     // tests for:
     // - position, innerRadius, cornerRadius, innerPadding, groupPadding, combined, startAngle, endAngle
     // - padAngle, gradientStep, pieWidth
-    // - color, style, opacity for specific point (not just one series)
 
     graphicsComponent(Pies, {
         pointGroupClassName: 'pie',
+        pointStyling: true,
         defaultProps: {
             colors: 'category20',
             seriesVisible: true,

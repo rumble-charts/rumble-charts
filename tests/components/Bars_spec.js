@@ -9,10 +9,10 @@ describe('Bars', () => {
     // TODO:
     // tests for:
     // - combined, groupPadding, innerPadding, barWidth
-    // - color, style, opacity for specific point (not just one series)
 
     graphicsComponent(Bars, {
         pointGroupClassName: 'bar',
+        pointStyling: true,
         defaultProps: {
             groupPadding: 0,
             innerPadding: 0,

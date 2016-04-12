@@ -10,7 +10,8 @@
     "plugin:react/recommended"
   ],
   "globals": {
-    "jest": true
+    "jest": true,
+    "pit": true
   },
   "parserOptions": {
     "ecmaFeatures": {

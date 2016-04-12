@@ -14,6 +14,7 @@ describe('Dots', () => {
     graphicsComponent(Dots, {
         deepestTag: 'circle',
         pointGroupClassName: 'dot',
+        pointStyling: true,
         defaultProps: {
             colors: 'category20',
             circleRadius: 4,

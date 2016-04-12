@@ -1,8 +1,8 @@
 'use strict';
 
-var React = require('react');
+const React = require('react');
 
-var DropShadow = React.createClass({
+const DropShadow = React.createClass({
 
     displayName: 'DropShadow',
 
@@ -30,7 +30,7 @@ var DropShadow = React.createClass({
     // render
 
     render: function () {
-        let html = `
+        const html = `
 <filter id="${this.props.id}">
     <feGaussianBlur in="${this.props.blurIn}" stdDeviation="${this.props.blurDeviation}" />
     <feOffset dx="${this.props.dx}" dy="${this.props.dy}" />

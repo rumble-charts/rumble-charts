@@ -1,10 +1,10 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
-var Ticks = React.createClass({
+const Ticks = React.createClass({
 
     displayName: 'Ticks',
 
@@ -15,8 +15,17 @@ var Ticks = React.createClass({
             React.PropTypes.func
         ]),
         series: React.PropTypes.arrayOf(React.PropTypes.object),
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number,
 
         style: React.PropTypes.object,
+        opacity: React.PropTypes.number,
         className: React.PropTypes.string,
 
         axis: React.PropTypes.string,
@@ -87,13 +96,13 @@ var Ticks = React.createClass({
     // helpers
 
     generateTicks(config) {
-        let {props} = this;
-        let {axis, maxX, maxY, minX, minY} = props;
+        const {props} = this;
+        const {axis, maxX, maxY, minX, minY} = props;
         let {maxTicks, minDistance, distance} = config;
 
-        let max = axis === 'y' ? maxY : maxX;
-        let min = axis === 'y' ? minY : minX;
-        let length = max - min;
+        const max = axis === 'y' ? maxY : maxX;
+        const min = axis === 'y' ? minY : minX;
+        const length = max - min;
 
         if (_.isUndefined(minDistance)) {
             minDistance = Math.min(1, length);
@@ -114,11 +123,9 @@ var Ticks = React.createClass({
     // render
 
     renderTick(ticksLength, tick, index) {
-        let {props, x, y, position} = this;
-        let {
-            axis, className, layerWidth, layerHeight,
-            tickStyle, tickAttributes, tickVisible, scaleX, scaleY
-        } = props;
+        const {props, x, y, position} = this;
+        const {axis, className, layerWidth, layerHeight, scaleX, scaleY} = props;
+        let {tickStyle, tickAttributes, tickVisible} = props;
 
         if (_.isNumber(tick)) {
             tick = {[axis]: tick};
@@ -133,19 +140,18 @@ var Ticks = React.createClass({
         tickAttributes = helpers.value(tickAttributes, {index, ticksLength, tick, props});
         tickStyle = helpers.value(tickStyle, {index, ticksLength, tick, props});
 
-        let pX = axis === 'x' ? x(tick.x) : helpers.normalizeNumber(position, layerWidth);
-        let pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
+        const pX = axis === 'x' ? x(tick.x) : helpers.normalizeNumber(position, layerWidth);
+        const pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
 
-        let transform = (scaleX.swap || scaleY.swap) ?
+        const transform = (scaleX.swap || scaleY.swap) ?
         'translate3d(' + pY + 'px,' + pX + 'px,0px)' :
         'translate3d(' + pX + 'px,' + pY + 'px,0px)';
 
-        let style = _.defaults({
+        const style = _.defaults({
             transform,
             WebkitTransform: transform,
             MozTransform: transform
         }, tickStyle);
-
 
         return <g
             key={index} style={style}
@@ -154,12 +160,11 @@ var Ticks = React.createClass({
             {this.renderLabel(ticksLength, tick, index)}
             {this.renderLine(ticksLength, tick, index)}
         </g>;
-
     },
 
     renderLabel(ticksLength, tick, index) {
-        let {props} = this;
-        let {className, axis} = props;
+        const {props} = this;
+        const {className, axis} = props;
         let {labelStyle, labelFormat, labelVisible, labelAttributes, label} = props;
 
         labelVisible = helpers.value(labelVisible, {index, ticksLength, tick, props});
@@ -172,22 +177,20 @@ var Ticks = React.createClass({
             labelFormat = helpers.value(labelFormat, label) || label;
 
             if (_.isString(label) || _.isNumber(label)) {
-
                 label = <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
                     {...labelAttributes}>
                     {labelFormat}
                 </text>;
-
             }
             return label;
         }
     },
 
     renderLine(ticksLength, tick, index) {
-        let {props, horizontal} = this;
-        let {layerWidth, layerHeight, className} = props;
+        const {props, horizontal} = this;
+        const {layerWidth, layerHeight, className} = props;
 
         let {lineVisible, lineAttributes, lineStyle, lineLength, lineOffset} = props;
         let line;
@@ -206,24 +209,23 @@ var Ticks = React.createClass({
                 horizontal ? layerWidth : layerHeight
             );
 
-            let d = horizontal ?
+            const d = horizontal ?
                 ('M' + lineOffset + ',0 h' + lineLength) :
                 ('M0,' + lineOffset + ' v' + lineLength);
-
 
             line = <path
                 style={lineStyle}
                 className={className && (className + '-line ' + className + '-line-' + index)}
                 d={d}
                 {...lineAttributes}/>;
-
         }
         return line;
     },
 
     render: function () {
-        let {props} = this;
-        let {className, position, ticks, scaleX, scaleY, axis, style} = props;
+        const {props} = this;
+        const {className, position, scaleX, scaleY, axis, style} = props;
+        let {ticks} = props;
 
         this.x = scaleX.factory(props);
         this.y = scaleY.factory(props);
@@ -242,11 +244,9 @@ var Ticks = React.createClass({
             ticks = this.generateTicks(ticks);
         }
 
-
         return <g className={className} style={style}>
             {_.map(ticks, this.renderTick.bind(this, ticks.length))}
         </g>;
-
     }
 
 });
