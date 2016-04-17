@@ -4,6 +4,10 @@ var React = require('react'),
     d3 = require('d3'),
     _ = require('lodash');
 
+if (_.omitBy) {
+    _.omit = _.omitBy;
+}
+
 var limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
 var isInvalidLimit = value => {
@@ -440,6 +444,26 @@ var helpers = {
         } else {
             return d3.scale.ordinal().range(colors);
         }
+    },
+
+    propTypes: {
+        series: React.PropTypes.arrayOf(React.PropTypes.shape({
+            name: React.PropTypes.string,
+            color: React.PropTypes.string,
+            opacity: React.PropTypes.number,
+            style: React.PropTypes.object,
+            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
+                React.PropTypes.number,
+                React.PropTypes.arrayOf(React.PropTypes.number),
+                React.PropTypes.shape({
+                    x: React.PropTypes.number,
+                    y: React.PropTypes.number,
+                    color: React.PropTypes.string,
+                    opacity: React.PropTypes.number,
+                    style: React.PropTypes.object
+                })
+            ]))
+        }))
     }
 
 };

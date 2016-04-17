@@ -4,6 +4,11 @@ const React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
+/**
+ * Renders ticks (labels and lines) for axis (x and y).
+ *
+ * @example ../docs/examples/Ticks.md
+ */
 const Ticks = React.createClass({
 
     displayName: 'Ticks',

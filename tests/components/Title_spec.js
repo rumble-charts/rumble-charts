@@ -6,7 +6,7 @@ const Title = require('../../lib/Title');
 describe('Title', () => {
 
     it('should render a text inside g', () => {
-        const wrapper = shallow(<Title>Title</Title>);
+        const wrapper = shallow(<Title layerWidth={100} layerHeight={100}>Title</Title>);
         const g = wrapper.find('g');
         expect(g.length).toEqual(1);
         const text = g.find('text');
@@ -15,7 +15,7 @@ describe('Title', () => {
     });
 
     it('should render everything else as children', () => {
-        const wrapper = shallow(<Title>
+        const wrapper = shallow(<Title layerWidth={100} layerHeight={100}>
             <circle r={50}/>
         </Title>);
         const g = wrapper.find('g');
@@ -27,11 +27,11 @@ describe('Title', () => {
 
     it('should understand child as a function with props as an argument', () => {
         const wrapper = shallow(<Title
-            width={100} height={20} position='top center'
+            layerWidth={100} layerHeight={20} position='top center'
             series={[{data: [123]}]}>
-            {({width, height, position, series}) => <g>
-                <text>{width}</text>
-                <text>{height}</text>
+            {({layerWidth, layerHeight, position, series}) => <g>
+                <text>{layerWidth}</text>
+                <text>{layerHeight}</text>
                 <text>{position}</text>
                 <text>{series[0].data[0]}</text>
             </g>}
@@ -45,7 +45,9 @@ describe('Title', () => {
     });
 
     it('should be able to positioned', () => {
-        const wrapper = shallow(<Title layerWidth={100} layerHeight={100} position='top center'>Title</Title>);
+        const wrapper = shallow(<Title layerWidth={100} layerHeight={100} position='top center'>
+            Title
+        </Title>);
         expect(wrapper.find('g').prop('style')).toEqual(jasmine.objectContaining({
             transform: 'translate(50px,0px)'
         }));
@@ -70,7 +72,7 @@ describe('Title', () => {
     it('should not render empty tag', () => {
         const consoleError = console.error;
         console.error = jest.fn();
-        shallow(<Title />);
+        shallow(<Title layerWidth={100} layerHeight={100}/>);
         expect(console.error).toBeCalled();
         expect(console.error.mock.calls[0][0]).toContain('Required prop `children`');
         console.error = consoleError;

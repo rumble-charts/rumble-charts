@@ -207,7 +207,7 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 expect(wrapper.find(Component).prop('series')).toBeUndefined();
             });
 
@@ -274,7 +274,7 @@ module.exports = function (Component, options = {}) {
             });
 
             pit('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 return delayed(() => {
                     expect(wrapper.find(Component).prop('seriesIndex')).toBeUndefined();
                 });
@@ -312,7 +312,7 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 expect(wrapper.find(Component).prop('className')).toBeUndefined();
             });
 
@@ -321,7 +321,7 @@ module.exports = function (Component, options = {}) {
         describe('should support style property', () => {
 
             pit('should render style in the root element', () => {
-                const wrapper = render(<Chart>
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}>
                     <Component className='chart' style={{transition: '100ms'}}/>
                 </Chart>);
                 return delayed(() => {
@@ -335,7 +335,7 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 expect(wrapper.find(Component).prop('style')).toBeUndefined();
             });
 
@@ -386,7 +386,7 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 expect(wrapper.find(Component).prop('colors')).toEqual(options.defaultProps.colors);
             });
 
@@ -409,7 +409,7 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should have no default value', () => {
-                const wrapper = render(<Chart><Component /></Chart>);
+                const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 expect(wrapper.find(Component).prop('opacity')).toBeUndefined();
             });
 
@@ -489,7 +489,7 @@ module.exports = function (Component, options = {}) {
         });
 
         it('should have some default properties', () => {
-            const wrapper = render(<Chart><Component /></Chart>);
+            const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
             expect(wrapper.find(Component).props()).toEqual(jasmine.objectContaining(options.defaultProps));
         });
 

@@ -5,6 +5,11 @@ const React = require('react'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
+/**
+ * Renders radial lines for your radar chart
+ *
+ * @example ../docs/examples/RadialLines.md
+ */
 const RadialLines = React.createClass({
 
     displayName: 'RadialLines',

@@ -4,6 +4,12 @@ var React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
+/**
+ * Creates a new layer using specific `width` and `height` at specific `position`. It's useful when
+ * you have two or more graphics on the same chart. Or in case you to have a margins.
+ *
+ * @example ../docs/examples/Layer.md
+ */
 var Layer = React.createClass({
 
     displayName: 'Layer',

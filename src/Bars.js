@@ -4,37 +4,20 @@ const React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
+/**
+ * Renders bars for your bar chart.
+ *
+ * @example ../docs/examples/Bars.md
+ */
 const Bars = React.createClass({
 
     displayName: 'Bars',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.string,
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
-                })
-            ]))
-        })),
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        className: React.PropTypes.string,
+        /**
+         * Colors
+         */
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -42,7 +25,6 @@ const Bars = React.createClass({
         ]),
         opacity: React.PropTypes.number,
         style: React.PropTypes.object,
-        className: React.PropTypes.string,
 
         combined: React.PropTypes.bool,
         groupPadding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
@@ -58,7 +40,22 @@ const Bars = React.createClass({
         barAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
         barStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
-        barWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func])
+        barWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number
     },
 
     // init

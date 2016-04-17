@@ -6,35 +6,18 @@ const React = require('react'),
     cloud = require('d3-cloud'),
     helpers = require('./helpers');
 
-const Dots = React.createClass({
+/**
+ * Renders cloud of tags/keywords. Uses [d3-cloud](https://www.npmjs.com/package/d3-cloud) for calculations.
+ * Please notice, `series` data points should have `label` attribute. See example below.
+ *
+ * @example ../docs/examples/Cloud.md
+ */
+const Cloud = React.createClass({
 
     displayName: 'Cloud',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.string,
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
-                })
-            ]))
-        })),
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        className: React.PropTypes.string,
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -42,7 +25,6 @@ const Dots = React.createClass({
         ]),
         opacity: React.PropTypes.number,
         style: React.PropTypes.object,
-        className: React.PropTypes.string,
 
         font: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
         minFontSize: React.PropTypes.number,
@@ -54,7 +36,15 @@ const Dots = React.createClass({
             'normal', 'bold', 'bolder', 'lighter', 'normal',
             '100', '200', '300', '400', '500', '600', '700', '800', '900'
         ]), React.PropTypes.func]),
+        /**
+         * Angle in degrees
+         */
         rotate: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
+        /**
+         * Type of spiral used for positioning words. This can either be one of the two
+         * built-in spirals, "archimedean" and "rectangular", or an arbitrary spiral
+         * generator can be used, of the following form
+         */
         spiral: React.PropTypes.oneOfType([React.PropTypes.oneOf([
             'archimedean', 'rectangular'
         ]), React.PropTypes.func]),
@@ -72,6 +62,14 @@ const Dots = React.createClass({
         seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
         seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series,
         minX: React.PropTypes.number,
         maxX: React.PropTypes.number,
         minY: React.PropTypes.number,
@@ -226,7 +224,7 @@ const Dots = React.createClass({
                                 fontFamily: label.font
                             }}>
                             <text
-                                transform={'translate(' + label.x + ',' + label.y + ')'}
+                                transform={'translate(' + label.x + ',' + label.y + '),rotate(' + label.rotate + ')'}
                                 fill={point.color || series.color || color(seriesIndex)}
                                 fillOpacity={point.opacity}
                                 textAnchor='middle'
@@ -244,4 +242,4 @@ const Dots = React.createClass({
 
 });
 
-module.exports = Dots;
+module.exports = Cloud;

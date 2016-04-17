@@ -5,11 +5,26 @@ var React = require('react'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
+if (_.omitBy) {
+    _.omit = _.omitBy;
+}
+
+/**
+ * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
+ * between data state.
+ *
+ * As a wrapper it takes `series` obtained from its parent and gives it to its children.
+ *
+ * @example ../docs/examples/Animate.md
+ */
 var Animate = React.createClass({
 
     displayName: 'Animate',
 
     propTypes: {
+        /**
+         * Simple
+         */
         series: React.PropTypes.array,
         interpolateProps: React.PropTypes.arrayOf(React.PropTypes.string),
         proxyProps: React.PropTypes.arrayOf(React.PropTypes.string),
@@ -52,6 +67,7 @@ var Animate = React.createClass({
     // lifecycle
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
         var interpolate = d3.interpolateObject(
             _.pick(this.state, this.props.interpolateProps),
             _.pick(nextProps, this.props.interpolateProps)

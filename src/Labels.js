@@ -1,35 +1,21 @@
 'use strict';
 
 const React = require('react'),
-    Dots = require('./Dots');
+    Dots = require('./Dots'),
+    helpers = require('./helpers');
 
+/**
+ * Renders labels for dots. Internally it's just a wrapper for [<Dots />](#Dots) component
+ * with `dotType="circle"`.
+ *
+ * @example ../docs/examples/Labels.md
+ */
 const Labels = React.createClass({
 
     displayName: 'Labels',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.string,
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
-                })
-            ]))
-        })),
+        className: React.PropTypes.string,
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -37,7 +23,6 @@ const Labels = React.createClass({
         ]),
         opacity: React.PropTypes.number,
         style: React.PropTypes.object,
-        className: React.PropTypes.string,
 
         label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
         labelFormat: React.PropTypes.func,
@@ -51,7 +36,14 @@ const Labels = React.createClass({
 
         dotVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
         dotAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
+        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series
     },
 
     getDefaultProps() {

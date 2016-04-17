@@ -5,6 +5,11 @@ const React = require('react'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
+/**
+ * Renders lines for your line chart.
+ *
+ * @example ../docs/examples/Lines.md
+ */
 const Lines = React.createClass({
 
     displayName: 'Lines',
@@ -12,27 +17,6 @@ const Lines = React.createClass({
     propTypes: {
         className: React.PropTypes.string,
         style: React.PropTypes.object,
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number
-                })
-            ]))
-        })),
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -55,7 +39,16 @@ const Lines = React.createClass({
         lineAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
         lineStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
-        lineWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func])
+        lineWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series
     },
 
     // init

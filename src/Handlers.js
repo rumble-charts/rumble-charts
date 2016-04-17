@@ -5,6 +5,13 @@ var React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
+/**
+ * Helps to use mouse events. For now supports only "`onMouseMove`" and "`onMouseLeave`".
+ * 
+ * This component will be improved and simplified in the future.
+ *
+ * @example ../docs/examples/Handlers.md
+ */
 var Handlers = React.createClass({
 
     displayName: 'Handlers',

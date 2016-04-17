@@ -89,7 +89,7 @@ module.exports = function (Component, options = {}) {
                 });
 
                 it('should be true by default', () => {
-                    const wrapper = render(<Chart><Component /></Chart>);
+                    const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                     expect(wrapper.find(Component).prop(visibleProperty.toString())).toEqual(true);
                 });
 

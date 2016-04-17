@@ -73,6 +73,18 @@ npm test
 
 # to run tests in watch mode for development
 npm start
+
+# to check code styling (required before you commit your changes and submit a pull request)
+npm run check
+
+# to make a ready-to-use build (unnecessary)
+npm run build
+
+# to run styleguidist dev server
+npm run styleguide-server
+
+# to build docs using styleguidist
+npm run styleguide-build
 ```
 
 ## Contributing

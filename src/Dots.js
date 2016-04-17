@@ -19,35 +19,17 @@ const methods = {
     path: 'renderPath'
 };
 
+/**
+ * Renders dots for your scatter plot.
+ *
+ * @example ../docs/examples/Dots.md
+ */
 const Dots = React.createClass({
 
     displayName: 'Dots',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.string,
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
-                })
-            ]))
-        })),
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
+        className: React.PropTypes.string,
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -55,8 +37,10 @@ const Dots = React.createClass({
         ]),
         opacity: React.PropTypes.number,
         style: React.PropTypes.object,
-        className: React.PropTypes.string,
 
+        /**
+         * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
+         */
         dotType: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(_.keys(methods)),
             React.PropTypes.array,
@@ -77,6 +61,10 @@ const Dots = React.createClass({
         ]),
         ellipseAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
+        /**
+         * Possible values: `"circle"`, `"cross"`, `"diamond"`, `"square"`,
+         * `"triangle-down"`, `"triangle-up"`
+         */
         symbolType: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
         symbolAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
@@ -95,7 +83,16 @@ const Dots = React.createClass({
 
         dotVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
         dotAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func])
+        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object
     },
 
     // init

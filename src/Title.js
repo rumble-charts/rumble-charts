@@ -4,6 +4,11 @@ const React = require('react'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
+/**
+ * Renders title (text or everything else) at specified `position`.
+ *
+ * @example ../docs/examples/Title.md
+ */
 const Title = React.createClass({
 
     displayName: 'Title',

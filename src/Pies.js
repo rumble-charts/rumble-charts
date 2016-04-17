@@ -7,33 +7,16 @@ const React = require('react'),
 
 const maxAngle = 2 * Math.PI;
 
+/**
+ * Renders pies for you pie chart or donut chart
+ *
+ * @example ../docs/examples/Pies.md
+ */
 const Pies = React.createClass({
 
     displayName: 'Pies',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
-                })
-            ]))
-        })),
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
             React.PropTypes.arrayOf(React.PropTypes.string),
@@ -42,13 +25,6 @@ const Pies = React.createClass({
         opacity: React.PropTypes.number,
         style: React.PropTypes.object,
         className: React.PropTypes.string,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-
         position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
 
         innerRadius: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
@@ -73,7 +49,20 @@ const Pies = React.createClass({
         pieAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
         pieStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
-        pieWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+        pieWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series,
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
     },
 
     // init
