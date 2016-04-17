@@ -71,8 +71,9 @@ class Demo extends Component {
 
 - [x] Write unit tests for graphics components
 - [x] Make a first version of documentation with examples
+- [ ] Write unit tests for wrappers and helpers components 
+- [ ] Update to lodash 4.x
 - [ ] Update to React 15.x
-- [ ] Write unit tests for graphics components 
 - [ ] Support React ART
 - [ ] Support morphing between graphics types (Pies <=> Bars)
 
