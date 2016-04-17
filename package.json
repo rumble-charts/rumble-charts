@@ -9,7 +9,7 @@
     "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch --noStackTrace",
     "check": "./node_modules/.bin/eslint src/*; exit 0",
     "styleguide-server": "styleguidist server",
-    "styleguide-build": "styleguidist build",
+    "styleguide-build": "NODE_ENV=production styleguidist build",
     "publish-patch": "npm test && npm version patch && npm publish",
     "publish-minor": "npm test && npm version minor && npm publish",
     "publish-major": "npm test && npm version major && npm publish"

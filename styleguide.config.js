@@ -37,16 +37,21 @@ module.exports = {
         name: 'CSS class names', content: './docs/classnames.md'
     }],
     serverPort: 3013,
-    updateWebpackConfig: function (webpackConfig) {
+    updateWebpackConfig: function (webpackConfig, env) {
         var dir = path.join(__dirname, 'src');
-        webpackConfig.module.loaders.push({
+
+        var babel = {
             test: /\.js?$/,
             include: dir,
-            loader: 'babel',
-            query: {
+            loader: 'babel'
+        };
+        if (env !== 'production') {
+            babel.query = {
                 presets: ['es2015', 'react-hmre']
-            }
-        });
+            };
+        }
+
+        webpackConfig.module.loaders.push(babel);
         return webpackConfig;
     },
     handlers: require('react-docgen').defaultHandlers.concat(function (documentation) {
