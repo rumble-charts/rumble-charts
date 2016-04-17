@@ -66,3 +66,4 @@ test-dist
 .DS_Store
 
 lib/*
+styleguide/*

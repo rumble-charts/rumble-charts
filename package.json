@@ -8,6 +8,7 @@
     "test": "npm run build && ./node_modules/.bin/jest --coverage",
     "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch --noStackTrace",
     "check": "./node_modules/.bin/eslint src/*; exit 0",
+    "gh-pages": "./node_modules/.bin/gh-pages -d styleguide",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "NODE_ENV=production styleguidist build",
     "publish-patch": "npm test && npm version patch && npm publish",

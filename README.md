@@ -6,6 +6,12 @@ React components for building composable and flexible charts.
 
 It's based on D3.js under the hood, but most of the time you will not feel that.
 
+## Documentation
+
+All examples are editable. You can see a result right on the page.
+
+[https://rumbleinc.github.io/rumble-js-charts/](https://rumbleinc.github.io/rumble-js-charts/)
+
 ## Demo / live edit
 
 [rosko.github.io/slides/2016-04-declarative-charts/#/liveedit](https://rosko.github.io/slides/2016-04-declarative-charts/#/liveedit)
@@ -56,46 +62,6 @@ class Demo extends Component {
   }
 }
 ```
-
-## Development and testing
-
-```bash
-# 1. Fork it on github
-
-# 2. Clone your repo
-git clone ...
-cd rumble-js-charts
-
-# 3. Install all dependencies (including devDependecies)
-npm install
-
-# 4.
-# to run all tests and generate test coverage (./coverage)
-npm test
-
-# to run tests in watch mode for development
-npm start
-
-# to check code styling (required before you commit your changes and submit a pull request)
-npm run check
-
-# to make a ready-to-use build (unnecessary)
-npm run build
-
-# to run styleguidist dev server
-npm run styleguide-server
-
-# to build docs using styleguidist
-npm run styleguide-build
-```
-
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request :D
 
 ## License
 
