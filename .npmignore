@@ -74,4 +74,5 @@ src/*
 .gitignore
 .npmignore
 .nvmrc
+.travis.yml
 npm-debug.log
