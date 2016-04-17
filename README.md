@@ -1,5 +1,7 @@
 # rumble-charts
 
+[![Join the chat at https://gitter.im/RumbleInc/rumble-js-charts](https://badges.gitter.im/RumbleInc/rumble-js-charts.svg)](https://gitter.im/RumbleInc/rumble-js-charts?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/RumbleInc/rumble-js-charts.svg)](https://travis-ci.org/RumbleInc/rumble-js-charts) [![Dependency Status](https://david-dm.org/RumbleInc/rumble-js-charts.svg)](https://david-dm.org/RumbleInc/rumble-js-charts) [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
 React components for building composable and flexible charts. 
