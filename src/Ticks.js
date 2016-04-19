@@ -14,21 +14,6 @@ const Ticks = React.createClass({
     displayName: 'Ticks',
 
     propTypes: {
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.object),
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number,
-
         style: React.PropTypes.object,
         opacity: React.PropTypes.number,
         className: React.PropTypes.string,
@@ -82,7 +67,22 @@ const Ticks = React.createClass({
                     lineOffset: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
                 })
             ]))
-        ])
+        ]),
+
+        seriesIndex: React.PropTypes.oneOfType([
+            React.PropTypes.number,
+            React.PropTypes.array,
+            React.PropTypes.func
+        ]),
+        series: helpers.propTypes.series,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number
     },
 
     // init
@@ -249,7 +249,7 @@ const Ticks = React.createClass({
             ticks = this.generateTicks(ticks);
         }
 
-        return <g className={className} style={style}>
+        return <g className={className} style={style} opacity={props.opacity}>
             {_.map(ticks, this.renderTick.bind(this, ticks.length))}
         </g>;
     }
