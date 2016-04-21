@@ -126,8 +126,8 @@ module.exports = function (Component, options = {}) {
                 pit('as an object', () => {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].style = {
-                        strokeDashArray: '5 5',
-                        strokeDashOffset: 1
+                        stroke: '#f0f',
+                        fontSize: 24
                     };
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
                         <Component/>
@@ -135,8 +135,8 @@ module.exports = function (Component, options = {}) {
                     return delayed(() => {
                         const path = wrapper.render().find(options.deepestTag).first();
                         expect(path.prop('style')).toEqual(jasmine.objectContaining({
-                            'stroke-dash-offset': '1px',
-                            'stroke-dash-array': '5 5'
+                            'font-size': '24px',
+                            'stroke': '#f0f'
                         }));
                     });
                 });
@@ -180,10 +180,10 @@ module.exports = function (Component, options = {}) {
                 describe('style', () => {
                     pit('as an object', () => {
                         const series = _.cloneDeep(seriesObjects3x5);
-                        series[0].style = {transition: '100ms'};
+                        series[0].style = {fill: 'red'};
                         series[0].data[0].style = {
-                            strokeDashArray: '5 5',
-                            strokeDashOffset: 1
+                            stroke: '#f0f',
+                            fontSize: 24
                         };
                         const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
                             <Component/>
@@ -191,9 +191,9 @@ module.exports = function (Component, options = {}) {
                         return delayed(() => {
                             const path = wrapper.render().find(options.deepestTag).first();
                             expect(path.prop('style')).toEqual(jasmine.objectContaining({
-                                'stroke-dash-offset': '1px',
-                                'stroke-dash-array': '5 5',
-                                'transition': '100ms'
+                                'font-size': '24px',
+                                'stroke': '#f0f',
+                                'fill': 'red'
                             }));
                         });
                     });
@@ -322,16 +322,16 @@ module.exports = function (Component, options = {}) {
 
             pit('should render style in the root element', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight}>
-                    <Component className='chart' style={{transition: '100ms'}}/>
+                    <Component className='chart' style={{fill: 'red'}}/>
                 </Chart>);
                 return delayed(() => {
                     const root = wrapper.render().find('g.chart');
-                    expect(root.prop('style').transition).toEqual('100ms');
+                    expect(root.prop('style').fill).toEqual('red');
                 });
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.style({style: {transition: '100ms'}}, 'style', '', null)).toEqual(null);
+                expect(Component.propTypes.style({style: {fill: 'red'}}, 'style', '', null)).toEqual(null);
             });
 
             it('should have no default value', () => {

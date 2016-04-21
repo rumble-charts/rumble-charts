@@ -173,8 +173,9 @@ const Cloud = React.createClass({
 
         const color = helpers.colorFunc(props.colors);
 
-        return <g className={className} style={style} opacity={opacity}
-                  transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
+        return <g
+            className={className} style={style} opacity={opacity}
+            transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
             {_.map(state.series, (series, seriesIndex) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
