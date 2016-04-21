@@ -69,12 +69,6 @@ const Ticks = React.createClass({
             ]))
         ]),
 
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
-        ]),
-        series: helpers.propTypes.series,
         scaleX: React.PropTypes.object,
         scaleY: React.PropTypes.object,
         layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
@@ -149,8 +143,8 @@ const Ticks = React.createClass({
         const pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
 
         const transform = (scaleX.swap || scaleY.swap) ?
-        'translate3d(' + pY + 'px,' + pX + 'px,0px)' :
-        'translate3d(' + pX + 'px,' + pY + 'px,0px)';
+            ('translate3d(' + pY + 'px,' + pX + 'px,0px)') :
+            ('translate3d(' + pX + 'px,' + pY + 'px,0px)');
 
         const style = _.defaults({
             transform,

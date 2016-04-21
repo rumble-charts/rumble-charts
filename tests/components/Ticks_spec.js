@@ -13,6 +13,24 @@ describe('Ticks', () => {
     const series = generateRandomSeries(3, 10, {type: 'object'});
     const render = enzyme['shallow'];
 
+    // test
+    // - what should be rendered
+    // - how it should be rendered
+
+    // test props:
+    // - ticks
+
+    // - axis x, y
+    // - position (9-point)
+
+    // - tickV.A.S.
+    // - labelV.A.S.
+    // - label
+    // - labelFormat
+    // - lineV.A.S.
+    // - lineLength
+    // - lineOffset
+
     describe('should support className property', () => {
 
         it('should render proper class names', () => {
