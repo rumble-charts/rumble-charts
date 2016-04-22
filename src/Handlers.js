@@ -79,8 +79,8 @@ var Handlers = React.createClass({
 
         var closestPoints = [];
         var minDistance = sensitivity;
-        _.each(series, (series, seriesIndex) => {
-            _.each(series.data, (point, pointIndex) => {
+        _.forEach(series, (series, seriesIndex) => {
+            _.forEach(series.data, (point, pointIndex) => {
                 let distance = Math.sqrt(
                     Math.pow(Math.abs(point.x - x) * (this.ratio || 1), 2) +
                     Math.pow(Math.abs(point.y - y), 2)

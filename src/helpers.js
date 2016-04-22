@@ -4,10 +4,6 @@ var React = require('react'),
     d3 = require('d3'),
     _ = require('lodash');
 
-if (_.omitBy) {
-    _.omit = _.omitBy;
-}
-
 var limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
 var isInvalidLimit = value => {
@@ -78,7 +74,7 @@ var helpers = {
             minY = props.minY;
         }
 
-        return _.omit({
+        return _.omitBy({
             seriesNormalized: true,
             series,
             maxX,
@@ -195,7 +191,7 @@ var helpers = {
             }
             props.seriesNormalized = true;
 
-            props = _.omit(props, _.isUndefined);
+            props = _.omitBy(props, _.isUndefined);
 
             return React.cloneElement(child, props);
 
@@ -325,8 +321,8 @@ var helpers = {
 
             var maxX = 0;
             let newSeries = [];
-            _.each(series, (series, seriesIndex) => {
-                _.each(series.data, (point, pointIndex) => {
+            _.forEach(series, (series, seriesIndex) => {
+                _.forEach(series.data, (point, pointIndex) => {
                     newSeries[pointIndex] = newSeries[pointIndex] || {data: []};
                     maxX = Math.max(maxX, seriesIndex);
                     newSeries[pointIndex].data[seriesIndex] = _.defaults({
@@ -415,7 +411,7 @@ var helpers = {
     value(attribute, args) {
         if (_.isArray(attribute)) {
             var result;
-            _.each(attribute, attr => {
+            _.forEach(attribute, attr => {
                 attr = _.isFunction(attr) ? attr(args) : attr;
                 if (_.isPlainObject(attr) && _.isUndefined(attr._owner) && _.isUndefined(attr.props)) {
                     result = _.defaults(result || {}, attr);

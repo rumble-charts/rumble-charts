@@ -72,8 +72,8 @@ class Demo extends Component {
 - [x] Write unit tests for graphics components
 - [x] Make a first version of documentation with examples
 - [x] Update to React 15.x
+- [x] Update to lodash 4.x
 - [ ] Write unit tests for wrappers and helpers components 
-- [ ] Update to lodash 4.x
 - [ ] Support React ART
 - [ ] Support morphing between graphics types (Pies <=> Bars)
 
@@ -87,9 +87,10 @@ Mainly there are 3 approaches to integrate React and D3:
  - D3 prepares virtual DOM for React
     - [react-faux-dom](https://github.com/Olical/react-faux-dom)
     - [d3-react-sparkline](https://github.com/QubitProducts/d3-react-sparkline/) - based on react-faux-dom
- - React builds virtual DOM, D3 makes math
+ - React builds virtual DOM, D3 makes math (`rumble-charts` is here) 
     - [react-d3-components](https://github.com/codesuki/react-d3-components)
     - [react-d3](https://github.com/esbullington/react-d3/) and [rd3](https://github.com/yang-wei/rd3) as a fork
+    - [react-vis](https://github.com/uber/react-vis)
     - [victory](https://github.com/FormidableLabs/victory)
 
 ## License

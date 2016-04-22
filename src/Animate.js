@@ -1,13 +1,9 @@
 'use strict';
 
-var React = require('react'),
-    _ = require('lodash'),
+const React = require('react'),
+    _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
-
-if (_.omitBy) {
-    _.omit = _.omitBy;
-}
 
 /**
  * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
@@ -17,7 +13,7 @@ if (_.omitBy) {
  *
  * @example ../docs/examples/Animate.md
  */
-var Animate = React.createClass({
+const Animate = React.createClass({
 
     displayName: 'Animate',
 
@@ -67,7 +63,6 @@ var Animate = React.createClass({
     // lifecycle
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         var interpolate = d3.interpolateObject(
             _.pick(this.state, this.props.interpolateProps),
             _.pick(nextProps, this.props.interpolateProps)
@@ -103,7 +98,7 @@ var Animate = React.createClass({
         return <g className={props.className}>
             {helpers.proxyChildren(
                 props.children,
-                _.omit(state, _.isUndefined),
+                _.omitBy(state, _.isUndefined),
                 {
                     layerWidth: state.layerWidth,
                     layerHeight: state.layerHeight,

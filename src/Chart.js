@@ -2,7 +2,7 @@
 
 const React = require('react'),
     d3 = require('d3'),
-    _ = require('lodash'),
+    _ = require('./_'),
     helpers = require('./helpers');
 
 /**

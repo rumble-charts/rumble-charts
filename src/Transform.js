@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react'),
-    _ = require('lodash'),
+    _ = require('./_'),
     helpers = require('./helpers');
 
 /**

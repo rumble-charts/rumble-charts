@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react'),
-    _ = require('lodash'),
+    _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
 

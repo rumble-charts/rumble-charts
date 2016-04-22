@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react'),
-    _ = require('lodash'),
+    _ = require('./_'),
     d3 = require('d3'),
     cloud = require('d3-cloud'),
     helpers = require('./helpers');
@@ -114,7 +114,7 @@ const Cloud = React.createClass({
             .domain([props.minY, props.maxY]);
 
         let words = _.reduce(series, (words, {data}, seriesIndex) => {
-            _.each(data, (point, pointIndex) => {
+            _.forEach(data, (point, pointIndex) => {
                 words.push(_.defaults({
                     text: point.label,
                     size: point.y,

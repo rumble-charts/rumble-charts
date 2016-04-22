@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react'),
-    _ = require('lodash'),
+    _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
 
@@ -182,7 +182,7 @@ const Pies = React.createClass({
         pieStyle = helpers.value([point.style, series.style, pieStyle], {seriesIndex, pointIndex, point, series, props});
         pieAttributes = helpers.value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
 
-        const pathProps = _.extend({
+        const pathProps = _.assign({
             style: pieStyle,
             fill: fillColor,
             fillOpacity: point.opacity
@@ -193,7 +193,7 @@ const Pies = React.createClass({
         if (_.isArray(fillColor)) {
 
             let interpolateAngle = d3.interpolate(startAngle, endAngle);
-            _.each(fillColor, (color, index) => {
+            _.forEach(fillColor, (color, index) => {
 
                 if (index === fillColor.length - 1) {
                     return;
@@ -202,7 +202,7 @@ const Pies = React.createClass({
                 let interpolateFillColor = d3.interpolate(color, fillColor[index + 1]);
                 let step = 1 / ((endAngle - startAngle) / this.props.gradientStep);
 
-                _.each(_.range(0, 1, step), (i) => {
+                _.forEach(_.range(0, 1, step), (i) => {
 
                     pathProps.fill = interpolateFillColor(i);
                     let angleIndex = (index + i) / (fillColor.length - 1);
