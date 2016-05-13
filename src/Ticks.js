@@ -136,25 +136,21 @@ const Ticks = React.createClass({
             return;
         }
 
-        tickAttributes = helpers.value(tickAttributes, {index, ticksLength, tick, props});
-        tickStyle = helpers.value(tickStyle, {index, ticksLength, tick, props});
-
         const pX = axis === 'x' ? x(tick.x) : helpers.normalizeNumber(position, layerWidth);
         const pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
 
         const transform = (scaleX.swap || scaleY.swap) ?
-            ('translate3d(' + pY + 'px,' + pX + 'px,0px)') :
-            ('translate3d(' + pX + 'px,' + pY + 'px,0px)');
+            ('translate(' + pY + ',' + pX + ')') :
+            ('translate(' + pX + ',' + pY + ')');
+        let {labelAttributes} = props;
 
-        const style = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, tickStyle);
+        tickAttributes = helpers.value(tickAttributes, {index, ticksLength, tick, props});
+        tickStyle = helpers.value(tickStyle, {index, ticksLength, tick, props});
 
         return <g
-            key={index} style={style}
+            key={index} style={tickStyle}
             className={className && (className + '-tick ' + className + '-tick-' + index)}
+            transform={transform}
             {...tickAttributes}>
             {this.renderLabel(ticksLength, tick, index)}
             {this.renderLine(ticksLength, tick, index)}
