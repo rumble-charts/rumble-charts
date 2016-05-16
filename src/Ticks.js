@@ -171,10 +171,13 @@ const Ticks = React.createClass({
             label = helpers.value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
             labelFormat = helpers.value(labelFormat, label) || label;
 
+            const transform = labelAttributes.transform ? labelAttributes.transform : '';
+
             if (_.isString(label) || _.isNumber(label)) {
                 label = <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
+                    transform={transform}
                     {...labelAttributes}>
                     {labelFormat}
                 </text>;
