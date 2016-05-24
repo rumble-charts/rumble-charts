@@ -182,10 +182,18 @@ const Pies = React.createClass({
         pieStyle = helpers.value([point.style, series.style, pieStyle], {seriesIndex, pointIndex, point, series, props});
         pieAttributes = helpers.value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
 
+        // Used for setting `transform` (positioning) on the <path>
+        const {position, layerWidth, layerHeight} = props;
+        const innerRadius = this.getInnerRadius(props);
+        const outerRadius = this.getOuterRadius(props);
+        const coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
+        const transform = 'translate(' + (coords.x + outerRadius) + ',' + (coords.y + outerRadius) + ')';
+
         const pathProps = _.assign({
             style: pieStyle,
             fill: fillColor,
-            fillOpacity: point.opacity
+            fillOpacity: point.opacity,
+            transform: transform,
         }, pieAttributes);
 
         let pathList = [];
@@ -264,18 +272,9 @@ const Pies = React.createClass({
         const _startAngle = circularScale(0);
         this.color = helpers.colorFunc(colors);
 
-        const coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
-
-        const transform = 'translate3d(' + (coords.x + outerRadius) + 'px,' + (coords.y + outerRadius) + 'px,0px)';
-        const chartStyle = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, style);
-
         const halfPadAngle = props.padAngle / 2 || 0;
 
-        return <g className={className} style={chartStyle} opacity={opacity}>
+        return <g className={className} style={style} opacity={opacity}>
             {_.map(series, (series, index) => {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
