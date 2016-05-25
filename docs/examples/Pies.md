@@ -34,7 +34,7 @@ const series = [{
 </Chart>
 ```
 
-Conical gradient. Actual it's a not real conical gradient since svg doesn't support it. It's emulated 
+Conical gradient. Actually it's a not real conical gradient since svg doesn't support it. It's emulated 
 using many small sectors.
 
 ```

@@ -67,6 +67,8 @@ test-dist
 
 src/*
 styleguide/*
+.storybook/*
+storybook/*
 
 .babelrc
 .editorconfig

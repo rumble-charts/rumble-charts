@@ -11,6 +11,8 @@
     "gh-pages": "./node_modules/.bin/gh-pages -d styleguide",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "NODE_ENV=production styleguidist build",
+    "storybook-server": "./node_modules/.bin/start-storybook -p 9001",
+    "storybook-build": "./node_modules/.bin/build-storybook -o storybook",
     "publish-patch": "npm test && npm version patch && npm publish",
     "publish-minor": "npm test && npm version minor && npm publish",
     "publish-major": "npm test && npm version major && npm publish"
@@ -43,10 +45,11 @@
   "dependencies": {
     "d3": "^3.5.17",
     "d3-cloud": "^1.2.1",
-    "d3-timer": "0.4.4",
+    "d3-timer": "^0.4.4",
     "lodash": "^4.13.0"
   },
   "devDependencies": {
+    "@kadira/storybook": "1.28.1",
     "babel-cli": "^6.9.0",
     "babel-jest": "^12.1.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",

@@ -37,7 +37,7 @@ function hideHovered() {
        hovered.label.style.display = 'none';
      }
    }
-};
+}
 
 function handleMouseMove({closestPoints}) {
   const closest = closestPoints[0];
@@ -61,5 +61,5 @@ function handleMouseMove({closestPoints}) {
 
 function handleMouseLeave() {
   hideHovered();
-};
+}
 ```

@@ -95,7 +95,7 @@ class Demo extends React.Component {
     render() {
         const {filter} = this.state;
 
-        return <Chart width={600} height={600} minY={0}>
+        return <Chart width={600} height={400} minY={0}>
             <Layer
                 width='80%' height='80%'
                 series={getSeriesByGroup(groups, 'country', filter)}
