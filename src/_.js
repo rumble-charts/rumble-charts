@@ -22,6 +22,7 @@ const _ = {
     map: require('lodash/map'),
     max: require('lodash/max'),
     omit: require('lodash/omit'),
+    omitBy: require('lodash/omitBy'),
     pick: require('lodash/pick'),
     range: require('lodash/range'),
     reduce: require('lodash/reduce'),
