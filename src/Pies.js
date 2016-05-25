@@ -179,7 +179,13 @@ const Pies = React.createClass({
             fillColor = fillColor[0];
         }
 
-        pieStyle = helpers.value([point.style, series.style, pieStyle], {seriesIndex, pointIndex, point, series, props});
+        pieStyle = helpers.value([point.style, series.style, pieStyle], {
+            seriesIndex,
+            pointIndex,
+            point,
+            series,
+            props
+        });
         pieAttributes = helpers.value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
 
         const pathProps = _.assign({
@@ -266,16 +272,13 @@ const Pies = React.createClass({
 
         const coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
 
-        const transform = 'translate3d(' + (coords.x + outerRadius) + 'px,' + (coords.y + outerRadius) + 'px,0px)';
-        const chartStyle = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, style);
-
         const halfPadAngle = props.padAngle / 2 || 0;
 
-        return <g className={className} style={chartStyle} opacity={opacity}>
+        return <g
+            className={className}
+            style={style}
+            transform={'translate(' + (coords.x + outerRadius) + ' ' + (coords.y + outerRadius) + ')'}
+            opacity={opacity}>
             {_.map(series, (series, index) => {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;

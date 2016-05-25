@@ -13,14 +13,14 @@ const series = [{
 
 storiesOf('RadialLines', module)
     .add('default', () =>
-        <Chart width={600} height={300} series={series} minY={0}>
+        <Chart width={600} height={400} series={series} minY={0}>
             <RadialLines
                 lineWidth={2}
             />
         </Chart>
     )
     .add('linear interpolation', () =>
-        <Chart width={600} height={300} series={series} minY={0}>
+        <Chart width={600} height={400} series={series} minY={0}>
             <RadialLines
                 interpolation='linear-closed'
                 lineWidth={2}
@@ -28,7 +28,7 @@ storiesOf('RadialLines', module)
         </Chart>
     )
     .add('areas', () =>
-        <Chart width={600} height={300} series={series} minY={0}>
+        <Chart width={600} height={400} series={series} minY={0}>
             <Transform method='stack'>
                 <RadialLines
                     asAreas={true}

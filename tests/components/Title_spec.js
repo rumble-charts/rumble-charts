@@ -48,9 +48,7 @@ describe('Title', () => {
         const wrapper = shallow(<Title layerWidth={100} layerHeight={100} position='top center'>
             Title
         </Title>);
-        expect(wrapper.find('g').prop('style')).toEqual(jasmine.objectContaining({
-            transform: 'translate(50px,0px)'
-        }));
+        expect(wrapper.find('g').prop('transform')).toEqual('translate(50 0)');
     });
 
     it('should support className and styles', () => {
@@ -62,7 +60,6 @@ describe('Title', () => {
         >Title</Title>);
         const g = wrapper.find('g');
         expect(g.prop('style')).toEqual(jasmine.objectContaining({
-            transform: 'translate(50px,100px)',
             transition: '100ms'
         }));
         expect(g.hasClass('className')).toEqual(true);

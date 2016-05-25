@@ -43,14 +43,18 @@ const Title = React.createClass({
 
     render() {
         const {props} = this;
-        const {className, position, layerWidth, layerHeight, width, height, children} = props;
-        const currentStyle = _.assign({}, props.style);
+        const {style, className, children} = props;
 
-        const {x, y} = helpers.getCoords(position, layerWidth, layerHeight, width, height) || {};
+        const {x, y} = helpers.getCoords(
+            props.position,
+            props.layerWidth, props.layerHeight,
+            props.width, props.height
+        ) || {};
 
-        currentStyle.transform = 'translate(' + x + 'px,' + y + 'px)';
-
-        return <g className={className} style={currentStyle}>
+        return <g
+            className={className}
+            transform={'translate(' + x + ' ' + y + ')'}
+            style={style}>
             {_.isString(children) ?
                 <text>{children}</text> :
                 (_.isFunction(children) ? children(props) : children)}

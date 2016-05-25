@@ -143,17 +143,12 @@ const Ticks = React.createClass({
         const pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
 
         const transform = (scaleX.swap || scaleY.swap) ?
-            ('translate3d(' + pY + 'px,' + pX + 'px,0px)') :
-            ('translate3d(' + pX + 'px,' + pY + 'px,0px)');
-
-        const style = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, tickStyle);
+            ('translate(' + pY + ' ' + pX + ')') :
+            ('translate(' + pX + ' ' + pY + ')');
 
         return <g
-            key={index} style={style}
+            key={index} style={tickStyle}
+            transform={transform}
             className={className && (className + '-tick ' + className + '-tick-' + index)}
             {...tickAttributes}>
             {this.renderLabel(ticksLength, tick, index)}

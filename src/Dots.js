@@ -229,13 +229,6 @@ const Dots = React.createClass({
 
         groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
-        const transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
-        const style = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, groupStyle);
-
         dotType = helpers.value([dotType], {seriesIndex, pointIndex, point, series, props});
         dotAttributes = helpers.value(dotAttributes, {seriesIndex, pointIndex, point, dotType, series, props});
         dotStyle = helpers.value([point.style, series.style, dotStyle], {
@@ -267,7 +260,8 @@ const Dots = React.createClass({
         return <g
             key={pointIndex}
             className={className && (className + '-dot ' + className + '-dot-' + pointIndex)}
-            style={style}>
+            transform={'translate(' + x + ' ' + y + ')'}
+            style={groupStyle}>
             {dot}
         </g>;
     },

@@ -123,17 +123,12 @@ const RadialLines = React.createClass({
 
         let coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
 
-        let transform = 'translate3d(' + (coords.x + outerRadius) + 'px,' + (coords.y + outerRadius) + 'px,0px)';
-        let chartStyle = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, style);
-
         let color = helpers.colorFunc(colors);
 
         return <g
-            className={className} style={chartStyle}
+            className={className}
+            style={style}
+            transform={'translate(' + (coords.x + outerRadius) + ' ' + (coords.y + outerRadius) + ')'}
             opacity={opacity}>
 
             {_.map(series, (series, index) => {

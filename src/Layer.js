@@ -58,21 +58,6 @@ var Layer = React.createClass({
         let layerHeight = this.getHeight();
 
         let {x, y} = this.getCoords();
-        let transform = [];
-        transform.push('translate3d(' + x + 'px,' + y + 'px' + ',0px)');
-        transform = transform.join(' ') +
-            (style && style.transform ? (' ' + style.transform) : '');
-
-        let transformOrigin = '' + layerWidth / 2 + 'px ' + layerHeight / 2 + 'px';
-
-        let layerStyle = _.assign({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform,
-            transformOrigin,
-            WebkitTransformOrigin: transformOrigin,
-            MozTransformOrigin: transformOrigin
-        }, style);
 
         let children = helpers.proxyChildren(
             this.props.children,
@@ -85,11 +70,12 @@ var Layer = React.createClass({
             }
         );
 
-
-        return <g className={className} style={layerStyle}>
+        return <g
+            className={className}
+            transform={'translate(' + x + ' ' + y + ')'}
+            style={style}>
             {children}
         </g>;
-
     }
 
 });

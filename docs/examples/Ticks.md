@@ -18,13 +18,13 @@ const series = [{
       lineLength='100%'
       lineVisible={true}
       lineStyle={{stroke:'lightgray'}}
-      labelStyle={{textAnchor:'end',alignmentBaseline:'middle',fill:'lightgray'}}
+      labelStyle={{textAnchor:'end',dominantBaseline:'middle',fill:'lightgray'}}
       labelAttributes={{x: -5}}
     />
     <Ticks
       axis='x'
       label={({index, props}) => props.series[index].name}
-      labelStyle={{textAnchor:'middle',alignmentBaseline:'before-edge',fill:'lightgray'}}
+      labelStyle={{textAnchor:'middle',dominantBaseline:'text-before-edge',fill:'lightgray'}}
       labelAttributes={{y: 3}}
     />
     <Bars

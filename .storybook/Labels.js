@@ -20,7 +20,7 @@ storiesOf('Labels', module)
                     label={({point}) => ('y=' + point.y)}
                     dotStyle={{
                         textAnchor: 'middle',
-                        alignmentBaseline: 'after-edge',
+                        dominantBaseline: 'text-after-edge',
                         fontFamily: 'sans-serif',
                         fontSize: '0.65em'
                     }}

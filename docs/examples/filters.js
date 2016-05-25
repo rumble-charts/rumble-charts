@@ -127,7 +127,7 @@ class Demo extends React.Component {
                         axis='x'
                         ticks={({series}) => series[0].data}
                         labelStyle={{
-                            alignmentBaseline: 'before-edge',
+                            dominantBaseline: 'text-before-edge',
                             textAnchor: 'middle'
                         }}
                     />
@@ -137,7 +137,7 @@ class Demo extends React.Component {
                 width='30%' height='30%' position='right bottom'
                 series={getSeriesByGroup(groups, 'title', filter)}>
                 {filter[0] === 'title' && <Title position='center middle'>
-                    <text style={{textAnchor:'middle',alignmentBaseline:'middle'}}>{filter[1]}</text>
+                    <text style={{textAnchor:'middle',dominantBaseline:'middle'}}>{filter[1]}</text>
                 </Title>}
                 <Transform method={['transpose', 'stack']}>
                     <Animate ease='bounce'>

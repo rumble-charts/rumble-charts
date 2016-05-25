@@ -17,14 +17,14 @@ const series2 = [{
 
 storiesOf('Pies', module)
     .add('default', () =>
-        <Chart width={600} height={300} series={series1}>
+        <Chart width={600} height={400} series={series1}>
             <Transform method={['transpose', 'stack']}>
                 <Pies combined={true}/>
             </Transform>
         </Chart>
     )
     .add('three series', () =>
-        <Chart width={600} height={300} series={series2} minY={0}>
+        <Chart width={600} height={400} series={series2} minY={0}>
             <Transform method={['transpose', 'stack']}>
                 <Pies
                     combined={true}
@@ -35,7 +35,7 @@ storiesOf('Pies', module)
         </Chart>
     )
     .add('conical gradient emulation', () =>
-        <Chart width={600} height={300} series={series1}>
+        <Chart width={600} height={400} series={series1}>
             <Transform method={['transpose', 'stack']}>
                 <Pies
                     combined={true} barWidth='50%'
@@ -45,7 +45,7 @@ storiesOf('Pies', module)
         </Chart>
     )
     .add('fancy and mouse events', () =>
-        <Chart width={600} height={300} series={series2}>
+        <Chart width={600} height={400} series={series2}>
             <Transform method={['transpose', 'stackNormalized']}>
                 <Pies
                     colors='category10'

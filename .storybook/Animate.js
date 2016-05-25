@@ -63,13 +63,13 @@ const Complex = React.createClass({
                         lineLength='100%'
                         lineVisible={true}
                         lineStyle={{stroke:'lightgray'}}
-                        labelStyle={{textAnchor:'end',alignmentBaseline:'middle',fontSize:'0.5em',fill:'lightgray'}}
+                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fontSize:'0.75em',fill:'lightgray'}}
                         labelAttributes={{x: -5}}
                     />
                     <Ticks
                         axis='x'
                         label={({tick}) => tick.x + 1}
-                        labelStyle={{textAnchor:'middle',alignmentBaseline:'before-edge',fontSize:'0.5em',fill:'lightgray'}}
+                        labelStyle={{textAnchor:'middle',dominantBaseline:'text-before-edge',fontSize:'0.75em',fill:'lightgray'}}
                         labelAttributes={{y: 3}}
                     />
                     <Bars
@@ -81,7 +81,7 @@ const Complex = React.createClass({
                     <Labels
                         label={({point}) => Math.round(point.y)}
                         dotStyle={{
-                            alignmentBaseline:'after-edge',
+                            dominantBaseline:'text-after-edge',
                             textAnchor:'middle'
                         }}
                     />

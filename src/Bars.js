@@ -161,13 +161,6 @@ const Bars = React.createClass({
 
         groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
-        const transform = 'translate3d(' + x + 'px,' + y + 'px,0px)';
-        const style = _.defaults({
-            transform,
-            WebkitTransform: transform,
-            MozTransform: transform
-        }, groupStyle);
-
         const d = (scaleX.swap || scaleY.swap) ?
             ('M0,' + (-height / 2) + ' h' + (width) + ' v' + height + ' h' + (-width) + ' Z') :
             ('M' + (-width / 2) + ',0 v' + height + ' h' + width + ' v' + (-height) + ' Z');
@@ -180,7 +173,8 @@ const Bars = React.createClass({
         return <g
             key={pointIndex}
             className={className && (className + '-bar ' + className + '-bar-'  + pointIndex)}
-            style={style}>
+            transform={'translate(' + x + ' ' + y + ')'}
+            style={groupStyle}>
             <path
                 style={barStyle}
                 fill={point.color || series.color || this.color(seriesIndex)}
