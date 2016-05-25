@@ -170,6 +170,7 @@ const Cloud = React.createClass({
     render: function () {
         const {props, state} = this;
         const {className, style, layerWidth, layerHeight, opacity} = props;
+        const {labels} = state;
 
         const color = helpers.colorFunc(props.colors);
 
@@ -197,7 +198,7 @@ const Cloud = React.createClass({
                     {_.map(series.data, (point, pointIndex) => {
 
                         let {labelVisible, labelAttributes, labelStyle} = props;
-                        let label = state.labels[seriesIndex][pointIndex];
+                        let label = labels[seriesIndex] && labels[seriesIndex][pointIndex];
                         if (!label) {
                             return;
                         }
