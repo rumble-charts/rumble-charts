@@ -3,6 +3,7 @@
 const React = require('react'),
     _ = require('./_'),
     d3 = require('d3'),
+    d3_timer = require('d3-timer'),
     helpers = require('./helpers');
 
 /**
@@ -68,26 +69,30 @@ const Animate = React.createClass({
             _.pick(nextProps, this.props.interpolateProps)
         );
 
-        var {duration, ease, onStart, onEnd} = this.props;
+        var {duration, ease, onStart, onEnd, logFPS} = this.props;
         ease = _.isString(ease) ?
             d3.ease(ease) :
             (_.isFunction(ease) ? ease : d3.ease('linear'));
 
         var i = 0;
+        this._timer && this._timer.stop();
         onStart && onStart();
-        d3.timer(p => {
-            this.isMounted() && this.setState(interpolate(ease(p / duration)));
+        var _timer = d3_timer.timer(p => {
+            this.setState(interpolate(ease(p / duration)));
             i++;
             if (p >= duration) {
                 onEnd && onEnd();
-                if (this.props.logFPS) {
-                    console.warn(i * (1000 / duration) + 'fps; ' + i + ' frames');
+                if (logFPS) {
+                    console.warn(i * (1000 / duration) + 'fps; ' + i + ' frames in ' + duration + 'ms');
                 }
-                return true;
-            } else {
-                return false;
+                _timer.stop();
             }
         });
+        this._timer = _timer;
+    },
+
+    componentWillUnmount() {
+        this._timer && this._timer.stop();
     },
 
     // render
@@ -114,13 +119,13 @@ const Animate = React.createClass({
 module.exports = Animate;
 
 d3.interpolators.push(function (a, b) {
-    var t = typeof b;
+    var c, i;
     if (b && !_.isUndefined(b.x) && !_.isUndefined(b.y)) {
         // point
         a = a || {};
-        var i = {},
-            c = {},
-            k;
+        c = {};
+        i = {};
+        var k;
         for (k in a) {
             if (k in b) {
                 i[k] = d3.interpolate(a[k], b[k]);
@@ -140,12 +145,11 @@ d3.interpolators.push(function (a, b) {
     } else if (b && b[0] && (!_.isUndefined(b[0].data) || (!_.isUndefined(b[0].x) && !_.isUndefined(b[0].y)))) {
         // series or points
         a = a || [];
+        c = [];
         var x = [],
-            c = [],
             na = a.length,
             nb = b.length,
-            n0 = Math.min(na, nb),
-            i;
+            n0 = Math.min(na, nb);
         for (i = 0; i < n0; ++i) {
             x.push(d3.interpolate(a[i], b[i]));
         }
