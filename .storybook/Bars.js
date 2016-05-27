@@ -34,6 +34,11 @@ storiesOf('Bars', module)
             <Bars />
         </Chart>
     )
+    .add('without minY', () =>
+        <Chart width={600} height={300} series={series2}>
+            <Bars />
+        </Chart>
+    )
     .add('bar styles and mouse events', () =>
         <Chart width={600} height={300} series={series2} minY={0}>
             <Bars

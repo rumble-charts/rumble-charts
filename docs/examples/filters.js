@@ -87,7 +87,7 @@ class Demo extends React.Component {
         this.getPointOpacity = (groupName, point) => {
             const {filter} = this.state;
             return filter[0] === groupName && filter[1] !== point.label ?
-                0.33 : (filter[0] === groupName && filter[1] === point.label ? 1 : 0.8);
+                0.25 : (filter[0] === groupName && filter[1] === point.label ? 1 : 0.75);
         };
 
     }
@@ -145,7 +145,6 @@ class Demo extends React.Component {
                             combined={true}
                             innerRadius='25%'
                             cornerRadius='0.15%'
-                            padAngle={0.05}
                             colors='category20'
                             pieStyle={({point}) => ({
                                 transition: 'fill-opacity 250ms',

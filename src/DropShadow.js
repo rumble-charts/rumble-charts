@@ -29,21 +29,16 @@ const DropShadow = React.createClass({
 
     // render
 
-    render: function () {
-        const html = `
-<filter id="${this.props.id}">
-    <feGaussianBlur in="${this.props.blurIn}" stdDeviation="${this.props.blurDeviation}" />
-    <feOffset dx="${this.props.dx}" dy="${this.props.dy}" />
-    <feMerge>
-        <feMergeNode />
-        <feMergeNode in="SourceGraphic" />
-    </feMerge>
-</filter>
-          `;
-
-        return <g dangerouslySetInnerHTML={{__html: html}}>
-        </g>;
-
+    render() {
+        const {props} = this;
+        return <filter id={props.id}>
+            <feGaussianBlur in={props.blurIn} stdDeviation={props.blurDeviation}/>
+            <feOffset dx={props.dx} dy={props.dy}/>
+            <feMerge>
+                <feMergeNode />
+                <feMergeNode in='SourceGraphic'/>
+            </feMerge>
+        </filter>;
     }
 
 });

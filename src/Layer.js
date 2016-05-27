@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require('react'),
-    _ = require('./_'),
     helpers = require('./helpers');
 
 /**
@@ -16,10 +15,16 @@ var Layer = React.createClass({
 
     propTypes: {
         className: React.PropTypes.string,
+        style: React.PropTypes.object,
         width: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
         position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
-        series: React.PropTypes.array
+        series: React.PropTypes.array,
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        children: React.PropTypes.node
     },
 
     // init

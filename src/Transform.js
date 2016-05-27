@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     _ = require('./_'),
     helpers = require('./helpers');
 
@@ -11,47 +11,47 @@ var React = require('react'),
  *
  * @example ../docs/examples/Transform.md
  */
-var Transform = React.createClass({
+const Transform = function (props) {
+    const {className, layerWidth, layerHeight, scaleX, scaleY} = props;
 
-    displayName: 'Transform',
+    const newProps = helpers.transform(props, props.method);
 
-    propTypes: {
-        series: React.PropTypes.array,
-        /**
-         * Possible string values: "`stack`", "`stackNormalized`", "`sort`", "`unstack`",
-         * "`transpose`", "`rotate`", "`reverse`". Also you can define it as function that
-         * receives props as an object, transforms it somehow and returns changes props as an object.
-         */
-        method: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.func,
-            React.PropTypes.array
-        ])
-    },
+    const children = helpers.proxyChildren(
+        props.children,
+        newProps,
+        {
+            layerWidth: _.isUndefined(newProps.layerWidth) ? layerWidth : newProps.layerWidth,
+            layerHeight: _.isUndefined(newProps.layerHeight) ? layerHeight : newProps.layerHeight,
+            scaleX: _.isUndefined(newProps.scaleX) ? scaleX : newProps.scaleX,
+            scaleY: _.isUndefined(newProps.scaleY) ? scaleY : newProps.scaleY
+        }
+    );
 
-    render: function () {
-        let {className, method, layerWidth, layerHeight, scaleX, scaleY} = this.props;
+    return <g className={className}>
+        {children}
+    </g>;
+};
 
-        let props = helpers.transform(this.props, method);
+Transform.displayName = 'Transform';
 
-        let children = helpers.proxyChildren(
-            this.props.children,
-            props,
-            {
-                layerWidth: _.isUndefined(props.layerWidth) ? layerWidth : props.layerWidth,
-                layerHeight: _.isUndefined(props.layerHeight) ? layerHeight : props.layerHeight,
-                scaleX: _.isUndefined(props.scaleX) ? scaleX : props.scaleX,
-                scaleY: _.isUndefined(props.scaleY) ? scaleY : props.scaleY
-            }
-        );
-
-
-        return <g className={className}>
-            {children}
-        </g>;
-
-    }
-
-});
+Transform.propTypes = {
+    className: React.PropTypes.string,
+    series: React.PropTypes.array,
+    /**
+     * Possible string values: "`stack`", "`stackNormalized`", "`sort`", "`unstack`",
+     * "`transpose`", "`rotate`", "`reverse`". Also you can define it as function that
+     * receives props as an object, transforms it somehow and returns changes props as an object.
+     */
+    method: React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.func,
+        React.PropTypes.array
+    ]),
+    scaleX: React.PropTypes.object,
+    scaleY: React.PropTypes.object,
+    layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+    children: React.PropTypes.node
+};
 
 module.exports = Transform;

@@ -209,7 +209,9 @@ var helpers = {
                 var newSeries = {};
                 newSeries.data = _.map(series.data, (point, pointIndex) => {
                     stackedY[pointIndex] = stackedY[pointIndex] || 0;
-                    lowestY[pointIndex] = _.isUndefined(lowestY[pointIndex]) && stackedY[pointIndex];
+                    if (_.isUndefined(lowestY[pointIndex])) {
+                        lowestY[pointIndex] = stackedY[pointIndex];
+                    }
                     var newPoint = {
                         y0: stackedY[pointIndex],
                         y: stackedY[pointIndex] + point.y

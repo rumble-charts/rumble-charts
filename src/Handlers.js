@@ -1,18 +1,18 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     ReactDOM = require('react-dom'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
 /**
  * Helps to use mouse events. For now supports only "`onMouseMove`" and "`onMouseLeave`".
- * 
+ *
  * This component will be improved and simplified in the future.
  *
  * @example ../docs/examples/Handlers.md
  */
-var Handlers = React.createClass({
+const Handlers = React.createClass({
 
     displayName: 'Handlers',
 
@@ -22,7 +22,11 @@ var Handlers = React.createClass({
         sensitivity: React.PropTypes.number,
         optimized: React.PropTypes.bool,
         onMouseMove: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
-        onMouseLeave: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool])
+        onMouseLeave: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
+        scaleX: React.PropTypes.object,
+        scaleY: React.PropTypes.object,
+        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
     },
 
     // init
@@ -130,19 +134,16 @@ var Handlers = React.createClass({
             }
         );
 
-
         return <g
             className={className}
             onMouseMove={onMouseMove && this.handleMouseMove}
-            onMouseLeave={onMouseLeave}
-        >
+            onMouseLeave={onMouseLeave}>
             <rect
                 ref={ref => this.rect = ref}
                 x={0} y={0} width={layerWidth} height={layerHeight}
                 fill='transparent' stroke='transparent'/>
             {children}
         </g>;
-
     }
 
 });

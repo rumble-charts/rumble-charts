@@ -9,11 +9,15 @@ var propTypePoint = React.PropTypes.arrayOf(
     React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
 );
 
+var propTypeNumber = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]);
+
 var Gradient = React.createClass({
 
     displayName: 'Gradient',
 
     propTypes: {
+        id: React.PropTypes.string,
+        idPrefix: React.PropTypes.string,
         type: React.PropTypes.oneOf(['linear', 'radial']),
         spreadMethod: React.PropTypes.oneOf(['pad', 'repeat', 'reflect']),
         gradientUnits: React.PropTypes.oneOf(['userSpaceOnUse', 'objectBoundingBox']),
@@ -22,9 +26,19 @@ var Gradient = React.createClass({
         from: propTypePoint,
         to: propTypePoint,
         // for radial gradient
-        canter: propTypePoint,
+        center: propTypePoint,
         focalPoint: propTypePoint,
-        radius: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+        cx: propTypeNumber,
+        cy: propTypeNumber,
+        fx: propTypeNumber,
+        fy: propTypeNumber,
+        r: propTypeNumber,
+        x1: propTypeNumber,
+        y1: propTypeNumber,
+        x2: propTypeNumber,
+        y2: propTypeNumber,
+        radius: propTypeNumber,
+        children: React.PropTypes.node
     },
 
     // init
@@ -74,14 +88,12 @@ var Gradient = React.createClass({
         let _fy = (_.isUndefined(focalPoint) || _.isUndefined(focalPoint[1])) ? fy : focalPoint[1];
         let _r = _.isUndefined(radius) ? r : radius;
 
-
         return <radialGradient
             id={this.getId()}
             gradientUnits={gradientUnits} gradientTransform={gradientTransform} spreadMethod={spreadMethod}
             cx={_cx} cy={_cy} fx={_fx} fy={_fy} r={_r}>
             {this.props.children}
         </radialGradient>;
-
     },
 
     renderLinear() {

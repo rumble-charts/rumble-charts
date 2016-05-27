@@ -19,7 +19,7 @@ const Pies = React.createClass({
     propTypes: {
         colors: React.PropTypes.oneOfType([
             React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
+            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string])),
             React.PropTypes.func
         ]),
         opacity: React.PropTypes.number,
