@@ -4,8 +4,9 @@ var path = require('path');
 
 module.exports = {
     title: 'Rumble Charts 1.0.7',
-    // components: './src/[A-Z]*.js',
     sections: [{
+        name: 'Rumble Charts', content: './docs/heading.md'
+    }, {
         name: 'Installation', content: './docs/installation.md'
     }, {
         name: 'Introduction', content: './docs/introduction.md', components: './src/Chart.js'
@@ -36,6 +37,7 @@ module.exports = {
     }, {
         name: 'CSS class names', content: './docs/classnames.md'
     }],
+    template: './docs/template.html',
     serverPort: 3013,
     updateWebpackConfig: function (webpackConfig, env) {
         var dir = path.join(__dirname, 'src');
