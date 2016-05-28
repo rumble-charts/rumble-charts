@@ -13,6 +13,7 @@
     "styleguide-build": "NODE_ENV=production styleguidist build",
     "storybook-server": "./node_modules/.bin/start-storybook -p 9001",
     "storybook-build": "./node_modules/.bin/build-storybook -o storybook",
+    "publish-docs": "npm run styleguide-build && npm run gh-pages",
     "publish-patch": "npm test && npm version patch && npm publish",
     "publish-minor": "npm test && npm version minor && npm publish",
     "publish-major": "npm test && npm version major && npm publish"
