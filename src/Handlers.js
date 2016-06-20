@@ -45,6 +45,8 @@ const Handlers = React.createClass({
         let rect = target.getBoundingClientRect();
         this.left = rect.left;
         this.top = rect.top;
+        this.width = rect.width;
+        this.height = rect.height;
     },
 
     updateScales() {
@@ -75,9 +77,9 @@ const Handlers = React.createClass({
 
         let {clientX, clientY} = event;
         let {left, top, props} = this;
-        let {onMouseMove, series, sensitivity, optimized} = props;
-        let realX = clientX - left;
-        let realY = clientY - top;
+        let {onMouseMove, series, sensitivity, optimized, layerWidth, layerHeight} = props;
+        let realX = (clientX - left) * layerWidth / this.width;
+        let realY = (clientY - top) * layerHeight / this.height;
         let x = this.x(realX);
         let y = this.y(realY);
 
