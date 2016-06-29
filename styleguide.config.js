@@ -2,6 +2,7 @@
 
 var path = require('path');
 
+
 module.exports = {
     title: 'Rumble Charts 1.0.10',
     sections: [{
