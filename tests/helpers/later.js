@@ -10,7 +10,7 @@ const later = function (callback, timeout = 0) {
                 reject(e);
             }
         }, timeout);
-        jest.runAllTimers();
+        jest.runOnlyPendingTimers();
     });
 };
 

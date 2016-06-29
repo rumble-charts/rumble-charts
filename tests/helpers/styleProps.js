@@ -23,6 +23,7 @@ module.exports = function (Component, options = {}) {
     }
 
     const delayed = function (callback) {
+        jest.runAllTimers();
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
