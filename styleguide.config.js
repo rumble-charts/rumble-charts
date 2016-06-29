@@ -3,7 +3,7 @@
 var path = require('path');
 
 module.exports = {
-    title: 'Rumble Charts 1.0.9',
+    title: 'Rumble Charts 1.0.10',
     sections: [{
         name: 'Rumble Charts', content: './docs/heading.md'
     }, {
