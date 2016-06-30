@@ -48,18 +48,18 @@ describe('Animate', () => {
             expect(expectedSeries).not.toEqual(series1);
             expect(expectedSeries).not.toEqual(series2);
             if (series1[0].data[0].y < series2[0].data[0].y) {
-                expect(expectedSeries[0].data[0].y).toBeGreaterThan(series1[0].data[0].y);
-                expect(expectedSeries[0].data[0].y).toBeLessThan(series2[0].data[0].y);
+                expect(expectedSeries[0].data[0].y).not.toBeLessThan(series1[0].data[0].y);
+                expect(expectedSeries[0].data[0].y).not.toBeGreaterThan(series2[0].data[0].y);
             } else {
-                expect(expectedSeries[0].data[0].y).toBeLessThan(series1[0].data[0].y);
-                expect(expectedSeries[0].data[0].y).toBeGreaterThan(series2[0].data[0].y);
+                expect(expectedSeries[0].data[0].y).not.toBeGreaterThan(series1[0].data[0].y);
+                expect(expectedSeries[0].data[0].y).not.toBeLessThan(series2[0].data[0].y);
             }
-            expect(span.prop('minX')).toBeGreaterThan(0);
-            expect(span.prop('maxX')).toBeGreaterThan(2);
-            expect(span.prop('minY')).toBeLessThan(0);
-            expect(span.prop('maxY')).toBeLessThan(100);
-            expect(span.prop('layerWidth')).toBeLessThan(100);
-            expect(span.prop('layerHeight')).toBeGreaterThan(100);
+            expect(span.prop('minX')).not.toBeLessThan(0);
+            expect(span.prop('maxX')).not.toBeLessThan(2);
+            expect(span.prop('minY')).not.toBeGreaterThan(0);
+            expect(span.prop('maxY')).not.toBeGreaterThan(100);
+            expect(span.prop('layerWidth')).not.toBeGreaterThan(100);
+            expect(span.prop('layerHeight')).not.toBeLessThan(100);
 
         }, 50).then(() => later(() => {
             const span = wrapper.find('span');
@@ -94,12 +94,26 @@ describe('Animate', () => {
             const expectedSeries = span.prop('series');
             expect(expectedSeries).toEqual(series2);
             expect(console.warn).toHaveBeenCalled();
+            console.warn = consoleWarn;
+        }, 50);
+    });
+
+    pit('should stop timer on unmount', () => {
+        const wrapper = mount(<Animate
+            series={series1}
+            duration={1}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
             const timer = wrapper.find(Animate).node._timer;
             spyOn(timer, 'stop');
             wrapper.unmount();
             expect(timer.stop).toHaveBeenCalledTimes(1);
-            console.warn = consoleWarn;
-        }, 50);
+        }, 30);
     });
 
 });
