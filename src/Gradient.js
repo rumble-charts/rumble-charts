@@ -77,16 +77,16 @@ var Gradient = React.createClass({
     // render
 
     renderRadial() {
-        let {
+        const {
             center, focalPoint, radius, gradientUnits, spreadMethod, gradientTransform,
             cx, cy, fx, fy, r
         } = this.props;
 
-        let _cx = (_.isUndefined(center) || _.isUndefined(center[0])) ? cx : center[0];
-        let _cy = (_.isUndefined(center) || _.isUndefined(center[1])) ? cy : center[1];
-        let _fx = (_.isUndefined(focalPoint) || _.isUndefined(focalPoint[0])) ? fx : focalPoint[0];
-        let _fy = (_.isUndefined(focalPoint) || _.isUndefined(focalPoint[1])) ? fy : focalPoint[1];
-        let _r = _.isUndefined(radius) ? r : radius;
+        const _cx = _.isUndefined(cx) ? (center && center[0]) : cx;
+        const _cy = _.isUndefined(cy) ? (center && center[1]) : cy;
+        const _fx = _.isUndefined(fx) ? (focalPoint && focalPoint[0]) : fx;
+        const _fy = _.isUndefined(fy) ? (focalPoint && focalPoint[1]) : fy;
+        const _r = _.isUndefined(r) ? radius : r;
 
         return <radialGradient
             id={this.getId()}
@@ -97,13 +97,12 @@ var Gradient = React.createClass({
     },
 
     renderLinear() {
-        let {from, to, gradientUnits, spreadMethod, gradientTransform, x1, y1, x2, y2} = this.props;
+        const {from, to, gradientUnits, spreadMethod, gradientTransform, x1, y1, x2, y2} = this.props;
 
-        let _x1 = (_.isUndefined(from) || _.isUndefined(from[0])) ? x1 : from[0];
-        let _y1 = (_.isUndefined(from) || _.isUndefined(from[1])) ? y1 : from[1];
-        let _x2 = (_.isUndefined(to) || _.isUndefined(to[0])) ? x2 : to[0];
-        let _y2 = (_.isUndefined(to) || _.isUndefined(to[1])) ? y2 : to[1];
-
+        const _x1 = _.isUndefined(x1) ? (from && from[0]) : x1;
+        const _y1 = _.isUndefined(y1) ? (from && from[1]) : y1;
+        const _x2 = _.isUndefined(x2) ? (to && to[0]) : x2;
+        const _y2 = _.isUndefined(y2) ? (to && to[1]) : y2;
 
         return <linearGradient
             id={this.getId()}
