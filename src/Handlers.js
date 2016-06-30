@@ -5,7 +5,7 @@ const React = require('react'),
     helpers = require('./helpers');
 
 /**
- * Helps to use mouse events. For now supports only "`onMouseMove`" and "`onMouseLeave`".
+ * Helps to use mouse events. For now supports only "`onClick`", "`onMouseMove`" and "`onMouseLeave`".
  *
  * This component will be improved and simplified in the future.
  *
@@ -21,6 +21,7 @@ const Handlers = React.createClass({
         sensitivity: React.PropTypes.number,
         optimized: React.PropTypes.bool,
         distance: React.PropTypes.oneOf(['x', 'y']),
+        onClick: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
         onMouseMove: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
         onMouseLeave: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
         scaleX: React.PropTypes.object,
@@ -71,12 +72,12 @@ const Handlers = React.createClass({
 
     // handlers
 
-    handleMouseMove(event) {
+    handleMouseEvent(event, handler) {
         this.updatePoint0();
 
         let {clientX, clientY} = event;
         let {left, top, props} = this;
-        let {onMouseMove, series, sensitivity, optimized, layerWidth, layerHeight} = props;
+        let {series, sensitivity, optimized, layerWidth, layerHeight} = props;
         let realX = (clientX - left) * layerWidth / this.width;
         let realY = (clientY - top) * layerHeight / this.height;
         let x = this.x(realX);
@@ -115,7 +116,7 @@ const Handlers = React.createClass({
         });
         closestPoints = _.sortBy(closestPoints, 'distance');
 
-        onMouseMove({
+        handler({
             clientX: realX,
             clientY: realY,
             scaleX: this.scaleX,
@@ -127,12 +128,20 @@ const Handlers = React.createClass({
         });
     },
 
+    handleMouseMove(event) {
+        this.handleMouseEvent(event, this.props.onMouseMove);
+    },
+
+    handleClick(event) {
+        this.handleMouseEvent(event, this.props.onClick);
+    },
+
     // render
 
     render() {
         let {props} = this;
         let {className, scaleX, scaleY, layerWidth, layerHeight} = props;
-        let {onMouseMove, onMouseLeave} = props;
+        let {onClick, onMouseMove, onMouseLeave} = props;
 
         this.updateScales();
 
@@ -149,6 +158,7 @@ const Handlers = React.createClass({
 
         return <g
             className={className}
+            onClick={onClick && this.handleClick}
             onMouseMove={onMouseMove && this.handleMouseMove}
             onMouseLeave={onMouseLeave}>
             <rect
