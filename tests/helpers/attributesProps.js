@@ -32,7 +32,7 @@ module.exports = function (Component, options = {}) {
 
     describe('should support "attributes"-type properties', () => {
 
-        _.forEach(options.attributesProperties, ([tagName, className], attrProperty) => {
+        _.forEach(options.props, ([tagName, className], attrProperty) => {
 
             const selector = _.isUndefined(className) ?
                 tagName :

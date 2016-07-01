@@ -31,3 +31,6 @@ global.navigator = {
 global['React'] = require('react');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
+
+// Let's imagine we have no Object.assign
+Object.assign = undefined;

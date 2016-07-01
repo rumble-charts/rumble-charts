@@ -12,7 +12,7 @@ module.exports = function (Component, options = {}) {
         chartWidth: 100,
         chartHeight: 100,
         props: {
-            seriesVisible: ['g', 'series']
+            seriesStyle: ['g', 'series']
         }
     });
     let {seriesObjects3x5} = options;
@@ -32,7 +32,7 @@ module.exports = function (Component, options = {}) {
 
     describe('should support "style"-type properties', () => {
 
-        _.forEach(options.styleProperties, ([tagName, className], styleProperty) => {
+        _.forEach(options.props, ([tagName, className], styleProperty) => {
 
             const selector = _.isUndefined(className) ?
                 tagName :
@@ -44,13 +44,13 @@ module.exports = function (Component, options = {}) {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                         <Component
                             className='chart'
-                            {...{[styleProperty]: {transition: '100ms'}}}
+                            {...{[styleProperty]: {display: 'none'}}}
                         />
                     </Chart>);
                     return delayed(() => {
                         let render = wrapper.render();
                         expect(render.find(selector).length).toBeGreaterThan(0);
-                        expect(render.find(selector).prop('style').transition).toEqual('100ms');
+                        expect(render.find(selector).prop('style').display).toEqual('none');
                     });
                 });
 
@@ -60,7 +60,7 @@ module.exports = function (Component, options = {}) {
                             className='chart'
                             {...{
                                 [styleProperty]: ({series}) => ({
-                                    transition: '1' + series.data[0].y + 'ms'
+                                    display: '1' + series.data[0].y + 'ms'
                                 })
                             }}
                         />
@@ -69,7 +69,7 @@ module.exports = function (Component, options = {}) {
                         let render = wrapper.render();
                         expect(render.find(selector).length).toBeGreaterThan(0);
                         const style = render.find(selector).last().prop('style');
-                        expect(style.transition).toEqual('1' + seriesObjects3x5[2].data[0].y + 'ms');
+                        expect(style.display).toEqual('1' + seriesObjects3x5[2].data[0].y + 'ms');
                     });
                 });
 

@@ -421,6 +421,7 @@ module.exports = function (Component, options = {}) {
             chartWidth,
             chartHeight,
             seriesObjects3x5,
+            delay: options.delay,
             props: options.visibleProperties
         });
 
@@ -429,6 +430,7 @@ module.exports = function (Component, options = {}) {
             chartWidth,
             chartHeight,
             seriesObjects3x5,
+            delay: options.delay,
             props: options.attributesProperties
         });
 
@@ -437,6 +439,7 @@ module.exports = function (Component, options = {}) {
             chartWidth,
             chartHeight,
             seriesObjects3x5,
+            delay: options.delay,
             props: options.styleProperties
         });
 
