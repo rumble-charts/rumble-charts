@@ -1,12 +1,16 @@
 'use strict';
 
 const {shallow, mount} = require('enzyme');
+const d3 = require('d3');
 const Animate = require('../../lib/Animate');
+const helpers = require('../../lib/helpers');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 const later = require('../helpers/later');
 
 const series1 = generateRandomSeries(3, 5, {type: 'object'});
 const series2 = generateRandomSeries(3, 5, {type: 'object'});
+const seriesNumber = generateRandomSeries(3, 5, {type: 'number'});
+const seriesArray = generateRandomSeries(3, 5, {type: 'array'});
 
 describe('Animate', () => {
 
@@ -114,6 +118,162 @@ describe('Animate', () => {
             wrapper.unmount();
             expect(timer.stop).toHaveBeenCalledTimes(1);
         }, 30);
+    });
+
+    pit('should interpolate series points from numbers to objects', () => {
+        const wrapper = mount(<Animate
+            series={seriesNumber}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should interpolate series points from arrays to objects', () => {
+        const wrapper = mount(<Animate
+            series={seriesArray}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should interpolate series points from null to objects', () => {
+        const wrapper = mount(<Animate
+            series={[{data:[null]}]}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should interpolate series from nothing to objects', () => {
+        const wrapper = mount(<Animate
+            series={null}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should trigger onStart and onEnd callback', () => {
+        const onStart = jasmine.createSpy('onStart');
+        const onEnd = jasmine.createSpy('onEnd');
+        const wrapper = mount(<Animate
+            series={series1}
+            onStart={onStart}
+            onEnd={onEnd}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+            expect(onStart).toHaveBeenCalledTimes(1);
+            expect(onEnd).toHaveBeenCalledTimes(1);
+        }, 150);
+    });
+
+    pit('should support ease prop as a function', () => {
+        const wrapper = mount(<Animate
+            series={series1}
+            ease={d3.ease('linear')}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should support empty ease prop', () => {
+        const wrapper = mount(<Animate
+            series={series1}
+            ease={null}
+            duration={100}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+
+        return later(() => {
+            const span = wrapper.find('span');
+            const expectedSeries = span.prop('series');
+            expect(expectedSeries).toEqual(series2);
+        }, 150);
+    });
+
+    pit('should support sequential updates', () => {
+        const wrapper = mount(<Animate
+            series={series1}
+            duration={200}>
+            <span />
+        </Animate>);
+
+        jest.useRealTimers();
+        wrapper.setProps({series: series2});
+        const timer = wrapper.find(Animate).node._timer;
+
+        return later(() => {
+            spyOn(timer, 'stop');
+            jest.useRealTimers();
+
+            wrapper.setProps({series: series1});
+            later(() => {
+                expect(timer.stop).toHaveBeenCalledTimes(1);
+
+                later(() => {
+                    const span = wrapper.find('span');
+                    const expectedSeries = span.prop('series');
+                    expect(wrapper.state().series).toEqual(series1);
+                    expect(expectedSeries).toEqual(series1);
+                }, 250);
+            }, 10);
+        }, 50);
     });
 
 });

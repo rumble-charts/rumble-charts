@@ -119,7 +119,7 @@ const Animate = React.createClass({
 module.exports = Animate;
 
 d3.interpolators.push(function (a, b) {
-    var c, i;
+    var c, i, an = typeof a == 'number';
     if (b && !_.isUndefined(b.x) && !_.isUndefined(b.y)) {
         // point
         a = a || {};
@@ -132,7 +132,10 @@ d3.interpolators.push(function (a, b) {
             }
         }
         for (k in b) {
-            if (!(k in a)) {
+            if (an && k === 'y') {
+                // from number to object
+                i[k] = d3.interpolate(a, b[k]);
+            } else if (!an && !(k in a)) {
                 c[k] = b[k];
             }
         }

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir lib",
     "test": "npm run check && npm run build && ./node_modules/.bin/jest --coverage",
-    "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch --noStackTrace",
+    "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch",
     "check": "./node_modules/.bin/eslint src/*",
     "gh-pages": "./node_modules/.bin/gh-pages -d styleguide",
     "styleguide-server": "styleguidist server",
