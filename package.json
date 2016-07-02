@@ -50,7 +50,7 @@
     "lodash": "^4.13.1"
   },
   "devDependencies": {
-    "@kadira/storybook": "1.36.0",
+    "@kadira/storybook": "^1.36.0",
     "babel-cli": "^6.10.1",
     "babel-jest": "^13.0.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",
