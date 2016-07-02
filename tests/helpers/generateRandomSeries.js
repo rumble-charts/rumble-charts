@@ -2,6 +2,9 @@
 
 const _ = require('lodash');
 
+/**
+ * @returns {Array}
+ */
 const generateRandomSeries = function (seriesCount, pointsCount, options = {}) {
     options = _.defaults({}, options, {
         type: 'number', // number, integer, array, object

@@ -120,8 +120,8 @@ const Bars = React.createClass({
         let deltaX = 0;
         if (!props.combined) {
             deltaX = barWidth * index -
-                ((props.series || []).length - 1) * 0.5 * barWidth +
-                (index - ((props.series || []).length - 1) / 2) * this.innerPadding;
+                (props.series.length - 1) * 0.5 * barWidth +
+                (index - (props.series.length - 1) / 2) * this.innerPadding;
         }
 
 
