@@ -3,7 +3,6 @@
 const {shallow, mount} = require('enzyme');
 const d3 = require('d3');
 const Animate = require('../../lib/Animate');
-const helpers = require('../../lib/helpers');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 const later = require('../helpers/later');
 
@@ -12,16 +11,19 @@ const series2 = generateRandomSeries(3, 5, {type: 'object'});
 const seriesNumber = generateRandomSeries(3, 5, {type: 'number'});
 const seriesArray = generateRandomSeries(3, 5, {type: 'array'});
 
+const Graphics = () => <span />;
+Graphics.displayName = 'Graphics';
+
 describe('Animate', () => {
 
     it('should render g element and takes a series object', () => {
         const wrapper = shallow(<Animate series={series1} className='animate'>
-            <span />
+            <Graphics />
         </Animate>);
         const g = wrapper.find('g');
         expect(g.length).toEqual(1);
         expect(g.prop('className')).toEqual('animate');
-        const expectedSeries = wrapper.find('span').prop('series');
+        const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
     });
 
@@ -31,9 +33,9 @@ describe('Animate', () => {
             minX={0} maxX={2} minY={0} maxY={100}
             layerWidth={100} layerHeight={100}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
-        const expectedSeries = wrapper.find('span').prop('series');
+        const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
         jest.useRealTimers();
         wrapper.setProps({
@@ -47,8 +49,8 @@ describe('Animate', () => {
         });
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).not.toEqual(series1);
             expect(expectedSeries).not.toEqual(series2);
             if (series1[0].data[0].y < series2[0].data[0].y) {
@@ -58,23 +60,23 @@ describe('Animate', () => {
                 expect(expectedSeries[0].data[0].y).not.toBeGreaterThan(series1[0].data[0].y);
                 expect(expectedSeries[0].data[0].y).not.toBeLessThan(series2[0].data[0].y);
             }
-            expect(span.prop('minX')).not.toBeLessThan(0);
-            expect(span.prop('maxX')).not.toBeLessThan(2);
-            expect(span.prop('minY')).not.toBeGreaterThan(0);
-            expect(span.prop('maxY')).not.toBeGreaterThan(100);
-            expect(span.prop('layerWidth')).not.toBeGreaterThan(100);
-            expect(span.prop('layerHeight')).not.toBeLessThan(100);
+            expect(Graphics.prop('minX')).not.toBeLessThan(0);
+            expect(Graphics.prop('maxX')).not.toBeLessThan(2);
+            expect(Graphics.prop('minY')).not.toBeGreaterThan(0);
+            expect(Graphics.prop('maxY')).not.toBeGreaterThan(100);
+            expect(Graphics.prop('layerWidth')).not.toBeGreaterThan(100);
+            expect(Graphics.prop('layerHeight')).not.toBeLessThan(100);
 
         }, 50).then(() => later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-            expect(span.prop('minX')).toEqual(1);
-            expect(span.prop('maxX')).toEqual(3);
-            expect(span.prop('minY')).toEqual(-50);
-            expect(span.prop('maxY')).toEqual(50);
-            expect(span.prop('layerWidth')).toEqual(50);
-            expect(span.prop('layerHeight')).toEqual(150);
+            expect(Graphics.prop('minX')).toEqual(1);
+            expect(Graphics.prop('maxX')).toEqual(3);
+            expect(Graphics.prop('minY')).toEqual(-50);
+            expect(Graphics.prop('maxY')).toEqual(50);
+            expect(Graphics.prop('layerWidth')).toEqual(50);
+            expect(Graphics.prop('layerHeight')).toEqual(150);
 
         }, 100));
     });
@@ -84,9 +86,9 @@ describe('Animate', () => {
             series={series1}
             logFPS={true}
             duration={10}>
-            <span />
+            <Graphics />
         </Animate>);
-        const expectedSeries = wrapper.find('span').prop('series');
+        const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
         jest.useRealTimers();
         let consoleWarn = console.warn;
@@ -94,8 +96,8 @@ describe('Animate', () => {
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
             expect(console.warn).toHaveBeenCalled();
             console.warn = consoleWarn;
@@ -106,7 +108,7 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={series1}
             duration={1}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
@@ -124,15 +126,15 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={seriesNumber}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -141,15 +143,15 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={seriesArray}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -158,15 +160,15 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={[{data:[null]}]}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -175,15 +177,15 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={null}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -196,15 +198,15 @@ describe('Animate', () => {
             onStart={onStart}
             onEnd={onEnd}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
             expect(onStart).toHaveBeenCalledTimes(1);
             expect(onEnd).toHaveBeenCalledTimes(1);
@@ -216,15 +218,15 @@ describe('Animate', () => {
             series={series1}
             ease={d3.ease('linear')}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -234,15 +236,15 @@ describe('Animate', () => {
             series={series1}
             ease={null}
             duration={100}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const span = wrapper.find('span');
-            const expectedSeries = span.prop('series');
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
         }, 150);
     });
@@ -251,7 +253,7 @@ describe('Animate', () => {
         const wrapper = mount(<Animate
             series={series1}
             duration={200}>
-            <span />
+            <Graphics />
         </Animate>);
 
         jest.useRealTimers();
@@ -267,8 +269,8 @@ describe('Animate', () => {
                 expect(timer.stop).toHaveBeenCalledTimes(1);
 
                 later(() => {
-                    const span = wrapper.find('span');
-                    const expectedSeries = span.prop('series');
+                    const Graphics = wrapper.find('Graphics');
+                    const expectedSeries = Graphics.prop('series');
                     expect(wrapper.state().series).toEqual(series1);
                     expect(expectedSeries).toEqual(series1);
                 }, 250);

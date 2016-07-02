@@ -7,7 +7,7 @@
     "build": "./node_modules/.bin/babel src --out-dir lib",
     "test": "npm run check && npm run build && ./node_modules/.bin/jest --coverage",
     "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch",
-    "check": "./node_modules/.bin/eslint src/*",
+    "check": "./node_modules/.bin/eslint src/* tests/*",
     "gh-pages": "./node_modules/.bin/gh-pages -d styleguide",
     "styleguide-server": "styleguidist server",
     "styleguide-build": "NODE_ENV=production styleguidist build",
@@ -50,7 +50,7 @@
     "lodash": "^4.13.1"
   },
   "devDependencies": {
-    "@kadira/storybook": "1.35.1",
+    "@kadira/storybook": "1.36.0",
     "babel-cli": "^6.10.1",
     "babel-jest": "^13.0.0",
     "babel-plugin-transform-react-jsx": "^6.8.0",
@@ -58,20 +58,20 @@
     "babel-preset-react-hmre": "^1.1.1",
     "canvas": "^1.4.0",
     "enzyme": "^2.3.0",
-    "eslint": "^2.13.1",
+    "eslint": "^3.0.0",
     "eslint-plugin-react": "^5.2.2",
     "gh-pages": "^0.11.0",
     "jest": "^13.0.0",
     "jest-cli": "^13.0.0",
     "jsdom": "^9.3.0",
-    "react": "0.14.x || 15.0.x || 15.1.x",
-    "react-addons-test-utils": "0.14.x || 15.0.x || 15.1.x",
-    "react-dom": "0.14.x || 15.0.x || 15.1.x",
+    "react": "0.14.x || 15.0.x || 15.1.x || 15.2.x",
+    "react-addons-test-utils": "0.14.x || 15.0.x || 15.1.x || 15.2.x",
+    "react-dom": "0.14.x || 15.0.x || 15.1.x || 15.2.x",
     "react-styleguidist": "^2.3.1"
   },
   "peerDependencies": {
-    "react": "0.14.x || 15.0.x || 15.1.x",
-    "react-dom": "0.14.x || 15.0.x || 15.1.x"
+    "react": "0.14.x || 15.0.x || 15.1.x || 15.2.x",
+    "react-dom": "0.14.x || 15.0.x || 15.1.x || 15.2.x"
   },
   "jest": {
     "automock": false,

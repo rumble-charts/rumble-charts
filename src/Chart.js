@@ -187,7 +187,10 @@ const Chart = React.createClass({
 
         const Tag = this.props.tag;
 
-        return <Tag {...this.props}>
+        return <Tag {..._.omit(this.props, [
+            'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
+            'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
+        ])}>
             {children}
         </Tag>;
     }
