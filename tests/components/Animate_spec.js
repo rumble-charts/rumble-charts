@@ -32,7 +32,7 @@ describe('Animate', () => {
             series={series1}
             minX={0} maxX={2} minY={0} maxY={100}
             layerWidth={100} layerHeight={100}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
@@ -67,25 +67,26 @@ describe('Animate', () => {
             expect(Graphics.prop('layerWidth')).not.toBeGreaterThan(100);
             expect(Graphics.prop('layerHeight')).not.toBeLessThan(100);
 
-        }, 50).then(() => later(() => {
-            const Graphics = wrapper.find('Graphics');
-            const expectedSeries = Graphics.prop('series');
-            expect(expectedSeries).toEqual(series2);
-            expect(Graphics.prop('minX')).toEqual(1);
-            expect(Graphics.prop('maxX')).toEqual(3);
-            expect(Graphics.prop('minY')).toEqual(-50);
-            expect(Graphics.prop('maxY')).toEqual(50);
-            expect(Graphics.prop('layerWidth')).toEqual(50);
-            expect(Graphics.prop('layerHeight')).toEqual(150);
+            later(() => {
+                const Graphics = wrapper.find('Graphics');
+                const expectedSeries = Graphics.prop('series');
+                expect(expectedSeries).toEqual(series2);
+                expect(Graphics.prop('minX')).toEqual(1);
+                expect(Graphics.prop('maxX')).toEqual(3);
+                expect(Graphics.prop('minY')).toEqual(-50);
+                expect(Graphics.prop('maxY')).toEqual(50);
+                expect(Graphics.prop('layerWidth')).toEqual(50);
+                expect(Graphics.prop('layerHeight')).toEqual(150);
 
-        }, 100));
+            }, 1000);
+        }, 500);
     });
 
     pit('should log FPS metrics', () => {
         const wrapper = mount(<Animate
             series={series1}
             logFPS={true}
-            duration={10}>
+            duration={100}>
             <Graphics />
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
@@ -101,13 +102,13 @@ describe('Animate', () => {
             expect(expectedSeries).toEqual(series2);
             expect(console.warn).toHaveBeenCalled();
             console.warn = consoleWarn;
-        }, 50);
+        }, 500);
     });
 
     pit('should stop timer on unmount', () => {
         const wrapper = mount(<Animate
             series={series1}
-            duration={1}>
+            duration={10}>
             <Graphics />
         </Animate>);
 
@@ -119,13 +120,13 @@ describe('Animate', () => {
             spyOn(timer, 'stop');
             wrapper.unmount();
             expect(timer.stop).toHaveBeenCalledTimes(1);
-        }, 30);
+        }, 300);
     });
 
     pit('should interpolate series points from numbers to objects', () => {
         const wrapper = mount(<Animate
             series={seriesNumber}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -136,13 +137,13 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should interpolate series points from arrays to objects', () => {
         const wrapper = mount(<Animate
             series={seriesArray}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -153,13 +154,13 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should interpolate series points from null to objects', () => {
         const wrapper = mount(<Animate
             series={[{data:[null]}]}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -170,13 +171,13 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should interpolate series from nothing to objects', () => {
         const wrapper = mount(<Animate
             series={null}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -187,7 +188,7 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should trigger onStart and onEnd callback', () => {
@@ -197,7 +198,7 @@ describe('Animate', () => {
             series={series1}
             onStart={onStart}
             onEnd={onEnd}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -210,14 +211,14 @@ describe('Animate', () => {
             expect(expectedSeries).toEqual(series2);
             expect(onStart).toHaveBeenCalledTimes(1);
             expect(onEnd).toHaveBeenCalledTimes(1);
-        }, 150);
+        }, 1500);
     });
 
     pit('should support ease prop as a function', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={d3.ease('linear')}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -228,14 +229,14 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should support empty ease prop', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={null}
-            duration={100}>
+            duration={1000}>
             <Graphics />
         </Animate>);
 
@@ -246,13 +247,13 @@ describe('Animate', () => {
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 150);
+        }, 1500);
     });
 
     pit('should support sequential updates', () => {
         const wrapper = mount(<Animate
             series={series1}
-            duration={200}>
+            duration={2000}>
             <Graphics />
         </Animate>);
 
@@ -273,9 +274,9 @@ describe('Animate', () => {
                     const expectedSeries = Graphics.prop('series');
                     expect(wrapper.state().series).toEqual(series1);
                     expect(expectedSeries).toEqual(series1);
-                }, 250);
-            }, 10);
-        }, 50);
+                }, 2500);
+            }, 100);
+        }, 500);
     });
 
 });
