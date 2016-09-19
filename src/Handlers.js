@@ -1,7 +1,6 @@
 'use strict';
 
 const React = require('react'),
-    ReactDOM = require('react-dom'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
@@ -41,8 +40,7 @@ const Handlers = React.createClass({
     // helpers
 
     updatePoint0() {
-        let target = ReactDOM.findDOMNode(this.rect);
-        let rect = target.getBoundingClientRect();
+        let rect = this.rect.getBoundingClientRect();
         this.left = rect.left;
         this.top = rect.top;
         this.width = rect.width;

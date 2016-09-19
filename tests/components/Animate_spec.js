@@ -37,7 +37,6 @@ describe('Animate', () => {
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
-        jest.useRealTimers();
         wrapper.setProps({
             series: series2,
             minX: 1,
@@ -91,7 +90,6 @@ describe('Animate', () => {
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
-        jest.useRealTimers();
         let consoleWarn = console.warn;
         console.warn = jasmine.createSpy('console.warn');
         wrapper.setProps({series: series2});
@@ -112,7 +110,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -130,7 +127,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -147,7 +143,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -164,7 +159,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -181,7 +175,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -202,7 +195,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -222,7 +214,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -240,7 +231,6 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
 
         return later(() => {
@@ -257,13 +247,11 @@ describe('Animate', () => {
             <Graphics />
         </Animate>);
 
-        jest.useRealTimers();
         wrapper.setProps({series: series2});
         const timer = wrapper.find(Animate).node._timer;
 
         return later(() => {
             spyOn(timer, 'stop');
-            jest.useRealTimers();
 
             wrapper.setProps({series: series1});
             later(() => {

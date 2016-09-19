@@ -11,26 +11,6 @@ global.window.crypto = {
     }
 };
 
-const jsdom = require('jsdom').jsdom;
-
-const exposedProperties = ['window', 'navigator', 'document'];
-
-global.document = jsdom('');
-global.window = document.defaultView;
-Object.keys(document.defaultView).forEach((property) => {
-    if (typeof global[property] === 'undefined') {
-        exposedProperties.push(property);
-        global[property] = document.defaultView[property];
-    }
-});
-
-global.navigator = {
-    userAgent: 'node.js'
-};
-
 global['React'] = require('react');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
-
-// Let's imagine we have no Object.assign
-Object.assign = undefined;

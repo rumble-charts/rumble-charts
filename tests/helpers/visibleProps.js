@@ -5,6 +5,7 @@ const _ = require('lodash');
 const Chart = require('../../lib/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
 const later = require('./later');
+const spyOnWarnings = require('./spyOnWarnings');
 
 module.exports = function (Component, options = {}) {
     options = _.defaults({}, options, {
@@ -23,7 +24,6 @@ module.exports = function (Component, options = {}) {
     }
 
     const delayed = function (callback) {
-        jest.runAllTimers();
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -53,7 +53,7 @@ module.exports = function (Component, options = {}) {
                     });
                 });
 
-                pit('can be a function', () => {
+                it('can be a function', () => {
                     const wrapper = render(<Chart
                         width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                         <Component
@@ -81,12 +81,19 @@ module.exports = function (Component, options = {}) {
                 });
 
                 it('should be correctly defined in propTypes', () => {
-                    expect(Component.propTypes[visibleProperty](
-                        {[visibleProperty]: false}, visibleProperty, '', null
-                    )).toEqual(null);
-                    expect(Component.propTypes[visibleProperty](
-                        {[visibleProperty]: ({seriesIndex}) => seriesIndex !== 0}, visibleProperty, '', null
-                    )).toEqual(null);
+                    expect(Component.propTypes[visibleProperty]).toEqual(jasmine.any(Function));
+                    expect(spyOnWarnings(() => <Chart
+                        width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                        <Component
+                            {...{[visibleProperty]: false}}
+                        />
+                    </Chart>)).not.toHaveBeenCalled();
+                    expect(spyOnWarnings(() => <Chart
+                        width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                        <Component
+                            {...{[visibleProperty]: ({seriesIndex}) => seriesIndex !== 0}}
+                        />
+                    </Chart>)).not.toHaveBeenCalled();
                 });
 
                 it('should be true by default', () => {

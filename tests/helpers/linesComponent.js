@@ -4,6 +4,7 @@ const {shallow} = require('enzyme');
 const _ = require('lodash');
 const Chart = require('../../lib/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
+const spyOnWarnings = require('./spyOnWarnings');
 
 module.exports = function (Component, options = {}) {
     options = _.defaults({}, options, {
@@ -23,7 +24,10 @@ module.exports = function (Component, options = {}) {
                 const pathLines = render.find('path');
                 expect(pathLines.prop('stroke-width')).toEqual('10');
                 // propTypes
-                expect(Component.propTypes.lineWidth({lineWidth: 15}, 'lineWidth', '', null)).toEqual(null);
+                expect(Component.propTypes.lineWidth).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={100} height={100} series={seriesObjects3x5}>
+                    <Component lineWidth={15}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
         }
 
@@ -38,7 +42,10 @@ module.exports = function (Component, options = {}) {
                     expect(d.length).toBeGreaterThan(20);
                 });
                 // propTypes
-                expect(Component.propTypes.interpolation({interpolation: options.lineInterpolations[0]}, 'interpolation', '', null)).toEqual(null);
+                expect(Component.propTypes.interpolation).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={100} height={100} series={seriesObjects3x5}>
+                    <Component interpolation={options.lineInterpolations[0]}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
         }
 

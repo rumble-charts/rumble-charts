@@ -2,6 +2,7 @@
 
 const enzyme = require('enzyme');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
+const spyOnWarnings = require('../helpers/spyOnWarnings');
 const Chart = require('../../lib/Chart');
 
 const Ticks = require('../../lib/Ticks');
@@ -51,7 +52,10 @@ describe('Ticks', () => {
         });
 
         it('should be correctly defined in propTypes', () => {
-            expect(Ticks.propTypes.className({className: 'ticks'}, 'className', '', null)).toEqual(null);
+            expect(Ticks.propTypes.className).toEqual(jasmine.any(Function));
+            expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
+                <Ticks className='ticks'/>
+            </Chart>)).not.toHaveBeenCalled();
         });
 
         it('should have no default value', () => {
@@ -72,7 +76,10 @@ describe('Ticks', () => {
         });
 
         it('should be correctly defined in propTypes', () => {
-            expect(Ticks.propTypes.style({style: {transition: '100ms'}}, 'style', '', null)).toEqual(null);
+            expect(Ticks.propTypes.style).toEqual(jasmine.any(Function));
+            expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
+                <Ticks style={{transition: '100ms'}}/>
+            </Chart>)).not.toHaveBeenCalled();
         });
 
         it('should have no default value', () => {
@@ -93,7 +100,10 @@ describe('Ticks', () => {
         });
 
         it('should be correctly defined in propTypes', () => {
-            expect(Ticks.propTypes.opacity({opacity: 0.9}, 'opacity', '', null)).toEqual(null);
+            expect(Ticks.propTypes.opacity).toEqual(jasmine.any(Function));
+            expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
+                <Ticks opacity={0.9}/>
+            </Chart>)).not.toHaveBeenCalled();
         });
 
         it('should have no default value', () => {

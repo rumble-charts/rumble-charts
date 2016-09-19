@@ -5,6 +5,7 @@ const _ = require('lodash');
 const Chart = require('../../lib/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
 const later = require('./later');
+const spyOnWarnings = require('./spyOnWarnings');
 
 module.exports = function (Component, options = {}) {
     options = _.defaults({}, options, {
@@ -23,7 +24,6 @@ module.exports = function (Component, options = {}) {
     }
 
     const delayed = function (callback) {
-        jest.runAllTimers();
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -74,16 +74,21 @@ module.exports = function (Component, options = {}) {
                 });
 
                 it('should be correctly defined in propTypes', () => {
-                    expect(Component.propTypes[styleProperty](
-                        {[styleProperty]: {transition: '123ms'}}, styleProperty, '', null
-                    )).toEqual(null);
-                    expect(Component.propTypes[styleProperty](
-                        {
-                            [styleProperty]: ({series}) => ({
-                                transform: 'translateX(1' + series.data[0].y + 'px)'
-                            })
-                        }, styleProperty, '', null
-                    )).toEqual(null);
+                    expect(Component.propTypes[styleProperty]).toEqual(jasmine.any(Function));
+                    expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                        <Component
+                            {...{[styleProperty]: {transition: '123ms'}}}
+                        />
+                    </Chart>)).not.toHaveBeenCalled();
+                    expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                        <Component
+                            {...{
+                                [styleProperty]: ({series}) => ({
+                                    transform: 'translateX(1' + series.data[0].y + 'px)'
+                                })
+                            }}
+                        />
+                    </Chart>)).not.toHaveBeenCalled();
                 });
 
                 it('should not have default value', () => {

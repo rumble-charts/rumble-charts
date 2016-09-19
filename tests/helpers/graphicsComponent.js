@@ -9,6 +9,7 @@ const visibleProps = require('./visibleProps');
 const attributesProps = require('./attributesProps');
 const styleProps = require('./styleProps');
 const later = require('./later');
+const spyOnWarnings = require('./spyOnWarnings');
 
 module.exports = function (Component, options = {}) {
     options = _.defaults({}, options, {
@@ -36,7 +37,6 @@ module.exports = function (Component, options = {}) {
     });
 
     const delayed = function (callback) {
-        jest.runAllTimers();
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -202,9 +202,16 @@ module.exports = function (Component, options = {}) {
             }
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.series({series: seriesNumbers3x5}, 'series', '', null)).toEqual(null);
-                expect(Component.propTypes.series({series: seriesArrays3x5}, 'series', '', null)).toEqual(null);
-                expect(Component.propTypes.series({series: seriesObjects3x5}, 'series', '', null)).toEqual(null);
+                expect(Component.propTypes.series).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
+                    <Component series={seriesNumbers3x5}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
+                    <Component series={seriesArrays3x5}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
+                    <Component series={seriesObjects3x5}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             it('should have no default value', () => {
@@ -267,11 +274,16 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.seriesIndex({seriesIndex: 1}, 'seriesIndex', '', null)).toEqual(null);
-                expect(Component.propTypes.seriesIndex({seriesIndex: [0, 2]}, 'seriesIndex', '', null)).toEqual(null);
-                expect(Component.propTypes.seriesIndex({
-                    seriesIndex: (series, seriesIndex) => seriesIndex > 1
-                }, 'seriesIndex', '', null)).toEqual(null);
+                expect(Component.propTypes.seriesIndex).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component seriesIndex={1}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component seriesIndex={[0, 2]}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component seriesIndex={(series, seriesIndex) => seriesIndex > 1}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             pit('should have no default value', () => {
@@ -309,7 +321,10 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.className({className: 'chart'}, 'className', '', null)).toEqual(null);
+                expect(Component.propTypes.className).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component className='chart'/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             it('should have no default value', () => {
@@ -332,7 +347,10 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.style({style: {fill: 'red'}}, 'style', '', null)).toEqual(null);
+                expect(Component.propTypes.style).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component style={{fill: 'red'}}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             it('should have no default value', () => {
@@ -380,10 +398,19 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.colors({colors: 'category20b'}, 'colors', '', null)).toEqual(null);
-                expect(Component.propTypes.colors({colors: ['red', 'blue']}, 'colors', '', null)).toEqual(null);
-                expect(Component.propTypes.colors({colors: seriesIndex => '#fff00' + seriesIndex}, 'colors', '', null)).toEqual(null);
-                expect(Component.propTypes.colors({colors: d3.scale.category10()}, 'colors', '', null)).toEqual(null);
+                expect(Component.propTypes.colors).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component colors='category20b'/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component colors={['red', 'blue']}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component colors={seriesIndex => '#fff00' + seriesIndex}/>
+                </Chart>)).not.toHaveBeenCalled();
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component colors={d3.scale.category10()}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             it('should have no default value', () => {
@@ -406,7 +433,10 @@ module.exports = function (Component, options = {}) {
             });
 
             it('should be correctly defined in propTypes', () => {
-                expect(Component.propTypes.opacity({opacity: 0.9}, 'opacity', '', null)).toEqual(null);
+                expect(Component.propTypes.opacity).toEqual(jasmine.any(Function));
+                expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                    <Component opacity={0.9}/>
+                </Chart>)).not.toHaveBeenCalled();
             });
 
             it('should have no default value', () => {
