@@ -2,7 +2,7 @@
 
 const {shallow} = require('enzyme');
 const _ = require('lodash');
-const Chart = require('../../lib/Chart');
+const Chart = require('../../src/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
 const spyOnWarnings = require('./spyOnWarnings');
 

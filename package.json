@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "./node_modules/.bin/babel src --out-dir lib",
-    "test": "npm run check && npm run build && ./node_modules/.bin/jest --coverage",
-    "start": "./node_modules/.bin/babel --watch src --out-dir lib & ./node_modules/.bin/jest --watch",
+    "test": "npm run check && ./node_modules/.bin/jest --coverage",
+    "start": "./node_modules/.bin/jest --watch",
     "check": "./node_modules/.bin/eslint src/* tests/*",
     "gh-pages": "./node_modules/.bin/gh-pages -d styleguide",
     "styleguide-server": "styleguidist server",
@@ -14,9 +14,9 @@
     "storybook-server": "./node_modules/.bin/start-storybook -p 9001",
     "storybook-build": "./node_modules/.bin/build-storybook -o storybook",
     "publish-docs": "npm run styleguide-build && npm run gh-pages",
-    "publish-patch": "npm test && npm version patch && npm publish",
-    "publish-minor": "npm test && npm version minor && npm publish",
-    "publish-major": "npm test && npm version major && npm publish"
+    "publish-patch": "npm test && npm build && npm version patch && npm publish",
+    "publish-minor": "npm test && npm build && npm version minor && npm publish",
+    "publish-major": "npm test && npm build && npm version major && npm publish"
   },
   "repository": {
     "type": "git",

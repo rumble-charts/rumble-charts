@@ -1,7 +1,7 @@
 'use strict';
 
 const {shallow} = require('enzyme');
-const DropShadow = require('../../lib/DropShadow');
+const DropShadow = require('../../src/DropShadow');
 
 describe('DropShadow', () => {
 

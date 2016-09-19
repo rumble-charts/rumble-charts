@@ -2,7 +2,7 @@
 
 const graphicsComponent = require('../helpers/graphicsComponent');
 
-const Labels = require('../../lib/Labels');
+const Labels = require('../../src/Labels');
 
 describe('Labels', () => {
 

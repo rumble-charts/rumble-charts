@@ -3,13 +3,13 @@
 const {shallow} = require('enzyme');
 const d3 = require('d3');
 const _ = require('lodash');
-const helpers = require('../../lib/helpers');
-const Chart = require('../../lib/Chart');
+const helpers = require('../../src/helpers');
+const Chart = require('../../src/Chart');
 const graphicsComponent = require('../helpers/graphicsComponent');
 const linesComponent = require('../helpers/linesComponent');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 
-const RadialLines = require('../../lib/RadialLines');
+const RadialLines = require('../../src/RadialLines');
 
 describe('RadialLines', () => {
 

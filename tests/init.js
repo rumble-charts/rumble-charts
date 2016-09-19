@@ -13,4 +13,4 @@ global.window.crypto = {
 
 global['React'] = require('react');
 
-jasmine.DEFAULT_TIMEOUT_INTERVAL = 2000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 3000;

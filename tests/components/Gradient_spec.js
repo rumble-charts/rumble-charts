@@ -1,7 +1,7 @@
 'use strict';
 
 const {shallow, mount} = require('enzyme');
-const Gradient = require('../../lib/Gradient');
+const Gradient = require('../../src/Gradient');
 
 describe('Gradient', () => {
 

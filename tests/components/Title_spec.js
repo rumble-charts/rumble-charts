@@ -1,7 +1,7 @@
 'use strict';
 
 const {shallow} = require('enzyme');
-const Title = require('../../lib/Title');
+const Title = require('../../src/Title');
 
 describe('Title', () => {
 

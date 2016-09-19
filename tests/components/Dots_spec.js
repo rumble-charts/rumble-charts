@@ -2,7 +2,7 @@
 
 const graphicsComponent = require('../helpers/graphicsComponent');
 
-const Dots = require('../../lib/Dots');
+const Dots = require('../../src/Dots');
 
 describe('Dots', () => {
 

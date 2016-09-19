@@ -2,8 +2,8 @@
 
 const {mount} = require('enzyme');
 
-const Cloud = require('../../lib/Cloud');
-const Chart = require('../../lib/Chart');
+const Cloud = require('../../src/Cloud');
+const Chart = require('../../src/Chart');
 
 const graphicsComponent = require('../helpers/graphicsComponent');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
@@ -60,19 +60,19 @@ describe('Cloud', () => {
         chartHeight: 1000
     });
 
-    pit('should update the chart', () => {
+    it('should update the chart', () => {
         const wrapper = mount(<Chart width={1000} height={1000} series={series1}>
             <Cloud />
         </Chart>);
 
         const cloud = wrapper.find(Cloud);
         expect(cloud.prop('series')).toEqual(series1);
+        wrapper.render();
         return later(() => {
-            spyOn(Cloud.prototype, 'componentWillReceiveProps');
             wrapper.setProps({series: series2});
-            expect(Cloud.prototype.componentWillReceiveProps).toHaveBeenCalledTimes(1);
+            wrapper.render();
             expect(cloud.prop('series')).toEqual(series2);
-        }, 1000);
+        }, 2000);
     });
 
 });

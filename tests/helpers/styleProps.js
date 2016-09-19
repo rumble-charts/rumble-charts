@@ -2,7 +2,7 @@
 
 const enzyme = require('enzyme');
 const _ = require('lodash');
-const Chart = require('../../lib/Chart');
+const Chart = require('../../src/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
 const later = require('./later');
 const spyOnWarnings = require('./spyOnWarnings');
@@ -40,7 +40,7 @@ module.exports = function (Component, options = {}) {
 
             describe(styleProperty, () => {
 
-                pit('can be an object', () => {
+                it('can be an object', () => {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                         <Component
                             className='chart'
@@ -54,7 +54,7 @@ module.exports = function (Component, options = {}) {
                     });
                 });
 
-                pit('can be a function', () => {
+                it('can be a function', () => {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                         <Component
                             className='chart'

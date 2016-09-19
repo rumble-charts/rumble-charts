@@ -4,9 +4,9 @@ const {mount} = require('enzyme');
 const graphicsComponent = require('../helpers/graphicsComponent');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 
-const Chart = require('../../lib/Chart');
-const Transform = require('../../lib/Transform');
-const Bars = require('../../lib/Bars');
+const Chart = require('../../src/Chart');
+const Transform = require('../../src/Transform');
+const Bars = require('../../src/Bars');
 const seriesObjects3x5 = generateRandomSeries(3, 5, {type: 'object'});
 
 describe('Bars', () => {

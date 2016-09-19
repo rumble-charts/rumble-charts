@@ -3,7 +3,7 @@
 const enzyme = require('enzyme');
 const _ = require('lodash');
 const d3 = require('d3');
-const Chart = require('../../lib/Chart');
+const Chart = require('../../src/Chart');
 const generateRandomSeries = require('./generateRandomSeries');
 const visibleProps = require('./visibleProps');
 const attributesProps = require('./attributesProps');
@@ -62,7 +62,7 @@ module.exports = function (Component, options = {}) {
 
             describe('data', () => {
 
-                pit('as an array of numbers', () => {
+                it('as an array of numbers', () => {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesNumbers3x5}>
                         <Component />
                     </Chart>);
@@ -71,7 +71,7 @@ module.exports = function (Component, options = {}) {
                     });
                 });
 
-                pit('as an array of [x,y] pairs', () => {
+                it('as an array of [x,y] pairs', () => {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesArrays3x5}>
                         <Component />
                     </Chart>);
@@ -80,7 +80,7 @@ module.exports = function (Component, options = {}) {
                     });
                 });
 
-                pit('as an array of {x,y} objects', () => {
+                it('as an array of {x,y} objects', () => {
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                         <Component />
                     </Chart>);
@@ -92,7 +92,7 @@ module.exports = function (Component, options = {}) {
             });
 
             describe('color', () => {
-                pit('as a string', () => {
+                it('as a string', () => {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].color = 'violet';
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
@@ -110,7 +110,7 @@ module.exports = function (Component, options = {}) {
             });
 
             describe('opacity', () => {
-                pit('as a number', () => {
+                it('as a number', () => {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].opacity = 0.85;
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
@@ -124,7 +124,7 @@ module.exports = function (Component, options = {}) {
             });
 
             describe('style', () => {
-                pit('as an object', () => {
+                it('as an object', () => {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].style = {
                         stroke: '#f0f',
@@ -145,7 +145,7 @@ module.exports = function (Component, options = {}) {
 
             if (options.pointStyling) {
                 describe('color for specific point', () => {
-                    pit('as a string', () => {
+                    it('as a string', () => {
                         const series = _.cloneDeep(seriesObjects3x5);
                         series[0].color = 'red';
                         series[0].data[0].color = 'violet';
@@ -164,7 +164,7 @@ module.exports = function (Component, options = {}) {
                 });
 
                 describe('opacity', () => {
-                    pit('as a number', () => {
+                    it('as a number', () => {
                         const series = _.cloneDeep(seriesObjects3x5);
                         series[0].opacity = 0.85;
                         series[0].data[0].opacity = 0.74;
@@ -179,7 +179,7 @@ module.exports = function (Component, options = {}) {
                 });
 
                 describe('style', () => {
-                    pit('as an object', () => {
+                    it('as an object', () => {
                         const series = _.cloneDeep(seriesObjects3x5);
                         series[0].style = {fill: 'red'};
                         series[0].data[0].style = {
@@ -239,7 +239,7 @@ module.exports = function (Component, options = {}) {
 
         describe('should support seriesIndex property', () => {
 
-            pit('as a number', () => {
+            it('as a number', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' seriesIndex={1}/>
                     <Component className='chart2' seriesIndex={2}/>
@@ -252,7 +252,7 @@ module.exports = function (Component, options = {}) {
                 });
             });
 
-            pit('as an array of numbers', () => {
+            it('as an array of numbers', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' seriesIndex={[0, 2]}/>
                 </Chart>);
@@ -263,7 +263,7 @@ module.exports = function (Component, options = {}) {
                 });
             });
 
-            pit('as a function that filters series property', () => {
+            it('as a function that filters series property', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' seriesIndex={(series, seriesIndex) => seriesIndex > 1}/>
                 </Chart>);
@@ -286,7 +286,7 @@ module.exports = function (Component, options = {}) {
                 </Chart>)).not.toHaveBeenCalled();
             });
 
-            pit('should have no default value', () => {
+            it('should have no default value', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight}><Component /></Chart>);
                 return delayed(() => {
                     expect(wrapper.find(Component).prop('seriesIndex')).toBeUndefined();
@@ -297,7 +297,7 @@ module.exports = function (Component, options = {}) {
 
         describe('should support className property', () => {
 
-            pit('should render proper class names', () => {
+            it('should render proper class names', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart'/>
                 </Chart>);
@@ -336,7 +336,7 @@ module.exports = function (Component, options = {}) {
 
         describe('should support style property', () => {
 
-            pit('should render style in the root element', () => {
+            it('should render style in the root element', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight}>
                     <Component className='chart' style={{fill: 'red'}}/>
                 </Chart>);
@@ -362,7 +362,7 @@ module.exports = function (Component, options = {}) {
 
         describe('should support colors property', () => {
 
-            pit('can be name of predefined color schema', () => {
+            it('can be name of predefined color schema', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' colors='category10'/>
                 </Chart>);
@@ -374,7 +374,7 @@ module.exports = function (Component, options = {}) {
                 });
             });
 
-            pit('can be array', () => {
+            it('can be array', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' colors={['red', 'green', 'blue']}/>
                 </Chart>);
@@ -386,7 +386,7 @@ module.exports = function (Component, options = {}) {
                 });
             });
 
-            pit('can be function or d3 scale', () => {
+            it('can be function or d3 scale', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' colors={seriesIndex => '#fff00' + seriesIndex}/>
                 </Chart>);
@@ -422,7 +422,7 @@ module.exports = function (Component, options = {}) {
 
         describe('should support opacity property', () => {
 
-            pit('should apply opacity attribute to the root element', () => {
+            it('should apply opacity attribute to the root element', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component className='chart' opacity={0.9}/>
                 </Chart>);

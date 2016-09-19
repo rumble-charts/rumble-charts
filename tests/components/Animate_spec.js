@@ -2,7 +2,7 @@
 
 const {shallow, mount} = require('enzyme');
 const d3 = require('d3');
-const Animate = require('../../lib/Animate');
+const Animate = require('../../src/Animate');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 const later = require('../helpers/later');
 
@@ -27,7 +27,7 @@ describe('Animate', () => {
         expect(expectedSeries).toEqual(series1);
     });
 
-    pit('should interpolate props', () => {
+    it('should interpolate props', () => {
         const wrapper = mount(<Animate
             series={series1}
             minX={0} maxX={2} minY={0} maxY={100}
@@ -81,7 +81,7 @@ describe('Animate', () => {
         }, 500);
     });
 
-    pit('should log FPS metrics', () => {
+    it('should log FPS metrics', () => {
         const wrapper = mount(<Animate
             series={series1}
             logFPS={true}
@@ -103,7 +103,7 @@ describe('Animate', () => {
         }, 500);
     });
 
-    pit('should stop timer on unmount', () => {
+    it('should stop timer on unmount', () => {
         const wrapper = mount(<Animate
             series={series1}
             duration={10}>
@@ -120,7 +120,7 @@ describe('Animate', () => {
         }, 300);
     });
 
-    pit('should interpolate series points from numbers to objects', () => {
+    it('should interpolate series points from numbers to objects', () => {
         const wrapper = mount(<Animate
             series={seriesNumber}
             duration={1000}>
@@ -136,7 +136,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should interpolate series points from arrays to objects', () => {
+    it('should interpolate series points from arrays to objects', () => {
         const wrapper = mount(<Animate
             series={seriesArray}
             duration={1000}>
@@ -152,7 +152,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should interpolate series points from null to objects', () => {
+    it('should interpolate series points from null to objects', () => {
         const wrapper = mount(<Animate
             series={[{data:[null]}]}
             duration={1000}>
@@ -168,7 +168,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should interpolate series from nothing to objects', () => {
+    it('should interpolate series from nothing to objects', () => {
         const wrapper = mount(<Animate
             series={null}
             duration={1000}>
@@ -184,7 +184,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should trigger onStart and onEnd callback', () => {
+    it('should trigger onStart and onEnd callback', () => {
         const onStart = jasmine.createSpy('onStart');
         const onEnd = jasmine.createSpy('onEnd');
         const wrapper = mount(<Animate
@@ -206,7 +206,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should support ease prop as a function', () => {
+    it('should support ease prop as a function', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={d3.ease('linear')}
@@ -223,7 +223,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should support empty ease prop', () => {
+    it('should support empty ease prop', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={null}
@@ -240,7 +240,7 @@ describe('Animate', () => {
         }, 1500);
     });
 
-    pit('should support sequential updates', () => {
+    it('should support sequential updates', () => {
         const wrapper = mount(<Animate
             series={series1}
             duration={2000}>

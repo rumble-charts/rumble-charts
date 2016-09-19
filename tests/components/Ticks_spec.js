@@ -3,9 +3,9 @@
 const enzyme = require('enzyme');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 const spyOnWarnings = require('../helpers/spyOnWarnings');
-const Chart = require('../../lib/Chart');
+const Chart = require('../../src/Chart');
 
-const Ticks = require('../../lib/Ticks');
+const Ticks = require('../../src/Ticks');
 
 describe('Ticks', () => {
 
