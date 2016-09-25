@@ -69,7 +69,6 @@ const Dots = React.createClass({
         symbolAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
         label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        labelFormat: React.PropTypes.func,
         labelAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
 
         path: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
@@ -243,18 +242,24 @@ const Dots = React.createClass({
         const color = this.color;
         let dot;
 
-        if (_.isString(dotType)) {
-            dot = this[methods[dotType]]({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
-
-        } else if (_.isArray(dotType)) {
-            dot = _.map(dotType, (dotType, key) => {
-                return this[methods[dotType]]({
-                    key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color
-                });
-            });
-
+        if (_.isFunction(dotRender)) {
+            dot = dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
         } else {
-            dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
+            if (_.isString(dotType)) {
+                dot = this[methods[dotType]] &&
+                    this[methods[dotType]]({
+                        seriesIndex, pointIndex, point,
+                        dotStyle, dotAttributes, props, color
+                    });
+
+            } else if (_.isArray(dotType)) {
+                dot = _.map(dotType, (dotType, key) => {
+                    return this[methods[dotType]]({
+                        key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color
+                    });
+                });
+
+            }
         }
 
         return <g
