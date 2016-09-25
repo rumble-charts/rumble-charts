@@ -4,9 +4,11 @@ const {mount} = require('enzyme');
 
 const Cloud = require('../../src/Cloud');
 const Chart = require('../../src/Chart');
+const d3 = require('d3');
 
 const graphicsComponent = require('../helpers/graphicsComponent');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
+const spyOnWarnings = require('../helpers/spyOnWarnings');
 const later = require('../helpers/later');
 
 describe('Cloud', () => {
@@ -73,6 +75,27 @@ describe('Cloud', () => {
             wrapper.render();
             expect(cloud.prop('series')).toEqual(series2);
         }, 2000);
+    });
+
+    it('should show console.warn in case of error during the cloud building', () => {
+        const linear = d3.scale.linear;
+        d3.scale.linear = () => {
+            throw new Error('error');
+        };
+        let wrapper;
+        expect(spyOnWarnings(() => {
+            wrapper = mount(<Chart width={1000} height={1000} series={series1}>
+                <Cloud />
+            </Chart>);
+        })).toHaveBeenCalled();
+
+        return later(() => {
+            expect(spyOnWarnings(() => {
+                wrapper.setProps({series: series2});
+            })).toHaveBeenCalled();
+            d3.scale.linear = linear;
+        }, 1000);
+
     });
 
 });
