@@ -85,10 +85,22 @@ const Handlers = React.createClass({
         var minDistance = sensitivity;
         _.forEach(series, (series, seriesIndex) => {
             _.forEach(series.data, (point, pointIndex) => {
-                let distance = Math.sqrt(
-                    Math.pow(Math.abs(point.x - x) * (this.ratio || 1), 2) +
-                    Math.pow(Math.abs(point.y - y), 2)
-                );
+                let distance;
+                switch(props.distance) {
+                case 'x':
+                    distance = Math.abs(point.x - x);
+                    break;
+                case 'y':
+                    distance = Math.abs(point.y - y);
+                    break;
+                default:
+                    distance = Math.sqrt(
+                        Math.pow(Math.abs(point.x - x) * (this.ratio || 1), 2) +
+                        Math.pow(Math.abs(point.y - y), 2)
+                    );
+                    break;
+                }
+
                 if (!optimized || distance <= minDistance) {
                     minDistance = distance;
                     closestPoints.push({
