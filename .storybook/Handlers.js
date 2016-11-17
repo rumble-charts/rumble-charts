@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const {Chart, Bars, Layer, Handlers, Lines, Dots, Labels} = require('../src');
 
 const series = [{
@@ -54,7 +54,7 @@ storiesOf('Handlers', module)
                     onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
                     optimized={false}>
                     <Lines lineWidth={2}/>
-                    <Dots className='dots' dotStyle={{transition:'all 250ms',fillOpacity:0}}/>
+                    <Dots className='dots' dotStyle={{transition: 'all 250ms', fillOpacity: 0}}/>
                 </Handlers>
             </Layer>
         </Chart>

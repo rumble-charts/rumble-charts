@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const {Chart, Layer, Ticks, Bars} = require('../src');
 
 const series = [{
@@ -16,21 +16,21 @@ const series = [{
 
 storiesOf('Ticks', module)
     .add('default', () =>
-        <div style={{fontFamily:'sans-serif',fontSize:'0.75em'}}>
+        <div style={{fontFamily: 'sans-serif', fontSize: '0.75em'}}>
             <Chart width={600} height={300} series={series} minY={0}>
                 <Layer width='80%' height='90%' position='top center'>
                     <Ticks
                         axis='y'
                         lineLength='100%'
                         lineVisible={true}
-                        lineStyle={{stroke:'lightgray'}}
-                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fill:'lightgray'}}
+                        lineStyle={{stroke: 'lightgray'}}
+                        labelStyle={{textAnchor: 'end', dominantBaseline: 'middle', fill: 'lightgray'}}
                         labelAttributes={{x: -5}}
                     />
                     <Ticks
                         axis='x'
                         label={({index, props}) => props.series[index].name}
-                        labelStyle={{textAnchor:'middle',dominantBaseline:'text-before-edge',fill:'lightgray'}}
+                        labelStyle={{textAnchor: 'middle', dominantBaseline: 'text-before-edge', fill: 'lightgray'}}
                         labelAttributes={{y: 3}}
                     />
                     <Bars

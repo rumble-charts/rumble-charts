@@ -1,4 +1,4 @@
-import { configure } from '@kadira/storybook';
+import {configure} from '@kadira/storybook';
 
 function loadStories() {
     require('./Animate');

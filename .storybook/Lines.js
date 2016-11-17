@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
-const {Chart, Lines, Transform} = require('../src');
+import {storiesOf, action} from '@kadira/storybook';
+const {Chart, Lines, Transform, Layer, Ticks} = require('../src');
 
 const series = [{
     data: [1, 2, 3]
@@ -33,6 +33,23 @@ storiesOf('Lines', module)
             <Transform method='stack'>
                 <Lines asAreas={true}/>
             </Transform>
+        </Chart>
+    )
+    .add('area chart with minY = 0', () =>
+        <Chart
+            width={600} height={300} series={series} minY={1}
+            scaleX={{paddingStart: 0, paddingEnd: 0}}
+            scaleY={{paddingTop: 10}}>
+            <Layer height='80%' seriesIndex={[2, 1, 0]}>
+                <Lines asAreas={true}/>
+                <Ticks
+                    axis='y'
+                    labelAttributes={{fontFamily: 'sans-serif'}}
+                    lineVisible={({index}) => index === 0}
+                    lineStyle={{stroke: 'black'}}
+                    lineLength='100%'
+                />
+            </Layer>
         </Chart>
     )
 ;

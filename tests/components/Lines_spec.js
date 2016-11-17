@@ -90,7 +90,7 @@ describe('Lines', () => {
         });
 
         it('as areas', () => {
-            const wrapper = shallow(<Chart width={100} height={100} series={series}>
+            const wrapper = shallow(<Chart width={100} height={100} series={series} minY={0}>
                 <Lines asAreas={true}/>
             </Chart>);
             const graph = wrapper.find(Lines);
@@ -110,7 +110,7 @@ describe('Lines', () => {
         });
 
         it('as areas after "rotate" transformation', () => {
-            const wrapper = shallow(<Chart width={100} height={100} series={series}>
+            const wrapper = shallow(<Chart width={100} height={100} series={series} minY={0}>
                 <Transform method='rotate'>
                     <Lines asAreas={true}/>
                 </Transform>

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const {Chart, Transform, Layer, Bars, Pies} = require('../src');
 
 const series = [{
@@ -18,7 +18,7 @@ storiesOf('Layer', module)
                     <Transform method='stack'>
                         <Pies
                             combined={true} colors='category10'
-                            pieStyle={{opacity:0.8}}
+                            pieStyle={{opacity: 0.8}}
                         />
                     </Transform>
                 </Layer>

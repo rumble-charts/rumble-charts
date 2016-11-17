@@ -1,5 +1,5 @@
 import React from 'react';
-import { storiesOf } from '@kadira/storybook';
+import {storiesOf} from '@kadira/storybook';
 const {Chart, Bars, Lines, Layer, Handlers, Animate, Dots, Ticks} = require('../src');
 const Filters = require('../docs/examples/filters');
 
@@ -75,7 +75,7 @@ storiesOf('Chart', module)
         <Filters />
     )
     .add('responsive', () =>
-        <div style={{paddingLeft:'10em',marginTop:'5em'}}>
+        <div style={{paddingLeft: '10em', marginTop: '5em'}}>
             <svg viewBox='0 0 300 150'>
                 <Chart tag='g' width={300} height={150} series={series3}>
                     <Layer width='100%' height='68%' position='middle center'>
@@ -104,16 +104,16 @@ storiesOf('Chart', module)
                             <Dots
                                 className='dots'
                                 colors={['#007696']}
-                                dotStyle={{transition:'all 250ms',fillOpacity:0}}
+                                dotStyle={{transition: 'all 250ms', fillOpacity: 0}}
                             />
                             <Ticks
                                 axis='x'
                                 ticks={months.map((label, x) => ({x, label}))}
                                 lineVisible={false}
                                 labelStyle={{
-                                    textAnchor:'middle',
-                                    dominantBaseline:'text-after-edge',
-                                    fill:'#000',
+                                    textAnchor: 'middle',
+                                    dominantBaseline: 'text-after-edge',
+                                    fill: '#000',
                                     fontFamily: 'sans-serif',
                                     fontWeight: 'normal',
                                     fontSize: 10

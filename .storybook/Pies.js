@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const {Chart, Transform, Pies} = require('../src');
 
 const series1 = [{

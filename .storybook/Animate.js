@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
-import { storiesOf, action } from '@kadira/storybook';
+import {storiesOf, action} from '@kadira/storybook';
 const {Chart, Bars, Layer, Animate, Ticks, Lines, Dots, Labels} = require('../src');
 
 const series1 = [{
@@ -62,14 +62,24 @@ const Complex = React.createClass({
                         tickVisible={({tick}) => tick.y > 0}
                         lineLength='100%'
                         lineVisible={true}
-                        lineStyle={{stroke:'lightgray'}}
-                        labelStyle={{textAnchor:'end',dominantBaseline:'middle',fontSize:'0.75em',fill:'lightgray'}}
+                        lineStyle={{stroke: 'lightgray'}}
+                        labelStyle={{
+                            textAnchor: 'end',
+                            dominantBaseline: 'middle',
+                            fontSize: '0.75em',
+                            fill: 'lightgray'
+                        }}
                         labelAttributes={{x: -5}}
                     />
                     <Ticks
                         axis='x'
                         label={({tick}) => tick.x + 1}
-                        labelStyle={{textAnchor:'middle',dominantBaseline:'text-before-edge',fontSize:'0.75em',fill:'lightgray'}}
+                        labelStyle={{
+                            textAnchor: 'middle',
+                            dominantBaseline: 'text-before-edge',
+                            fontSize: '0.75em',
+                            fill: 'lightgray'
+                        }}
                         labelAttributes={{y: 3}}
                     />
                     <Bars
@@ -81,8 +91,8 @@ const Complex = React.createClass({
                     <Labels
                         label={({point}) => Math.round(point.y)}
                         dotStyle={{
-                            dominantBaseline:'text-after-edge',
-                            textAnchor:'middle'
+                            dominantBaseline: 'text-after-edge',
+                            textAnchor: 'middle'
                         }}
                     />
                 </Animate>
