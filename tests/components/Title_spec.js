@@ -71,7 +71,7 @@ describe('Title', () => {
         console.error = jest.fn();
         shallow(<Title layerWidth={100} layerHeight={100}/>);
         expect(console.error).toBeCalled();
-        expect(console.error.mock.calls[0][0]).toContain('Required prop `children`');
+        expect(console.error.mock.calls[0][0]).toContain('children');
         console.error = consoleError;
     });
 
