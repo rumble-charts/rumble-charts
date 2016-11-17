@@ -82,8 +82,8 @@
     ],
     "setupTestFrameworkScriptFile": "./tests/init.js",
     "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/tests/"
+      "<rootDir>/node_modules/",
+      "<rootDir>/tests/"
     ]
   }
 }
