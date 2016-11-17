@@ -43,6 +43,10 @@ const Lines = React.createClass({
 
         scaleX: React.PropTypes.object,
         scaleY: React.PropTypes.object,
+        minX: React.PropTypes.number,
+        maxX: React.PropTypes.number,
+        minY: React.PropTypes.number,
+        maxY: React.PropTypes.number,
         seriesIndex: React.PropTypes.oneOfType([
             React.PropTypes.number,
             React.PropTypes.array,
@@ -67,14 +71,14 @@ const Lines = React.createClass({
 
     render: function () {
         let {props} = this;
-        let {className, style, scaleX, scaleY, asAreas, colors, series, opacity} = props;
+        let {className, style, scaleX, scaleY, minY, asAreas, colors, series, opacity} = props;
 
         let rotate = scaleX.swap || scaleY.swap;
 
         let x = scaleX.factory(props);
         let y = scaleY.factory(props);
 
-        let _y0 = y(0);
+        let _y0 = y(minY || 0);
         let color = helpers.colorFunc(colors);
 
         return <g className={className} style={style} opacity={opacity}>
