@@ -20,6 +20,7 @@ const Handlers = React.createClass({
         series: React.PropTypes.array,
         sensitivity: React.PropTypes.number,
         optimized: React.PropTypes.bool,
+        distance: React.PropTypes.oneOf(['x', 'y']),
         onMouseMove: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
         onMouseLeave: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
         scaleX: React.PropTypes.object,
@@ -81,12 +82,12 @@ const Handlers = React.createClass({
         let x = this.x(realX);
         let y = this.y(realY);
 
-        var closestPoints = [];
-        var minDistance = sensitivity;
+        let closestPoints = [];
+        let minDistance = sensitivity;
         _.forEach(series, (series, seriesIndex) => {
             _.forEach(series.data, (point, pointIndex) => {
                 let distance;
-                switch(props.distance) {
+                switch (props.distance) {
                 case 'x':
                     distance = Math.abs(point.x - x);
                     break;

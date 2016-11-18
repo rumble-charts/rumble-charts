@@ -94,6 +94,58 @@ describe('Handlers', () => {
         });
     });
 
+    it('should support distance type "x" for onMouseMove event', done => {
+        const onMouseMove = event => {
+            expect(event.closestPoints.length).toBeGreaterThan(1);
+            expect(event.closestPoints[0].distance).toEqual(0.25);
+            done();
+        };
+
+        const wrapper = mount(<Chart
+            width={chartWidth} height={chartHeight} series={series}
+            minY={0} maxY={100}>
+            <Handlers onMouseMove={onMouseMove} distance='x'>
+                <Graphics />
+            </Handlers>
+        </Chart>);
+        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+            left: chartWidth * 0.1,
+            top: chartHeight * 0.1,
+            width: chartWidth * 0.6,
+            height: chartHeight * 0.6
+        });
+        wrapper.find(Handlers).simulate('mouseMove', {
+            clientX: chartWidth * 0.55,
+            clientY: chartHeight * 0.4
+        });
+    });
+
+    it('should support distance type "y" for onMouseMove event', done => {
+        const onMouseMove = event => {
+            expect(event.closestPoints.length).toBeGreaterThan(1);
+            expect(event.closestPoints[0].distance).toEqual(jasmine.any(Number));
+            done();
+        };
+
+        const wrapper = mount(<Chart
+            width={chartWidth} height={chartHeight} series={series}
+            minY={0} maxY={100}>
+            <Handlers onMouseMove={onMouseMove} distance='y'>
+                <Graphics />
+            </Handlers>
+        </Chart>);
+        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+            left: chartWidth * 0.1,
+            top: chartHeight * 0.1,
+            width: chartWidth * 0.6,
+            height: chartHeight * 0.6
+        });
+        wrapper.find(Handlers).simulate('mouseMove', {
+            clientX: chartWidth * 0.55,
+            clientY: chartHeight * 0.4
+        });
+    });
+
     it('should handle onMouseLeave event', done => {
         const onMouseLeave = event => {
             expect(event.type).toEqual('mouseleave');
