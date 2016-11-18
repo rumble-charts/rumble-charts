@@ -1,9 +1,9 @@
 # rumble-charts
 
-[![Join the chat at https://gitter.im/RumbleInc/rumble-js-charts](https://badges.gitter.im/RumbleInc/rumble-js-charts.svg)](https://gitter.im/RumbleInc/rumble-js-charts?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/rumble-charts/rumble-charts)
 
-[![Build Status](https://travis-ci.org/RumbleInc/rumble-js-charts.svg)](https://travis-ci.org/RumbleInc/rumble-js-charts) 
-[![Dependency Status](https://david-dm.org/RumbleInc/rumble-js-charts.svg)](https://david-dm.org/RumbleInc/rumble-js-charts) 
+[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts) 
+[![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
 React components for building composable and flexible charts. 
@@ -14,7 +14,7 @@ It's based on D3.js under the hood, but most of the time you will not feel that.
 
 All examples are editable. You can see a result right on the page.
 
-[https://rumbleinc.github.io/rumble-js-charts/](https://rumbleinc.github.io/rumble-js-charts/)
+[https://rumble-charts.github.io/rumble-charts/](https://rumble-charts.github.io/rumble-charts/)
 
 ## Demo / live edit
 

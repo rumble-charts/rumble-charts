@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RumbleInc/rumble-js-charts.git"
+    "url": "git+https://github.com/rumble-charts/rumble-charts.git"
   },
   "keywords": [
     "react",
@@ -40,9 +40,9 @@
   "author": "Alexey Volkov <alexey@rumble.me>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RumbleInc/rumble-js-charts/issues"
+    "url": "https://github.com/rumble-charts/rumble-charts/issues"
   },
-  "homepage": "https://github.com/RumbleInc/rumble-js-charts#readme",
+  "homepage": "https://github.com/rumble-charts/rumble-charts#readme",
   "dependencies": {
     "d3": "^3.5.17",
     "d3-cloud": "^1.2.1",
