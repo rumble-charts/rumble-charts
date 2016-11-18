@@ -9,7 +9,7 @@ const series = [{
     data: [13, 19, 17, 23, 29]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <RadialLines 
     interpolation='linear-closed'
     lineWidth={2}
@@ -28,7 +28,7 @@ const series = [{
     data: [13, 19, 17, 23, 29]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Transform method='stack'>
     <RadialLines 
       asAreas={true}

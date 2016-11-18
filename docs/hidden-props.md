@@ -6,9 +6,9 @@ from ancestors to descendants. They are: `series`, `minX`, `maxX`, `minY`, `maxY
 
 ## How it works?
 
-For instance, `series` is settled in [<Chart >](#Chart):  
+For instance, `series` is settled in [`<Chart>`](#Chart):  
 
-```javascript
+```html
 <Chart series={series}>
   <Layer>
     <Bars />
@@ -16,9 +16,9 @@ For instance, `series` is settled in [<Chart >](#Chart):
 </Chart>
 ```
 
-... but [<Layer>](#Layer) and [<Bars />](#Bars) receive it like you've wrote next:
+... but [`<Layer>`](#Layer) and [`<Bars>`](#Bars) receive it like you've wrote next:
  
-```javascript
+```html
 <Chart>
   <Layer series={series}>
     <Bars series={series} />
@@ -28,7 +28,7 @@ For instance, `series` is settled in [<Chart >](#Chart):
 
 Also you can set `series` on an intermediate level:
 
-```javascript
+```html
 <Chart>
   <Layer series={series}>
     <Bars />
@@ -36,9 +36,9 @@ Also you can set `series` on an intermediate level:
 </Chart>
 ```
 
-... and [<Bars />](#Bars) will receive it again like you've wrote next:
+... and [`<Bars>`](#Bars) will receive it again like you've wrote next:
 
-```javascript
+```html
 <Chart>
   <Layer>
     <Bars series={series} />
@@ -67,7 +67,7 @@ const series = [{
   data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series}>
+<Chart width={600} height={250} series={series}>
   <Bars />
 </Chart>;
 ```
@@ -83,7 +83,7 @@ const series = [{
   data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} minY={0} series={series}>
+<Chart width={600} height={250} minY={0} series={series}>
   <Bars />
 </Chart>;
 ```
@@ -121,7 +121,7 @@ const series = [{
 }];
 
 <Chart 
-  width={300} height={100} minY={0} series={series}
+  width={600} height={250} minY={0} series={series}
   scaleX={{
     paddingStart: 0.5, 
     paddingEnd: 0.0001
@@ -148,7 +148,7 @@ const series = [{
 }];
 
 <Chart 
-  width={300} height={100} minY={0} series={series}
+  width={600} height={250} minY={0} series={series}
   scaleX={{
     direction: -1
   }}
@@ -160,11 +160,11 @@ const series = [{
 ```
 ## layerWidth and layerHeight
 
-When you set `<Chart width={100} height={100}>` all descendant components receive these `width` and `height`
+When you set [`<Chart width={100} height={100}>`](#Chart) all descendant components receive these `width` and `height`
 as `layerWidth` and `layerHeight` correspondingly.
  
 ```
-<Chart width={300} height={25}>
+<Chart width={600} height={50}>
   <Title position='center middle'>
     {props => <text>
       {props.layerWidth + 'x' + props.layerHeight}
@@ -177,7 +177,7 @@ as `layerWidth` and `layerHeight` correspondingly.
 
 ## children
 
-Any component (except graphics like [Bars](#Bars), [Lines](#Lines), [Pies](#Pies) etc) can have children.
+Any component (except graphics like [`<Bars>`](#Bars), [`<Lines>`](#Lines), [`<Pies>`](#Pies) etc) can have children.
 Children can be any rumble-charts components (one or more) or any other valid svg tag 
 (i.e. `<defs>`, `<g>`, `<rect>`, `<circle>` etc)
 
@@ -194,7 +194,7 @@ const series = [{
   data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Bars
     seriesIndex={0}
     innerPadding='1%'

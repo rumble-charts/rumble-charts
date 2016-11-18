@@ -63,14 +63,14 @@
     "gh-pages": "^0.12.0",
     "jest": "^17.0.3",
     "jest-cli": "^17.0.3",
-    "react": "0.14.x || 15.0.x || 15.1.x || 15.2.x || 15.3.x || 15.4.x",
-    "react-addons-test-utils": "0.14.x || 15.0.x || 15.1.x || 15.2.x || 15.3.x || 15.4.x",
-    "react-dom": "0.14.x || 15.0.x || 15.1.x || 15.2.x || 15.3.x || 15.4.x",
+    "react": "0.14.x || 15.0.x - 15.4.x",
+    "react-addons-test-utils": "0.14.x || 15.0.x - 15.4.x",
+    "react-dom": "0.14.x || 15.0.x - 15.4.x",
     "react-styleguidist": "^4.3.2"
   },
   "peerDependencies": {
-    "react": "0.14.x || 15.0.x || 15.1.x || 15.2.x || 15.3.x || 15.4.x",
-    "react-dom": "0.14.x || 15.0.x || 15.1.x || 15.2.x || 15.3.x || 15.4.x"
+    "react": "0.14.x || 15.0.x - 15.4.x",
+    "react-dom": "0.14.x || 15.0.x - 15.4.x"
   },
   "jest": {
     "transform": {
@@ -78,7 +78,8 @@
     },
     "testRegex": "/tests/.*_spec\\.js",
     "testPathDirs": [
-      "<rootDir>/tests"
+      "<rootDir>/tests",
+      "<rootDir>/src"
     ],
     "setupTestFrameworkScriptFile": "./tests/init.js",
     "coveragePathIgnorePatterns": [

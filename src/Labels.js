@@ -5,7 +5,7 @@ const React = require('react'),
     helpers = require('./helpers');
 
 /**
- * Renders labels for dots. Internally it's just a wrapper for [<Dots />](#Dots) component
+ * Renders labels for dots. Internally it's just a wrapper for [`<Dots>`](#Dots) component
  * with `dotType="circle"`.
  *
  * @example ../docs/examples/Labels.md

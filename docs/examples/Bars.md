@@ -5,7 +5,7 @@ const series = [{
     data: [1, 2, 4]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Bars />
 </Chart>
 ```
@@ -21,7 +21,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Bars />
 </Chart>
 ```
@@ -37,7 +37,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Bars
     colors='category10' // category20, category20b, category20c
     // colors={['red', 'green', 'blue']}
@@ -59,7 +59,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series}>
+<Chart width={600} height={250} series={series}>
   <Transform method='stack'>
     <Bars combined={true} innerPadding='2%' />
   </Transform>
@@ -78,7 +78,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series}>
+<Chart width={600} height={250} series={series}>
   <Transform method={['stack', 'rotate']}>
     <Bars combined={true} innerPadding='2%' />
   </Transform>

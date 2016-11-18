@@ -5,7 +5,7 @@ const series = [{
     data: [1, 2, 4]
 }];
 
-<Chart width={300} height={100} series={series}>
+<Chart width={600} height={250} series={series}>
   <Transform method={['transpose', 'stack']}>
     <Pies combined={true} />
   </Transform>
@@ -23,7 +23,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Transform method={['transpose', 'stack']}>
     <Pies
       combined={true}
@@ -42,7 +42,7 @@ const series = [{
     data: [1, 2, 4]
 }];
 
-<Chart width={300} height={100} series={series}>
+<Chart width={600} height={250} series={series}>
   <Transform method={['transpose', 'stack']}>
     <Pies
       combined={true} barWidth='50%'
@@ -63,7 +63,7 @@ const series = [{
   data: [13, 19, 17, 23, 29]
 }];
 
-<Chart width={300} height={200} series={series}>
+<Chart width={600} height={250} series={series}>
   <Transform method={['transpose', 'stackNormalized']}>
     <Pies
       colors='category10'

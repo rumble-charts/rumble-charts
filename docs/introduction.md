@@ -12,7 +12,7 @@ const series = [{
   data: [13, 17, 19]
 }];
 
-<Chart width={600} height={200} minY={0} series={series}>
+<Chart width={600} height={250} minY={0} series={series}>
   <Layer width='90%' height='90%'>
     <Bars opacity={0.5} />
     <Lines />

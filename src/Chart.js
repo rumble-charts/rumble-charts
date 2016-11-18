@@ -6,7 +6,7 @@ const React = require('react'),
     helpers = require('./helpers');
 
 /**
- * Every chart should start with `<Chart />` component. It serves to set sizes (`width` and `height`)
+ * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
  * and to wrap all another components:
  * - [Graphics](#Graphics)
  * - [Wrappers](#Wrappers)

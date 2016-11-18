@@ -3,7 +3,7 @@ const series = [{
     data: [1, 2, 4]
 }];
 
-<Chart width={300} height={200} series={series} minY={0}>
+<Chart width={600} height={400} series={series} minY={0}>
   <Transform method={['transpose']}>
     <Layer width='80%' height='80%'>
       <Bars />

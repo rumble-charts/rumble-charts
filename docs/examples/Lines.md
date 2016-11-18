@@ -7,7 +7,7 @@ const series = [{
     data: [13, 19, 17]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Lines />
 </Chart>
 ```
@@ -24,7 +24,7 @@ const series = [{
 }];
 
 <Chart 
-  width={300} height={100} series={series} minY={0}
+  width={600} height={250} series={series} minY={0}
   scaleX={{paddingStart: 0, paddingEnd: 0}}
   scaleY={{paddingTop: 10}}>
   <Lines />
@@ -43,7 +43,7 @@ const series = [{
 }];
 
 <Chart 
-  width={300} height={100} series={series} minY={0}
+  width={600} height={250} series={series} minY={0}
   scaleX={{paddingStart: 0, paddingEnd: 0}}
   scaleY={{paddingTop: 10}}>
   <Transform method='stack'>

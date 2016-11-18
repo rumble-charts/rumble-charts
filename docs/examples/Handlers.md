@@ -7,7 +7,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={150} series={series} minY={0}>
+<Chart width={600} height={300} series={series} minY={0}>
   <Layer width='100%' height='90%' position='bottom center'>
   <Handlers onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} optimized={false}>
     <Bars

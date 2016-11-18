@@ -9,7 +9,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Layer width='90%' height='90%'>
     <Dots />
   </Layer>
@@ -27,7 +27,7 @@ const series = [{
     data: [{y: 13, weight: 9}, {y: 17, weight: 6}, {y: 19, weight: 4}]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Layer width='90%' height='90%'>
     <Dots circleRadius={({point}) => point.weight} />
   </Layer>
@@ -45,7 +45,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Layer width='90%' height='90%'>
     <Dots 
       dotType={['circle', 'symbol']}

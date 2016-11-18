@@ -7,7 +7,7 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-<Chart width={300} height={100} series={series} minY={0}>
+<Chart width={600} height={250} series={series} minY={0}>
   <Layer width='95%' height='85%' position='center bottom'>
     <Dots />
     <Labels 
@@ -16,7 +16,7 @@ const series = [{
         textAnchor: 'middle',
         dominantBaseline: 'text-after-edge',
         fontFamily: 'sans-serif',
-        fontSize: '0.65em'
+        fontSize: '0.8em'
       }}
       labelAttributes={{
         y: -4
