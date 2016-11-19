@@ -79,3 +79,4 @@ storybook/*
 .nvmrc
 .travis.yml
 npm-debug.log
+/images/*
