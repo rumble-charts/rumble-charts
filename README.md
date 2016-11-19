@@ -1,4 +1,4 @@
-# rumble-charts
+# <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/rumble-charts/rumble-charts)
 
