@@ -82,6 +82,8 @@
       "<rootDir>/src"
     ],
     "setupTestFrameworkScriptFile": "./tests/init.js",
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true,
     "coveragePathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/tests/"
