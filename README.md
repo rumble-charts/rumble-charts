@@ -1,10 +1,13 @@
 # <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
-[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/rumble-charts/rumble-charts)
+[![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/rumble-charts/rumble-charts)
 
-[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts) 
+[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts)
+[![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
 [![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
+
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
+[![npm](https://img.shields.io/npm/dm/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
 React components for building composable and flexible charts. 
 
