@@ -2,3 +2,14 @@ engines:
   eslint:
     enabled: true
     channel: "eslint-3"
+  duplication:
+    enabled: true
+    config:
+      languages:
+        javascript:
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
+  fixme:
+    enabled: true
