@@ -17,7 +17,7 @@ It's based on D3.js under the hood, but most of the time you will not feel that.
 
 All examples are editable. You can see a result right on the page.
 
-[https://rumble-charts.github.io/rumble-charts/](https://rumble-charts.github.io/rumble-charts/)
+[https://rumble-charts.github.io](https://rumble-charts.github.io)
 
 ## Demo / live edit
 
