@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     d3_timer = require('d3-timer'),
@@ -22,14 +23,14 @@ const Animate = React.createClass({
         /**
          * Simple
          */
-        series: React.PropTypes.array,
-        interpolateProps: React.PropTypes.arrayOf(React.PropTypes.string),
-        proxyProps: React.PropTypes.arrayOf(React.PropTypes.string),
-        duration: React.PropTypes.number,
-        logFPS: React.PropTypes.bool,
-        ease: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.oneOf([
+        series: PropTypes.array,
+        interpolateProps: PropTypes.arrayOf(PropTypes.string),
+        proxyProps: PropTypes.arrayOf(PropTypes.string),
+        duration: PropTypes.number,
+        logFPS: PropTypes.bool,
+        ease: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.oneOf([
                 'linear', 'poly', 'quad', 'cubic', 'sin', 'exp',
                 'circle', 'bounce', 'elastic', 'back',
                 'linear-in', 'poly-in', 'quad-in', 'cubic-in', 'sin-in', 'exp-in',
@@ -42,8 +43,8 @@ const Animate = React.createClass({
                 'circle-out-in', 'bounce-out-in', 'elastic-out-in', 'back-out-in'
             ])
         ]),
-        onStart: React.PropTypes.func,
-        onEnd: React.PropTypes.func
+        onStart: PropTypes.func,
+        onEnd: PropTypes.func
     },
 
     // init

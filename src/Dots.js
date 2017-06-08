@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
@@ -29,69 +30,69 @@ const Dots = React.createClass({
     displayName: 'Dots',
 
     propTypes: {
-        className: React.PropTypes.string,
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        className: PropTypes.string,
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
-        style: React.PropTypes.object,
+        opacity: PropTypes.number,
+        style: PropTypes.object,
 
         /**
          * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
          */
-        dotType: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(_.keys(methods)),
-            React.PropTypes.array,
-            React.PropTypes.func
+        dotType: PropTypes.oneOfType([
+            PropTypes.oneOf(_.keys(methods)),
+            PropTypes.array,
+            PropTypes.func
         ]),
-        dotRender: React.PropTypes.func,
+        dotRender: PropTypes.func,
 
-        circleRadius: React.PropTypes.oneOfType([
-            React.PropTypes.number, React.PropTypes.string, React.PropTypes.func
+        circleRadius: PropTypes.oneOfType([
+            PropTypes.number, PropTypes.string, PropTypes.func
         ]),
-        circleAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        circleAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        ellipseRadiusX: React.PropTypes.oneOfType([
-            React.PropTypes.number, React.PropTypes.string, React.PropTypes.func
+        ellipseRadiusX: PropTypes.oneOfType([
+            PropTypes.number, PropTypes.string, PropTypes.func
         ]),
-        ellipseRadiusY: React.PropTypes.oneOfType([
-            React.PropTypes.number, React.PropTypes.string, React.PropTypes.func
+        ellipseRadiusY: PropTypes.oneOfType([
+            PropTypes.number, PropTypes.string, PropTypes.func
         ]),
-        ellipseAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        ellipseAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
         /**
          * Possible values: `"circle"`, `"cross"`, `"diamond"`, `"square"`,
          * `"triangle-down"`, `"triangle-up"`
          */
-        symbolType: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        symbolAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        symbolType: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        symbolAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        labelAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        path: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        pathAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        path: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        pathAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        groupStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        dotVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        dotAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        dotVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        dotAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series,
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object
     },
 
     // init

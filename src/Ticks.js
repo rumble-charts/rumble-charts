@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     helpers = require('./helpers');
 
@@ -14,69 +15,69 @@ const Ticks = React.createClass({
     displayName: 'Ticks',
 
     propTypes: {
-        style: React.PropTypes.object,
-        opacity: React.PropTypes.number,
-        className: React.PropTypes.string,
+        style: PropTypes.object,
+        opacity: PropTypes.number,
+        className: PropTypes.string,
 
-        axis: React.PropTypes.string,
-        position: React.PropTypes.string,
+        axis: PropTypes.string,
+        position: PropTypes.string,
 
-        tickVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        tickAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        tickStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        tickVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        tickAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        tickStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.node, React.PropTypes.func]),
-        labelVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        labelAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        labelStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        labelFormat: React.PropTypes.func,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
+        labelVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        labelFormat: PropTypes.func,
 
-        lineVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        lineAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        lineStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        lineLength: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
-        lineOffset: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+        lineVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        lineAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+        lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
-        ticks: React.PropTypes.oneOfType([
+        ticks: PropTypes.oneOfType([
             // ticks factory
-            React.PropTypes.func,
+            PropTypes.func,
             // how many ticks to show
-            React.PropTypes.number,
+            PropTypes.number,
             // settings
-            React.PropTypes.shape({
-                maxTicks: React.PropTypes.number,
-                minDistance: React.PropTypes.number,
-                distance: React.PropTypes.number
+            PropTypes.shape({
+                maxTicks: PropTypes.number,
+                minDistance: PropTypes.number,
+                distance: PropTypes.number
             }),
             // ticks themselves
-            React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    label: React.PropTypes.oneOfType([
-                        React.PropTypes.func,
-                        React.PropTypes.string,
-                        React.PropTypes.node
+            PropTypes.arrayOf(PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.shape({
+                    x: PropTypes.number,
+                    y: PropTypes.number,
+                    label: PropTypes.oneOfType([
+                        PropTypes.func,
+                        PropTypes.string,
+                        PropTypes.node
                     ]),
-                    labelStyle: React.PropTypes.object,
-                    labelAttributes: React.PropTypes.object,
-                    lineStyle: React.PropTypes.object,
-                    lineAttributes: React.PropTypes.object,
-                    lineLength: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-                    lineOffset: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+                    labelStyle: PropTypes.object,
+                    labelAttributes: PropTypes.object,
+                    lineStyle: PropTypes.object,
+                    lineAttributes: PropTypes.object,
+                    lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                    lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
                 })
             ]))
         ]),
 
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object,
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number
     },
 
     // init

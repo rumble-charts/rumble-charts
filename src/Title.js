@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     helpers = require('./helpers');
 
@@ -14,21 +15,21 @@ const Title = React.createClass({
     displayName: 'Title',
 
     propTypes: {
-        className: React.PropTypes.string,
-        style: React.PropTypes.object,
+        className: PropTypes.string,
+        style: PropTypes.object,
 
-        width: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        height: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 
-        children: React.PropTypes.oneOfType([
-            React.PropTypes.func,
-            React.PropTypes.string,
-            React.PropTypes.node
+        children: PropTypes.oneOfType([
+            PropTypes.func,
+            PropTypes.string,
+            PropTypes.node
         ]).isRequired,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        series: React.PropTypes.array
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        series: PropTypes.array
     },
 
     // init

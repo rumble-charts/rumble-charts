@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
@@ -15,62 +16,62 @@ const RadialLines = React.createClass({
     displayName: 'RadialLines',
 
     propTypes: {
-        className: React.PropTypes.string,
-        style: React.PropTypes.object,
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object,
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number,
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number
+        series: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            color: PropTypes.string,
+            opacity: PropTypes.number,
+            style: PropTypes.object,
+            data: PropTypes.arrayOf(PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.arrayOf(PropTypes.number),
+                PropTypes.shape({
+                    x: PropTypes.number,
+                    y: PropTypes.number
                 })
             ]))
         })),
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
+        position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 
-        opacity: React.PropTypes.number,
-        asAreas: React.PropTypes.bool,
-        innerRadius: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        startAngle: React.PropTypes.number,
-        endAngle: React.PropTypes.number,
-        interpolation: React.PropTypes.oneOf([
+        opacity: PropTypes.number,
+        asAreas: PropTypes.bool,
+        innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        startAngle: PropTypes.number,
+        endAngle: PropTypes.number,
+        interpolation: PropTypes.oneOf([
             'linear', 'linear-closed', 'step', 'step-before', 'step-after',
             'basis', 'basis-open', 'basis-closed', 'bundle',
             'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
         ]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        lineVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        lineAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        lineStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        lineVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        lineAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        lineWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func])
+        lineWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func])
     },
 
     // init
@@ -190,4 +191,3 @@ const RadialLines = React.createClass({
 });
 
 module.exports = RadialLines;
-

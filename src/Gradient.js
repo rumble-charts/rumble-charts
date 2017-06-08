@@ -1,27 +1,28 @@
 'use strict';
 
 var React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_');
 
 var counter = 0;
 
-var propTypePoint = React.PropTypes.arrayOf(
-    React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+var propTypePoint = PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 
-var propTypeNumber = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]);
+var propTypeNumber = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
 
 var Gradient = React.createClass({
 
     displayName: 'Gradient',
 
     propTypes: {
-        id: React.PropTypes.string,
-        idPrefix: React.PropTypes.string,
-        type: React.PropTypes.oneOf(['linear', 'radial']),
-        spreadMethod: React.PropTypes.oneOf(['pad', 'repeat', 'reflect']),
-        gradientUnits: React.PropTypes.oneOf(['userSpaceOnUse', 'objectBoundingBox']),
-        gradientTransform: React.PropTypes.string,
+        id: PropTypes.string,
+        idPrefix: PropTypes.string,
+        type: PropTypes.oneOf(['linear', 'radial']),
+        spreadMethod: PropTypes.oneOf(['pad', 'repeat', 'reflect']),
+        gradientUnits: PropTypes.oneOf(['userSpaceOnUse', 'objectBoundingBox']),
+        gradientTransform: PropTypes.string,
         // for linear gradient
         from: propTypePoint,
         to: propTypePoint,
@@ -38,7 +39,7 @@ var Gradient = React.createClass({
         x2: propTypeNumber,
         y2: propTypeNumber,
         radius: propTypeNumber,
-        children: React.PropTypes.node
+        children: PropTypes.node
     },
 
     // init

@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     helpers = require('./helpers');
 
@@ -35,23 +36,23 @@ const Transform = function (props) {
 Transform.displayName = 'Transform';
 
 Transform.propTypes = {
-    className: React.PropTypes.string,
-    series: React.PropTypes.array,
+    className: PropTypes.string,
+    series: PropTypes.array,
     /**
      * Possible string values: "`stack`", "`stackNormalized`", "`sort`", "`unstack`",
      * "`transpose`", "`rotate`", "`reverse`". Also you can define it as function that
      * receives props as an object, transforms it somehow and returns changes props as an object.
      */
-    method: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.func,
-        React.PropTypes.array
+    method: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+        PropTypes.array
     ]),
-    scaleX: React.PropTypes.object,
-    scaleY: React.PropTypes.object,
-    layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-    children: React.PropTypes.node
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    children: PropTypes.node
 };
 
 module.exports = Transform;
