@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     cloud = require('d3-cloud'),
@@ -17,63 +18,63 @@ const Cloud = React.createClass({
     displayName: 'Cloud',
 
     propTypes: {
-        className: React.PropTypes.string,
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        className: PropTypes.string,
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
-        style: React.PropTypes.object,
+        opacity: PropTypes.number,
+        style: PropTypes.object,
 
-        font: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        minFontSize: React.PropTypes.number,
-        maxFontSize: React.PropTypes.number,
-        fontStyle: React.PropTypes.oneOfType([React.PropTypes.oneOf([
+        font: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        minFontSize: PropTypes.number,
+        maxFontSize: PropTypes.number,
+        fontStyle: PropTypes.oneOfType([PropTypes.oneOf([
             'normal', 'italic', 'oblique', 'inherit'
-        ]), React.PropTypes.func]),
-        fontWeight: React.PropTypes.oneOfType([React.PropTypes.oneOf([
+        ]), PropTypes.func]),
+        fontWeight: PropTypes.oneOfType([PropTypes.oneOf([
             'normal', 'bold', 'bolder', 'lighter', 'normal',
             '100', '200', '300', '400', '500', '600', '700', '800', '900'
-        ]), React.PropTypes.func]),
+        ]), PropTypes.func]),
         /**
          * Angle in degrees
          */
-        rotate: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
+        rotate: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
         /**
          * Type of spiral used for positioning words. This can either be one of the two
          * built-in spirals, "archimedean" and "rectangular", or an arbitrary spiral
          * generator can be used, of the following form
          */
-        spiral: React.PropTypes.oneOfType([React.PropTypes.oneOf([
+        spiral: PropTypes.oneOfType([PropTypes.oneOf([
             'archimedean', 'rectangular'
-        ]), React.PropTypes.func]),
-        padding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.func]),
-        random: React.PropTypes.func,
+        ]), PropTypes.func]),
+        padding: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
+        random: PropTypes.func,
 
-        label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        labelFormat: React.PropTypes.func,
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        labelFormat: PropTypes.func,
 
-        labelVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        labelAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        labelStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        labelVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number
     },
 
     // init

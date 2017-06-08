@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     helpers = require('./helpers');
 
@@ -14,48 +15,48 @@ const Bars = React.createClass({
     displayName: 'Bars',
 
     propTypes: {
-        className: React.PropTypes.string,
+        className: PropTypes.string,
         /**
          * Colors
          */
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
-        style: React.PropTypes.object,
+        opacity: PropTypes.number,
+        style: PropTypes.object,
 
-        combined: React.PropTypes.bool,
-        groupPadding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
-        innerPadding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+        combined: PropTypes.bool,
+        groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+        innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        groupStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        barVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        barAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        barStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        barVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        barAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        barStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        barWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+        barWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series,
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object,
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number
     },
 
     // init

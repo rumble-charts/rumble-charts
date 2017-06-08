@@ -1,17 +1,18 @@
 'use strict';
 
-const React = require('react');
+const React = require('react'),
+    PropTypes = require('prop-types');
 
 const DropShadow = React.createClass({
 
     displayName: 'DropShadow',
 
     propTypes: {
-        id: React.PropTypes.string.isRequired,
-        dx: React.PropTypes.number,
-        dy: React.PropTypes.number,
-        blurDeviation: React.PropTypes.number,
-        blurIn: React.PropTypes.oneOf([
+        id: PropTypes.string.isRequired,
+        dx: PropTypes.number,
+        dy: PropTypes.number,
+        blurDeviation: PropTypes.number,
+        blurIn: PropTypes.oneOf([
             'SourceAlpha', 'SourceGraphic', 'BackgroundImage', 'BackgroundAlpha', 'FillPaint', 'StrokePaint'
         ])
     },

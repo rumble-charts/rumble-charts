@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
@@ -17,52 +18,52 @@ const Pies = React.createClass({
     displayName: 'Pies',
 
     propTypes: {
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string])),
-            React.PropTypes.func
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
-        style: React.PropTypes.object,
-        className: React.PropTypes.string,
-        position: React.PropTypes.oneOfType([React.PropTypes.array, React.PropTypes.string]),
+        opacity: PropTypes.number,
+        style: PropTypes.object,
+        className: PropTypes.string,
+        position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
 
-        innerRadius: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        cornerRadius: React.PropTypes.oneOfType([
-            React.PropTypes.number, React.PropTypes.string, React.PropTypes.func
+        innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        cornerRadius: PropTypes.oneOfType([
+            PropTypes.number, PropTypes.string, PropTypes.func
         ]),
-        innerPadding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        groupPadding: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        combined: React.PropTypes.bool,
-        startAngle: React.PropTypes.number,
-        endAngle: React.PropTypes.number,
-        padAngle: React.PropTypes.number,
-        gradientStep: React.PropTypes.number,
+        innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        combined: PropTypes.bool,
+        startAngle: PropTypes.number,
+        endAngle: PropTypes.number,
+        padAngle: PropTypes.number,
+        gradientStep: PropTypes.number,
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        groupStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        pieVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        pieAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        pieStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        pieVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        pieAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        pieStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        pieWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+        pieWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number,
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     },
 
     // init

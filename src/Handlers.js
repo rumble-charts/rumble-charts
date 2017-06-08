@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('lodash'),
     helpers = require('./helpers');
 
@@ -16,18 +17,18 @@ const Handlers = React.createClass({
     displayName: 'Handlers',
 
     propTypes: {
-        className: React.PropTypes.string,
-        series: React.PropTypes.array,
-        sensitivity: React.PropTypes.number,
-        optimized: React.PropTypes.bool,
-        distance: React.PropTypes.oneOf(['x', 'y']),
-        onClick: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
-        onMouseMove: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
-        onMouseLeave: React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.bool]),
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+        className: PropTypes.string,
+        series: PropTypes.array,
+        sensitivity: PropTypes.number,
+        optimized: PropTypes.bool,
+        distance: PropTypes.oneOf(['x', 'y']),
+        onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+        onMouseMove: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+        onMouseLeave: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object,
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     },
 
     // init

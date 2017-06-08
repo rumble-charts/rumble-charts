@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     Dots = require('./Dots'),
     helpers = require('./helpers');
 
@@ -15,33 +16,33 @@ const Labels = React.createClass({
     displayName: 'Labels',
 
     propTypes: {
-        className: React.PropTypes.string,
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        className: PropTypes.string,
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
-        style: React.PropTypes.object,
+        opacity: PropTypes.number,
+        style: PropTypes.object,
 
-        label: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.func]),
-        labelFormat: React.PropTypes.func,
-        labelAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+        labelFormat: PropTypes.func,
+        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        groupStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        dotVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        dotAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        dotStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        dotVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        dotAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series
     },

@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     _ = require('./_'),
     d3 = require('d3'),
     helpers = require('./helpers');
@@ -15,42 +16,42 @@ const Lines = React.createClass({
     displayName: 'Lines',
 
     propTypes: {
-        className: React.PropTypes.string,
-        style: React.PropTypes.object,
-        colors: React.PropTypes.oneOfType([
-            React.PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            React.PropTypes.arrayOf(React.PropTypes.string),
-            React.PropTypes.func
+        className: PropTypes.string,
+        style: PropTypes.object,
+        colors: PropTypes.oneOfType([
+            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+            PropTypes.arrayOf(PropTypes.string),
+            PropTypes.func
         ]),
-        opacity: React.PropTypes.number,
+        opacity: PropTypes.number,
 
-        asAreas: React.PropTypes.bool,
-        interpolation: React.PropTypes.oneOf([
+        asAreas: PropTypes.bool,
+        interpolation: PropTypes.oneOf([
             'linear', 'linear-closed', 'step', 'step-before', 'step-after',
             'basis', 'basis-open', 'basis-closed', 'bundle',
             'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
         ]),
 
-        seriesVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        seriesAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        seriesStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        lineVisible: React.PropTypes.oneOfType([React.PropTypes.bool, React.PropTypes.func]),
-        lineAttributes: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
-        lineStyle: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]),
+        lineVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+        lineAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+        lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
-        lineWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string, React.PropTypes.func]),
+        lineWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
 
-        scaleX: React.PropTypes.object,
-        scaleY: React.PropTypes.object,
-        minX: React.PropTypes.number,
-        maxX: React.PropTypes.number,
-        minY: React.PropTypes.number,
-        maxY: React.PropTypes.number,
-        seriesIndex: React.PropTypes.oneOfType([
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.func
+        scaleX: PropTypes.object,
+        scaleY: PropTypes.object,
+        minX: PropTypes.number,
+        maxX: PropTypes.number,
+        minY: PropTypes.number,
+        maxY: PropTypes.number,
+        seriesIndex: PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.func
         ]),
         series: helpers.propTypes.series
     },

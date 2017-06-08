@@ -1,6 +1,7 @@
 'use strict';
 
 const React = require('react'),
+    PropTypes = require('prop-types'),
     d3 = require('d3'),
     _ = require('./_'),
     helpers = require('./helpers');
@@ -24,11 +25,11 @@ const Chart = React.createClass({
         /**
          * Chart width (pixels)
          */
-        width: React.PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired,
         /**
          * Chart height (pixels)
          */
-        height: React.PropTypes.number.isRequired,
+        height: PropTypes.number.isRequired,
         /**
          * An array of series objects. Read more [about series](#Series). (or docs/series.md)
          */
@@ -36,87 +37,87 @@ const Chart = React.createClass({
         /**
          * It can be change to `"g"`, if you want to include your chart inside another svg graphic.
          */
-        tag: React.PropTypes.string,
+        tag: PropTypes.string,
         /**
          * Rumble-charts components (one or more) or any other valid svg tag
          * (i.e. `<defs>`, `<g>`, `<rect>`, `<circle>` etc)
          */
-        children: React.PropTypes.node,
+        children: PropTypes.node,
         /**
          * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
          * `series` you've supplied, but sometimes you will need to define it by yourself.
          * Especially it relates to `minY` property. Very often you have to set it as `minY={0}`.
          */
-        minX: React.PropTypes.number,
+        minX: PropTypes.number,
         /**
          * See above
          */
-        maxX: React.PropTypes.number,
+        maxX: PropTypes.number,
         /**
          * See above
          */
-        minY: React.PropTypes.number,
+        minY: PropTypes.number,
         /**
          * See above
          */
-        maxY: React.PropTypes.number,
+        maxY: PropTypes.number,
         /**
          * X-scale (horizontal) attributes. For better understanding see examples below.
          */
-        scaleX: React.PropTypes.shape({
+        scaleX: PropTypes.shape({
             /**
              * 1 or -1, default value is 1
              */
-            direction: React.PropTypes.number,
+            direction: PropTypes.number,
             /**
              * Padding at the start of the scale domain, default value is 0.5
              */
-            paddingStart: React.PropTypes.number,
+            paddingStart: PropTypes.number,
             /**
              * Padding at the end of the scale domain, default value is 0.5
              */
-            paddingEnd: React.PropTypes.number,
+            paddingEnd: PropTypes.number,
             /**
              * Left padding in pixels, default value is 0
              */
-            paddingLeft: React.PropTypes.number,
+            paddingLeft: PropTypes.number,
             /**
              * Right padding in pixels, default value is 0
              */
-            paddingRight: React.PropTypes.number,
-            factory: React.PropTypes.func,
-            swap: React.PropTypes.boolean
+            paddingRight: PropTypes.number,
+            factory: PropTypes.func,
+            swap: PropTypes.boolean
         }),
         /**
          * Y-scale (vertical) attributes. For better understanding see examples below.
          */
-        scaleY: React.PropTypes.shape({
+        scaleY: PropTypes.shape({
             /**
              * 1 or -1, default value is 1
              */
-            direction: React.PropTypes.number,
+            direction: PropTypes.number,
             /**
              * Padding at the start of the scale domain, default value is 0
              */
-            paddingStart: React.PropTypes.number,
+            paddingStart: PropTypes.number,
             /**
              * Padding at the end of the scale domain, default value is 0
              */
-            paddingEnd: React.PropTypes.number,
+            paddingEnd: PropTypes.number,
             /**
              * Top padding in pixels, default value is 0
              */
-            paddingTop: React.PropTypes.number,
+            paddingTop: PropTypes.number,
             /**
              * Bottom padding in pixels, default value is 0
              */
-            paddingBottom: React.PropTypes.number,
-            factory: React.PropTypes.func,
-            swap: React.PropTypes.boolean
+            paddingBottom: PropTypes.number,
+            factory: PropTypes.func,
+            swap: PropTypes.boolean
         }),
 
-        layerWidth: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
-        layerHeight: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string])
+        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
     },
 
     getDefaultProps() {

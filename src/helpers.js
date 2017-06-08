@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react'),
+    PropTypes = require('prop-types'),
     d3 = require('d3'),
     _ = require('lodash');
 
@@ -441,20 +442,20 @@ var helpers = {
     },
 
     propTypes: {
-        series: React.PropTypes.arrayOf(React.PropTypes.shape({
-            name: React.PropTypes.string,
-            color: React.PropTypes.string,
-            opacity: React.PropTypes.number,
-            style: React.PropTypes.object,
-            data: React.PropTypes.arrayOf(React.PropTypes.oneOfType([
-                React.PropTypes.number,
-                React.PropTypes.arrayOf(React.PropTypes.number),
-                React.PropTypes.shape({
-                    x: React.PropTypes.number,
-                    y: React.PropTypes.number,
-                    color: React.PropTypes.string,
-                    opacity: React.PropTypes.number,
-                    style: React.PropTypes.object
+        series: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string,
+            color: PropTypes.string,
+            opacity: PropTypes.number,
+            style: PropTypes.object,
+            data: PropTypes.arrayOf(PropTypes.oneOfType([
+                PropTypes.number,
+                PropTypes.arrayOf(PropTypes.number),
+                PropTypes.shape({
+                    x: PropTypes.number,
+                    y: PropTypes.number,
+                    color: PropTypes.string,
+                    opacity: PropTypes.number,
+                    style: PropTypes.object
                 })
             ]))
         }))
