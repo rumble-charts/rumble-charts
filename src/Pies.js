@@ -13,87 +13,26 @@ const maxAngle = 2 * Math.PI;
  *
  * @example ../docs/examples/Pies.md
  */
-const Pies = React.createClass({
+class Pies extends React.Component {
 
-    displayName: 'Pies',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        colors: PropTypes.oneOfType([
-            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
-            PropTypes.func
-        ]),
-        opacity: PropTypes.number,
-        style: PropTypes.object,
-        className: PropTypes.string,
-        position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-
-        innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        cornerRadius: PropTypes.oneOfType([
-            PropTypes.number, PropTypes.string, PropTypes.func
-        ]),
-        innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        combined: PropTypes.bool,
-        startAngle: PropTypes.number,
-        endAngle: PropTypes.number,
-        padAngle: PropTypes.number,
-        gradientStep: PropTypes.number,
-
-        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        pieVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        pieAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        pieStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        pieWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
-        seriesIndex: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.array,
-            PropTypes.func
-        ]),
-        series: helpers.propTypes.series,
-        minX: PropTypes.number,
-        maxX: PropTypes.number,
-        minY: PropTypes.number,
-        maxY: PropTypes.number,
-        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    },
-
-    // init
-
-    getDefaultProps() {
-        return {
-            colors: 'category20',
-            seriesVisible: true,
-            pieVisible: true,
-            startAngle: 0,
-            endAngle: maxAngle,
-            padAngle: 0,
-            innerRadius: 0,
-            cornerRadius: 0,
-            groupPadding: 0,
-            innerPadding: 0,
-            position: 'center middle',
-            gradientStep: 0.01
-        };
-    },
+        this.getInnerRadius = this.getInnerRadius.bind(this);
+        this.getPaddings = this.getPaddings.bind(this);
+        this.getPieWidth = this.getPieWidth.bind(this);
+        this.renderArc = this.renderArc.bind(this);
+    }
 
     // helpers
 
     getOuterRadius(props) {
         return Math.min(props.layerWidth, props.layerHeight) / 2;
-    },
+    }
 
     getInnerRadius(props) {
         return helpers.normalizeNumber(props.innerRadius, this.getOuterRadius(props));
-    },
+    }
 
     getPaddings(props) {
         let {innerPadding, groupPadding} = props;
@@ -104,7 +43,7 @@ const Pies = React.createClass({
             innerPadding,
             groupPadding
         };
-    },
+    }
 
     getPieWidth(x, props) {
         let {pieWidth} = props;
@@ -120,7 +59,7 @@ const Pies = React.createClass({
                 return (baseWidth - groupPadding) / seriesCount - innerPadding;
             }
         }
-    },
+    }
 
     // render
 
@@ -152,7 +91,7 @@ const Pies = React.createClass({
             lapIndex++;
         }
         return pathList;
-    },
+    }
 
     renderArc(startAngle, endAngle, radius, pieWidth, seriesIndex, pointIndex, point) {
         const {props} = this;
@@ -246,10 +185,9 @@ const Pies = React.createClass({
             style={groupStyle}>
             {pathList}
         </g>;
+    }
 
-    },
-
-    render: function () {
+    render() {
         const {props} = this;
         const {className, style, minX, maxX, minY, maxY, position, layerWidth, layerHeight, colors, opacity} = props;
 
@@ -317,6 +255,73 @@ const Pies = React.createClass({
         </g>;
     }
 
-});
+}
+
+Pies.displayName = 'Pies';
+
+Pies.propTypes = {
+    colors: PropTypes.oneOfType([
+        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
+        PropTypes.func
+    ]),
+    opacity: PropTypes.number,
+    style: PropTypes.object,
+    className: PropTypes.string,
+    position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+
+    innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    cornerRadius: PropTypes.oneOfType([
+        PropTypes.number, PropTypes.string, PropTypes.func
+    ]),
+    innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    combined: PropTypes.bool,
+    startAngle: PropTypes.number,
+    endAngle: PropTypes.number,
+    padAngle: PropTypes.number,
+    gradientStep: PropTypes.number,
+
+    seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    pieVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    pieAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    pieStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    pieWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    seriesIndex: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.array,
+        PropTypes.func
+    ]),
+    series: helpers.propTypes.series,
+    minX: PropTypes.number,
+    maxX: PropTypes.number,
+    minY: PropTypes.number,
+    maxY: PropTypes.number,
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
+
+Pies.defaultProps = {
+    colors: 'category20',
+    seriesVisible: true,
+    pieVisible: true,
+    startAngle: 0,
+    endAngle: maxAngle,
+    padAngle: 0,
+    innerRadius: 0,
+    cornerRadius: 0,
+    groupPadding: 0,
+    innerPadding: 0,
+    position: 'center middle',
+    gradientStep: 0.01
+};
+
 
 module.exports = Pies;

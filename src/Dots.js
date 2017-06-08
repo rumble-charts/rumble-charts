@@ -25,91 +25,13 @@ const methods = {
  *
  * @example ../docs/examples/Dots.md
  */
-const Dots = React.createClass({
+class Dots extends React.Component {
 
-    displayName: 'Dots',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        className: PropTypes.string,
-        colors: PropTypes.oneOfType([
-            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            PropTypes.arrayOf(PropTypes.string),
-            PropTypes.func
-        ]),
-        opacity: PropTypes.number,
-        style: PropTypes.object,
-
-        /**
-         * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
-         */
-        dotType: PropTypes.oneOfType([
-            PropTypes.oneOf(_.keys(methods)),
-            PropTypes.array,
-            PropTypes.func
-        ]),
-        dotRender: PropTypes.func,
-
-        circleRadius: PropTypes.oneOfType([
-            PropTypes.number, PropTypes.string, PropTypes.func
-        ]),
-        circleAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        ellipseRadiusX: PropTypes.oneOfType([
-            PropTypes.number, PropTypes.string, PropTypes.func
-        ]),
-        ellipseRadiusY: PropTypes.oneOfType([
-            PropTypes.number, PropTypes.string, PropTypes.func
-        ]),
-        ellipseAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        /**
-         * Possible values: `"circle"`, `"cross"`, `"diamond"`, `"square"`,
-         * `"triangle-down"`, `"triangle-up"`
-         */
-        symbolType: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        symbolAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        path: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        pathAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        dotVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        dotAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        seriesIndex: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.array,
-            PropTypes.func
-        ]),
-        series: helpers.propTypes.series,
-        scaleX: PropTypes.object,
-        scaleY: PropTypes.object
-    },
-
-    // init
-
-    getDefaultProps() {
-        return {
-            colors: 'category20',
-            dotType: 'circles',
-            circleRadius: 4,
-            ellipseRadiusX: 6,
-            ellipseRadiusY: 4,
-            seriesVisible: true,
-            dotVisible: true
-        };
-    },
-
-    // render
+        this.renderDot = this.renderDot.bind(this);
+    }
 
     renderCircle({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
         const {className} = props;
@@ -129,7 +51,7 @@ const Dots = React.createClass({
             {...dotAttributes}
             {...circleAttributes}
         />;
-    },
+    }
 
     renderEllipse({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
         const {className} = props;
@@ -154,7 +76,7 @@ const Dots = React.createClass({
             {...dotAttributes}
             {...ellipseAttributes}
         />;
-    },
+    }
 
     renderPath({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
         const {className} = props;
@@ -174,7 +96,7 @@ const Dots = React.createClass({
             {...dotAttributes}
             {...pathAttributes}
         />;
-    },
+    }
 
     renderSymbol({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
         const {className} = props;
@@ -194,7 +116,7 @@ const Dots = React.createClass({
             {...dotAttributes}
             {...symbolAttributes}
         />;
-    },
+    }
 
     renderLabel({key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color}) {
         const {className} = props;
@@ -214,7 +136,7 @@ const Dots = React.createClass({
             {...labelAttributes}>
             {label}
         </text>;
-    },
+    }
 
     renderDot(x, y, seriesIndex, pointIndex, point) {
         const {props} = this;
@@ -270,9 +192,9 @@ const Dots = React.createClass({
             style={groupStyle}>
             {dot}
         </g>;
-    },
+    }
 
-    render: function () {
+    render() {
         const {props} = this;
         const {className, style, scaleX, scaleY, colors, opacity} = props;
 
@@ -317,6 +239,84 @@ const Dots = React.createClass({
         </g>;
     }
 
-});
+}
+
+Dots.displayName = 'Dots';
+
+Dots.propTypes = {
+    className: PropTypes.string,
+    colors: PropTypes.oneOfType([
+        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.func
+    ]),
+    opacity: PropTypes.number,
+    style: PropTypes.object,
+
+    /**
+     * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
+     */
+    dotType: PropTypes.oneOfType([
+        PropTypes.oneOf(_.keys(methods)),
+        PropTypes.array,
+        PropTypes.func
+    ]),
+    dotRender: PropTypes.func,
+
+    circleRadius: PropTypes.oneOfType([
+        PropTypes.number, PropTypes.string, PropTypes.func
+    ]),
+    circleAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    ellipseRadiusX: PropTypes.oneOfType([
+        PropTypes.number, PropTypes.string, PropTypes.func
+    ]),
+    ellipseRadiusY: PropTypes.oneOfType([
+        PropTypes.number, PropTypes.string, PropTypes.func
+    ]),
+    ellipseAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    /**
+     * Possible values: `"circle"`, `"cross"`, `"diamond"`, `"square"`,
+     * `"triangle-down"`, `"triangle-up"`
+     */
+    symbolType: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    symbolAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    path: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    pathAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    dotVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    dotAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    dotStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    seriesIndex: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.array,
+        PropTypes.func
+    ]),
+    series: helpers.propTypes.series,
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object
+};
+
+Dots.defaultProps = {
+    colors: 'category20',
+    dotType: 'circles',
+    circleRadius: 4,
+    ellipseRadiusX: 6,
+    ellipseRadiusY: 4,
+    seriesVisible: true,
+    dotVisible: true
+};
 
 module.exports = Dots;

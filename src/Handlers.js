@@ -12,77 +12,62 @@ const React = require('react'),
  *
  * @example ../docs/examples/Handlers.md
  */
-const Handlers = React.createClass({
+class Handlers extends React.Component {
 
-    displayName: 'Handlers',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        className: PropTypes.string,
-        series: PropTypes.array,
-        sensitivity: PropTypes.number,
-        optimized: PropTypes.bool,
-        distance: PropTypes.oneOf(['x', 'y']),
-        onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-        onMouseMove: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-        onMouseLeave: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-        scaleX: PropTypes.object,
-        scaleY: PropTypes.object,
-        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-    },
+        this.updatePoint0 = this.updatePoint0.bind(this);
+        this.updateScales = this.updateScales.bind(this);
 
-    // init
-
-    getDefaultProps() {
-        return {
-            sensitivity: Infinity,
-            optimized: true
-        };
-    },
+        this.handleMouseEvent = this.handleMouseEvent.bind(this);
+        this.handleMouseMove = this.handleMouseMove.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
     // helpers
 
     updatePoint0() {
-        let rect = this.rect.getBoundingClientRect();
+        const rect = this.rect.getBoundingClientRect();
         this.left = rect.left;
         this.top = rect.top;
         this.width = rect.width;
         this.height = rect.height;
-    },
+    }
 
     updateScales() {
-        let {props} = this;
-        let {scaleX, scaleY} = props;
+        const {props} = this;
+        const {scaleX, scaleY} = props;
         this.x = scaleX.factory(props);
         this.y = scaleY.factory(props);
         this.scaleX = scaleX.factory(props);
         this.scaleY = scaleY.factory(props);
 
-        let xDomain = this.x.domain();
-        let xRange = this.x.range();
+        const xDomain = this.x.domain();
+        const xRange = this.x.range();
         this.x.domain(xRange);
         this.x.range(xDomain);
 
-        let yDomain = this.y.domain();
-        let yRange = this.y.range();
+        const yDomain = this.y.domain();
+        const yRange = this.y.range();
         this.y.domain(yRange);
         this.y.range(yDomain);
 
         this.ratio = Math.abs((this.y(1) - this.y(0)) / (this.x(1) - this.x(0)));
-    },
+    }
 
     // handlers
 
     handleMouseEvent(event, handler) {
         this.updatePoint0();
 
-        let {clientX, clientY} = event;
-        let {left, top, props} = this;
-        let {series, sensitivity, optimized, layerWidth, layerHeight} = props;
-        let realX = (clientX - left) * layerWidth / this.width;
-        let realY = (clientY - top) * layerHeight / this.height;
-        let x = this.x(realX);
-        let y = this.y(realY);
+        const {clientX, clientY} = event;
+        const {left, top, props} = this;
+        const {series, sensitivity, optimized, layerWidth, layerHeight} = props;
+        const realX = (clientX - left) * layerWidth / this.width;
+        const realY = (clientY - top) * layerHeight / this.height;
+        const x = this.x(realX);
+        const y = this.y(realY);
 
         let closestPoints = [];
         let minDistance = sensitivity;
@@ -127,26 +112,26 @@ const Handlers = React.createClass({
             closestPoints,
             originalEvent: event
         });
-    },
+    }
 
     handleMouseMove(event) {
         this.handleMouseEvent(event, this.props.onMouseMove);
-    },
+    }
 
     handleClick(event) {
         this.handleMouseEvent(event, this.props.onClick);
-    },
+    }
 
     // render
 
     render() {
-        let {props} = this;
-        let {className, scaleX, scaleY, layerWidth, layerHeight} = props;
-        let {onClick, onMouseMove, onMouseLeave} = props;
+        const {props} = this;
+        const {className, scaleX, scaleY, layerWidth, layerHeight} = props;
+        const {onClick, onMouseMove, onMouseLeave} = props;
 
         this.updateScales();
 
-        let children = helpers.proxyChildren(
+        const children = helpers.proxyChildren(
             props.children,
             props,
             {
@@ -170,6 +155,28 @@ const Handlers = React.createClass({
         </g>;
     }
 
-});
+}
+
+Handlers.displayName = 'Handlers';
+
+Handlers.propTypes = {
+    className: PropTypes.string,
+    series: PropTypes.array,
+    sensitivity: PropTypes.number,
+    optimized: PropTypes.bool,
+    distance: PropTypes.oneOf(['x', 'y']),
+    onClick: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    onMouseMove: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    onMouseLeave: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
+
+Handlers.defaultProps = {
+    sensitivity: Infinity,
+    optimized: true
+};
 
 module.exports = Handlers;

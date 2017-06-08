@@ -10,66 +10,17 @@ const React = require('react'),
  *
  * @example ../docs/examples/Bars.md
  */
-const Bars = React.createClass({
+class Bars extends React.Component {
 
-    displayName: 'Bars',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        className: PropTypes.string,
-        /**
-         * Colors
-         */
-        colors: PropTypes.oneOfType([
-            PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
-            PropTypes.arrayOf(PropTypes.string),
-            PropTypes.func
-        ]),
-        opacity: PropTypes.number,
-        style: PropTypes.object,
+        this.getPaddings = this.getPaddings.bind(this);
+        this.getBarWidth = this.getBarWidth.bind(this);
 
-        combined: PropTypes.bool,
-        groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-        innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-
-        seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        barVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        barAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        barStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        barWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-
-        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        seriesIndex: PropTypes.oneOfType([
-            PropTypes.number,
-            PropTypes.array,
-            PropTypes.func
-        ]),
-        series: helpers.propTypes.series,
-        scaleX: PropTypes.object,
-        scaleY: PropTypes.object,
-        minX: PropTypes.number,
-        maxX: PropTypes.number,
-        minY: PropTypes.number,
-        maxY: PropTypes.number
-    },
-
-    // init
-
-    getDefaultProps() {
-        return {
-            groupPadding: 0,
-            innerPadding: 0,
-            colors: 'category20',
-            seriesVisible: true,
-            barVisible: true
-        };
-    },
+        this.renderSeries = this.renderSeries.bind(this);
+        this.renderBar = this.renderBar.bind(this);
+    }
 
     // helpers
 
@@ -84,7 +35,7 @@ const Bars = React.createClass({
             innerPadding,
             groupPadding
         };
-    },
+    }
 
     getBarWidth() {
         const {props, x} = this;
@@ -101,7 +52,7 @@ const Bars = React.createClass({
                 return (baseWidth - groupPadding) / (props.series || []).length - innerPadding;
             }
         }
-    },
+    }
 
     // render
 
@@ -147,7 +98,7 @@ const Bars = React.createClass({
 
         </g>;
 
-    },
+    }
 
     renderBar(x, y, width, height, seriesIndex, pointIndex, point) {
         let {props} = this;
@@ -173,7 +124,7 @@ const Bars = React.createClass({
 
         return <g
             key={pointIndex}
-            className={className && (className + '-bar ' + className + '-bar-'  + pointIndex)}
+            className={className && (className + '-bar ' + className + '-bar-' + pointIndex)}
             transform={'translate(' + x + ' ' + y + ')'}
             style={groupStyle}>
             <path
@@ -183,9 +134,9 @@ const Bars = React.createClass({
                 d={d}
                 {...barAttributes}/>
         </g>;
-    },
+    }
 
-    render: function () {
+    render() {
         const {props} = this;
         const {className, style, colors, opacity} = props;
 
@@ -216,6 +167,61 @@ const Bars = React.createClass({
 
     }
 
-});
+}
+
+Bars.displayName = 'Bars';
+
+Bars.propTypes = {
+    className: PropTypes.string,
+    /**
+     * Colors
+     */
+    colors: PropTypes.oneOfType([
+        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.func
+    ]),
+    opacity: PropTypes.number,
+    style: PropTypes.object,
+
+    combined: PropTypes.bool,
+    groupPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+    innerPadding: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+
+    seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    seriesAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    seriesStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    groupStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    barVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    barAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    barStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    barWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    seriesIndex: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.array,
+        PropTypes.func
+    ]),
+    series: helpers.propTypes.series,
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    minX: PropTypes.number,
+    maxX: PropTypes.number,
+    minY: PropTypes.number,
+    maxY: PropTypes.number
+};
+
+Bars.defaultProps = {
+    groupPadding: 0,
+    innerPadding: 0,
+    colors: 'category20',
+    seriesVisible: true,
+    barVisible: true
+};
 
 module.exports = Bars;

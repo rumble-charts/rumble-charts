@@ -12,7 +12,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Transform.md
  */
-const Transform = function (props) {
+function Transform(props) {
     const {className, layerWidth, layerHeight, scaleX, scaleY} = props;
 
     const newProps = helpers.transform(props, props.method);
@@ -31,7 +31,7 @@ const Transform = function (props) {
     return <g className={className}>
         {children}
     </g>;
-};
+}
 
 Transform.displayName = 'Transform';
 

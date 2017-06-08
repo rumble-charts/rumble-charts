@@ -1,6 +1,6 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     PropTypes = require('prop-types'),
     helpers = require('./helpers');
 
@@ -10,62 +10,44 @@ var React = require('react'),
  *
  * @example ../docs/examples/Layer.md
  */
-var Layer = React.createClass({
+class Layer extends React.Component {
 
-    displayName: 'Layer',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        className: PropTypes.string,
-        style: PropTypes.object,
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-        series: PropTypes.array,
-        scaleX: PropTypes.object,
-        scaleY: PropTypes.object,
-        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        children: PropTypes.node
-    },
-
-    // init
-
-    getDefaultProps() {
-        return {
-            width: '100%',
-            height: '100%',
-            position: 'middle center'
-        };
-    },
+        this.getWidth = this.getWidth.bind(this);
+        this.getHeight = this.getHeight.bind(this);
+        this.getCoords = this.getCoords.bind(this);
+    }
 
     // helpers
 
     getWidth() {
-        var {width, layerWidth} = this.props;
+        const {width, layerWidth} = this.props;
         return helpers.normalizeNumber(width, layerWidth);
-    },
+    }
 
     getHeight() {
-        var {height, layerHeight} = this.props;
+        const {height, layerHeight} = this.props;
         return helpers.normalizeNumber(height, layerHeight);
-    },
+    }
 
     getCoords() {
-        var {position, layerWidth, layerHeight} = this.props;
+        const {position, layerWidth, layerHeight} = this.props;
         return helpers.getCoords(position, layerWidth, layerHeight, this.getWidth(), this.getHeight());
-    },
+    }
 
     // render
 
-    render: function () {
-        let {className, scaleX, scaleY, style} = this.props;
+    render() {
+        const {className, scaleX, scaleY, style} = this.props;
 
-        let layerWidth = this.getWidth();
-        let layerHeight = this.getHeight();
+        const layerWidth = this.getWidth();
+        const layerHeight = this.getHeight();
 
-        let {x, y} = this.getCoords();
+        const {x, y} = this.getCoords();
 
-        let children = helpers.proxyChildren(
+        const children = helpers.proxyChildren(
             this.props.children,
             this.props,
             {
@@ -84,6 +66,28 @@ var Layer = React.createClass({
         </g>;
     }
 
-});
+}
+
+Layer.displayName = 'Layer';
+
+Layer.propTypes = {
+    className: PropTypes.string,
+    style: PropTypes.object,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    position: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    series: PropTypes.array,
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    children: PropTypes.node
+};
+
+Layer.defaultProps = {
+    width: '100%',
+    height: '100%',
+    position: 'middle center'
+};
 
 module.exports = Layer;

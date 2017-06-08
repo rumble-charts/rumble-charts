@@ -10,88 +10,17 @@ const React = require('react'),
  *
  * @example ../docs/examples/Ticks.md
  */
-const Ticks = React.createClass({
+class Ticks extends React.Component {
 
-    displayName: 'Ticks',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        style: PropTypes.object,
-        opacity: PropTypes.number,
-        className: PropTypes.string,
+        this.generateTicks = this.generateTicks.bind(this);
 
-        axis: PropTypes.string,
-        position: PropTypes.string,
-
-        tickVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        tickAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        tickStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-
-        label: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
-        labelVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        labelFormat: PropTypes.func,
-
-        lineVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-        lineAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
-        lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-        lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
-
-        ticks: PropTypes.oneOfType([
-            // ticks factory
-            PropTypes.func,
-            // how many ticks to show
-            PropTypes.number,
-            // settings
-            PropTypes.shape({
-                maxTicks: PropTypes.number,
-                minDistance: PropTypes.number,
-                distance: PropTypes.number
-            }),
-            // ticks themselves
-            PropTypes.arrayOf(PropTypes.oneOfType([
-                PropTypes.number,
-                PropTypes.shape({
-                    x: PropTypes.number,
-                    y: PropTypes.number,
-                    label: PropTypes.oneOfType([
-                        PropTypes.func,
-                        PropTypes.string,
-                        PropTypes.node
-                    ]),
-                    labelStyle: PropTypes.object,
-                    labelAttributes: PropTypes.object,
-                    lineStyle: PropTypes.object,
-                    lineAttributes: PropTypes.object,
-                    lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-                    lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-                })
-            ]))
-        ]),
-
-        scaleX: PropTypes.object,
-        scaleY: PropTypes.object,
-        layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-        minX: PropTypes.number,
-        maxX: PropTypes.number,
-        minY: PropTypes.number,
-        maxY: PropTypes.number
-    },
-
-    // init
-
-    getDefaultProps() {
-        return {
-            axis: 'x',
-            tickVisible: true,
-            labelVisible: true,
-            lineVisible: true,
-            lineLength: 5,
-            lineOffset: 0
-        };
-    },
+        this.renderTick = this.renderTick.bind(this);
+        this.renderLabel = this.renderLabel.bind(this);
+        this.renderLine = this.renderLine.bind(this);
+    }
 
     // helpers
 
@@ -118,7 +47,7 @@ const Ticks = React.createClass({
         }
 
         return _.range(min, max + minDistance, distance);
-    },
+    }
 
     // render
 
@@ -155,7 +84,7 @@ const Ticks = React.createClass({
             {this.renderLabel(ticksLength, tick, index)}
             {this.renderLine(ticksLength, tick, index)}
         </g>;
-    },
+    }
 
     renderLabel(ticksLength, tick, index) {
         const {props} = this;
@@ -181,7 +110,7 @@ const Ticks = React.createClass({
             }
             return label;
         }
-    },
+    }
 
     renderLine(ticksLength, tick, index) {
         const {props, horizontal} = this;
@@ -215,9 +144,9 @@ const Ticks = React.createClass({
                 {...lineAttributes}/>;
         }
         return line;
-    },
+    }
 
-    render: function () {
+    render() {
         const {props} = this;
         const {className, position, scaleX, scaleY, axis, style} = props;
         let {ticks} = props;
@@ -244,6 +173,84 @@ const Ticks = React.createClass({
         </g>;
     }
 
-});
+}
+
+Ticks.displayName = 'Ticks';
+
+Ticks.propTypes = {
+    style: PropTypes.object,
+    opacity: PropTypes.number,
+    className: PropTypes.string,
+
+    axis: PropTypes.string,
+    position: PropTypes.string,
+
+    tickVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    tickAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    tickStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.func]),
+    labelVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    labelAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    labelStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    labelFormat: PropTypes.func,
+
+    lineVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    lineAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    lineStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
+    lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+    lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string, PropTypes.func]),
+
+    ticks: PropTypes.oneOfType([
+        // ticks factory
+        PropTypes.func,
+        // how many ticks to show
+        PropTypes.number,
+        // settings
+        PropTypes.shape({
+            maxTicks: PropTypes.number,
+            minDistance: PropTypes.number,
+            distance: PropTypes.number
+        }),
+        // ticks themselves
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.shape({
+                x: PropTypes.number,
+                y: PropTypes.number,
+                label: PropTypes.oneOfType([
+                    PropTypes.func,
+                    PropTypes.string,
+                    PropTypes.node
+                ]),
+                labelStyle: PropTypes.object,
+                labelAttributes: PropTypes.object,
+                lineStyle: PropTypes.object,
+                lineAttributes: PropTypes.object,
+                lineLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+                lineOffset: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+            })
+        ]))
+    ]),
+
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    minX: PropTypes.number,
+    maxX: PropTypes.number,
+    minY: PropTypes.number,
+    maxY: PropTypes.number
+};
+
+
+Ticks.defaultProps = {
+    axis: 'x',
+    tickVisible: true,
+    labelVisible: true,
+    lineVisible: true,
+    lineLength: 5,
+    lineOffset: 0
+};
 
 module.exports = Ticks;

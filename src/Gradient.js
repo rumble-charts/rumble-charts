@@ -1,62 +1,28 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     PropTypes = require('prop-types'),
     _ = require('./_');
 
-var counter = 0;
+let counter = 0;
 
-var propTypePoint = PropTypes.arrayOf(
+const propTypePoint = PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 );
 
-var propTypeNumber = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
+const propTypeNumber = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
 
-var Gradient = React.createClass({
+class Gradient extends React.Component {
 
-    displayName: 'Gradient',
+    constructor(props) {
+        super(props);
 
-    propTypes: {
-        id: PropTypes.string,
-        idPrefix: PropTypes.string,
-        type: PropTypes.oneOf(['linear', 'radial']),
-        spreadMethod: PropTypes.oneOf(['pad', 'repeat', 'reflect']),
-        gradientUnits: PropTypes.oneOf(['userSpaceOnUse', 'objectBoundingBox']),
-        gradientTransform: PropTypes.string,
-        // for linear gradient
-        from: propTypePoint,
-        to: propTypePoint,
-        // for radial gradient
-        center: propTypePoint,
-        focalPoint: propTypePoint,
-        cx: propTypeNumber,
-        cy: propTypeNumber,
-        fx: propTypeNumber,
-        fy: propTypeNumber,
-        r: propTypeNumber,
-        x1: propTypeNumber,
-        y1: propTypeNumber,
-        x2: propTypeNumber,
-        y2: propTypeNumber,
-        radius: propTypeNumber,
-        children: PropTypes.node
-    },
+        this.getId = this.getId.bind(this);
+        this.getLink = this.getLink.bind(this);
 
-    // init
-
-    getDefaultProps() {
-        return {
-            type: 'linear',
-            idPrefix: 'chartGradient',
-            gradientUnits: 'objectBoundingBox',
-            spreadMethod: 'pad',
-            // for linear gradient
-            from: ['0%', '0%'],
-            to: ['100%', '0%'],
-            // for radial gradient
-            center: ['50%', '50%']
-        };
-    },
+        this.renderRadial = this.renderRadial.bind(this);
+        this.renderLinear = this.renderLinear.bind(this);
+    }
 
     // helpers
 
@@ -69,11 +35,11 @@ var Gradient = React.createClass({
             this._id = this.props.idPrefix + counter;
         }
         return this._id;
-    },
+    }
 
     getLink() {
         return 'url(#' + this.getId() + ')';
-    },
+    }
 
     // render
 
@@ -95,7 +61,7 @@ var Gradient = React.createClass({
             cx={_cx} cy={_cy} fx={_fx} fy={_fy} r={_r}>
             {this.props.children}
         </radialGradient>;
-    },
+    }
 
     renderLinear() {
         const {from, to, gradientUnits, spreadMethod, gradientTransform, x1, y1, x2, y2} = this.props;
@@ -112,10 +78,10 @@ var Gradient = React.createClass({
             {this.props.children}
         </linearGradient>;
 
-    },
+    }
 
     render() {
-        let {type} = this.props;
+        const {type} = this.props;
 
         if (type === 'radial') {
             return this.renderRadial();
@@ -124,6 +90,46 @@ var Gradient = React.createClass({
         }
     }
 
-});
+}
+
+Gradient.displayName = 'Gradient';
+
+Gradient.propTypes = {
+    id: PropTypes.string,
+    idPrefix: PropTypes.string,
+    type: PropTypes.oneOf(['linear', 'radial']),
+    spreadMethod: PropTypes.oneOf(['pad', 'repeat', 'reflect']),
+    gradientUnits: PropTypes.oneOf(['userSpaceOnUse', 'objectBoundingBox']),
+    gradientTransform: PropTypes.string,
+    // for linear gradient
+    from: propTypePoint,
+    to: propTypePoint,
+    // for radial gradient
+    center: propTypePoint,
+    focalPoint: propTypePoint,
+    cx: propTypeNumber,
+    cy: propTypeNumber,
+    fx: propTypeNumber,
+    fy: propTypeNumber,
+    r: propTypeNumber,
+    x1: propTypeNumber,
+    y1: propTypeNumber,
+    x2: propTypeNumber,
+    y2: propTypeNumber,
+    radius: propTypeNumber,
+    children: PropTypes.node
+};
+
+Gradient.defaultProps = {
+    type: 'linear',
+    idPrefix: 'chartGradient',
+    gradientUnits: 'objectBoundingBox',
+    spreadMethod: 'pad',
+    // for linear gradient
+    from: ['0%', '0%'],
+    to: ['100%', '0%'],
+    // for radial gradient
+    center: ['50%', '50%']
+};
 
 module.exports = Gradient;

@@ -1,17 +1,17 @@
 'use strict';
 
-var React = require('react'),
+const React = require('react'),
     PropTypes = require('prop-types'),
     d3 = require('d3'),
     _ = require('lodash');
 
-var limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
+const limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
-var isInvalidLimit = value => {
+const isInvalidLimit = value => {
     return _.isUndefined(value) || value === Infinity || value === -Infinity;
 };
 
-var helpers = {
+const helpers = {
 
     normalizeSeries(props) {
         var maxX = -Infinity,

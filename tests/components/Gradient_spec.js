@@ -92,7 +92,6 @@ describe('Gradient', () => {
 
     it('should support autoincrement id', () => {
         const wrapper = mount(<Gradient
-            ref='gradient'
             type='linear'>
             <stop offset='60%' stopColor='black'/>
             <stop offset='100%' stopColor='white'/>
