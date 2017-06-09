@@ -14,9 +14,9 @@
     "storybook-server": "./node_modules/.bin/start-storybook -p 9001",
     "storybook-build": "./node_modules/.bin/build-storybook -o storybook",
     "publish-docs": "npm run styleguide-build && npm run gh-pages",
-    "publish-patch": "npm test && npm build && npm version patch && npm publish",
-    "publish-minor": "npm test && npm build && npm version minor && npm publish",
-    "publish-major": "npm test && npm build && npm version major && npm publish"
+    "publish-patch": "npm test && npm run build && npm version patch && npm publish",
+    "publish-minor": "npm test && npm run build && npm version minor && npm publish",
+    "publish-major": "npm test && npm run build && npm version major && npm publish"
   },
   "repository": {
     "type": "git",
