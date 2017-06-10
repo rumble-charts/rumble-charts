@@ -207,3 +207,7 @@ const series = [{
   />
 </Chart>;
 ```
+
+## viewBox
+
+Use it to set custom [viewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox) SVG property. By default it is set to `0 0 {width} {height}` to make SVGs scalable.

@@ -74,9 +74,15 @@ function Chart(props) {
         }
     );
 
+    /**
+     * Adding viewBox svg property so user can make them responsive using CSS
+     * Example: svg { width: 100%; height: auto; }
+     */
+    const viewBox = props.viewBox ? props.viewBox : `0 0 ${ props.width } ${ props.height }`;
+
     const Tag = props.tag;
 
-    return <Tag {..._.omit(props, [
+    return <Tag viewBox={ viewBox } {..._.omit(props, [
         'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
         'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
     ])}>
@@ -95,6 +101,10 @@ Chart.propTypes = {
      * Chart height (pixels)
      */
     height: PropTypes.number.isRequired,
+    /**
+     * Chart SVG viewBox
+     */
+    viewBox: PropTypes.string,
     /**
      * An array of series objects. Read more [about series](#Series). (or docs/series.md)
      */
