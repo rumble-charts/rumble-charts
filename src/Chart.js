@@ -96,11 +96,11 @@ Chart.propTypes = {
     /**
      * Chart width (pixels)
      */
-    width: PropTypes.number.isRequired,
+    width: PropTypes.number,
     /**
      * Chart height (pixels)
      */
-    height: PropTypes.number.isRequired,
+    height: PropTypes.number,
     /**
      * Chart SVG viewBox
      */
