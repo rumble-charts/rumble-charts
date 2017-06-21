@@ -5,7 +5,7 @@ const React = require('react'),
     d3 = require('d3'),
     helpers = require('./helpers'),
     _defaults = require('lodash/defaults'),
-    _omit = require('lodash/omit')
+    _omit = require('lodash/omit');
 
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
