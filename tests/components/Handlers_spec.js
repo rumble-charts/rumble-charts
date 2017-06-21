@@ -96,7 +96,7 @@ describe('Handlers', () => {
 
     it('should support distance type "x" for onMouseMove event', done => {
         const onMouseMove = event => {
-            expect(event.closestPoints.length).toBeGreaterThan(1);
+            expect(event.closestPoints.length).toBeGreaterThan(0);
             expect(event.closestPoints[0].distance).toEqual(0.25);
             done();
         };
@@ -122,7 +122,7 @@ describe('Handlers', () => {
 
     it('should support distance type "y" for onMouseMove event', done => {
         const onMouseMove = event => {
-            expect(event.closestPoints.length).toBeGreaterThan(1);
+            expect(event.closestPoints.length).toBeGreaterThan(0);
             expect(event.closestPoints[0].distance).toEqual(jasmine.any(Number));
             done();
         };
