@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - "5"
   - "6"
   - "7"
+  - "8"
 addons:
   apt:
     sources:
@@ -16,7 +16,6 @@ addons:
 env:
   - CXX=g++-4.8
 before_install:
-  - if [[ $TRAVIS_NODE_VERSION == 0.8 ]]; then npm install -g npm@1.4.28; fi
   - npm explore npm -g -- npm install node-gyp@latest
 install:
   - npm install -g codecov
