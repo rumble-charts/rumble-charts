@@ -2,10 +2,15 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
     d3 = require('d3'),
     cloud = require('d3-cloud'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _reduce = require('lodash/reduce'),
+    _forEach = require('lodash/forEach'),
+    _defaults = require('lodash/defaults'),
+    _map = require('lodash/map'),
+    _groupBy = require('lodash/groupBy'),
+    _sortBy = require('lodash/sortBy');
 
 /**
  * Renders cloud of tags/keywords. Uses [d3-cloud](https://www.npmjs.com/package/d3-cloud) for calculations.
@@ -36,9 +41,9 @@ class Cloud extends React.Component {
             .range([props.minFontSize, props.maxFontSize])
             .domain([props.minY, props.maxY]);
 
-        const words = _.reduce(series, (words, {data}, seriesIndex) => {
-            _.forEach(data, (point, pointIndex) => {
-                words.push(_.defaults({
+        const words = _reduce(series, (words, {data}, seriesIndex) => {
+            _forEach(data, (point, pointIndex) => {
+                words.push(_defaults({
                     text: point.label,
                     size: point.y,
                     seriesIndex,
@@ -61,9 +66,9 @@ class Cloud extends React.Component {
             .timeInterval(15)
             .fontSize(d => scale(d.size))
             .on('end', function(series, labels) {
-                labels = _.map(
-                    _.groupBy(labels, 'seriesIndex'),
-                    labels => _.sortBy(labels, 'pointIndex')
+                labels = _map(
+                    _groupBy(labels, 'seriesIndex'),
+                    labels => _sortBy(labels, 'pointIndex')
                 );
                 this.setState({series, labels});
             }.bind(this, series))
@@ -100,7 +105,7 @@ class Cloud extends React.Component {
         return <g
             className={className} style={style} opacity={opacity}
             transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
-            {_.map(state.series, (series, seriesIndex) => {
+            {_map(state.series, (series, seriesIndex) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
@@ -118,7 +123,7 @@ class Cloud extends React.Component {
                     style={seriesStyle}
                     opacity={series.opacity}
                     {...seriesAttributes}>
-                    {_.map(series.data, (point, pointIndex) => {
+                    {_map(series.data, (point, pointIndex) => {
 
                         let {labelVisible, labelAttributes, labelStyle} = props;
                         let label = labels[seriesIndex] && labels[seriesIndex][pointIndex];
