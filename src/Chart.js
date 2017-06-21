@@ -3,8 +3,9 @@
 const React = require('react'),
     PropTypes = require('prop-types'),
     d3 = require('d3'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _defaults = require('lodash/defaults'),
+    _omit = require('lodash/omit')
 
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
@@ -25,7 +26,7 @@ function Chart(props) {
         {
             layerWidth: props.width,
             layerHeight: props.height,
-            scaleX: _.defaults({}, props.scaleX, {
+            scaleX: _defaults({}, props.scaleX, {
                 direction: 1,
                 paddingStart: 0.5,
                 paddingEnd: 0.5,
@@ -48,7 +49,7 @@ function Chart(props) {
                         .domain(direction >= 0 ? [minX, maxX] : [maxX, minX]);
                 }
             }),
-            scaleY: _.defaults({}, props.scaleY, {
+            scaleY: _defaults({}, props.scaleY, {
                 direction: 1,
                 paddingStart: 0,
                 paddingEnd: 0,
@@ -82,7 +83,7 @@ function Chart(props) {
 
     const Tag = props.tag;
 
-    return <Tag viewBox={ viewBox } {..._.omit(props, [
+    return <Tag viewBox={ viewBox } {..._omit(props, [
         'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
         'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
     ])}>
