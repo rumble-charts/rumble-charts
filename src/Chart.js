@@ -18,13 +18,19 @@ const React = require('react'),
  * @example ../docs/examples/Chart.md
  */
 function Chart(props) {
+    let viewBoxTotal, viewBoxWidth, viewBoxHeight;
+    if (props.viewBox) {
+        viewBoxTotal = props.viewBox.split(' ').map(Number);
+        viewBoxWidth = viewBoxTotal[2];
+        viewBoxHeight = viewBoxTotal[3];
+    }
 
     const children = helpers.proxyChildren(
         props.children,
         props,
         {
-            layerWidth: props.width,
-            layerHeight: props.height,
+            layerWidth: props.width ? props.width : viewBoxWidth,
+            layerHeight: props.height ? props.height : viewBoxHeight,
             scaleX: _.defaults({}, props.scaleX, {
                 direction: 1,
                 paddingStart: 0.5,
