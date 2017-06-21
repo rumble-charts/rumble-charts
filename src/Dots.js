@@ -2,9 +2,13 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
     d3 = require('d3'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _isFunction = require('lodash/isFunction'),
+    _isString = require('lodash/isString'),
+    _isArray = require('lodash/isArray'),
+    _map = require('lodash/map'),
+    _keys = require('lodash/keys');
 
 const methods = {
     dots: 'renderCircle',
@@ -165,18 +169,18 @@ class Dots extends React.Component {
         const color = this.color;
         let dot;
 
-        if (_.isFunction(dotRender)) {
+        if (_isFunction(dotRender)) {
             dot = dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
         } else {
-            if (_.isString(dotType)) {
+            if (_isString(dotType)) {
                 dot = this[methods[dotType]] &&
                     this[methods[dotType]]({
                         seriesIndex, pointIndex, point,
                         dotStyle, dotAttributes, props, color
                     });
 
-            } else if (_.isArray(dotType)) {
-                dot = _.map(dotType, (dotType, key) => {
+            } else if (_isArray(dotType)) {
+                dot = _map(dotType, (dotType, key) => {
                     return this[methods[dotType]]({
                         key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color
                     });
@@ -204,7 +208,7 @@ class Dots extends React.Component {
         this.color = helpers.colorFunc(colors);
 
         return <g className={className} style={style} opacity={opacity}>
-            {_.map(props.series, (series, index) => {
+            {_map(props.series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
@@ -223,7 +227,7 @@ class Dots extends React.Component {
                     opacity={series.opacity}
                     {...seriesAttributes}>
 
-                    {_.map(series.data, (point, pointIndex) => {
+                    {_map(series.data, (point, pointIndex) => {
                         let y1 = y(point.y);
                         let x1 = x(point.x);
 
@@ -253,11 +257,11 @@ Dots.propTypes = {
     opacity: PropTypes.number,
     style: PropTypes.object,
 
-    /**
+    /**`
      * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
      */
     dotType: PropTypes.oneOfType([
-        PropTypes.oneOf(_.keys(methods)),
+        PropTypes.oneOf(_keys(methods)),
         PropTypes.array,
         PropTypes.func
     ]),
