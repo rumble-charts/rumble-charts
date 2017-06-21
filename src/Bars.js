@@ -2,8 +2,8 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _map = require('lodash/map'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _map = require('lodash/map');
 
 /**
  * Renders bars for your bar chart.
