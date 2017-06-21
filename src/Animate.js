@@ -9,7 +9,7 @@ const React = require('react'),
     _isString = require('lodash/isString'),
     _isFunction = require('lodash/isFunction'),
     _omitBy = require('lodash/omitBy'),
-    _isUndefined = require('lodash/isUndefined')
+    _isUndefined = require('lodash/isUndefined');
 
 /**
  * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
