@@ -59,19 +59,19 @@
     "babel-preset-react-hmre": "^1.1.1",
     "canvas": "^1.6.5",
     "enzyme": "^2.8.2",
-    "eslint": "^3.19.0",
+    "eslint": "^4.0.0",
     "eslint-plugin-react": "^7.0.1",
     "gh-pages": "^1.0.0",
     "jest": "^20.0.4",
     "jest-cli": "^20.0.4",
-    "react": "0.14.x || 15.0.x - 15.5.x",
-    "react-dom": "0.14.x || 15.0.x - 15.5.x",
+    "react": "0.14.x || 15.0.x - 15.6.x",
+    "react-dom": "0.14.x || 15.0.x - 15.6.x",
     "react-styleguidist": "^5.4.0",
-    "react-test-renderer": "^15.5.4"
+    "react-test-renderer": "^15.6.1"
   },
   "peerDependencies": {
-    "react": "0.14.x || 15.0.x - 15.5.x",
-    "react-dom": "0.14.x || 15.0.x - 15.5.x"
+    "react": "0.14.x || 15.0.x - 15.6.x",
+    "react-dom": "0.14.x || 15.0.x - 15.6.x"
   },
   "jest": {
     "transform": {

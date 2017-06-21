@@ -11,7 +11,7 @@ const styleProps = require('./styleProps');
 const later = require('./later');
 const spyOnWarnings = require('./spyOnWarnings');
 
-module.exports = function (Component, options = {}) {
+module.exports = function(Component, options = {}) {
     options = _.defaults({}, options, {
         deepestTag: 'path',
         renderMethod: 'shallow',
@@ -36,7 +36,7 @@ module.exports = function (Component, options = {}) {
         chartHeight: 100
     });
 
-    const delayed = function (callback) {
+    const delayed = function(callback) {
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -512,8 +512,9 @@ module.exports = function (Component, options = {}) {
         });
 
         it('should have no children', () => {
-            const html1 = render(<Chart width={chartWidth} height={chartHeight}
-                                        series={seriesObjects3x5}><Component/></Chart>).html();
+            const html1 = render(<Chart
+                width={chartWidth} height={chartHeight}
+                series={seriesObjects3x5}><Component/></Chart>).html();
             const html2 = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}><Component>
                 <g>
                     <text />
