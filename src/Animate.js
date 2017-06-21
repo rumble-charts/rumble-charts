@@ -2,10 +2,14 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
     d3 = require('d3'),
     d3_timer = require('d3-timer'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _pick = require('lodash/pick'),
+    _isString = require('lodash/isString'),
+    _isFunction = require('lodash/isFunction'),
+    _omitBy = require('lodash/omitBy'),
+    _isUndefined = require('lodash/isUndefined')
 
 /**
  * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
@@ -27,15 +31,15 @@ class Animate extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const interpolate = d3.interpolateObject(
-            _.pick(this.state, this.props.interpolateProps),
-            _.pick(nextProps, this.props.interpolateProps)
+            _pick(this.state, this.props.interpolateProps),
+            _pick(nextProps, this.props.interpolateProps)
         );
 
         const {duration, onStart, onEnd, logFPS} = this.props;
         let {ease} = this.props;
-        ease = _.isString(ease) ?
+        ease = _isString(ease) ?
             d3.ease(ease) :
-            (_.isFunction(ease) ? ease : d3.ease('linear'));
+            (_isFunction(ease) ? ease : d3.ease('linear'));
 
         let i = 0;
         this._timer && this._timer.stop();
@@ -66,7 +70,7 @@ class Animate extends React.Component {
         return <g className={props.className}>
             {helpers.proxyChildren(
                 props.children,
-                _.omitBy(state, _.isUndefined),
+                _omitBy(state, _isUndefined),
                 {
                     layerWidth: state.layerWidth,
                     layerHeight: state.layerHeight,
@@ -120,7 +124,7 @@ module.exports = Animate;
 
 d3.interpolators.push(function(a, b) {
     let c, i, an = typeof a == 'number';
-    if (b && !_.isUndefined(b.x) && !_.isUndefined(b.y)) {
+    if (b && !_isUndefined(b.x) && !_isUndefined(b.y)) {
         // point
         a = a || {};
         c = {};
@@ -145,7 +149,7 @@ d3.interpolators.push(function(a, b) {
             }
             return c;
         };
-    } else if (b && b[0] && (!_.isUndefined(b[0].data) || (!_.isUndefined(b[0].x) && !_.isUndefined(b[0].y)))) {
+    } else if (b && b[0] && (!_isUndefined(b[0].data) || (!_isUndefined(b[0].x) && !_isUndefined(b[0].y)))) {
         // series or points
         a = a || [];
         c = [];
