@@ -129,6 +129,16 @@ describe('Dots', () => {
         expect(wrapper.find('.chart-label').length).toEqual(15);
     });
 
+    it('should ignore incorrect dot types', () => {
+        const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
+            <Dots
+                className='chart'
+                dotType={() => 123}
+            />
+        </Chart>).render();
+        expect(wrapper.find('.chart-dot').get(0).children.length).toEqual(0);
+    });
+
     it('should your own render method', () => {
         const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
             <Dots

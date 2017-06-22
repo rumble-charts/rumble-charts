@@ -183,6 +183,8 @@ export default class Dots extends Component {
                     });
                 });
 
+            } else {
+                dot = null;
             }
         }
 

@@ -160,6 +160,22 @@ describe('Handlers', () => {
         wrapper.find(Handlers).simulate('mouseLeave');
     });
 
+    it('should handle onClick event', done => {
+        const onClick = event => {
+            expect(event.originalEvent.type).toEqual('click');
+            done();
+        };
+
+        const wrapper = mount(<Chart
+            width={chartWidth} height={chartHeight} series={series}
+            minY={0} maxY={100}>
+            <Handlers onClick={onClick}>
+                <Graphics />
+            </Handlers>
+        </Chart>);
+        wrapper.find(Handlers).simulate('click');
+    });
+
     it('should handle wrong scales and wrong ratio', done => {
         const onMouseMove = event => {
             expect(event.clientX).toEqual(jasmine.any(Number));

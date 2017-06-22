@@ -1,4 +1,4 @@
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import d3 from 'd3';
 import _  from 'lodash';
 import Transform from '../../src/Transform';
@@ -47,7 +47,7 @@ describe('Lines', () => {
 
     describe('should render path elements', () => {
 
-        const series = generateRandomSeries(1, 20, {type: 'object'});
+        const series = generateRandomSeries(2, 20, {type: 'object'});
 
         it('as lines', () => {
             const wrapper = shallow(<Chart width={100} height={100} series={series}>
@@ -88,8 +88,10 @@ describe('Lines', () => {
         });
 
         it('as areas', () => {
-            const wrapper = shallow(<Chart width={100} height={100} series={series} minY={0}>
-                <Lines asAreas={true}/>
+            const wrapper = mount(<Chart width={100} height={100} series={series} minY={0}>
+                <Transform method='stack'>
+                    <Lines asAreas={true}/>
+                </Transform>
             </Chart>);
             const graph = wrapper.find(Lines);
             const realCurve = wrapper.render().find('path').prop('d');
@@ -109,7 +111,7 @@ describe('Lines', () => {
 
         it('as areas after "rotate" transformation', () => {
             const wrapper = shallow(<Chart width={100} height={100} series={series} minY={0}>
-                <Transform method='rotate'>
+                <Transform method={['stack', 'rotate']}>
                     <Lines asAreas={true}/>
                 </Transform>
             </Chart>);
