@@ -5,10 +5,10 @@ import normalizeNumber from './normalizeNumber';
 export default function getCoords(position, layerWidth, layerHeight, width = 0, height = 0) {
 
     if (_.isString(position)) {
-        position = position.split(' ');
+        position = _.map(position.trim().split(' '), value => value.trim());
     }
     if (_.isArray(position)) {
-        position = _.map(position, pos => pos.toLowerCase ? pos.toLowerCase() : pos);
+        position = _.map(position, pos => _.isString(pos) ? pos.trim().toLowerCase() : pos);
         var [x, y] = position;
         if (['top', 'bottom', 'middle'].indexOf(position[0]) !== -1) {
             y = position[0];
@@ -43,6 +43,8 @@ export default function getCoords(position, layerWidth, layerHeight, width = 0, 
             y = 0;
         }
         return {x, y};
+    } else {
+        return {x: 0, y: 0};
     }
 
 }
