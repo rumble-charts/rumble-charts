@@ -9,28 +9,32 @@ const React = require('react'),
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
  * and to wrap all another components:
- * - [Graphics](#Graphics)
- * - [Wrappers](#Wrappers)
- * - [Helpers](#Helpers)
+ * - [Graphics](#graphics)
+ * - [Wrappers](#wrappers)
+ * - [Helpers](#helpers)
  *
- * Also read more about [hidden props](#Magic&#x20;&&#x20;hidden&#x20;props).
+ * Also read more about [hidden props](#magic--hidden-props).
  *
  * @example ../docs/examples/Chart.md
  */
 function Chart(props) {
-    let viewBoxTotal, viewBoxWidth, viewBoxHeight;
-    if (props.viewBox) {
-        viewBoxTotal = props.viewBox.split(' ').map(Number);
-        viewBoxWidth = viewBoxTotal[2];
-        viewBoxHeight = viewBoxTotal[3];
+    const {viewBox} = props;
+    let {width, height, layerWidth, layerHeight} = props;
+    width = width || layerWidth;
+    height = height || layerHeight;
+
+    if (viewBox) {
+        let viewBoxTotal = _.map(viewBox.split(' '), value => parseInt(value));
+        width = width || viewBoxTotal[2];
+        height = height || viewBoxTotal[3];
     }
 
     const children = helpers.proxyChildren(
         props.children,
         props,
         {
-            layerWidth: props.width ? props.width : viewBoxWidth,
-            layerHeight: props.height ? props.height : viewBoxHeight,
+            layerWidth: width,
+            layerHeight: height,
             scaleX: _.defaults({}, props.scaleX, {
                 direction: 1,
                 paddingStart: 0.5,
@@ -80,7 +84,6 @@ function Chart(props) {
         }
     );
 
-    const viewBox = props.viewBox ? props.viewBox : `0 0 ${props.width} ${props.height}`;
     const Tag = props.tag;
 
     return <Tag
@@ -88,7 +91,7 @@ function Chart(props) {
             'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
             'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
         ])}
-        viewBox={viewBox}>
+        viewBox={viewBox || `0 0 ${width} ${height}`}>
         {children}
     </Tag>;
 }
@@ -99,19 +102,29 @@ Chart.propTypes = {
     /**
      * Chart width (pixels)
      */
-    width: PropTypes.number.isRequired,
+    width: PropTypes.number,
     /**
      * Chart height (pixels)
+     */
+    height: PropTypes.number,
+    /**
+     * Chart SVG viewBox.
      * Using that property user can make the chart responsive using CSS
      * Example: svg { width: 100%; height: auto; }
      */
-    height: PropTypes.number.isRequired,
-    /**
-     * Chart SVG viewBox
-     */
     viewBox: PropTypes.string,
     /**
-     * An array of series objects. Read more [about series](#Series). (or docs/series.md)
+     * Layer width (pixels). Useful when you want to make a responsive chart using viewBox prop, but
+     * don't want to specify width of svg tag.
+     */
+    layerWidth: PropTypes.number,
+    /**
+     * Layer height (pixels). Useful when you want to make a responsive chart using viewBox prop, but
+     * don't want to specify height of svg tag.
+     */
+    layerHeight: PropTypes.number,
+    /**
+     * An array of series objects. Read more [about series](#series). (or docs/series.md)
      */
     series: helpers.propTypes.series,
     /**
@@ -194,10 +207,7 @@ Chart.propTypes = {
         paddingBottom: PropTypes.number,
         factory: PropTypes.func,
         swap: PropTypes.boolean
-    }),
-
-    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    })
 };
 
 Chart.defaultProps = {

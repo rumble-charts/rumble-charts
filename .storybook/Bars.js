@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf, action} from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 const {Chart, Bars, Transform} = require('../src');
 
 const series1 = [{
