@@ -44,7 +44,7 @@
   },
   "homepage": "https://github.com/rumble-charts/rumble-charts#readme",
   "dependencies": {
-    "d3": "^3.5.17",
+    "d3": "^4.9.1",
     "d3-cloud": "^1.2.4",
     "d3-timer": "^1.0.6",
     "lodash": "^4.17.4",
