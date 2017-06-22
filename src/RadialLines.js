@@ -2,9 +2,11 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
     d3 = require('d3'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _map = require('lodash/map'),
+    _isNumber = require('lodash/isNumber');
+
 
 /**
  * Renders radial lines for your radar chart
@@ -61,7 +63,7 @@ class RadialLines extends React.Component {
             transform={'translate(' + (coords.x + outerRadius) + ' ' + (coords.y + outerRadius) + ')'}
             opacity={opacity}>
 
-            {_.map(series, (series, index) => {
+            {_map(series, (series, index) => {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
                 let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
@@ -87,7 +89,7 @@ class RadialLines extends React.Component {
                     const lineColor = series.color || color(index);
 
                     line.angle(point => circularScale(point.x))
-                        .defined(point => _.isNumber(point.y))
+                        .defined(point => _isNumber(point.y))
                         .interpolate(this.props.interpolation);
 
                     lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
