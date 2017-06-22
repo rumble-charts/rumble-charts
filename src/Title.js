@@ -2,8 +2,9 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _isString = require('lodash/isString'),
+    _isFunction = require('lodash/isFunction');
 
 /**
  * Renders title (text or everything else) at specified `position`.
@@ -23,9 +24,9 @@ function Title(props) {
         className={className}
         transform={'translate(' + x + ' ' + y + ')'}
         style={style}>
-        {_.isString(children) ?
+        {_isString(children) ?
             <text>{children}</text> :
-            (_.isFunction(children) ? children(props) : children)}
+            (_isFunction(children) ? children(props) : children)}
     </g>;
 }
 
