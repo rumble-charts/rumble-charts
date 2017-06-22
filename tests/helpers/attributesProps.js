@@ -1,13 +1,14 @@
-'use strict';
+import {shallow, mount, render} from 'enzyme';
+const enzyme = {
+    shallow, mount, render
+};
+import _  from 'lodash';
+import Chart from '../../src/Chart';
+import generateRandomSeries from './generateRandomSeries';
+import later from './later';
+import spyOnWarnings from './spyOnWarnings';
 
-const enzyme = require('enzyme');
-const _ = require('lodash');
-const Chart = require('../../src/Chart');
-const generateRandomSeries = require('./generateRandomSeries');
-const later = require('./later');
-const spyOnWarnings = require('./spyOnWarnings');
-
-module.exports = function (Component, options = {}) {
+export default function(Component, options = {}) {
     options = _.defaults({}, options, {
         renderMethod: 'shallow',
         chartWidth: 100,
@@ -23,7 +24,7 @@ module.exports = function (Component, options = {}) {
         seriesObjects3x5 = generateRandomSeries(3, 5, {type: 'object'});
     }
 
-    const delayed = function (callback) {
+    const delayed = function(callback) {
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -99,4 +100,4 @@ module.exports = function (Component, options = {}) {
 
     });
 
-};
+}

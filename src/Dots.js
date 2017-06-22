@@ -1,10 +1,11 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    helpers = require('./helpers');
+import value from './helpers/value';
+import colorFunc from './helpers/colorFunc';
+import propTypes from './helpers/propTypes';
 
 const methods = {
     dots: 'renderCircle',
@@ -25,7 +26,7 @@ const methods = {
  *
  * @example ../docs/examples/Dots.md
  */
-class Dots extends React.Component {
+export default class Dots extends Component {
 
     constructor(props) {
         super(props);
@@ -38,8 +39,8 @@ class Dots extends React.Component {
         let {circleRadius, circleAttributes} = props;
         const series = props.series[seriesIndex];
 
-        circleRadius = helpers.value(circleRadius, {seriesIndex, pointIndex, point, series, props});
-        circleAttributes = helpers.value(circleAttributes, {seriesIndex, pointIndex, point, series, props});
+        circleRadius = value(circleRadius, {seriesIndex, pointIndex, point, series, props});
+        circleAttributes = value(circleAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <circle
             key={key}
@@ -58,9 +59,9 @@ class Dots extends React.Component {
         let {ellipseRadiusX, ellipseRadiusY, ellipseAttributes} = props;
         const series = props.series[seriesIndex];
 
-        ellipseRadiusX = helpers.value(ellipseRadiusX, {seriesIndex, pointIndex, point, series, props});
-        ellipseRadiusY = helpers.value(ellipseRadiusY, {seriesIndex, pointIndex, point, series, props});
-        ellipseAttributes = helpers.value(ellipseAttributes, {seriesIndex, pointIndex, point, series, props});
+        ellipseRadiusX = value(ellipseRadiusX, {seriesIndex, pointIndex, point, series, props});
+        ellipseRadiusY = value(ellipseRadiusY, {seriesIndex, pointIndex, point, series, props});
+        ellipseAttributes = value(ellipseAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <ellipse
             key={key}
@@ -83,8 +84,8 @@ class Dots extends React.Component {
         let {path, pathAttributes} = props;
         const series = props.series[seriesIndex];
 
-        path = helpers.value(path, {seriesIndex, pointIndex, point, series, props});
-        pathAttributes = helpers.value(pathAttributes, {seriesIndex, pointIndex, point, series, props});
+        path = value(path, {seriesIndex, pointIndex, point, series, props});
+        pathAttributes = value(pathAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <path
             key={key}
@@ -103,8 +104,8 @@ class Dots extends React.Component {
         let {symbolType, symbolAttributes} = props;
         const series = props.series[seriesIndex];
 
-        symbolType = helpers.value(symbolType, {seriesIndex, pointIndex, point, series, props});
-        symbolAttributes = helpers.value(symbolAttributes, {seriesIndex, pointIndex, point, series, props});
+        symbolType = value(symbolType, {seriesIndex, pointIndex, point, series, props});
+        symbolAttributes = value(symbolAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <path
             key={key}
@@ -123,8 +124,8 @@ class Dots extends React.Component {
         let {label, labelAttributes} = props;
         const series = props.series[seriesIndex];
 
-        label = helpers.value(label, {seriesIndex, pointIndex, point, series, props});
-        labelAttributes = helpers.value(labelAttributes, {seriesIndex, pointIndex, point, series, props});
+        label = value(label, {seriesIndex, pointIndex, point, series, props});
+        labelAttributes = value(labelAttributes, {seriesIndex, pointIndex, point, series, props});
 
         return <text
             key={key}
@@ -144,16 +145,16 @@ class Dots extends React.Component {
         let {groupStyle, dotVisible, dotAttributes, dotStyle, dotType, dotRender} = props;
         const series = props.series[seriesIndex];
 
-        dotVisible = helpers.value(dotVisible, {seriesIndex, pointIndex, point, series, props});
+        dotVisible = value(dotVisible, {seriesIndex, pointIndex, point, series, props});
         if (!dotVisible) {
             return;
         }
 
-        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
+        groupStyle = value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
-        dotType = helpers.value([dotType], {seriesIndex, pointIndex, point, series, props});
-        dotAttributes = helpers.value(dotAttributes, {seriesIndex, pointIndex, point, dotType, series, props});
-        dotStyle = helpers.value([point.style, series.style, dotStyle], {
+        dotType = value([dotType], {seriesIndex, pointIndex, point, series, props});
+        dotAttributes = value(dotAttributes, {seriesIndex, pointIndex, point, dotType, series, props});
+        dotStyle = value([point.style, series.style, dotStyle], {
             seriesIndex,
             pointIndex,
             point,
@@ -201,20 +202,20 @@ class Dots extends React.Component {
         const x = scaleX.factory(props);
         const y = scaleY.factory(props);
         const rotate = scaleX.swap || scaleY.swap;
-        this.color = helpers.colorFunc(colors);
+        this.color = colorFunc(colors);
 
         return <g className={className} style={style} opacity={opacity}>
             {_.map(props.series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
-                seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
+                seriesVisible = value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
                     return;
                 }
 
-                seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-                seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
+                seriesAttributes = value(seriesAttributes, {seriesIndex: index, series, props});
+                seriesStyle = value(seriesStyle, {seriesIndex: index, series, props});
 
                 return <g
                     key={index}
@@ -304,7 +305,7 @@ Dots.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series,
+    series: propTypes.series,
     scaleX: PropTypes.object,
     scaleY: PropTypes.object
 };
@@ -318,5 +319,3 @@ Dots.defaultProps = {
     seriesVisible: true,
     dotVisible: true
 };
-
-module.exports = Dots;

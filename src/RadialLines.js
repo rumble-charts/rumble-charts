@@ -1,17 +1,19 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    helpers = require('./helpers');
+import normalizeNumber from './helpers/normalizeNumber';
+import value from './helpers/value';
+import colorFunc from './helpers/colorFunc';
+import getCoords from './helpers/getCoords';
 
 /**
  * Renders radial lines for your radar chart
  *
  * @example ../docs/examples/RadialLines.md
  */
-class RadialLines extends React.Component {
+export default class RadialLines extends Component {
 
     constructor(props) {
         super(props);
@@ -26,7 +28,7 @@ class RadialLines extends React.Component {
     }
 
     getInnerRadius(props) {
-        return helpers.normalizeNumber(props.innerRadius, this.getOuterRadius(props));
+        return normalizeNumber(props.innerRadius, this.getOuterRadius(props));
     }
 
     render() {
@@ -51,9 +53,9 @@ class RadialLines extends React.Component {
 
         const _radius0 = radialScale(0);
 
-        const coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
+        const coords = getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
 
-        const color = helpers.colorFunc(colors);
+        const color = colorFunc(colors);
 
         return <g
             className={className}
@@ -66,16 +68,16 @@ class RadialLines extends React.Component {
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
                 let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
 
-                seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
+                seriesVisible = value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
                     return;
                 }
 
-                seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-                seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
+                seriesAttributes = value(seriesAttributes, {seriesIndex: index, series, props});
+                seriesStyle = value(seriesStyle, {seriesIndex: index, series, props});
 
                 let linePath;
-                lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
+                lineVisible = value(lineVisible, {seriesIndex: index, series, props});
                 if (lineVisible) {
                     const line = asAreas ?
                         d3.svg.area.radial()
@@ -90,9 +92,9 @@ class RadialLines extends React.Component {
                         .defined(point => _.isNumber(point.y))
                         .interpolate(this.props.interpolation);
 
-                    lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
-                    lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
-                    lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
+                    lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});
+                    lineStyle = value([series.style, lineStyle], {seriesIndex: index, series, props});
+                    lineWidth = value(lineWidth, {seriesIndex: index, series, props});
 
                     linePath = <path
                         style={lineStyle}
@@ -191,6 +193,3 @@ RadialLines.defaultProps = {
     position: 'center middle',
     interpolation: 'cardinal-closed'
 };
-
-
-module.exports = RadialLines;

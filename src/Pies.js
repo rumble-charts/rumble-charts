@@ -1,10 +1,13 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    helpers = require('./helpers');
+import normalizeNumber from './helpers/normalizeNumber';
+import value from './helpers/value';
+import colorFunc from './helpers/colorFunc';
+import getCoords from './helpers/getCoords';
+import propTypes from './helpers/propTypes';
 
 const maxAngle = 2 * Math.PI;
 
@@ -13,7 +16,7 @@ const maxAngle = 2 * Math.PI;
  *
  * @example ../docs/examples/Pies.md
  */
-class Pies extends React.Component {
+export default class Pies extends Component {
 
     constructor(props) {
         super(props);
@@ -31,14 +34,14 @@ class Pies extends React.Component {
     }
 
     getInnerRadius(props) {
-        return helpers.normalizeNumber(props.innerRadius, this.getOuterRadius(props));
+        return normalizeNumber(props.innerRadius, this.getOuterRadius(props));
     }
 
     getPaddings(props) {
         let {innerPadding, groupPadding} = props;
         const outerRadius = this.getOuterRadius(props);
-        innerPadding = helpers.normalizeNumber(innerPadding, outerRadius) || 0;
-        groupPadding = helpers.normalizeNumber(groupPadding, outerRadius) || 0;
+        innerPadding = normalizeNumber(innerPadding, outerRadius) || 0;
+        groupPadding = normalizeNumber(groupPadding, outerRadius) || 0;
         return {
             innerPadding,
             groupPadding
@@ -49,7 +52,7 @@ class Pies extends React.Component {
         let {pieWidth} = props;
         const {innerPadding, groupPadding} = this.getPaddings(props);
         if (pieWidth) {
-            return helpers.normalizeNumber(pieWidth, this.getOuterRadius(props));
+            return normalizeNumber(pieWidth, this.getOuterRadius(props));
         } else {
             const baseWidth = Math.abs(x(1) - x(0));
             if (props.combined) {
@@ -99,17 +102,17 @@ class Pies extends React.Component {
         let {pieVisible, pieAttributes, pieStyle, groupStyle, cornerRadius} = props;
         const series = props.series[seriesIndex];
 
-        pieVisible = helpers.value(pieVisible, {seriesIndex, pointIndex, point, series, props});
+        pieVisible = value(pieVisible, {seriesIndex, pointIndex, point, series, props});
         if (!pieVisible) {
             return;
         }
 
         const halfWidth = pieWidth / 2;
 
-        cornerRadius = helpers.value(cornerRadius, {seriesIndex, pointIndex, point, series, props});
+        cornerRadius = value(cornerRadius, {seriesIndex, pointIndex, point, series, props});
 
         const arc = d3.svg.arc()
-            .cornerRadius(helpers.normalizeNumber(cornerRadius, pieWidth))
+            .cornerRadius(normalizeNumber(cornerRadius, pieWidth))
             .padRadius(10)
             .innerRadius(radius - halfWidth)
             .outerRadius(radius + halfWidth);
@@ -119,14 +122,14 @@ class Pies extends React.Component {
             fillColor = fillColor[0];
         }
 
-        pieStyle = helpers.value([point.style, series.style, pieStyle], {
+        pieStyle = value([point.style, series.style, pieStyle], {
             seriesIndex,
             pointIndex,
             point,
             series,
             props
         });
-        pieAttributes = helpers.value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
+        pieAttributes = value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
 
         const pathProps = _.assign({
             style: pieStyle,
@@ -177,7 +180,7 @@ class Pies extends React.Component {
 
         }
 
-        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
+        groupStyle = value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
         return <g
             key={pointIndex}
@@ -207,9 +210,9 @@ class Pies extends React.Component {
         const {innerPadding} = this.getPaddings(props);
         const pieWidth = this.getPieWidth(radialScale, props);
         const _startAngle = circularScale(0);
-        this.color = helpers.colorFunc(colors);
+        this.color = colorFunc(colors);
 
-        const coords = helpers.getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
+        const coords = getCoords(position || '', layerWidth, layerHeight, outerRadius * 2, outerRadius * 2);
 
         const halfPadAngle = props.padAngle / 2 || 0;
 
@@ -222,13 +225,13 @@ class Pies extends React.Component {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
 
-                seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
+                seriesVisible = value(seriesVisible, {seriesIndex: index, series, props});
                 if (!seriesVisible) {
                     return;
                 }
 
-                seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-                seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
+                seriesAttributes = value(seriesAttributes, {seriesIndex: index, series, props});
+                seriesStyle = value(seriesStyle, {seriesIndex: index, series, props});
 
                 let deltaRadial = 0;
                 if (!props.combined) {
@@ -299,7 +302,7 @@ Pies.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series,
+    series: propTypes.series,
     minX: PropTypes.number,
     maxX: PropTypes.number,
     minY: PropTypes.number,
@@ -322,6 +325,3 @@ Pies.defaultProps = {
     position: 'center middle',
     gradientStep: 0.01
 };
-
-
-module.exports = Pies;

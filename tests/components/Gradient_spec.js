@@ -1,7 +1,5 @@
-'use strict';
-
-const {shallow, mount} = require('enzyme');
-const Gradient = require('../../src/Gradient');
+import {shallow, mount} from 'enzyme';
+import Gradient from '../../src/Gradient';
 
 describe('Gradient', () => {
 
@@ -91,8 +89,7 @@ describe('Gradient', () => {
     });
 
     it('should support autoincrement id', () => {
-        const wrapper = mount(<Gradient
-            type='linear'>
+        const wrapper = mount(<Gradient type='linear'>
             <stop offset='60%' stopColor='black'/>
             <stop offset='100%' stopColor='white'/>
         </Gradient>);

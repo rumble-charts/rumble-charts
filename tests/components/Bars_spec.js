@@ -1,12 +1,11 @@
-'use strict';
+import {mount} from 'enzyme';
+import graphicsComponent from '../helpers/graphicsComponent';
+import generateRandomSeries from '../helpers/generateRandomSeries';
 
-const {mount} = require('enzyme');
-const graphicsComponent = require('../helpers/graphicsComponent');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
+import Chart from '../../src/Chart';
+import Transform from '../../src/Transform';
+import Bars from '../../src/Bars';
 
-const Chart = require('../../src/Chart');
-const Transform = require('../../src/Transform');
-const Bars = require('../../src/Bars');
 const seriesObjects3x5 = generateRandomSeries(3, 5, {type: 'object'});
 
 describe('Bars', () => {

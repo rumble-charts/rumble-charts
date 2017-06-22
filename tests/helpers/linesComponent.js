@@ -1,12 +1,10 @@
-'use strict';
+import {shallow} from 'enzyme';
+import _  from 'lodash';
+import Chart from '../../src/Chart';
+import generateRandomSeries from './generateRandomSeries';
+import spyOnWarnings from './spyOnWarnings';
 
-const {shallow} = require('enzyme');
-const _ = require('lodash');
-const Chart = require('../../src/Chart');
-const generateRandomSeries = require('./generateRandomSeries');
-const spyOnWarnings = require('./spyOnWarnings');
-
-module.exports = function (Component, options = {}) {
+export default function(Component, options = {}) {
     options = _.defaults({}, options, {
         lineWidth: false, // true, false
         lineInterpolations: false
@@ -52,4 +50,4 @@ module.exports = function (Component, options = {}) {
 
     });
 
-};
+}

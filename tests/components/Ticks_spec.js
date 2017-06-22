@@ -1,18 +1,16 @@
-'use strict';
+import {shallow} from 'enzyme';
+import generateRandomSeries from '../helpers/generateRandomSeries';
+import spyOnWarnings from '../helpers/spyOnWarnings';
+import Chart from '../../src/Chart';
 
-const enzyme = require('enzyme');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
-const spyOnWarnings = require('../helpers/spyOnWarnings');
-const Chart = require('../../src/Chart');
-
-const Ticks = require('../../src/Ticks');
+import Ticks from '../../src/Ticks';
 
 describe('Ticks', () => {
 
     const chartWidth = 500;
     const chartHeight = 500;
     const series = generateRandomSeries(3, 10, {type: 'object'});
-    const render = enzyme['shallow'];
+    const render = shallow;
 
     // test
     // - what should be rendered

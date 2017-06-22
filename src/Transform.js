@@ -1,9 +1,9 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+import transform from './helpers/transform';
+import proxyChildren from './helpers/proxyChildren';
 
 /**
  * Transforms `series` data according chosen `method`.
@@ -12,12 +12,12 @@ const React = require('react'),
  *
  * @example ../docs/examples/Transform.md
  */
-function Transform(props) {
+export default function Transform(props) {
     const {className, layerWidth, layerHeight, scaleX, scaleY} = props;
 
-    const newProps = helpers.transform(props, props.method);
+    const newProps = transform(props, props.method);
 
-    const children = helpers.proxyChildren(
+    const children = proxyChildren(
         props.children,
         newProps,
         {
@@ -54,5 +54,3 @@ Transform.propTypes = {
     layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     children: PropTypes.node
 };
-
-module.exports = Transform;

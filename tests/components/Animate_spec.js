@@ -1,10 +1,8 @@
-'use strict';
-
-const {shallow, mount} = require('enzyme');
-const d3 = require('d3');
-const Animate = require('../../src/Animate');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
-const later = require('../helpers/later');
+import {shallow, mount} from 'enzyme';
+import d3 from 'd3';
+import Animate from '../../src/Animate';
+import generateRandomSeries from '../helpers/generateRandomSeries';
+import later from '../helpers/later';
 
 const series1 = generateRandomSeries(3, 5, {type: 'object'});
 const series2 = generateRandomSeries(3, 5, {type: 'object'});
@@ -154,7 +152,7 @@ describe('Animate', () => {
 
     it('should interpolate series points from null to objects', () => {
         const wrapper = mount(<Animate
-            series={[{data:[null]}]}
+            series={[{data: [null]}]}
             duration={1000}>
             <Graphics />
         </Animate>);

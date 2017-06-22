@@ -1,9 +1,8 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('lodash'),
-    helpers = require('./helpers');
+import proxyChildren from './helpers/proxyChildren';
 
 /**
  * Helps to use mouse events. For now supports only "`onClick`", "`onMouseMove`" and "`onMouseLeave`".
@@ -12,7 +11,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Handlers.md
  */
-class Handlers extends React.Component {
+export default class Handlers extends Component {
 
     constructor(props) {
         super(props);
@@ -131,7 +130,7 @@ class Handlers extends React.Component {
 
         this.updateScales();
 
-        const children = helpers.proxyChildren(
+        const children = proxyChildren(
             props.children,
             props,
             {
@@ -178,5 +177,3 @@ Handlers.defaultProps = {
     sensitivity: Infinity,
     optimized: true
 };
-
-module.exports = Handlers;

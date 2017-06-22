@@ -1,15 +1,13 @@
-'use strict';
+import {mount} from 'enzyme';
 
-const {mount} = require('enzyme');
+import Cloud from '../../src/Cloud';
+import Chart from '../../src/Chart';
+import d3 from 'd3';
 
-const Cloud = require('../../src/Cloud');
-const Chart = require('../../src/Chart');
-const d3 = require('d3');
-
-const graphicsComponent = require('../helpers/graphicsComponent');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
-const spyOnWarnings = require('../helpers/spyOnWarnings');
-const later = require('../helpers/later');
+import graphicsComponent from '../helpers/graphicsComponent';
+import generateRandomSeries from '../helpers/generateRandomSeries';
+import spyOnWarnings from '../helpers/spyOnWarnings';
+import later from '../helpers/later';
 
 describe('Cloud', () => {
 

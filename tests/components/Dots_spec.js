@@ -1,13 +1,11 @@
-'use strict';
+import {shallow} from 'enzyme';
 
-const {shallow} = require('enzyme');
+import Chart from '../../src/Chart';
+import Transform from '../../src/Transform';
+import Dots from '../../src/Dots';
 
-const Chart = require('../../src/Chart');
-const Transform = require('../../src/Transform');
-const Dots = require('../../src/Dots');
-
-const graphicsComponent = require('../helpers/graphicsComponent');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
+import graphicsComponent from '../helpers/graphicsComponent';
+import generateRandomSeries from '../helpers/generateRandomSeries';
 
 describe('Dots', () => {
 

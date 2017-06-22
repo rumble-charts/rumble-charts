@@ -1,8 +1,6 @@
-'use strict';
-
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_');
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
 let counter = 0;
 
@@ -12,7 +10,7 @@ const propTypePoint = PropTypes.arrayOf(
 
 const propTypeNumber = PropTypes.oneOfType([PropTypes.number, PropTypes.string]);
 
-class Gradient extends React.Component {
+export default class Gradient extends Component {
 
     constructor(props) {
         super(props);
@@ -131,5 +129,3 @@ Gradient.defaultProps = {
     // for radial gradient
     center: ['50%', '50%']
 };
-
-module.exports = Gradient;

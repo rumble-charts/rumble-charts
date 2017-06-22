@@ -1,17 +1,18 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    helpers = require('./helpers');
+import value from './helpers/value';
+import colorFunc from './helpers/colorFunc';
+import propTypes from './helpers/propTypes';
 
 /**
  * Renders lines for your line chart.
  *
  * @example ../docs/examples/Lines.md
  */
-function Lines(props) {
+export default function Lines(props) {
     const {className, style, scaleX, scaleY, minY, asAreas, colors, series, opacity} = props;
 
     const rotate = scaleX.swap || scaleY.swap;
@@ -20,7 +21,7 @@ function Lines(props) {
     const y = scaleY.factory(props);
 
     const _y0 = y(minY || 0);
-    const color = helpers.colorFunc(colors);
+    const color = colorFunc(colors);
 
     return <g className={className} style={style} opacity={opacity}>
         {_.map(series, (series, index) => {
@@ -28,16 +29,16 @@ function Lines(props) {
             let {seriesVisible, seriesStyle, seriesAttributes} = props;
             let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
 
-            seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
+            seriesVisible = value(seriesVisible, {seriesIndex: index, series, props});
             if (!seriesVisible) {
                 return;
             }
 
-            seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-            seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
+            seriesAttributes = value(seriesAttributes, {seriesIndex: index, series, props});
+            seriesStyle = value(seriesStyle, {seriesIndex: index, series, props});
 
             let linePath;
-            lineVisible = helpers.value(lineVisible, {seriesIndex: index, series, props});
+            lineVisible = value(lineVisible, {seriesIndex: index, series, props});
             if (lineVisible) {
                 let line;
                 if (rotate) {
@@ -65,9 +66,9 @@ function Lines(props) {
                 line.defined(point => _.isNumber(point.y))
                     .interpolate(props.interpolation);
 
-                lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});
-                lineStyle = helpers.value([series.style, lineStyle], {seriesIndex: index, series, props});
-                lineWidth = helpers.value(lineWidth, {seriesIndex: index, series, props});
+                lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});
+                lineStyle = value([series.style, lineStyle], {seriesIndex: index, series, props});
+                lineWidth = value(lineWidth, {seriesIndex: index, series, props});
                 linePath = <path
                     style={lineStyle}
                     fill={asAreas ? lineColor : 'transparent'}
@@ -132,7 +133,7 @@ Lines.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series
+    series: propTypes.series
 };
 
 Lines.defaultProps = {
@@ -142,4 +143,3 @@ Lines.defaultProps = {
     lineVisible: true,
     lineWidth: 3
 };
-module.exports = Lines;

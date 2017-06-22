@@ -1,8 +1,6 @@
-'use strict';
+import graphicsComponent from '../helpers/graphicsComponent';
 
-const graphicsComponent = require('../helpers/graphicsComponent');
-
-const Labels = require('../../src/Labels');
+import Labels from '../../src/Labels';
 
 describe('Labels', () => {
 

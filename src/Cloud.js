@@ -1,11 +1,12 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
+import cloud from 'd3-cloud';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    cloud = require('d3-cloud'),
-    helpers = require('./helpers');
+import colorFunc from './helpers/colorFunc';
+import value from './helpers/value';
+import propTypes from './helpers/propTypes';
 
 /**
  * Renders cloud of tags/keywords. Uses [d3-cloud](https://www.npmjs.com/package/d3-cloud) for calculations.
@@ -13,7 +14,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Cloud.md
  */
-class Cloud extends React.Component {
+export default class Cloud extends Component {
 
     constructor(props) {
         super(props);
@@ -95,7 +96,7 @@ class Cloud extends React.Component {
         const {className, style, layerWidth, layerHeight, opacity} = props;
         const {labels} = state;
 
-        const color = helpers.colorFunc(props.colors);
+        const color = colorFunc(props.colors);
 
         return <g
             className={className} style={style} opacity={opacity}
@@ -104,13 +105,13 @@ class Cloud extends React.Component {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
-                seriesVisible = helpers.value(seriesVisible, {seriesIndex, series, props});
+                seriesVisible = value(seriesVisible, {seriesIndex, series, props});
                 if (!seriesVisible) {
                     return;
                 }
 
-                seriesAttributes = helpers.value(seriesAttributes, {seriesIndex, series, props});
-                seriesStyle = helpers.value(seriesStyle, {seriesIndex, series, props});
+                seriesAttributes = value(seriesAttributes, {seriesIndex, series, props});
+                seriesStyle = value(seriesStyle, {seriesIndex, series, props});
 
                 return <g
                     key={seriesIndex}
@@ -126,7 +127,7 @@ class Cloud extends React.Component {
                             return;
                         }
 
-                        labelVisible = helpers.value(labelVisible, {
+                        labelVisible = value(labelVisible, {
                             seriesIndex, pointIndex, point, label, series, props
                         });
 
@@ -134,10 +135,10 @@ class Cloud extends React.Component {
                             return;
                         }
 
-                        labelAttributes = helpers.value(labelAttributes, {
+                        labelAttributes = value(labelAttributes, {
                             seriesIndex, pointIndex, point, label, series, props
                         });
-                        labelStyle = helpers.value([point.style, series.style, labelStyle],
+                        labelStyle = value([point.style, series.style, labelStyle],
                             {seriesIndex, pointIndex, point, label, series, props}
                         );
 
@@ -222,7 +223,7 @@ Cloud.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series,
+    series: propTypes.series,
     minX: PropTypes.number,
     maxX: PropTypes.number,
     minY: PropTypes.number,
@@ -244,5 +245,3 @@ Cloud.defaultProps = {
     padding: 1,
     random: Math.random
 };
-
-module.exports = Cloud;

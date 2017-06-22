@@ -1,16 +1,16 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+import normalizeNumber from './helpers/normalizeNumber';
+import value from './helpers/value';
 
 /**
  * Renders ticks (labels and lines) for axis (x and y).
  *
  * @example ../docs/examples/Ticks.md
  */
-class Ticks extends React.Component {
+export default class Ticks extends Component {
 
     constructor(props) {
         super(props);
@@ -60,17 +60,17 @@ class Ticks extends React.Component {
             tick = {[axis]: tick};
         }
 
-        tickVisible = helpers.value(tickVisible, {index, ticksLength, tick, props});
+        tickVisible = value(tickVisible, {index, ticksLength, tick, props});
 
         if (!tickVisible) {
             return;
         }
 
-        tickAttributes = helpers.value(tickAttributes, {index, ticksLength, tick, props});
-        tickStyle = helpers.value(tickStyle, {index, ticksLength, tick, props});
+        tickAttributes = value(tickAttributes, {index, ticksLength, tick, props});
+        tickStyle = value(tickStyle, {index, ticksLength, tick, props});
 
-        const pX = axis === 'x' ? x(tick.x) : helpers.normalizeNumber(position, layerWidth);
-        const pY = axis === 'y' ? y(tick.y) : helpers.normalizeNumber(position, layerHeight);
+        const pX = axis === 'x' ? x(tick.x) : normalizeNumber(position, layerWidth);
+        const pY = axis === 'y' ? y(tick.y) : normalizeNumber(position, layerHeight);
 
         const transform = (scaleX.swap || scaleY.swap) ?
             ('translate(' + pY + ' ' + pX + ')') :
@@ -91,14 +91,14 @@ class Ticks extends React.Component {
         const {className, axis} = props;
         let {labelStyle, labelFormat, labelVisible, labelAttributes, label} = props;
 
-        labelVisible = helpers.value(labelVisible, {index, ticksLength, tick, props});
+        labelVisible = value(labelVisible, {index, ticksLength, tick, props});
         if (labelVisible) {
 
-            labelAttributes = helpers.value([tick.labelAttributes, labelAttributes], {index, ticksLength, tick, props});
-            labelStyle = helpers.value([tick.labelStyle, labelStyle], {index, ticksLength, tick, props});
+            labelAttributes = value([tick.labelAttributes, labelAttributes], {index, ticksLength, tick, props});
+            labelStyle = value([tick.labelStyle, labelStyle], {index, ticksLength, tick, props});
 
-            label = helpers.value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
-            labelFormat = helpers.value(labelFormat, label) || label;
+            label = value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
+            labelFormat = value(labelFormat, label) || label;
 
             if (_.isString(label) || _.isNumber(label)) {
                 label = <text
@@ -118,18 +118,18 @@ class Ticks extends React.Component {
 
         let {lineVisible, lineAttributes, lineStyle, lineLength, lineOffset} = props;
         let line;
-        lineVisible = helpers.value(lineVisible, {index, ticksLength, tick, props});
+        lineVisible = value(lineVisible, {index, ticksLength, tick, props});
         if (lineVisible) {
 
-            lineAttributes = helpers.value([tick.lineAttributes, lineAttributes], {index, ticksLength, tick, props});
-            lineStyle = helpers.value([tick.lineStyle, lineStyle], {index, ticksLength, tick, props});
+            lineAttributes = value([tick.lineAttributes, lineAttributes], {index, ticksLength, tick, props});
+            lineStyle = value([tick.lineStyle, lineStyle], {index, ticksLength, tick, props});
 
-            lineLength = helpers.normalizeNumber(
-                helpers.value([tick.lineLength, lineLength], {index, ticksLength, tick, props}),
+            lineLength = normalizeNumber(
+                value([tick.lineLength, lineLength], {index, ticksLength, tick, props}),
                 horizontal ? layerWidth : layerHeight
             );
-            lineOffset = helpers.normalizeNumber(
-                helpers.value([tick.lineOffset, lineOffset], {index, ticksLength, tick, props}),
+            lineOffset = normalizeNumber(
+                value([tick.lineOffset, lineOffset], {index, ticksLength, tick, props}),
                 horizontal ? layerWidth : layerHeight
             );
 
@@ -160,7 +160,7 @@ class Ticks extends React.Component {
                 (scaleX.swap || scaleY.swap ? 'top' : 'bottom') :
                 'left');
 
-        ticks = helpers.value([ticks], props);
+        ticks = value([ticks], props);
         if (_.isNumber(ticks)) {
             ticks = {maxTicks: ticks};
         }
@@ -253,5 +253,3 @@ Ticks.defaultProps = {
     lineLength: 5,
     lineOffset: 0
 };
-
-module.exports = Ticks;

@@ -1,8 +1,9 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    helpers = require('./helpers');
+import normalizeNumber from './helpers/normalizeNumber';
+import getCoords from './helpers/getCoords';
+import proxyChildren from './helpers/proxyChildren';
 
 /**
  * Creates a new layer using specific `width` and `height` at specific `position`. It's useful when
@@ -10,7 +11,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Layer.md
  */
-class Layer extends React.Component {
+export default class Layer extends Component {
 
     constructor(props) {
         super(props);
@@ -24,17 +25,17 @@ class Layer extends React.Component {
 
     getWidth() {
         const {width, layerWidth} = this.props;
-        return helpers.normalizeNumber(width, layerWidth);
+        return normalizeNumber(width, layerWidth);
     }
 
     getHeight() {
         const {height, layerHeight} = this.props;
-        return helpers.normalizeNumber(height, layerHeight);
+        return normalizeNumber(height, layerHeight);
     }
 
     getCoords() {
         const {position, layerWidth, layerHeight} = this.props;
-        return helpers.getCoords(position, layerWidth, layerHeight, this.getWidth(), this.getHeight());
+        return getCoords(position, layerWidth, layerHeight, this.getWidth(), this.getHeight());
     }
 
     // render
@@ -47,7 +48,7 @@ class Layer extends React.Component {
 
         const {x, y} = this.getCoords();
 
-        const children = helpers.proxyChildren(
+        const children = proxyChildren(
             this.props.children,
             this.props,
             {
@@ -89,5 +90,3 @@ Layer.defaultProps = {
     height: '100%',
     position: 'middle center'
 };
-
-module.exports = Layer;

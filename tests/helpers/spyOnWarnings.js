@@ -1,6 +1,4 @@
-'use strict';
-
-const spyOnWarnings = callback => {
+export default function spyOnWarnings(callback) {
     const error = console.error;
     const warn = console.warn;
     const spy = jasmine.createSpy('console.error');
@@ -10,6 +8,4 @@ const spyOnWarnings = callback => {
     console.error = error;
     console.warn = warn;
     return spy;
-};
-
-module.exports = spyOnWarnings;
+}

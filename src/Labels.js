@@ -1,9 +1,9 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    Dots = require('./Dots'),
-    helpers = require('./helpers');
+import propTypes from './helpers/propTypes';
+
+import Dots from './Dots';
 
 /**
  * Renders labels for dots. Internally it's just a wrapper for [`<Dots>`](#dots) component
@@ -11,7 +11,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Labels.md
  */
-function Labels(props) {
+export default function Labels(props) {
     return <Dots {...props} dotType='labels'/>;
 }
 
@@ -46,7 +46,7 @@ Labels.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series
+    series: propTypes.series
 };
 
 Labels.defaultProps = {
@@ -57,5 +57,3 @@ Labels.defaultProps = {
     seriesVisible: true,
     dotVisible: true
 };
-
-module.exports = Labels;

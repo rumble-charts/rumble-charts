@@ -1,11 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
+import _  from 'lodash';
 
 /**
  * @returns {Array}
  */
-const generateRandomSeries = function (seriesCount, pointsCount, options = {}) {
+export default function generateRandomSeries(seriesCount, pointsCount, options = {}) {
     options = _.defaults({}, options, {
         type: 'number', // number, integer, array, object
         min: 1,
@@ -35,6 +33,4 @@ const generateRandomSeries = function (seriesCount, pointsCount, options = {}) {
         };
     });
 
-};
-
-module.exports = generateRandomSeries;
+}

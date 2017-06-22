@@ -1,11 +1,10 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import d3 from 'd3';
+import {timer} from 'd3-timer';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    d3 = require('d3'),
-    d3_timer = require('d3-timer'),
-    helpers = require('./helpers');
+import proxyChildren from './helpers/proxyChildren';
 
 /**
  * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
@@ -15,7 +14,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Animate.md
  */
-class Animate extends React.Component {
+export default class Animate extends Component {
 
     constructor(props) {
         super(props);
@@ -40,7 +39,7 @@ class Animate extends React.Component {
         let i = 0;
         this._timer && this._timer.stop();
         onStart && onStart();
-        const _timer = d3_timer.timer(p => {
+        const _timer = timer(p => {
             this.setState(interpolate(ease(p / duration)));
             i++;
             if (p >= duration) {
@@ -64,7 +63,7 @@ class Animate extends React.Component {
         const {props, state} = this;
 
         return <g className={props.className}>
-            {helpers.proxyChildren(
+            {proxyChildren(
                 props.children,
                 _.omitBy(state, _.isUndefined),
                 {
@@ -115,8 +114,6 @@ Animate.defaultProps = {
     duration: 500,
     ease: 'linear'
 };
-
-module.exports = Animate;
 
 d3.interpolators.push(function(a, b) {
     let c, i, an = typeof a == 'number';

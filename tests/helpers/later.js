@@ -1,6 +1,4 @@
-'use strict';
-
-const later = function (callback, timeout = 0) {
+export default function later(callback, timeout = 0) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             try {
@@ -11,6 +9,4 @@ const later = function (callback, timeout = 0) {
             }
         }, timeout);
     });
-};
-
-module.exports = later;
+}

@@ -1,9 +1,7 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const React = require('react'),
-    PropTypes = require('prop-types');
-
-function DropShadow(props) {
+export default function DropShadow(props) {
     return <filter id={props.id}>
         <feGaussianBlur in={props.blurIn} stdDeviation={props.blurDeviation}/>
         <feOffset dx={props.dx} dy={props.dy}/>
@@ -32,5 +30,3 @@ DropShadow.defaultProps = {
     blurDeviation: 4,
     blurIn: 'SourceAlpha'
 };
-
-module.exports = DropShadow;

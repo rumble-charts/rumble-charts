@@ -1,15 +1,13 @@
-'use strict';
+import {shallow} from 'enzyme';
+import d3 from 'd3';
+import _ from 'lodash';
+import helpers from '../../src/helpers';
+import Chart from '../../src/Chart';
+import graphicsComponent from '../helpers/graphicsComponent';
+import linesComponent from '../helpers/linesComponent';
+import generateRandomSeries from '../helpers/generateRandomSeries';
 
-const {shallow} = require('enzyme');
-const d3 = require('d3');
-const _ = require('lodash');
-const helpers = require('../../src/helpers');
-const Chart = require('../../src/Chart');
-const graphicsComponent = require('../helpers/graphicsComponent');
-const linesComponent = require('../helpers/linesComponent');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
-
-const RadialLines = require('../../src/RadialLines');
+import RadialLines from '../../src/RadialLines';
 
 describe('RadialLines', () => {
 

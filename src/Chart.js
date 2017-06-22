@@ -1,10 +1,11 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import d3 from 'd3';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    d3 = require('d3'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+import proxyChildren from './helpers/proxyChildren';
+import normalizeNumber from './helpers/normalizeNumber';
+import propTypes from './helpers/propTypes';
 
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
@@ -17,7 +18,7 @@ const React = require('react'),
  *
  * @example ../docs/examples/Chart.md
  */
-function Chart(props) {
+export default function Chart(props) {
     const {viewBox} = props;
     let {width, height, layerWidth, layerHeight} = props;
     width = width || layerWidth;
@@ -29,7 +30,7 @@ function Chart(props) {
         height = height || viewBoxTotal[3];
     }
 
-    const children = helpers.proxyChildren(
+    const children = proxyChildren(
         props.children,
         props,
         {
@@ -52,8 +53,8 @@ function Chart(props) {
 
                     return d3.scale.linear()
                         .range([
-                            helpers.normalizeNumber(paddingLeft, layerWidth),
-                            layerWidth - helpers.normalizeNumber(paddingRight, layerWidth)
+                            normalizeNumber(paddingLeft, layerWidth),
+                            layerWidth - normalizeNumber(paddingRight, layerWidth)
                         ])
                         .domain(direction >= 0 ? [minX, maxX] : [maxX, minX]);
                 }
@@ -75,8 +76,8 @@ function Chart(props) {
 
                     return d3.scale.linear()
                         .range([
-                            layerHeight - helpers.normalizeNumber(paddingBottom, layerHeight),
-                            helpers.normalizeNumber(paddingTop, layerHeight)
+                            layerHeight - normalizeNumber(paddingBottom, layerHeight),
+                            normalizeNumber(paddingTop, layerHeight)
                         ])
                         .domain(direction >= 0 ? [minY, maxY] : [maxY, minY]);
                 }
@@ -126,7 +127,7 @@ Chart.propTypes = {
     /**
      * An array of series objects. Read more [about series](#series). (or docs/series.md)
      */
-    series: helpers.propTypes.series,
+    series: propTypes.series,
     /**
      * It can be change to `"g"`, if you want to include your chart inside another svg graphic.
      */
@@ -214,5 +215,3 @@ Chart.defaultProps = {
     series: [],
     tag: 'svg'
 };
-
-module.exports = Chart;

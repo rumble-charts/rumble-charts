@@ -1,19 +1,18 @@
-'use strict';
+import React from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+import getCoords from './helpers/getCoords';
 
 /**
  * Renders title (text or everything else) at specified `position`.
  *
  * @example ../docs/examples/Title.md
  */
-function Title(props) {
+export default function Title(props) {
     const {style, className, children} = props;
 
-    const {x, y} = helpers.getCoords(
+    const {x, y} = getCoords(
         props.position,
         props.layerWidth, props.layerHeight,
         props.width, props.height
@@ -52,5 +51,3 @@ Title.propTypes = {
 Title.defaultProps = {
     position: 'top center'
 };
-
-module.exports = Title;

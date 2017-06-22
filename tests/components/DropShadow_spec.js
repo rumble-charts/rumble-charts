@@ -1,7 +1,5 @@
-'use strict';
-
-const {shallow} = require('enzyme');
-const DropShadow = require('../../src/DropShadow');
+import {shallow} from 'enzyme';
+import DropShadow from '../../src/DropShadow';
 
 describe('DropShadow', () => {
 

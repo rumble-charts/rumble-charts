@@ -4,6 +4,7 @@
     "jest"
   ],
   "plugins": [
-    "transform-react-jsx"
+    "transform-react-jsx",
+    "lodash"
   ]
 }

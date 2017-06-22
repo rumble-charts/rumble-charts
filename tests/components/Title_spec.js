@@ -1,7 +1,5 @@
-'use strict';
-
-const {shallow} = require('enzyme');
-const Title = require('../../src/Title');
+import {shallow} from 'enzyme';
+import Title from '../../src/Title';
 
 describe('Title', () => {
 

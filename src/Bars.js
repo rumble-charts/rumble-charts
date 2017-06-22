@@ -1,16 +1,18 @@
-'use strict';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 
-const React = require('react'),
-    PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+import value from './helpers/value';
+import normalizeNumber from './helpers/normalizeNumber';
+import colorFunc from './helpers/colorFunc';
+import propTypes from './helpers/propTypes';
 
 /**
  * Renders bars for your bar chart.
  *
  * @example ../docs/examples/Bars.md
  */
-class Bars extends React.Component {
+export default class Bars extends Component {
 
     constructor(props) {
         super(props);
@@ -27,10 +29,10 @@ class Bars extends React.Component {
     getPaddings() {
         const {props} = this;
         let {innerPadding, groupPadding, layerWidth} = props;
-        innerPadding = helpers.value(innerPadding, props);
-        innerPadding = helpers.normalizeNumber(innerPadding, layerWidth);
-        groupPadding = helpers.value(groupPadding, props);
-        groupPadding = helpers.normalizeNumber(groupPadding, layerWidth);
+        innerPadding = value(innerPadding, props);
+        innerPadding = normalizeNumber(innerPadding, layerWidth);
+        groupPadding = value(groupPadding, props);
+        groupPadding = normalizeNumber(groupPadding, layerWidth);
         return {
             innerPadding,
             groupPadding
@@ -42,8 +44,8 @@ class Bars extends React.Component {
         let {barWidth, layerWidth} = props;
         let {innerPadding, groupPadding} = this.getPaddings(props);
         if (barWidth) {
-            barWidth = helpers.value(barWidth, props);
-            return helpers.normalizeNumber(barWidth, layerWidth);
+            barWidth = value(barWidth, props);
+            return normalizeNumber(barWidth, layerWidth);
         } else {
             const baseWidth = Math.abs(x(1) - x(0));
             if (props.combined) {
@@ -61,13 +63,13 @@ class Bars extends React.Component {
         const {scaleX, scaleY, className} = props;
         let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
-        seriesVisible = helpers.value(seriesVisible, {seriesIndex: index, series, props});
+        seriesVisible = value(seriesVisible, {seriesIndex: index, series, props});
         if (!seriesVisible) {
             return;
         }
 
-        seriesAttributes = helpers.value(seriesAttributes, {seriesIndex: index, series, props});
-        seriesStyle = helpers.value(seriesStyle, {seriesIndex: index, series, props});
+        seriesAttributes = value(seriesAttributes, {seriesIndex: index, series, props});
+        seriesStyle = value(seriesStyle, {seriesIndex: index, series, props});
 
         let deltaX = 0;
         if (!props.combined) {
@@ -106,19 +108,19 @@ class Bars extends React.Component {
         let {barVisible, barAttributes, barStyle, groupStyle} = props;
         const series = props.series[seriesIndex];
 
-        barVisible = helpers.value(barVisible, {seriesIndex, pointIndex, point, series, props});
+        barVisible = value(barVisible, {seriesIndex, pointIndex, point, series, props});
         if (!barVisible) {
             return;
         }
 
-        groupStyle = helpers.value(groupStyle, {seriesIndex, pointIndex, point, series, props});
+        groupStyle = value(groupStyle, {seriesIndex, pointIndex, point, series, props});
 
         const d = (scaleX.swap || scaleY.swap) ?
             ('M0,' + (-height / 2) + ' h' + (width) + ' v' + height + ' h' + (-width) + ' Z') :
             ('M' + (-width / 2) + ',0 v' + height + ' h' + width + ' v' + (-height) + ' Z');
 
-        barAttributes = helpers.value(barAttributes, {seriesIndex, pointIndex, point, series, props});
-        barStyle = helpers.value([point.style, series.style, barStyle], {
+        barAttributes = value(barAttributes, {seriesIndex, pointIndex, point, series, props});
+        barStyle = value([point.style, series.style, barStyle], {
             seriesIndex, pointIndex, point, series, props
         });
 
@@ -156,7 +158,7 @@ class Bars extends React.Component {
         this.innerPadding = this.getPaddings().innerPadding;
         this.barWidth = this.getBarWidth();
         this._y0 = this.y(0);
-        this.color = helpers.colorFunc(colors);
+        this.color = colorFunc(colors);
 
         return <g
             className={className}
@@ -207,7 +209,7 @@ Bars.propTypes = {
         PropTypes.array,
         PropTypes.func
     ]),
-    series: helpers.propTypes.series,
+    series: propTypes.series,
     scaleX: PropTypes.object,
     scaleY: PropTypes.object,
     minX: PropTypes.number,
@@ -223,5 +225,3 @@ Bars.defaultProps = {
     seriesVisible: true,
     barVisible: true
 };
-
-module.exports = Bars;

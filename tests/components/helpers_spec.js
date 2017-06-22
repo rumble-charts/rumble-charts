@@ -1,8 +1,6 @@
-'use strict';
-
-const {mount} = require('enzyme');
-const helpers = require('../../src/helpers');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
+import {mount} from 'enzyme';
+import helpers from '../../src/helpers';
+import generateRandomSeries from '../helpers/generateRandomSeries';
 
 const seriesObject = generateRandomSeries(3, 5, {type: 'object'});
 const seriesNumber = generateRandomSeries(3, 5, {type: 'number'});

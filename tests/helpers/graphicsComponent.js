@@ -1,17 +1,18 @@
-'use strict';
+import {shallow, mount, render} from 'enzyme';
+const enzyme = {
+    shallow, mount, render
+};
+import _ from 'lodash';
+import d3 from 'd3';
+import Chart from '../../src/Chart';
+import generateRandomSeries from './generateRandomSeries';
+import visibleProps from './visibleProps';
+import attributesProps from './attributesProps';
+import styleProps from './styleProps';
+import later from './later';
+import spyOnWarnings from './spyOnWarnings';
 
-const enzyme = require('enzyme');
-const _ = require('lodash');
-const d3 = require('d3');
-const Chart = require('../../src/Chart');
-const generateRandomSeries = require('./generateRandomSeries');
-const visibleProps = require('./visibleProps');
-const attributesProps = require('./attributesProps');
-const styleProps = require('./styleProps');
-const later = require('./later');
-const spyOnWarnings = require('./spyOnWarnings');
-
-module.exports = function(Component, options = {}) {
+export default function(Component, options = {}) {
     options = _.defaults({}, options, {
         deepestTag: 'path',
         renderMethod: 'shallow',
@@ -542,4 +543,4 @@ module.exports = function(Component, options = {}) {
         });
     }
 
-};
+}

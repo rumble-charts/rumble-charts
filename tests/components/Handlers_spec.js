@@ -1,10 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const {mount} = require('enzyme');
-const Chart = require('../../src/Chart');
-const Handlers = require('../../src/Handlers');
-const generateRandomSeries = require('../helpers/generateRandomSeries');
+import _ from 'lodash';
+import {mount} from 'enzyme';
+import Chart from '../../src/Chart';
+import Handlers from '../../src/Handlers';
+import generateRandomSeries from '../helpers/generateRandomSeries';
 
 const series = generateRandomSeries(3, 5, {min: 0, max: 100, type: 'object'});
 const seriesNumber = generateRandomSeries(3, 5, {type: 'number'});
