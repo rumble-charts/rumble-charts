@@ -2,8 +2,9 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('lodash'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _forEach = require('lodash/forEach'),
+    _sortBy = require('lodash/sortBy');
 
 /**
  * Helps to use mouse events. For now supports only "`onClick`", "`onMouseMove`" and "`onMouseLeave`".
@@ -71,8 +72,8 @@ class Handlers extends React.Component {
 
         let closestPoints = [];
         let minDistance = sensitivity;
-        _.forEach(series, (series, seriesIndex) => {
-            _.forEach(series.data, (point, pointIndex) => {
+        _forEach(series, (series, seriesIndex) => {
+            _forEach(series.data, (point, pointIndex) => {
                 let distance;
                 switch (props.distance) {
                 case 'x':
@@ -100,7 +101,7 @@ class Handlers extends React.Component {
                 }
             });
         });
-        closestPoints = _.sortBy(closestPoints, 'distance');
+        closestPoints = _sortBy(closestPoints, 'distance');
 
         handler({
             clientX: realX,

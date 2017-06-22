@@ -2,8 +2,13 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _isUndefined = require('lodash/isUndefined'),
+    _range = require('lodash/range'),
+    _isNumber = require('lodash/isNumber'),
+    _isString = require('lodash/isString'),
+    _isPlainObject = require('lodash/isPlainObject'),
+    _map = require('lodash/map');
 
 /**
  * Renders ticks (labels and lines) for axis (x and y).
@@ -33,20 +38,20 @@ class Ticks extends React.Component {
         const min = axis === 'y' ? minY : minX;
         const length = max - min;
 
-        if (_.isUndefined(minDistance)) {
+        if (_isUndefined(minDistance)) {
             minDistance = Math.min(1, length);
         }
 
-        if (_.isUndefined(maxTicks)) {
+        if (_isUndefined(maxTicks)) {
             maxTicks = Math.min((length + minDistance) / minDistance, 5);
         }
 
-        if (_.isUndefined(distance)) {
+        if (_isUndefined(distance)) {
             distance = Math.max(minDistance, length / maxTicks);
             distance = Math.ceil(distance / minDistance) * minDistance;
         }
 
-        return _.range(min, max + minDistance, distance);
+        return _range(min, max + minDistance, distance);
     }
 
     // render
@@ -56,7 +61,7 @@ class Ticks extends React.Component {
         const {axis, className, layerWidth, layerHeight, scaleX, scaleY} = props;
         let {tickStyle, tickAttributes, tickVisible} = props;
 
-        if (_.isNumber(tick)) {
+        if (_isNumber(tick)) {
             tick = {[axis]: tick};
         }
 
@@ -100,7 +105,7 @@ class Ticks extends React.Component {
             label = helpers.value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
             labelFormat = helpers.value(labelFormat, label) || label;
 
-            if (_.isString(label) || _.isNumber(label)) {
+            if (_isString(label) || _isNumber(label)) {
                 label = <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
@@ -161,16 +166,16 @@ class Ticks extends React.Component {
                 'left');
 
         ticks = helpers.value([ticks], props);
-        if (_.isNumber(ticks)) {
+        if (_isNumber(ticks)) {
             ticks = {maxTicks: ticks};
         }
         ticks = ticks || {};
-        if (_.isPlainObject(ticks)) {
+        if (_isPlainObject(ticks)) {
             ticks = this.generateTicks(ticks);
         }
 
         return <g className={className} style={style} opacity={props.opacity}>
-            {_.map(ticks, this.renderTick.bind(this, ticks.length))}
+            {_map(ticks, this.renderTick.bind(this, ticks.length))}
         </g>;
     }
 

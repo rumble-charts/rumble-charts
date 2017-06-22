@@ -3,12 +3,32 @@
 const React = require('react'),
     PropTypes = require('prop-types'),
     d3 = require('d3'),
-    _ = require('lodash');
+    _isUndefined = require('lodash/isUndefined'),
+    _map = require('lodash/map'),
+    _isNumber = require('lodash/isNumber'),
+    _isArray = require('lodash/isArray'),
+    _defaults = require('lodash/defaults'),
+    _isEmpty = require('lodash/isEmpty'),
+    _omitBy = require('lodash/omitBy'),
+    _isString = require('lodash/isString'),
+    _pick = require('lodash/pick'),
+    _assign = require('lodash/assign'),
+    _defaultsDeep = require('lodash/defaultsDeep'),
+    _isFunction = require('lodash/isFunction'),
+    _filter = require('lodash/filter'),
+    _min = require('lodash/min'),
+    _max = require('lodash/max'),
+    _sortBy = require('lodash/sortBy'),
+    _forEach = require('lodash/forEach'),
+    _cloneDeep = require('lodash/cloneDeep'),
+    _reduce = require('lodash/reduce'),
+    _isObject = require('lodash/isObject'),
+    _isPlainObject = require('lodash/isPlainObject');
 
 const limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
 const isInvalidLimit = value => {
-    return _.isUndefined(value) || value === Infinity || value === -Infinity;
+    return _isUndefined(value) || value === Infinity || value === -Infinity;
 };
 
 const helpers = {
@@ -19,63 +39,63 @@ const helpers = {
             minX = Infinity,
             minY = Infinity;
 
-        var series = _.map(props.series, series => {
+        var series = _map(props.series, series => {
 
-            let data = _.map(series.data, (item, index) => {
+            let data = _map(series.data, (item, index) => {
 
                 var d;
                 if (!props.seriesNormalized) {
                     d = {};
-                    if (_.isNumber(item)) {
+                    if (_isNumber(item)) {
                         d.x = index;
                         d.y = item;
-                    } else if (_.isArray(item)) {
+                    } else if (_isArray(item)) {
                         d.x = item[0];
                         d.y = item[1];
                     } else {
                         d = item || {};
-                        if (_.isUndefined(d.x)) {
+                        if (_isUndefined(d.x)) {
                             d.x = index;
                         }
                     }
                 } else {
                     d = item;
                 }
-                if (_.isUndefined(props.maxX)) {
+                if (_isUndefined(props.maxX)) {
                     maxX = Math.max(maxX, d.x || 0);
                 }
-                if (_.isUndefined(props.maxY)) {
+                if (_isUndefined(props.maxY)) {
                     maxY = Math.max(maxY, d.y || 0);
                 }
-                if (_.isUndefined(props.minX)) {
+                if (_isUndefined(props.minX)) {
                     minX = Math.min(minX, d.x || 0);
                 }
-                if (_.isUndefined(props.minY)) {
+                if (_isUndefined(props.minY)) {
                     minY = Math.min(minY, d.y || 0);
                 }
 
                 return d;
             });
 
-            return _.defaults({data}, series);
+            return _defaults({data}, series);
         });
-        if (_.isEmpty(series)) {
+        if (_isEmpty(series)) {
             series = undefined;
         }
-        if (!_.isUndefined(props.maxX)) {
+        if (!_isUndefined(props.maxX)) {
             maxX = props.maxX;
         }
-        if (!_.isUndefined(props.maxY)) {
+        if (!_isUndefined(props.maxY)) {
             maxY = props.maxY;
         }
-        if (!_.isUndefined(props.minX)) {
+        if (!_isUndefined(props.minX)) {
             minX = props.minX;
         }
-        if (!_.isUndefined(props.minY)) {
+        if (!_isUndefined(props.minY)) {
             minY = props.minY;
         }
 
-        return _.omitBy({
+        return _omitBy({
             seriesNormalized: true,
             series,
             maxX,
@@ -86,7 +106,7 @@ const helpers = {
     },
 
     normalizeNumber(number, absolute = null) {
-        if (_.isString(number)) {
+        if (_isString(number)) {
             if (number.substr(-1, 1) === '%') {
                 number = ((parseFloat(number) || 0) / 100) * absolute;
             } else if (number === 'left' || number === 'top') {
@@ -108,11 +128,11 @@ const helpers = {
 
     getCoords(position, layerWidth, layerHeight, width = 0, height = 0) {
 
-        if (_.isString(position)) {
+        if (_isString(position)) {
             position = position.split(' ');
         }
-        if (_.isArray(position)) {
-            position = _.map(position, pos => pos.toLowerCase ? pos.toLowerCase() : pos);
+        if (_isArray(position)) {
+            position = _map(position, pos => pos.toLowerCase ? pos.toLowerCase() : pos);
             var [x, y] = position;
             if (['top', 'bottom', 'middle'].indexOf(position[0]) !== -1) {
                 y = position[0];
@@ -120,7 +140,7 @@ const helpers = {
             if (['left', 'right', 'center'].indexOf(position[1]) !== -1) {
                 x = position[1];
             }
-            if (_.isString(x)) {
+            if (_isString(x)) {
                 if (x === 'left') {
                     x = 0;
                 } else if (x === 'right') {
@@ -130,10 +150,10 @@ const helpers = {
                 } else {
                     x = helpers.normalizeNumber(x, layerWidth);
                 }
-            } else if (_.isUndefined(x)) {
+            } else if (_isUndefined(x)) {
                 x = 0;
             }
-            if (_.isString(y)) {
+            if (_isString(y)) {
                 if (y === 'top') {
                     y = 0;
                 } else if (y === 'bottom') {
@@ -143,7 +163,7 @@ const helpers = {
                 } else {
                     y = helpers.normalizeNumber(y, layerHeight);
                 }
-            } else if (_.isUndefined(y)) {
+            } else if (_isUndefined(y)) {
                 y = 0;
             }
             return {x, y};
@@ -153,9 +173,9 @@ const helpers = {
 
     proxyChildren(children, seriesProps = null, extraProps = {}) {
 
-        var limits = _.pick(seriesProps, limitsPropNames);
+        var limits = _pick(seriesProps, limitsPropNames);
         seriesProps = helpers.normalizeSeries(seriesProps);
-        var limitsCalculated = _.pick(seriesProps, limitsPropNames);
+        var limitsCalculated = _pick(seriesProps, limitsPropNames);
         var {series} = seriesProps;
 
         return React.Children.map(children, child => {
@@ -165,34 +185,34 @@ const helpers = {
             }
 
             var props = {};
-            _.assign(props, child.props);
-            _.defaultsDeep(props, _.isFunction(extraProps) ? extraProps(child) : extraProps);
+            _assign(props, child.props);
+            _defaultsDeep(props, _isFunction(extraProps) ? extraProps(child) : extraProps);
 
-            var childLimits = _.pick(child.props, limitsPropNames);
-            var childSeriesProps = helpers.normalizeSeries(_.defaults(child.props, {
+            var childLimits = _pick(child.props, limitsPropNames);
+            var childSeriesProps = helpers.normalizeSeries(_defaults(child.props, {
                 layerWidth: props.layerWidth,
                 layerHeight: props.layerHeight
             }));
-            var childLimitsCalculated = _.pick(childSeriesProps, limitsPropNames);
+            var childLimitsCalculated = _pick(childSeriesProps, limitsPropNames);
 
-            _.defaults(props, childLimits, limits, childLimitsCalculated, limitsCalculated);
+            _defaults(props, childLimits, limits, childLimitsCalculated, limitsCalculated);
 
             if (!child.props.series) {
-                if (_.isUndefined(child.props.seriesIndex)) {
+                if (_isUndefined(child.props.seriesIndex)) {
                     props.series = series;
-                } else if (_.isNumber(child.props.seriesIndex)) {
+                } else if (_isNumber(child.props.seriesIndex)) {
                     props.series = [series[child.props.seriesIndex]];
-                } else if (_.isArray(child.props.seriesIndex)) {
-                    props.series = _.map(child.props.seriesIndex, index => series[index]);
-                } else if (_.isFunction(child.props.seriesIndex)) {
-                    props.series = _.filter(series, child.props.seriesIndex);
+                } else if (_isArray(child.props.seriesIndex)) {
+                    props.series = _map(child.props.seriesIndex, index => series[index]);
+                } else if (_isFunction(child.props.seriesIndex)) {
+                    props.series = _filter(series, child.props.seriesIndex);
                 }
             } else {
                 props.series = childSeriesProps.series;
             }
             props.seriesNormalized = true;
 
-            props = _.omitBy(props, _.isUndefined);
+            props = _omitBy(props, _isUndefined);
 
             return React.cloneElement(child, props);
 
@@ -206,11 +226,11 @@ const helpers = {
             let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
             var stackedY = [], lowestY = [];
-            series = _.map(series, series => {
+            series = _map(series, series => {
                 var newSeries = {};
-                newSeries.data = _.map(series.data, (point, pointIndex) => {
+                newSeries.data = _map(series.data, (point, pointIndex) => {
                     stackedY[pointIndex] = stackedY[pointIndex] || 0;
-                    if (_.isUndefined(lowestY[pointIndex])) {
+                    if (_isUndefined(lowestY[pointIndex])) {
                         lowestY[pointIndex] = stackedY[pointIndex];
                     }
                     var newPoint = {
@@ -219,27 +239,27 @@ const helpers = {
                     };
                     stackedY[pointIndex] = newPoint.y;
 
-                    return _.defaults(newPoint, point);
+                    return _defaults(newPoint, point);
                 });
-                return _.defaults(newSeries, series);
+                return _defaults(newSeries, series);
             });
-            minY = _.min(lowestY);
-            var stackedMaxY = _.max(stackedY);
+            minY = _min(lowestY);
+            var stackedMaxY = _max(stackedY);
             maxY = Math.max(stackedMaxY, maxY);
 
             if (normalize) {
 
-                var ratios = _.map(stackedY, y => stackedMaxY / y);
-                series = _.map(series, series => {
+                var ratios = _map(stackedY, y => stackedMaxY / y);
+                series = _map(series, series => {
                     var newSeries = {};
-                    newSeries.data = _.map(series.data, (point, pointIndex) => {
+                    newSeries.data = _map(series.data, (point, pointIndex) => {
                         var newPoint = {
                             y0: point.y0 * ratios[pointIndex],
                             y: point.y * ratios[pointIndex]
                         };
-                        return _.defaults(newPoint, point);
+                        return _defaults(newPoint, point);
                     });
-                    return _.defaults(newSeries, series);
+                    return _defaults(newSeries, series);
                 });
 
             }
@@ -266,21 +286,21 @@ const helpers = {
 
             let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
-            series = _.map(series, series => {
+            series = _map(series, series => {
                 var newSeries = {};
-                newSeries.data = _.sortBy(series.data, 'y');
+                newSeries.data = _sortBy(series.data, 'y');
                 if (direction === 'desc') {
                     newSeries.data.reverse();
                 }
-                newSeries.data = _.map(newSeries.data, (point, pointIndex) => {
+                newSeries.data = _map(newSeries.data, (point, pointIndex) => {
                     var newPoint = {
                         realX: point.x,
                         x: pointIndex
                     };
-                    return _.defaults(newPoint, point);
+                    return _defaults(newPoint, point);
                 });
-                newSeries.data = _.sortBy(newSeries.data, 'realX');
-                return _.defaults(newSeries, series);
+                newSeries.data = _sortBy(newSeries.data, 'realX');
+                return _defaults(newSeries, series);
             });
 
             return {
@@ -297,15 +317,15 @@ const helpers = {
 
             let {series, seriesNormalized, maxX, maxY, minX, minY} = props;
 
-            series = _.map(series, series => {
+            series = _map(series, series => {
                 var newSeries = {};
-                newSeries.data = _.map(series.data, point => {
+                newSeries.data = _map(series.data, point => {
                     var newPoint = {
                         y0: 0
                     };
-                    return _.defaults(newPoint, point);
+                    return _defaults(newPoint, point);
                 });
-                return _.defaults(newSeries, series);
+                return _defaults(newSeries, series);
             });
 
             return {
@@ -324,11 +344,11 @@ const helpers = {
 
             var maxX = 0;
             let newSeries = [];
-            _.forEach(series, (series, seriesIndex) => {
-                _.forEach(series.data, (point, pointIndex) => {
+            _forEach(series, (series, seriesIndex) => {
+                _forEach(series.data, (point, pointIndex) => {
                     newSeries[pointIndex] = newSeries[pointIndex] || {data: []};
                     maxX = Math.max(maxX, seriesIndex);
-                    newSeries[pointIndex].data[seriesIndex] = _.defaults({
+                    newSeries[pointIndex].data[seriesIndex] = _defaults({
                         realX: point.x,
                         x: seriesIndex
                     }, point);
@@ -350,8 +370,8 @@ const helpers = {
 
             let {paddingLeft, paddingRight} = scaleX;
             let {paddingTop, paddingBottom} = scaleY;
-            scaleX = _.cloneDeep(scaleX);
-            scaleY = _.cloneDeep(scaleY);
+            scaleX = _cloneDeep(scaleX);
+            scaleY = _cloneDeep(scaleY);
             scaleX.paddingLeft = paddingTop;
             scaleX.paddingRight = paddingBottom;
             scaleX.swap = !scaleX.swap;
@@ -374,8 +394,8 @@ const helpers = {
         },
 
         reverse({series, seriesNormalized, minX, maxX, maxY, minY}) {
-            if (_.isArray(series)) {
-                series = _.cloneDeep(series).reverse();
+            if (_isArray(series)) {
+                series = _cloneDeep(series).reverse();
             }
             return {
                 series,
@@ -390,20 +410,20 @@ const helpers = {
     },
 
     transform(props, method, options = null) {
-        if (!_.isArray(method)) {
+        if (!_isArray(method)) {
             method = [method];
         }
 
-        return _.reduce(method, (props, method) => {
-            if (_.isString(method)) {
+        return _reduce(method, (props, method) => {
+            if (_isString(method)) {
                 if (helpers.transforms[method]) {
-                    return _.defaults(helpers.transforms[method](props, options), props);
+                    return _defaults(helpers.transforms[method](props, options), props);
                 } else {
                     return props;
                 }
-            } else if (_.isFunction(method)) {
-                return _.defaults(method(props, options), props);
-            } else if (_.isObject(method)) {
+            } else if (_isFunction(method)) {
+                return _defaults(method(props, options), props);
+            } else if (_isObject(method)) {
                 return helpers.transform(props, method.method, method.options);
             } else {
                 return props;
@@ -412,29 +432,29 @@ const helpers = {
     },
 
     value(attribute, args) {
-        if (_.isArray(attribute)) {
+        if (_isArray(attribute)) {
             var result;
-            _.forEach(attribute, attr => {
-                attr = _.isFunction(attr) ? attr(args) : attr;
-                if (_.isPlainObject(attr) && _.isUndefined(attr._owner) && _.isUndefined(attr.props)) {
-                    result = _.defaults(result || {}, attr);
-                } else if (!_.isUndefined(attr)) {
+            _forEach(attribute, attr => {
+                attr = _isFunction(attr) ? attr(args) : attr;
+                if (_isPlainObject(attr) && _isUndefined(attr._owner) && _isUndefined(attr.props)) {
+                    result = _defaults(result || {}, attr);
+                } else if (!_isUndefined(attr)) {
                     result = attr;
                     return false;
                 }
             });
             return result;
         } else {
-            return _.isFunction(attribute) ? attribute(args) : attribute;
+            return _isFunction(attribute) ? attribute(args) : attribute;
         }
     },
 
     colorFunc(colors) {
-        if (_.isFunction(colors)) {
+        if (_isFunction(colors)) {
             return colors;
-        } else if (_.isEmpty(colors)) {
+        } else if (_isEmpty(colors)) {
             return d3.scale.category20();
-        } else if (_.isString(colors)) {
+        } else if (_isString(colors)) {
             return d3.scale[colors]();
         } else {
             return d3.scale.ordinal().range(colors);

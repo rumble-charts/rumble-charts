@@ -2,9 +2,10 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
     d3 = require('d3'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _map = require('lodash/map'),
+    _isNumber = require('lodash/isNumber');
 
 /**
  * Renders lines for your line chart.
@@ -23,7 +24,7 @@ function Lines(props) {
     const color = helpers.colorFunc(colors);
 
     return <g className={className} style={style} opacity={opacity}>
-        {_.map(series, (series, index) => {
+        {_map(series, (series, index) => {
 
             let {seriesVisible, seriesStyle, seriesAttributes} = props;
             let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
@@ -62,7 +63,7 @@ function Lines(props) {
 
                 let lineColor = series.color || color(index);
 
-                line.defined(point => _.isNumber(point.y))
+                line.defined(point => _isNumber(point.y))
                     .interpolate(props.interpolation);
 
                 lineAttributes = helpers.value(lineAttributes, {seriesIndex: index, series, props});

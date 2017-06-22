@@ -2,8 +2,8 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _map = require('lodash/map');
 
 /**
  * Renders bars for your bar chart.
@@ -84,7 +84,7 @@ class Bars extends React.Component {
             style={seriesStyle}
             {...seriesAttributes}>
 
-            {series && _.map(series.data, (point, pointIndex) => {
+            {series && _map(series.data, (point, pointIndex) => {
                 let y0 = point.y0 ? y(point.y0) : this._y0;
                 let y1 = y(point.y);
                 let x1 = x(point.x) + deltaX * (scaleX.direction || 1);
@@ -162,7 +162,7 @@ class Bars extends React.Component {
             className={className}
             style={style}
             opacity={opacity}>
-            {_.map(props.series, this.renderSeries)}
+            {_map(props.series, this.renderSeries)}
         </g>;
 
     }

@@ -2,8 +2,8 @@
 
 const React = require('react'),
     PropTypes = require('prop-types'),
-    _ = require('./_'),
-    helpers = require('./helpers');
+    helpers = require('./helpers'),
+    _isUndefined = require('lodash/isUndefined');
 
 /**
  * Transforms `series` data according chosen `method`.
@@ -21,10 +21,10 @@ function Transform(props) {
         props.children,
         newProps,
         {
-            layerWidth: _.isUndefined(newProps.layerWidth) ? layerWidth : newProps.layerWidth,
-            layerHeight: _.isUndefined(newProps.layerHeight) ? layerHeight : newProps.layerHeight,
-            scaleX: _.isUndefined(newProps.scaleX) ? scaleX : newProps.scaleX,
-            scaleY: _.isUndefined(newProps.scaleY) ? scaleY : newProps.scaleY
+            layerWidth: _isUndefined(newProps.layerWidth) ? layerWidth : newProps.layerWidth,
+            layerHeight: _isUndefined(newProps.layerHeight) ? layerHeight : newProps.layerHeight,
+            scaleX: _isUndefined(newProps.scaleX) ? scaleX : newProps.scaleX,
+            scaleY: _isUndefined(newProps.scaleY) ? scaleY : newProps.scaleY
         }
     );
 
