@@ -1,57 +1,9 @@
-import {mount} from 'enzyme';
 import helpers from '../../src/helpers';
-import generateRandomSeries from '../helpers/generateRandomSeries';
-
-const seriesObject = generateRandomSeries(3, 5, {type: 'object'});
 
 const Graphics = () => <g />;
 Graphics.displayName = 'Graphics';
 
 describe('helpers', () => {
-
-    describe('getCoords', () => {
-
-        it('should get a position for a point', () => {
-            expect(helpers.getCoords('top left', 1000, 1000)).toEqual({x: 0, y: 0});
-            expect(helpers.getCoords('middle center', 1000, 1000)).toEqual({x: 500, y: 500});
-            expect(helpers.getCoords('bottom right', 1000, 1000)).toEqual({x: 1000, y: 1000});
-            expect(helpers.getCoords('right bottom', 1000, 1000)).toEqual({x: 1000, y: 1000});
-            expect(helpers.getCoords('5% 25%', 1000, 1000)).toEqual({x: 50, y: 250});
-            expect(helpers.getCoords(['5%', '25%'], 1000, 1000)).toEqual({x: 50, y: 250});
-        });
-
-        it('should get a position for a layer', () => {
-            expect(helpers.getCoords('top left', 1000, 1000, 100, 100)).toEqual({x: 0, y: 0});
-            expect(helpers.getCoords('middle center', 1000, 1000, 100, 100)).toEqual({x: 450, y: 450});
-            expect(helpers.getCoords('bottom right', 1000, 1000, 100, 100)).toEqual({x: 900, y: 900});
-            expect(helpers.getCoords('right bottom', 1000, 1000, 100, 100)).toEqual({x: 900, y: 900});
-            expect(helpers.getCoords('5% 25%', 1000, 1000, 100, 100)).toEqual({x: 50, y: 250});
-            expect(helpers.getCoords(['right', 'bottom'], 1000, 1000, 100, 100)).toEqual({x: 900, y: 900});
-        });
-
-    });
-
-    it('proxyChildren', () => {
-        const parentProps = {
-            series: seriesObject,
-            scaleX: {},
-            scaleY: {}
-        };
-        const wrapper = mount(<g>
-            {helpers.proxyChildren(<Graphics classname='chart'/>, parentProps, {
-                layerWidth: 100,
-                layerHeight: 100,
-                scaleX: parentProps.scaleX,
-                scaleY: parentProps.scaleY
-            })}
-        </g>);
-        const {series, minX, minY, maxX, maxY} = wrapper.find(Graphics).props();
-        expect(series.length).toEqual(3);
-        expect(minX).toEqual(0);
-        expect(maxX).toEqual(4);
-        expect(minY).not.toBeLessThan(0);
-        expect(maxY).not.toBeGreaterThan(100);
-    });
 
     describe('transforms', () => {
 

@@ -5,12 +5,12 @@ import normalizeSeries from './normalizeSeries';
 
 const limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
-export default function proxyChildren(children, seriesProps = null, extraProps = {}) {
+export default function proxyChildren(children, seriesProps = {}, extraProps = {}) {
 
-    var limits = _.pick(seriesProps, limitsPropNames);
+    const limits = _.pick(seriesProps, limitsPropNames);
     seriesProps = normalizeSeries(seriesProps);
-    var limitsCalculated = _.pick(seriesProps, limitsPropNames);
-    var {series} = seriesProps;
+    const limitsCalculated = _.pick(seriesProps, limitsPropNames);
+    const {series} = seriesProps;
 
     return React.Children.map(children, child => {
 
@@ -18,16 +18,16 @@ export default function proxyChildren(children, seriesProps = null, extraProps =
             return child;
         }
 
-        var props = {};
+        let props = {};
         _.assign(props, child.props);
         _.defaultsDeep(props, _.isFunction(extraProps) ? extraProps(child) : extraProps);
 
-        var childLimits = _.pick(child.props, limitsPropNames);
-        var childSeriesProps = normalizeSeries(_.defaults(child.props, {
+        const childLimits = _.pick(child.props, limitsPropNames);
+        const childSeriesProps = normalizeSeries(_.defaults(child.props, {
             layerWidth: props.layerWidth,
             layerHeight: props.layerHeight
         }));
-        var childLimitsCalculated = _.pick(childSeriesProps, limitsPropNames);
+        const childLimitsCalculated = _.pick(childSeriesProps, limitsPropNames);
 
         _.defaults(props, childLimits, limits, childLimitsCalculated, limitsCalculated);
 
@@ -40,6 +40,8 @@ export default function proxyChildren(children, seriesProps = null, extraProps =
                 props.series = _.map(child.props.seriesIndex, index => series[index]);
             } else if (_.isFunction(child.props.seriesIndex)) {
                 props.series = _.filter(series, child.props.seriesIndex);
+            } else {
+                props.series = series;
             }
         } else {
             props.series = childSeriesProps.series;
