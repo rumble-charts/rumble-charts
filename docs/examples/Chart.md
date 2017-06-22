@@ -1,7 +1,7 @@
-In this example we use [`<Chart>`](#Chart) to defined size and data for your chart. It wraps [`<Bars>`](#Bars) component 
+In this example we use [`<Chart>`](#chart) to defined size and data for your chart. It wraps [`<Bars>`](#bars) component 
 that draws bar chart. 
 
-You can change [`<Bars>`](#Bars) to [`<Lines>`](#Lines), [`<Dots>`](#Dots) or [`<Pies>`](#Pies). 
+You can change [`<Bars>`](#bars) to [`<Lines>`](#lines), [`<Dots>`](#dots) or [`<Pies>`](#pies). 
 Also you can put all these 4 components all together in different order.
 
 ```

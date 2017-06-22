@@ -49,3 +49,6 @@ In order to install "canvas" module on OSX you have to:
     brew install libjpeg
     brew install giflib 
     brew install cairo
+
+If you have node 8 and get the error "Cannot find module 'minimatch'" 
+in node-gyp rebuild for canvas, please, use node 7 or 6.

@@ -1,7 +1,6 @@
 import React from 'react';
-import _ from 'lodash';
-import {storiesOf, action} from '@kadira/storybook';
-const {Chart, Layer, Bars, Transform} = require('../src');
+import {storiesOf} from '@storybook/react';
+const {Chart, Bars, Transform} = require('../src');
 
 const series = [{
     data: [1, 3, 2]

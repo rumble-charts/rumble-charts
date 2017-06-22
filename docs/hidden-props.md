@@ -6,7 +6,7 @@ from ancestors to descendants. They are: `series`, `minX`, `maxX`, `minY`, `maxY
 
 ## How it works?
 
-For instance, `series` is settled in [`<Chart>`](#Chart):  
+For instance, `series` is settled in [`<Chart>`](#chart):  
 
 ```html
 <Chart series={series}>
@@ -16,7 +16,7 @@ For instance, `series` is settled in [`<Chart>`](#Chart):
 </Chart>
 ```
 
-... but [`<Layer>`](#Layer) and [`<Bars>`](#Bars) receive it like you've wrote next:
+... but [`<Layer>`](#layer) and [`<Bars>`](#bars) receive it like you've wrote next:
  
 ```html
 <Chart>
@@ -36,7 +36,7 @@ Also you can set `series` on an intermediate level:
 </Chart>
 ```
 
-... and [`<Bars>`](#Bars) will receive it again like you've wrote next:
+... and [`<Bars>`](#bars) will receive it again like you've wrote next:
 
 ```html
 <Chart>
@@ -48,7 +48,7 @@ Also you can set `series` on an intermediate level:
 
 ## series
 
-Read more about [series](#Series).
+Read more about [series](#series).
 
 ## minX, maxX, minY and maxY
 
@@ -160,7 +160,7 @@ const series = [{
 ```
 ## layerWidth and layerHeight
 
-When you set [`<Chart width={100} height={100}>`](#Chart) all descendant components receive these `width` and `height`
+When you set [`<Chart width={100} height={100}>`](#chart) all descendant components receive these `width` and `height`
 as `layerWidth` and `layerHeight` correspondingly.
  
 ```
@@ -177,7 +177,7 @@ as `layerWidth` and `layerHeight` correspondingly.
 
 ## children
 
-Any component (except graphics like [`<Bars>`](#Bars), [`<Lines>`](#Lines), [`<Pies>`](#Pies) etc) can have children.
+Any component (except graphics like [`<Bars>`](#bars), [`<Lines>`](#lines), [`<Pies>`](#pies) etc) can have children.
 Children can be any rumble-charts components (one or more) or any other valid svg tag 
 (i.e. `<defs>`, `<g>`, `<rect>`, `<circle>` etc)
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
-const {Chart, Bars, Lines, Layer, Handlers, Animate, Dots, Ticks} = require('../src');
+import {storiesOf} from '@storybook/react';
+const {Chart, Bars, Lines, Layer, Handlers, Dots, Ticks} = require('../src');
 const Filters = require('../docs/examples/filters');
 
 const series1 = [{
@@ -76,53 +76,51 @@ storiesOf('Chart', module)
     )
     .add('responsive', () =>
         <div style={{paddingLeft: '10em', marginTop: '5em'}}>
-            <svg viewBox='0 0 300 150'>
-                <Chart tag='g' width={300} height={150} series={series3}>
-                    <Layer width='100%' height='68%' position='middle center'>
-                        <Handlers onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} optimized={false}>
-                            <Bars
-                                colors={['#03a9f4']}
-                                groupPadding='1%'
-                                innerPadding='0%'
-                                barWidth='0%'
-                                barAttributes={{
-                                    strokeLinejoin: 'round',
-                                    strokeWidth: 21,
-                                    stroke: '#f5f5f6',
-                                    transform: 'translate(0 12)'
-                                }}
-                            />
-                            <Lines
-                                colors={['#007696']}
-                                lineWidth={0}
-                                interpolation='cardinal'
-                                lineAttributes={{
-                                    strokeLinecap: 'round',
-                                    strokeWidth: 5
-                                }}
-                            />
-                            <Dots
-                                className='dots'
-                                colors={['#007696']}
-                                dotStyle={{transition: 'all 250ms', fillOpacity: 0}}
-                            />
-                            <Ticks
-                                axis='x'
-                                ticks={months.map((label, x) => ({x, label}))}
-                                lineVisible={false}
-                                labelStyle={{
-                                    textAnchor: 'middle',
-                                    dominantBaseline: 'text-after-edge',
-                                    fill: '#000',
-                                    fontFamily: 'sans-serif',
-                                    fontWeight: 'normal',
-                                    fontSize: 10
-                                }}
-                                labelAttributes={{y: '2.5em'}}
-                            />
-                        </Handlers>
-                    </Layer>
-                </Chart>
-            </svg>
+            <Chart viewBox='0 0 300 150' series={series3}>
+                <Layer width='100%' height='68%' position='middle center'>
+                    <Handlers onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} optimized={false}>
+                        <Bars
+                            colors={['#03a9f4']}
+                            groupPadding='1%'
+                            innerPadding='0%'
+                            barWidth='0%'
+                            barAttributes={{
+                                strokeLinejoin: 'round',
+                                strokeWidth: 21,
+                                stroke: '#f5f5f6',
+                                transform: 'translate(0 12)'
+                            }}
+                        />
+                        <Lines
+                            colors={['#007696']}
+                            lineWidth={0}
+                            interpolation='cardinal'
+                            lineAttributes={{
+                                strokeLinecap: 'round',
+                                strokeWidth: 5
+                            }}
+                        />
+                        <Dots
+                            className='dots'
+                            colors={['#007696']}
+                            dotStyle={{transition: 'all 250ms', fillOpacity: 0}}
+                        />
+                        <Ticks
+                            axis='x'
+                            ticks={months.map((label, x) => ({x, label}))}
+                            lineVisible={false}
+                            labelStyle={{
+                                textAnchor: 'middle',
+                                dominantBaseline: 'text-after-edge',
+                                fill: '#000',
+                                fontFamily: 'sans-serif',
+                                fontWeight: 'normal',
+                                fontSize: 10
+                            }}
+                            labelAttributes={{y: '2.5em'}}
+                        />
+                    </Handlers>
+                </Layer>
+            </Chart>
         </div>
     );

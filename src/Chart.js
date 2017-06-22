@@ -3,30 +3,39 @@
 const React = require('react'),
     PropTypes = require('prop-types'),
     d3 = require('d3'),
-    helpers = require('./helpers'),
-    _defaults = require('lodash/defaults'),
-    _omit = require('lodash/omit');
+    _ = require('./_'),
+    helpers = require('./helpers');
 
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)
  * and to wrap all another components:
- * - [Graphics](#Graphics)
- * - [Wrappers](#Wrappers)
- * - [Helpers](#Helpers)
+ * - [Graphics](#graphics)
+ * - [Wrappers](#wrappers)
+ * - [Helpers](#helpers)
  *
- * Also read more about [hidden props](#Magic&#x20;&&#x20;hidden&#x20;props).
+ * Also read more about [hidden props](#magic--hidden-props).
  *
  * @example ../docs/examples/Chart.md
  */
 function Chart(props) {
+    const {viewBox} = props;
+    let {width, height, layerWidth, layerHeight} = props;
+    width = width || layerWidth;
+    height = height || layerHeight;
+
+    if (viewBox) {
+        let viewBoxTotal = _.map(viewBox.split(' '), value => parseInt(value));
+        width = width || viewBoxTotal[2];
+        height = height || viewBoxTotal[3];
+    }
 
     const children = helpers.proxyChildren(
         props.children,
         props,
         {
-            layerWidth: props.width,
-            layerHeight: props.height,
-            scaleX: _defaults({}, props.scaleX, {
+            layerWidth: width,
+            layerHeight: height,
+            scaleX: _.defaults({}, props.scaleX, {
                 direction: 1,
                 paddingStart: 0.5,
                 paddingEnd: 0.5,
@@ -49,7 +58,7 @@ function Chart(props) {
                         .domain(direction >= 0 ? [minX, maxX] : [maxX, minX]);
                 }
             }),
-            scaleY: _defaults({}, props.scaleY, {
+            scaleY: _.defaults({}, props.scaleY, {
                 direction: 1,
                 paddingStart: 0,
                 paddingEnd: 0,
@@ -75,18 +84,14 @@ function Chart(props) {
         }
     );
 
-    /**
-     * Adding viewBox svg property so user can make them responsive using CSS
-     * Example: svg { width: 100%; height: auto; }
-     */
-    const viewBox = props.viewBox ? props.viewBox : `0 0 ${ props.width } ${ props.height }`;
-
     const Tag = props.tag;
 
-    return <Tag viewBox={ viewBox } {..._omit(props, [
-        'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
-        'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
-    ])}>
+    return <Tag
+        {..._.omit(props, [
+            'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
+            'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
+        ])}
+        viewBox={viewBox || `0 0 ${width} ${height}`}>
         {children}
     </Tag>;
 }
@@ -103,11 +108,23 @@ Chart.propTypes = {
      */
     height: PropTypes.number,
     /**
-     * Chart SVG viewBox
+     * Chart SVG viewBox.
+     * Using that property user can make the chart responsive using CSS
+     * Example: svg { width: 100%; height: auto; }
      */
     viewBox: PropTypes.string,
     /**
-     * An array of series objects. Read more [about series](#Series). (or docs/series.md)
+     * Layer width (pixels). Useful when you want to make a responsive chart using viewBox prop, but
+     * don't want to specify width of svg tag.
+     */
+    layerWidth: PropTypes.number,
+    /**
+     * Layer height (pixels). Useful when you want to make a responsive chart using viewBox prop, but
+     * don't want to specify height of svg tag.
+     */
+    layerHeight: PropTypes.number,
+    /**
+     * An array of series objects. Read more [about series](#series). (or docs/series.md)
      */
     series: helpers.propTypes.series,
     /**
@@ -190,10 +207,7 @@ Chart.propTypes = {
         paddingBottom: PropTypes.number,
         factory: PropTypes.func,
         swap: PropTypes.boolean
-    }),
-
-    layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    })
 };
 
 Chart.defaultProps = {

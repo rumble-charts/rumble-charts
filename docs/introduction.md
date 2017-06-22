@@ -23,9 +23,9 @@ const series = [{
 
 ## Important concepts
 
-- [Series](#Series)
+- [Series](#series)
 
 ## Still important, but you can read it later
 
-- [Magic and hidden props](#Magic%20&%20hidden%20props)
-- [CSS class names](#CSS%20class%20names)
+- [Magic and hidden props](#magic--hidden-props)
+- [CSS class names](#css-class-names)

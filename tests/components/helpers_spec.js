@@ -1,6 +1,6 @@
 'use strict';
 
-const {mount}= require('enzyme');
+const {mount} = require('enzyme');
 const helpers = require('../../src/helpers');
 const generateRandomSeries = require('../helpers/generateRandomSeries');
 
@@ -71,10 +71,11 @@ describe('helpers', () => {
         it('should support axis limits', () => {
             const {
                 series, minX, minY, maxX, maxY, seriesNormalized
-            } = helpers.normalizeSeries({
-                series: seriesObject,
-                minX: 1, maxX: 3, minY: 5, maxY: 50
-            });
+            } =
+                helpers.normalizeSeries({
+                    series: seriesObject,
+                    minX: 1, maxX: 3, minY: 5, maxY: 50
+                });
             expect(series.length).toEqual(3);
             expect(series[0].data.length).toEqual(5);
             expect(minX).toEqual(1);

@@ -59,4 +59,54 @@ describe('Chart', () => {
         expect(wrapper.find('Graphics').prop('series')[0].data[0].y).toEqual(seriesArray[0].data[0][1]);
     });
 
+    it('should support viewBox attribute', () => {
+        const wrapper = mount(<Chart
+            width={chartWidth} height={chartHeight}
+            viewBox='50 50 500 500'
+            series={seriesArray}>
+            <Graphics />
+        </Chart>);
+        const svg = wrapper.find('svg');
+        expect(svg.prop('viewBox')).toEqual('50 50 500 500');
+        expect(svg.prop('width')).toEqual(chartWidth);
+        expect(svg.prop('height')).toEqual(chartHeight);
+    });
+
+    it('should generate viewBox attribute automatically', () => {
+        const wrapper = mount(<Chart
+            width={chartWidth} height={chartHeight}
+            series={seriesArray}>
+            <Graphics />
+        </Chart>);
+        expect(wrapper.find('svg').prop('viewBox')).toEqual(`0 0 ${chartWidth} ${chartHeight}`);
+    });
+
+    it('should extract width and height from viewBox', () => {
+        const wrapper = mount(<Chart
+            viewBox='50 50 500 500'
+            series={seriesArray}>
+            <Graphics />
+        </Chart>);
+        const graphics = wrapper.find('Graphics');
+        expect(graphics.prop('layerWidth')).toEqual(500);
+        expect(graphics.prop('layerHeight')).toEqual(500);
+    });
+
+    it('should support layerWidth and layerHeight props', () => {
+        const wrapper = mount(<Chart
+            viewBox='50 50 500 500'
+            layerWidth={chartWidth}
+            layerHeight={chartHeight}
+            series={seriesArray}>
+            <Graphics />
+        </Chart>);
+        const svg = wrapper.find('svg');
+        expect(svg.prop('viewBox')).toEqual('50 50 500 500');
+        expect(svg.prop('width')).toEqual(undefined);
+        expect(svg.prop('height')).toEqual(undefined);
+        const graphics = wrapper.find('Graphics');
+        expect(graphics.prop('layerWidth')).toEqual(chartWidth);
+        expect(graphics.prop('layerHeight')).toEqual(chartHeight);
+    });
+
 });

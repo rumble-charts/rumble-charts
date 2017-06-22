@@ -160,7 +160,8 @@ class Ticks extends React.Component {
         this.y = scaleY.factory(props);
         this.horizontal = (axis === 'y' && !scaleX.swap && !scaleY.swap) ||
             (axis === 'x' && (scaleX.swap || scaleY.swap));
-        this.position = position || (axis === 'x' ?
+        this.position = position ||
+            (axis === 'x' ?
                 (scaleX.swap || scaleY.swap ? 'top' : 'bottom') :
                 'left');
 
