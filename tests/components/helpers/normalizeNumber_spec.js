@@ -4,6 +4,7 @@ describe('Helper normalizeNumber', () => {
 
     it('should convert percents', () => {
         expect(normalizeNumber('50%', 1000)).toEqual(500);
+        expect(normalizeNumber('56.5%', 1000)).toEqual(565);
         expect(normalizeNumber('-25%', 1000)).toEqual(-250);
         expect(normalizeNumber('0%', 1000)).toEqual(0);
         expect(normalizeNumber('15%')).toEqual(0);

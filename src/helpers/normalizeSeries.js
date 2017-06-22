@@ -5,16 +5,16 @@ const isInvalidLimit = value => {
 };
 
 export default function normalizeSeries(props) {
-    var maxX = -Infinity,
+    let maxX = -Infinity,
         maxY = -Infinity,
         minX = Infinity,
         minY = Infinity;
 
-    var series = _.map(props.series, series => {
+    let series = _.map(props.series, series => {
 
         let data = _.map(series.data, (item, index) => {
 
-            var d;
+            let d;
             if (!props.seriesNormalized) {
                 d = {};
                 if (_.isNumber(item)) {

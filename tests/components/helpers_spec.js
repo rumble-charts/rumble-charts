@@ -3,113 +3,11 @@ import helpers from '../../src/helpers';
 import generateRandomSeries from '../helpers/generateRandomSeries';
 
 const seriesObject = generateRandomSeries(3, 5, {type: 'object'});
-const seriesNumber = generateRandomSeries(3, 5, {type: 'number'});
-const seriesArray = generateRandomSeries(3, 5, {type: 'array'});
 
 const Graphics = () => <g />;
 Graphics.displayName = 'Graphics';
 
 describe('helpers', () => {
-
-    describe('normalizeSeries', () => {
-
-        it('should be a function', () => {
-            expect(helpers.normalizeSeries).toEqual(jasmine.any(Function));
-        });
-
-        it('should normalize number-based series data', () => {
-            const {
-                series, minX, minY, maxX, maxY, seriesNormalized
-            } = helpers.normalizeSeries({series: seriesNumber});
-            expect(series.length).toEqual(3);
-            expect(series[0].data.length).toEqual(5);
-            expect(series[1].data[2].x).toEqual(2);
-            expect(series[1].data[2].y).toEqual(seriesNumber[1].data[2]);
-            expect(series[2].data[4].x).toEqual(4);
-            expect(series[2].data[4].y).toEqual(seriesNumber[2].data[4]);
-            expect(minX).toEqual(0);
-            expect(maxX).toEqual(4);
-            expect(minY).not.toBeLessThan(0);
-            expect(maxY).not.toBeGreaterThan(100);
-            expect(seriesNormalized).toEqual(true);
-        });
-
-        it('should normalize array-based series data', () => {
-            const {
-                series, minX, minY, maxX, maxY, seriesNormalized
-            } = helpers.normalizeSeries({series: seriesArray});
-            expect(series.length).toEqual(3);
-            expect(series[0].data.length).toEqual(5);
-            expect(series[1].data[2].x).toEqual(seriesArray[1].data[2][0]);
-            expect(series[1].data[2].y).toEqual(seriesArray[1].data[2][1]);
-            expect(series[2].data[4].x).toEqual(seriesArray[2].data[4][0]);
-            expect(series[2].data[4].y).toEqual(seriesArray[2].data[4][1]);
-            expect(minX).toEqual(0);
-            expect(maxX).toEqual(4);
-            expect(minY).not.toBeLessThan(0);
-            expect(maxY).not.toBeGreaterThan(100);
-            expect(seriesNormalized).toEqual(true);
-        });
-
-        it('should normalize object-based series data', () => {
-            const {
-                series, minX, minY, maxX, maxY, seriesNormalized
-            } = helpers.normalizeSeries({series: seriesObject});
-            expect(series.length).toEqual(3);
-            expect(series[0].data.length).toEqual(5);
-            expect(series[1].data[2]).toEqual(seriesObject[1].data[2]);
-            expect(series[2].data[4]).toEqual(seriesObject[2].data[4]);
-            expect(minX).toEqual(0);
-            expect(maxX).toEqual(4);
-            expect(minY).not.toBeLessThan(0);
-            expect(maxY).not.toBeGreaterThan(100);
-            expect(seriesNormalized).toEqual(true);
-        });
-
-        it('should support axis limits', () => {
-            const {
-                series, minX, minY, maxX, maxY, seriesNormalized
-            } =
-                helpers.normalizeSeries({
-                    series: seriesObject,
-                    minX: 1, maxX: 3, minY: 5, maxY: 50
-                });
-            expect(series.length).toEqual(3);
-            expect(series[0].data.length).toEqual(5);
-            expect(minX).toEqual(1);
-            expect(maxX).toEqual(3);
-            expect(minY).toEqual(5);
-            expect(maxY).toEqual(50);
-            expect(seriesNormalized).toEqual(true);
-        });
-
-    });
-
-    describe('normalizeNumber', () => {
-
-        it('should handle percents', () => {
-            expect(helpers.normalizeNumber('56.5%', 1000)).toEqual(565);
-            expect(helpers.normalizeNumber('45%', 100)).toEqual(45);
-            expect(helpers.normalizeNumber(0.45, 100)).toEqual(45);
-        });
-
-        it('should support keywords', () => {
-            expect(helpers.normalizeNumber('top', 100)).toEqual(0);
-            expect(helpers.normalizeNumber('left', 100)).toEqual(0);
-
-            expect(helpers.normalizeNumber('middle', 100)).toEqual(50);
-            expect(helpers.normalizeNumber('center', 100)).toEqual(50);
-
-            expect(helpers.normalizeNumber('bottom', 100)).toEqual(100);
-            expect(helpers.normalizeNumber('right', 100)).toEqual(100);
-        });
-
-        it('should support simple number', () => {
-            expect(helpers.normalizeNumber(56)).toEqual(56);
-            expect(helpers.normalizeNumber('56')).toEqual(56);
-        });
-
-    });
 
     describe('getCoords', () => {
 
