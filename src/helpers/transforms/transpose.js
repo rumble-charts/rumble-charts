@@ -2,10 +2,10 @@ import _ from 'lodash';
 
 export default function transpose(props) {
 
-    let {series, seriesNormalized, minX, maxY, minY} = props;
+    const {series, seriesNormalized, minX, maxY, minY} = props;
 
-    var maxX = 0;
-    let newSeries = [];
+    let maxX = 0;
+    const newSeries = [];
     _.forEach(series, (series, seriesIndex) => {
         _.forEach(series.data, (point, pointIndex) => {
             newSeries[pointIndex] = newSeries[pointIndex] || {data: []};
@@ -18,11 +18,7 @@ export default function transpose(props) {
     });
 
     return {
-        series: newSeries,
-        seriesNormalized,
-        maxX,
-        maxY,
-        minX,
-        minY
+        series: newSeries, seriesNormalized,
+        maxX, maxY, minX, minY
     };
 }

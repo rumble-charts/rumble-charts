@@ -1,10 +1,11 @@
 import _ from 'lodash';
 
 export default function rotate(props) {
-    let {series, seriesNormalized, minX, maxX, maxY, minY, scaleX, scaleY} = props;
+    const {series, seriesNormalized, minX, maxX, maxY, minY} = props;
+    let {scaleX, scaleY} = props;
 
-    let {paddingLeft, paddingRight} = scaleX;
-    let {paddingTop, paddingBottom} = scaleY;
+    const {paddingLeft, paddingRight} = scaleX;
+    const {paddingTop, paddingBottom} = scaleY;
     scaleX = _.cloneDeep(scaleX);
     scaleY = _.cloneDeep(scaleY);
     scaleX.paddingLeft = paddingTop;
