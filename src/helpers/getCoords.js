@@ -9,7 +9,7 @@ export default function getCoords(position, layerWidth, layerHeight, width = 0, 
     }
     if (_.isArray(position)) {
         position = _.map(position, pos => _.isString(pos) ? pos.trim().toLowerCase() : pos);
-        var [x, y] = position;
+        let [x, y] = position;
         if (['top', 'bottom', 'middle'].indexOf(position[0]) !== -1) {
             y = position[0];
         }
