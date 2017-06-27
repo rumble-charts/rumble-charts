@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { map } from 'lodash';
 
 import value from './helpers/value';
 import normalizeNumber from './helpers/normalizeNumber';
@@ -86,7 +86,7 @@ export default class Bars extends Component {
             style={seriesStyle}
             {...seriesAttributes}>
 
-            {series && _.map(series.data, (point, pointIndex) => {
+            {series && map(series.data, (point, pointIndex) => {
                 let y0 = point.y0 ? y(point.y0) : this._y0;
                 let y1 = y(point.y);
                 let x1 = x(point.x) + deltaX * (scaleX.direction || 1);
@@ -164,7 +164,7 @@ export default class Bars extends Component {
             className={className}
             style={style}
             opacity={opacity}>
-            {_.map(props.series, this.renderSeries)}
+            {map(props.series, this.renderSeries)}
         </g>;
 
     }

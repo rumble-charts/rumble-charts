@@ -1,5 +1,17 @@
 import React from 'react';
-import _ from 'lodash';
+import {
+    assign,
+    defaults,
+    defaultsDeep,
+    filter,
+    isArray,
+    isFunction,
+    isNumber,
+    isUndefined,
+    map,
+    omitBy,
+    pick,
+} from 'lodash';
 
 import normalizeSeries from './normalizeSeries';
 
@@ -7,9 +19,9 @@ const limitsPropNames = ['maxX', 'maxY', 'minX', 'minY'];
 
 export default function proxyChildren(children, seriesProps = {}, extraProps = {}) {
 
-    const limits = _.pick(seriesProps, limitsPropNames);
+    const limits = pick(seriesProps, limitsPropNames);
     seriesProps = normalizeSeries(seriesProps);
-    const limitsCalculated = _.pick(seriesProps, limitsPropNames);
+    const limitsCalculated = pick(seriesProps, limitsPropNames);
     const {series} = seriesProps;
 
     return React.Children.map(children, child => {
@@ -19,27 +31,27 @@ export default function proxyChildren(children, seriesProps = {}, extraProps = {
         }
 
         let props = {};
-        _.assign(props, child.props);
-        _.defaultsDeep(props, _.isFunction(extraProps) ? extraProps(child) : extraProps);
+        assign(props, child.props);
+        defaultsDeep(props, isFunction(extraProps) ? extraProps(child) : extraProps);
 
-        const childLimits = _.pick(child.props, limitsPropNames);
-        const childSeriesProps = normalizeSeries(_.defaults(child.props, {
+        const childLimits = pick(child.props, limitsPropNames);
+        const childSeriesProps = normalizeSeries(defaults(child.props, {
             layerWidth: props.layerWidth,
             layerHeight: props.layerHeight
         }));
-        const childLimitsCalculated = _.pick(childSeriesProps, limitsPropNames);
+        const childLimitsCalculated = pick(childSeriesProps, limitsPropNames);
 
-        _.defaults(props, childLimits, limits, childLimitsCalculated, limitsCalculated);
+        defaults(props, childLimits, limits, childLimitsCalculated, limitsCalculated);
 
         if (!child.props.series) {
-            if (_.isUndefined(child.props.seriesIndex)) {
+            if (isUndefined(child.props.seriesIndex)) {
                 props.series = series;
-            } else if (_.isNumber(child.props.seriesIndex)) {
+            } else if (isNumber(child.props.seriesIndex)) {
                 props.series = [series[child.props.seriesIndex]];
-            } else if (_.isArray(child.props.seriesIndex)) {
-                props.series = _.map(child.props.seriesIndex, index => series[index]);
-            } else if (_.isFunction(child.props.seriesIndex)) {
-                props.series = _.filter(series, child.props.seriesIndex);
+            } else if (isArray(child.props.seriesIndex)) {
+                props.series = map(child.props.seriesIndex, index => series[index]);
+            } else if (isFunction(child.props.seriesIndex)) {
+                props.series = filter(series, child.props.seriesIndex);
             } else {
                 props.series = series;
             }
@@ -48,7 +60,7 @@ export default function proxyChildren(children, seriesProps = {}, extraProps = {
         }
         props.seriesNormalized = true;
 
-        props = _.omitBy(props, _.isUndefined);
+        props = omitBy(props, isUndefined);
 
         return React.cloneElement(child, props);
 

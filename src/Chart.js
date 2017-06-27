@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import d3 from 'd3';
-import _ from 'lodash';
+import { defaults, map, omit } from 'lodash';
 
 import proxyChildren from './helpers/proxyChildren';
 import normalizeNumber from './helpers/normalizeNumber';
@@ -25,7 +25,7 @@ export default function Chart(props) {
     height = height || layerHeight;
 
     if (viewBox) {
-        let viewBoxTotal = _.map(viewBox.split(' '), value => parseInt(value));
+        let viewBoxTotal = map(viewBox.split(' '), value => parseInt(value));
         width = width || viewBoxTotal[2];
         height = height || viewBoxTotal[3];
     }
@@ -36,7 +36,7 @@ export default function Chart(props) {
         {
             layerWidth: width,
             layerHeight: height,
-            scaleX: _.defaults({}, props.scaleX, {
+            scaleX: defaults({}, props.scaleX, {
                 direction: 1,
                 paddingStart: 0.5,
                 paddingEnd: 0.5,
@@ -59,7 +59,7 @@ export default function Chart(props) {
                         .domain(direction >= 0 ? [minX, maxX] : [maxX, minX]);
                 }
             }),
-            scaleY: _.defaults({}, props.scaleY, {
+            scaleY: defaults({}, props.scaleY, {
                 direction: 1,
                 paddingStart: 0,
                 paddingEnd: 0,
@@ -88,7 +88,7 @@ export default function Chart(props) {
     const Tag = props.tag;
 
     return <Tag
-        {..._.omit(props, [
+        {...omit(props, [
             'series', 'tag', 'children', 'minX', 'maxX', 'minY', 'maxY',
             'scaleX', 'scaleY', 'layerWidth', 'layerHeight'
         ])}

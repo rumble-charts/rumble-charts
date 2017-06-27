@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { map, isNumber } from 'lodash';
 import d3 from 'd3';
 
 import value from './helpers/value';
@@ -24,7 +24,7 @@ export default function Lines(props) {
     const color = colorFunc(colors);
 
     return <g className={className} style={style} opacity={opacity}>
-        {_.map(series, (series, index) => {
+        {map(series, (series, index) => {
 
             let {seriesVisible, seriesStyle, seriesAttributes} = props;
             let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
@@ -63,7 +63,7 @@ export default function Lines(props) {
 
                 let lineColor = series.color || color(index);
 
-                line.defined(point => _.isNumber(point.y))
+                line.defined(point => isNumber(point.y))
                     .interpolate(props.interpolation);
 
                 lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isNumber, map } from 'lodash';
 import d3 from 'd3';
 
 import normalizeNumber from './helpers/normalizeNumber';
@@ -63,7 +63,7 @@ export default class RadialLines extends Component {
             transform={'translate(' + (coords.x + outerRadius) + ' ' + (coords.y + outerRadius) + ')'}
             opacity={opacity}>
 
-            {_.map(series, (series, index) => {
+            {map(series, (series, index) => {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
                 let {lineVisible, lineStyle, lineAttributes, lineWidth} = props;
@@ -89,7 +89,7 @@ export default class RadialLines extends Component {
                     const lineColor = series.color || color(index);
 
                     line.angle(point => circularScale(point.x))
-                        .defined(point => _.isNumber(point.y))
+                        .defined(point => isNumber(point.y))
                         .interpolate(this.props.interpolation);
 
                     lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});

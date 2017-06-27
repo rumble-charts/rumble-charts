@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    defaults,
+    forEach,
+    groupBy,
+    map,
+    reduce,
+    sortBy,
+} from 'lodash';
 import d3 from 'd3';
 import cloud from 'd3-cloud';
 
@@ -37,9 +44,9 @@ export default class Cloud extends Component {
             .range([props.minFontSize, props.maxFontSize])
             .domain([props.minY, props.maxY]);
 
-        const words = _.reduce(series, (words, {data}, seriesIndex) => {
-            _.forEach(data, (point, pointIndex) => {
-                words.push(_.defaults({
+        const words = reduce(series, (words, {data}, seriesIndex) => {
+            forEach(data, (point, pointIndex) => {
+                words.push(defaults({
                     text: point.label,
                     size: point.y,
                     seriesIndex,
@@ -62,9 +69,9 @@ export default class Cloud extends Component {
             .timeInterval(15)
             .fontSize(d => scale(d.size))
             .on('end', function(series, labels) {
-                labels = _.map(
-                    _.groupBy(labels, 'seriesIndex'),
-                    labels => _.sortBy(labels, 'pointIndex')
+                labels = map(
+                    groupBy(labels, 'seriesIndex'),
+                    labels => sortBy(labels, 'pointIndex')
                 );
                 this.setState({series, labels});
             }.bind(this, series))
@@ -101,7 +108,7 @@ export default class Cloud extends Component {
         return <g
             className={className} style={style} opacity={opacity}
             transform={'translate(' + (layerWidth / 2) + ',' + (layerHeight / 2) + ')'}>
-            {_.map(state.series, (series, seriesIndex) => {
+            {map(state.series, (series, seriesIndex) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
@@ -119,7 +126,7 @@ export default class Cloud extends Component {
                     style={seriesStyle}
                     opacity={series.opacity}
                     {...seriesAttributes}>
-                    {_.map(series.data, (point, pointIndex) => {
+                    {map(series.data, (point, pointIndex) => {
 
                         let {labelVisible, labelAttributes, labelStyle} = props;
                         let label = labels[seriesIndex] && labels[seriesIndex][pointIndex];

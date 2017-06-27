@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isUndefined } from 'lodash';
 
 import transform from './helpers/transform';
 import proxyChildren from './helpers/proxyChildren';
@@ -21,10 +21,10 @@ export default function Transform(props) {
         props.children,
         newProps,
         {
-            layerWidth: _.isUndefined(newProps.layerWidth) ? layerWidth : newProps.layerWidth,
-            layerHeight: _.isUndefined(newProps.layerHeight) ? layerHeight : newProps.layerHeight,
-            scaleX: _.isUndefined(newProps.scaleX) ? scaleX : newProps.scaleX,
-            scaleY: _.isUndefined(newProps.scaleY) ? scaleY : newProps.scaleY
+            layerWidth: isUndefined(newProps.layerWidth) ? layerWidth : newProps.layerWidth,
+            layerHeight: isUndefined(newProps.layerHeight) ? layerHeight : newProps.layerHeight,
+            scaleX: isUndefined(newProps.scaleX) ? scaleX : newProps.scaleX,
+            scaleY: isUndefined(newProps.scaleY) ? scaleY : newProps.scaleY
         }
     );
 

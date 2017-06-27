@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    assign,
+    forEach,
+    isArray,
+    isEmpty,
+    map,
+    range,
+    uniq,
+} from 'lodash';
 import d3 from 'd3';
 
 import normalizeNumber from './helpers/normalizeNumber';
@@ -58,7 +66,7 @@ export default class Pies extends Component {
             if (props.combined) {
                 return baseWidth - innerPadding;
             } else {
-                let seriesCount = _.isEmpty(props.series) ? 1 : props.series.length;
+                let seriesCount = isEmpty(props.series) ? 1 : props.series.length;
                 return (baseWidth - groupPadding) / seriesCount - innerPadding;
             }
         }
@@ -118,7 +126,7 @@ export default class Pies extends Component {
             .outerRadius(radius + halfWidth);
 
         let fillColor = point.color || series.color || this.color(seriesIndex);
-        if (_.isArray(fillColor) && _.uniq(fillColor).length === 1) {
+        if (isArray(fillColor) && uniq(fillColor).length === 1) {
             fillColor = fillColor[0];
         }
 
@@ -131,7 +139,7 @@ export default class Pies extends Component {
         });
         pieAttributes = value(pieAttributes, {seriesIndex, pointIndex, point, series, props});
 
-        const pathProps = _.assign({
+        const pathProps = assign({
             style: pieStyle,
             fill: fillColor,
             fillOpacity: point.opacity
@@ -139,10 +147,10 @@ export default class Pies extends Component {
 
         let pathList = [];
         // fill color interpolation
-        if (_.isArray(fillColor)) {
+        if (isArray(fillColor)) {
 
             let interpolateAngle = d3.interpolate(startAngle, endAngle);
-            _.forEach(fillColor, (color, index) => {
+            forEach(fillColor, (color, index) => {
 
                 if (index === fillColor.length - 1) {
                     return;
@@ -151,7 +159,7 @@ export default class Pies extends Component {
                 let interpolateFillColor = d3.interpolate(color, fillColor[index + 1]);
                 let step = 1 / ((endAngle - startAngle) / this.props.gradientStep);
 
-                _.forEach(_.range(0, 1, step), (i) => {
+                forEach(range(0, 1, step), (i) => {
 
                     pathProps.fill = interpolateFillColor(i);
                     let angleIndex = (index + i) / (fillColor.length - 1);
@@ -221,7 +229,7 @@ export default class Pies extends Component {
             style={style}
             transform={'translate(' + (coords.x + outerRadius) + ' ' + (coords.y + outerRadius) + ')'}
             opacity={opacity}>
-            {_.map(series, (series, index) => {
+            {map(series, (series, index) => {
 
                 let {seriesVisible, seriesAttributes, seriesStyle} = props;
 
@@ -246,7 +254,7 @@ export default class Pies extends Component {
                     opacity={series.opacity}
                     {...seriesAttributes}>
 
-                    {_.map(series.data, (point, pointIndex) => {
+                    {map(series.data, (point, pointIndex) => {
                         let startAngle = (point.y0 ? circularScale(point.y0) : _startAngle) + halfPadAngle;
                         let endAngle = circularScale(point.y) - halfPadAngle;
                         let radius = radialScale(point.x) - deltaRadial * (props.scaleX.direction || 1);

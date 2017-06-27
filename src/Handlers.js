@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { forEach, sortBy } from 'lodash';
 
 import proxyChildren from './helpers/proxyChildren';
 
@@ -70,8 +70,8 @@ export default class Handlers extends Component {
 
         let closestPoints = [];
         let minDistance = sensitivity;
-        _.forEach(series, (series, seriesIndex) => {
-            _.forEach(series.data, (point, pointIndex) => {
+        forEach(series, (series, seriesIndex) => {
+            forEach(series.data, (point, pointIndex) => {
                 let distance;
                 switch (props.distance) {
                 case 'x':
@@ -99,7 +99,7 @@ export default class Handlers extends Component {
                 }
             });
         });
-        closestPoints = _.sortBy(closestPoints, 'distance');
+        closestPoints = sortBy(closestPoints, 'distance');
 
         handler({
             clientX: realX,

@@ -1,7 +1,15 @@
-import _ from 'lodash';
+import {
+    defaults,
+    isArray,
+    isEmpty,
+    isNumber,
+    isUndefined,
+    map,
+    omitBy,
+} from 'lodash';
 
 const isInvalidLimit = value => {
-    return _.isUndefined(value) || value === Infinity || value === -Infinity;
+    return isUndefined(value) || value === Infinity || value === -Infinity;
 };
 
 export default function normalizeSeries(props) {
@@ -10,63 +18,63 @@ export default function normalizeSeries(props) {
         minX = Infinity,
         minY = Infinity;
 
-    let series = _.map(props.series, series => {
+    let series = map(props.series, series => {
 
-        let data = _.map(series.data, (item, index) => {
+        let data = map(series.data, (item, index) => {
 
             let d;
             if (!props.seriesNormalized) {
                 d = {};
-                if (_.isNumber(item)) {
+                if (isNumber(item)) {
                     d.x = index;
                     d.y = item;
-                } else if (_.isArray(item)) {
+                } else if (isArray(item)) {
                     d.x = item[0];
                     d.y = item[1];
                 } else {
                     d = item || {};
-                    if (_.isUndefined(d.x)) {
+                    if (isUndefined(d.x)) {
                         d.x = index;
                     }
                 }
             } else {
                 d = item;
             }
-            if (_.isUndefined(props.maxX)) {
+            if (isUndefined(props.maxX)) {
                 maxX = Math.max(maxX, d.x || 0);
             }
-            if (_.isUndefined(props.maxY)) {
+            if (isUndefined(props.maxY)) {
                 maxY = Math.max(maxY, d.y || 0);
             }
-            if (_.isUndefined(props.minX)) {
+            if (isUndefined(props.minX)) {
                 minX = Math.min(minX, d.x || 0);
             }
-            if (_.isUndefined(props.minY)) {
+            if (isUndefined(props.minY)) {
                 minY = Math.min(minY, d.y || 0);
             }
 
             return d;
         });
 
-        return _.defaults({data}, series);
+        return defaults({data}, series);
     });
-    if (_.isEmpty(series)) {
+    if (isEmpty(series)) {
         series = undefined;
     }
-    if (!_.isUndefined(props.maxX)) {
+    if (!isUndefined(props.maxX)) {
         maxX = props.maxX;
     }
-    if (!_.isUndefined(props.maxY)) {
+    if (!isUndefined(props.maxY)) {
         maxY = props.maxY;
     }
-    if (!_.isUndefined(props.minX)) {
+    if (!isUndefined(props.minX)) {
         minX = props.minX;
     }
-    if (!_.isUndefined(props.minY)) {
+    if (!isUndefined(props.minY)) {
         minY = props.minY;
     }
 
-    return _.omitBy({
+    return omitBy({
         seriesNormalized: true,
         series,
         maxX,

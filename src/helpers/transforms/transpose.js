@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { defaults, forEach } from 'lodash';
 
 export default function transpose(props) {
 
@@ -6,11 +6,11 @@ export default function transpose(props) {
 
     let maxX = 0;
     const newSeries = [];
-    _.forEach(series, (series, seriesIndex) => {
-        _.forEach(series.data, (point, pointIndex) => {
+    forEach(series, (series, seriesIndex) => {
+        forEach(series.data, (point, pointIndex) => {
             newSeries[pointIndex] = newSeries[pointIndex] || {data: []};
             maxX = Math.max(maxX, seriesIndex);
-            newSeries[pointIndex].data[seriesIndex] = _.defaults({
+            newSeries[pointIndex].data[seriesIndex] = defaults({
                 realX: point.x,
                 x: seriesIndex
             }, point);

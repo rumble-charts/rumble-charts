@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isUndefined } from 'lodash';
 
 let counter = 0;
 
@@ -47,11 +47,11 @@ export default class Gradient extends Component {
             cx, cy, fx, fy, r
         } = this.props;
 
-        const _cx = _.isUndefined(cx) ? (center && center[0]) : cx;
-        const _cy = _.isUndefined(cy) ? (center && center[1]) : cy;
-        const _fx = _.isUndefined(fx) ? (focalPoint && focalPoint[0]) : fx;
-        const _fy = _.isUndefined(fy) ? (focalPoint && focalPoint[1]) : fy;
-        const _r = _.isUndefined(r) ? radius : r;
+        const _cx = isUndefined(cx) ? (center && center[0]) : cx;
+        const _cy = isUndefined(cy) ? (center && center[1]) : cy;
+        const _fx = isUndefined(fx) ? (focalPoint && focalPoint[0]) : fx;
+        const _fy = isUndefined(fy) ? (focalPoint && focalPoint[1]) : fy;
+        const _r = isUndefined(r) ? radius : r;
 
         return <radialGradient
             id={this.getId()}
@@ -64,10 +64,10 @@ export default class Gradient extends Component {
     renderLinear() {
         const {from, to, gradientUnits, spreadMethod, gradientTransform, x1, y1, x2, y2} = this.props;
 
-        const _x1 = _.isUndefined(x1) ? (from && from[0]) : x1;
-        const _y1 = _.isUndefined(y1) ? (from && from[1]) : y1;
-        const _x2 = _.isUndefined(x2) ? (to && to[0]) : x2;
-        const _y2 = _.isUndefined(y2) ? (to && to[1]) : y2;
+        const _x1 = isUndefined(x1) ? (from && from[0]) : x1;
+        const _y1 = isUndefined(y1) ? (from && from[1]) : y1;
+        const _x2 = isUndefined(x2) ? (to && to[0]) : x2;
+        const _y2 = isUndefined(y2) ? (to && to[1]) : y2;
 
         return <linearGradient
             id={this.getId()}

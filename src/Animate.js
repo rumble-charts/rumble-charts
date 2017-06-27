@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isFunction,
+    isString,
+    isUndefined,
+    omitBy,
+    pick,
+} from 'lodash';
 import d3 from 'd3';
 import {timer} from 'd3-timer';
 
@@ -26,15 +32,15 @@ export default class Animate extends Component {
 
     componentWillReceiveProps(nextProps) {
         const interpolate = d3.interpolateObject(
-            _.pick(this.state, this.props.interpolateProps),
-            _.pick(nextProps, this.props.interpolateProps)
+            pick(this.state, this.props.interpolateProps),
+            pick(nextProps, this.props.interpolateProps)
         );
 
         const {duration, onStart, onEnd, logFPS} = this.props;
         let {ease} = this.props;
-        ease = _.isString(ease) ?
+        ease = isString(ease) ?
             d3.ease(ease) :
-            (_.isFunction(ease) ? ease : d3.ease('linear'));
+            (isFunction(ease) ? ease : d3.ease('linear'));
 
         let i = 0;
         this._timer && this._timer.stop();
@@ -65,7 +71,7 @@ export default class Animate extends Component {
         return <g className={props.className}>
             {proxyChildren(
                 props.children,
-                _.omitBy(state, _.isUndefined),
+                omitBy(state, isUndefined),
                 {
                     layerWidth: state.layerWidth,
                     layerHeight: state.layerHeight,
@@ -117,7 +123,7 @@ Animate.defaultProps = {
 
 d3.interpolators.push(function(a, b) {
     let c, i, an = typeof a == 'number';
-    if (b && !_.isUndefined(b.x) && !_.isUndefined(b.y)) {
+    if (b && !isUndefined(b.x) && !isUndefined(b.y)) {
         // point
         a = a || {};
         c = {};
@@ -142,7 +148,7 @@ d3.interpolators.push(function(a, b) {
             }
             return c;
         };
-    } else if (b && b[0] && (!_.isUndefined(b[0].data) || (!_.isUndefined(b[0].x) && !_.isUndefined(b[0].y)))) {
+    } else if (b && b[0] && (!isUndefined(b[0].data) || (!isUndefined(b[0].x) && !isUndefined(b[0].y)))) {
         // series or points
         a = a || [];
         c = [];

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { isFunction, isString } from 'lodash';
 
 import getCoords from './helpers/getCoords';
 
@@ -22,9 +22,9 @@ export default function Title(props) {
         className={className}
         transform={'translate(' + x + ' ' + y + ')'}
         style={style}>
-        {_.isString(children) ?
+        {isString(children) ?
             <text>{children}</text> :
-            (_.isFunction(children) ? children(props) : children)}
+            (isFunction(children) ? children(props) : children)}
     </g>;
 }
 
