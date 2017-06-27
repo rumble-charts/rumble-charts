@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isArray,
+    isFunction,
+    isString,
+    keys,
+    map,
+} from 'lodash';
 import d3 from 'd3';
 
 import value from './helpers/value';
@@ -166,18 +172,18 @@ export default class Dots extends Component {
         const color = this.color;
         let dot;
 
-        if (_.isFunction(dotRender)) {
+        if (isFunction(dotRender)) {
             dot = dotRender({seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color});
         } else {
-            if (_.isString(dotType)) {
+            if (isString(dotType)) {
                 dot = this[methods[dotType]] &&
                     this[methods[dotType]]({
                         seriesIndex, pointIndex, point,
                         dotStyle, dotAttributes, props, color
                     });
 
-            } else if (_.isArray(dotType)) {
-                dot = _.map(dotType, (dotType, key) => {
+            } else if (isArray(dotType)) {
+                dot = map(dotType, (dotType, key) => {
                     return this[methods[dotType]]({
                         key, seriesIndex, pointIndex, point, dotStyle, dotAttributes, props, color
                     });
@@ -207,7 +213,7 @@ export default class Dots extends Component {
         this.color = colorFunc(colors);
 
         return <g className={className} style={style} opacity={opacity}>
-            {_.map(props.series, (series, index) => {
+            {map(props.series, (series, index) => {
 
                 let {seriesVisible, seriesStyle, seriesAttributes} = props;
 
@@ -226,7 +232,7 @@ export default class Dots extends Component {
                     opacity={series.opacity}
                     {...seriesAttributes}>
 
-                    {_.map(series.data, (point, pointIndex) => {
+                    {map(series.data, (point, pointIndex) => {
                         let y1 = y(point.y);
                         let x1 = x(point.x);
 
@@ -260,7 +266,7 @@ Dots.propTypes = {
      * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
      */
     dotType: PropTypes.oneOfType([
-        PropTypes.oneOf(_.keys(methods)),
+        PropTypes.oneOf(keys(methods)),
         PropTypes.array,
         PropTypes.func
     ]),

@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import { isString } from 'lodash';
 
 export default function normalizeNumber(number, absolute = null) {
-    if (_.isString(number)) {
+    if (isString(number)) {
         if (number.substr(-1, 1) === '%') {
             number = ((parseFloat(number) || 0) / 100) * absolute;
         } else if (number === 'left' || number === 'top') {

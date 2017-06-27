@@ -1,13 +1,21 @@
-import _ from 'lodash';
+import {
+    defaults,
+    forEach,
+    isArray,
+    isFunction,
+    isNull,
+    isPlainObject,
+    isUndefined,
+} from 'lodash';
 
 export default function value(attribute, args) {
-    if (_.isArray(attribute)) {
+    if (isArray(attribute)) {
         let result;
-        _.forEach(attribute, attr => {
-            attr = _.isFunction(attr) ? attr(args) : attr;
-            if (_.isPlainObject(attr) && _.isUndefined(attr._owner) && _.isUndefined(attr.props)) {
-                result = _.defaults(result || {}, attr);
-            } else if (!_.isUndefined(attr) && !_.isNull(attr)) {
+        forEach(attribute, attr => {
+            attr = isFunction(attr) ? attr(args) : attr;
+            if (isPlainObject(attr) && isUndefined(attr._owner) && isUndefined(attr.props)) {
+                result = defaults(result || {}, attr);
+            } else if (!isUndefined(attr) && !isNull(attr)) {
                 result = attr;
                 return false;
             } else {
@@ -16,6 +24,6 @@ export default function value(attribute, args) {
         });
         return result;
     } else {
-        return _.isFunction(attribute) ? attribute(args) : attribute;
+        return isFunction(attribute) ? attribute(args) : attribute;
     }
 }

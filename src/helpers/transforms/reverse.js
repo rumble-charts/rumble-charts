@@ -1,7 +1,7 @@
-import _ from 'lodash';
+import { cloneDeep, isArray } from 'lodash';
 
 export default function reverse({series, seriesNormalized, minX, maxX, maxY, minY}) {
-    series = _.isArray(series) ? _.cloneDeep(series).reverse() : series;
+    series = isArray(series) ? cloneDeep(series).reverse() : series;
     return {
         series,
         seriesNormalized,

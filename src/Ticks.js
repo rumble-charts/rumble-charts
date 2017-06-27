@@ -1,6 +1,13 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import {
+    isNumber,
+    isPlainObject,
+    isString,
+    isUndefined,
+    map,
+    range,
+} from 'lodash';
 
 import normalizeNumber from './helpers/normalizeNumber';
 import value from './helpers/value';
@@ -33,20 +40,20 @@ export default class Ticks extends Component {
         const min = axis === 'y' ? minY : minX;
         const length = max - min;
 
-        if (_.isUndefined(minDistance)) {
+        if (isUndefined(minDistance)) {
             minDistance = Math.min(1, length);
         }
 
-        if (_.isUndefined(maxTicks)) {
+        if (isUndefined(maxTicks)) {
             maxTicks = Math.min((length + minDistance) / minDistance, 5);
         }
 
-        if (_.isUndefined(distance)) {
+        if (isUndefined(distance)) {
             distance = Math.max(minDistance, length / maxTicks);
             distance = Math.ceil(distance / minDistance) * minDistance;
         }
 
-        return _.range(min, max + minDistance, distance);
+        return range(min, max + minDistance, distance);
     }
 
     // render
@@ -56,7 +63,7 @@ export default class Ticks extends Component {
         const {axis, className, layerWidth, layerHeight, scaleX, scaleY} = props;
         let {tickStyle, tickAttributes, tickVisible} = props;
 
-        if (_.isNumber(tick)) {
+        if (isNumber(tick)) {
             tick = {[axis]: tick};
         }
 
@@ -100,7 +107,7 @@ export default class Ticks extends Component {
             label = value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
             labelFormat = value(labelFormat, label) || label;
 
-            if (_.isString(label) || _.isNumber(label)) {
+            if (isString(label) || isNumber(label)) {
                 label = <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
@@ -161,16 +168,16 @@ export default class Ticks extends Component {
                 'left');
 
         ticks = value([ticks], props);
-        if (_.isNumber(ticks)) {
+        if (isNumber(ticks)) {
             ticks = {maxTicks: ticks};
         }
         ticks = ticks || {};
-        if (_.isPlainObject(ticks)) {
+        if (isPlainObject(ticks)) {
             ticks = this.generateTicks(ticks);
         }
 
         return <g className={className} style={style} opacity={props.opacity}>
-            {_.map(ticks, this.renderTick.bind(this, ticks.length))}
+            {map(ticks, this.renderTick.bind(this, ticks.length))}
         </g>;
     }
 
