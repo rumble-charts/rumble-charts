@@ -106,8 +106,8 @@ export default function(Component, options = {}) {
                 });
 
                 // TODO:
-                xit('as an array of strings for gradient', () => {
-                });
+                // xit('as an array of strings for gradient', () => {
+                // });
             });
 
             describe('opacity', () => {
@@ -160,8 +160,8 @@ export default function(Component, options = {}) {
                     });
 
                     // TODO:
-                    xit('as an array of strings for gradient', () => {
-                    });
+                    // xit('as an array of strings for gradient', () => {
+                    // });
                 });
 
                 describe('opacity', () => {
@@ -220,21 +220,21 @@ export default function(Component, options = {}) {
                 expect(wrapper.find(Component).prop('series')).toBeUndefined();
             });
 
-            xit('should not normalize series itself', () => {
-                /*
-                 TODO:
-                 graphics renderers don't normalize series, but Chart or any other wrapper do that,
-                 that's not good to mutate child's property in the parent
-                 so:
-                 - don't normalize child's series
-                 - or add series normalization in graphics renderer
-                 or
-                 we can make normalization only as a transfer method,
-                 in that case graphics renderers will support just only normalized series data (object {x,y})
-                 but it will increase complexity
-                 but also it will increase performance
-                 */
-            });
+            // xit('should not normalize series itself', () => {
+            /*
+             TODO:
+             graphics renderers don't normalize series, but Chart or any other wrapper do that,
+             that's not good to mutate child's property in the parent
+             so:
+             - don't normalize child's series
+             - or add series normalization in graphics renderer
+             or
+             we can make normalization only as a transfer method,
+             in that case graphics renderers will support just only normalized series data (object {x,y})
+             but it will increase complexity
+             but also it will increase performance
+             */
+            // });
 
         });
 
