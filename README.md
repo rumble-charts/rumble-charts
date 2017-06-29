@@ -95,6 +95,8 @@ Mainly there are 3 approaches to integrate React and D3:
     - [react-d3](https://github.com/esbullington/react-d3/) and [rd3](https://github.com/yang-wei/rd3) as a fork
     - [react-vis](https://github.com/uber/react-vis)
     - [victory](https://github.com/FormidableLabs/victory)
+    - [vx](https://github.com/hshoff/vx)
+    - [recharts](https://github.com/recharts/recharts)
 
 ## License
 
