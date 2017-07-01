@@ -1,8 +1,9 @@
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import d3 from 'd3';
 import _ from 'lodash';
 import helpers from '../../src/helpers';
 import Chart from '../../src/Chart';
+import Transform from '../../src/Transform';
 import graphicsComponent from '../helpers/graphicsComponent';
 import linesComponent from '../helpers/linesComponent';
 import generateRandomSeries from '../helpers/generateRandomSeries';
@@ -51,7 +52,7 @@ describe('RadialLines', () => {
 
     describe('should render path elements using startAngle, endAngle, innerRadius properties', () => {
 
-        const series = generateRandomSeries(1, 20, {type: 'object'});
+        const series = generateRandomSeries(2, 20, {type: 'object'});
 
         it('as lines', () => {
             const wrapper = shallow(<Chart width={120} height={100} series={series}>
@@ -87,13 +88,15 @@ describe('RadialLines', () => {
         });
 
         it('as areas', () => {
-            const wrapper = shallow(<Chart width={80} height={100} series={series}>
-                <RadialLines
-                    asAreas={true}
-                    startAngle={0.1 * Math.PI}
-                    endAngle={1.1 * Math.PI}
-                    innerRadius={20}
-                />
+            const wrapper = mount(<Chart width={80} height={100} series={series}>
+                <Transform method='stack'>
+                    <RadialLines
+                        asAreas={true}
+                        startAngle={0.1 * Math.PI}
+                        endAngle={1.1 * Math.PI}
+                        innerRadius={20}
+                    />
+                </Transform>
             </Chart>);
             const graph = wrapper.find(RadialLines);
             const realCurve = wrapper.render().find('path').prop('d');
@@ -120,6 +123,23 @@ describe('RadialLines', () => {
                 .interpolate(graph.prop('interpolation'));
 
             expect(realCurve).toEqual(line(series[0].data));
+        });
+
+        it('should support opposite directions for scales', () => {
+            const wrapper = mount(<Chart
+                width={100} height={100} series={series}
+                scaleX={{direction: -1}} scaleY={{direction: -1}}>
+                <RadialLines/>
+            </Chart>);
+            expect(wrapper.find('path').length).toEqual(series.length);
+        });
+
+        it('should support empty position', () => {
+            const wrapper = mount(<Chart
+                width={200} height={100} series={series}>
+                <RadialLines position=''/>
+            </Chart>);
+            expect(wrapper.find('g').first().prop('transform')).toEqual('translate(50 50)');
         });
 
     });
