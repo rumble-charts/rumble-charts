@@ -2,6 +2,8 @@ import {mount} from 'enzyme';
 
 import Pies from '../../src/Pies';
 import Chart from '../../src/Chart';
+import Transform from '../../src/Transform';
+import d3 from 'd3';
 
 import graphicsComponent from '../helpers/graphicsComponent';
 
@@ -15,8 +17,6 @@ describe('Pies', () => {
 
     // TODO:
     // tests for:
-    // - cornerRadius, innerPadding, groupPadding,
-    // - combined, startAngle, endAngle, padAngle,
     // - gradientStep
 
     graphicsComponent(Pies, {
@@ -101,5 +101,136 @@ describe('Pies', () => {
         const width = size / 4 + size / 2 * parseFloat(pieWidth) / 100;
         expect(d[1]).toEqual(width + 'A' + width);
     });
+
+    it('should support a corner radius prop in pixels', () => {
+        const size = 100;
+        const cornerRadius = 9;
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+            </Transform>
+        </Chart>);
+        const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
+        expect(d[2]).toEqual(cornerRadius + ' 0 0');
+    });
+
+    it('should support a corner radius prop in percents', () => {
+        const size = 100;
+        const cornerRadius = '25%';
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+            </Transform>
+        </Chart>);
+        const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
+        expect(d[2]).toEqual(parseFloat(cornerRadius) / 100 * size / 2 + ' 0 0');
+    });
+
+    it('should support a corner radius prop as function', () => {
+        const size = 100;
+        const cornerRadius = () => 0.35;
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+            </Transform>
+        </Chart>);
+        const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
+        expect(d[2]).toEqual(cornerRadius() * size / 2 + ' 0 0');
+    });
+
+    it('should render proper svg shape', () => {
+        const size = 100;
+        const pieWidth = 40;
+        const cornerRadius = 9;
+        const startAngle = 0.5;
+        const endAngle = Math.PI * 2 - 0.5;
+
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies
+                    className='pies' combined={true}
+                    pieWidth={pieWidth} cornerRadius={cornerRadius}
+                    startAngle={startAngle} endAngle={endAngle}
+                />
+            </Transform>
+        </Chart>);
+        const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d');
+
+        const arc = d3.svg.arc()
+            .cornerRadius(cornerRadius)
+            .padRadius(10)
+            .innerRadius(size * 0.25 - pieWidth * 0.5)
+            .outerRadius(size * 0.25 + pieWidth * 0.5);
+        const expectedD = arc({
+            startAngle: startAngle,
+            endAngle: startAngle + endAngle / 3 - startAngle / 3
+        });
+        expect(d).toEqual(expectedD);
+    });
+
+    it('should support radial gradients', () => {
+        const size = 100;
+        const gradientStep = 0.05;
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies
+                    className='pies' combined={true}
+                    colors={[['#ff00ff', '#ffffff']]} gradientStep={gradientStep}
+                />
+            </Transform>
+        </Chart>);
+        const length = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').length;
+        expect(length).toBeGreaterThanOrEqual(Math.PI * 2 / 3 / gradientStep);
+    });
+
+    it('should optimize gradients', () => {
+        const size = 100;
+        const gradientStep = 0.05;
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies
+                    className='pies' combined={true}
+                    colors={[['#ff00ff', '#ff00ff']]} gradientStep={gradientStep}
+                />
+            </Transform>
+        </Chart>);
+        const length = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').length;
+        expect(length).toBeGreaterThanOrEqual(1);
+    });
+
+    it('should support overlaps (>100%)', () => {
+        const size = 100;
+        const wrapper = mount(<Chart width={size} height={size} series={series}>
+            <Transform method='stack'>
+                <Pies className='pies' maxY={0.25}/>
+            </Transform>
+        </Chart>);
+        const length = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').length;
+        expect(length).toEqual(1);
+    });
+
+    it('should support opposite directions for scales', () => {
+        const wrapper = mount(<Chart
+            width={100} height={100} series={series}
+            scaleX={{direction: -1}} scaleY={{direction: -1}}>
+            <Transform method='stack'>
+                <Pies className='pies' combined={true} colors={['#ff00ff', '#ff0000']}/>
+            </Transform>
+        </Chart>);
+        const color = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').prop('fill');
+        expect(color).toEqual('#ff00ff');
+    });
+
+    it('should support wrong scaleX direction and position properties', () => {
+        const wrapper = mount(<Chart
+            width={100} height={100} series={series} scaleX={{direction: 0}}>
+            <Transform method='stack'>
+                <Pies className='pies' position='' combined={true} colors={['#ff00ff', '#ff0000']}/>
+            </Transform>
+        </Chart>);
+        const color = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').prop('fill');
+        expect(color).toEqual('#ff00ff');
+    });
+
 
 });
