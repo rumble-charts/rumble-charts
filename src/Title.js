@@ -16,7 +16,7 @@ export default function Title(props) {
         props.position,
         props.layerWidth, props.layerHeight,
         props.width, props.height
-    ) || {};
+    );
 
     return <g
         className={className}

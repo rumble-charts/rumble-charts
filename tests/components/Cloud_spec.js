@@ -23,6 +23,9 @@ describe('Cloud', () => {
         type: 'object',
         point: ({seriesIndex, pointIndex}) => ({label: `${seriesIndex}-${pointIndex}`})
     });
+    const series3 = [{
+        data: [{x: 0, y: 45, label: '45'}, {x: 1, y: 50, label: '50'}, {x: 2, y: 55, label: '55'}]
+    }];
 
     graphicsComponent(Cloud, {
         deepestTag: 'text',
@@ -94,6 +97,16 @@ describe('Cloud', () => {
             d3.scale.linear = linear;
         }, 1000);
 
+    });
+
+    it('should skip empty labels', () => {
+        const wrapper = mount(<Chart width={100} height={80} series={series3}>
+            <Cloud minFontSize={44} maxFontSize={45} random={() => 0} />
+        </Chart>);
+
+        return later(() => {
+            expect(wrapper.find('text').length).toEqual(1);
+        }, 2000);
     });
 
 });

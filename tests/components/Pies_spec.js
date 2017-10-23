@@ -15,10 +15,6 @@ const series = [{
 
 describe('Pies', () => {
 
-    // TODO:
-    // tests for:
-    // - gradientStep
-
     graphicsComponent(Pies, {
         pointGroupClassName: 'pie',
         pointStyling: true,

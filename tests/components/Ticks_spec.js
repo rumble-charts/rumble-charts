@@ -1,4 +1,4 @@
-import {shallow} from 'enzyme';
+import {shallow, mount} from 'enzyme';
 import generateRandomSeries from '../helpers/generateRandomSeries';
 import spyOnWarnings from '../helpers/spyOnWarnings';
 import Chart from '../../src/Chart';
@@ -12,13 +12,7 @@ describe('Ticks', () => {
     const series = generateRandomSeries(3, 10, {type: 'object'});
     const render = shallow;
 
-    // test
-    // - what should be rendered
-    // - how it should be rendered
-
-    // test props:
-    // - ticks
-
+    // TODO: test props:
     // - axis x, y
     // - position (9-point)
 
@@ -34,7 +28,7 @@ describe('Ticks', () => {
 
         it('should render proper class names', () => {
             const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                <Ticks className='ticks'/>
+                <Ticks className='ticks' />
             </Chart>);
             const root = wrapper.render().find('g.ticks');
             expect(root.length).toEqual(1);
@@ -52,7 +46,7 @@ describe('Ticks', () => {
         it('should be correctly defined in propTypes', () => {
             expect(Ticks.propTypes.className).toEqual(jasmine.any(Function));
             expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
-                <Ticks className='ticks'/>
+                <Ticks className='ticks' />
             </Chart>)).not.toHaveBeenCalled();
         });
 
@@ -67,7 +61,7 @@ describe('Ticks', () => {
 
         it('should render style in the root element', () => {
             const wrapper = render(<Chart width={chartWidth} height={chartHeight}>
-                <Ticks className='chart' style={{transition: '100ms'}}/>
+                <Ticks className='chart' style={{transition: '100ms'}} />
             </Chart>);
             const root = wrapper.render().find('g.chart');
             expect(root.prop('style').transition).toEqual('100ms');
@@ -76,7 +70,7 @@ describe('Ticks', () => {
         it('should be correctly defined in propTypes', () => {
             expect(Ticks.propTypes.style).toEqual(jasmine.any(Function));
             expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
-                <Ticks style={{transition: '100ms'}}/>
+                <Ticks style={{transition: '100ms'}} />
             </Chart>)).not.toHaveBeenCalled();
         });
 
@@ -91,7 +85,7 @@ describe('Ticks', () => {
 
         it('should apply opacity attribute to the root element', () => {
             const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                <Ticks className='ticks' opacity={0.9}/>
+                <Ticks className='ticks' opacity={0.9} />
             </Chart>);
             const root = wrapper.render().find('g.ticks');
             expect(root.prop('opacity')).toEqual('0.9');
@@ -100,7 +94,7 @@ describe('Ticks', () => {
         it('should be correctly defined in propTypes', () => {
             expect(Ticks.propTypes.opacity).toEqual(jasmine.any(Function));
             expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={series}>
-                <Ticks opacity={0.9}/>
+                <Ticks opacity={0.9} />
             </Chart>)).not.toHaveBeenCalled();
         });
 
@@ -113,7 +107,7 @@ describe('Ticks', () => {
 
     it('should have no children', () => {
         const html1 = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-            <Ticks/>
+            <Ticks />
         </Chart>).html();
         const html2 = render(<Chart width={chartWidth} height={chartHeight} series={series}><Ticks>
             <g>
@@ -133,6 +127,89 @@ describe('Ticks', () => {
             lineLength: 5,
             lineOffset: 0
         }));
+    });
+
+    it('should render ticks with lines and labels', () => {
+        const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series}>
+            <Ticks className='ticks' axis='y' />
+        </Chart>);
+        const tick = wrapper.find('g.ticks-tick').first();
+        expect(tick.children().length).toEqual(2);
+        expect(tick.prop('transform').substr(0, 10)).toEqual('translate(');
+        expect(tick.childAt(0).name()).toEqual('text');
+        expect(tick.childAt(1).name()).toEqual('path');
+    });
+
+    describe('ticks property', () => {
+        it('could be a number', () => {
+            const ticks = 10;
+            const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={100}>
+                <Ticks className='ticks' ticks={ticks} axis='y' />
+            </Chart>);
+            expect(wrapper.find('g.ticks-tick').length).toEqual(ticks);
+        });
+
+        describe('could be a list of settings', () => {
+            it('should support max ticks value', () => {
+                const maxY = 100;
+                const ticks = {
+                    maxTicks: 5
+                };
+                const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={maxY}>
+                    <Ticks className='ticks' ticks={ticks} axis='y' maxY={maxY} />
+                </Chart>);
+                expect(wrapper.find('g.ticks-tick').length).toEqual(ticks.maxTicks);
+            });
+
+            it('should support distance value', () => {
+                const maxY = 100;
+                const ticks = {
+                    distance: 25
+                };
+                const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={maxY}>
+                    <Ticks className='ticks' ticks={ticks} axis='y' maxY={maxY} />
+                </Chart>);
+                expect(wrapper.find('g.ticks-tick').length).toEqual(maxY / ticks.distance);
+            });
+
+            it('should support min distance value', () => {
+                const maxY = 100;
+                const ticks = {
+                    maxTicks: 20,
+                    minDistance: 10
+                };
+                const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={maxY}>
+                    <Ticks className='ticks' ticks={ticks} axis='y' />
+                </Chart>);
+                expect(wrapper.find('g.ticks-tick').length).toEqual(maxY / ticks.minDistance + 1);
+            });
+        });
+
+        it('could be an array of actual ticks', () => {
+            const ticks = [9.5, 15, 28, {
+                label: 'seventy eight',
+                y: 78
+            }];
+            const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={100}>
+                <Ticks className='ticks' ticks={ticks} axis='y' />
+            </Chart>);
+            expect(wrapper.find('g.ticks-tick').length).toEqual(ticks.length);
+            expect(wrapper.find('g.ticks-tick').first().find('text').text()).toEqual('9.5');
+            expect(wrapper.find('g.ticks-tick').last().find('text').text()).toEqual('seventy eight');
+        });
+
+        it('could be a function', () => {
+            const ticks = ({maxY}) => ([maxY, 15, 28, {
+                label: 'seventy eight',
+                y: 78
+            }]);
+            const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={100}>
+                <Ticks className='ticks' ticks={ticks} axis='y' />
+            </Chart>);
+            expect(wrapper.find('g.ticks-tick').length).toEqual(4);
+            expect(wrapper.find('g.ticks-tick').first().find('text').text()).toEqual('100');
+            expect(wrapper.find('g.ticks-tick').last().find('text').text()).toEqual('seventy eight');
+        });
     });
 
 });
