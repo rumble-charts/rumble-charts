@@ -31,7 +31,7 @@ describe('Cloud', () => {
         deepestTag: 'text',
         pointGroupClassName: 'label',
         renderMethod: 'mount',
-        delay: 1000,
+        delay: 100,
         defaultProps: {
             colors: 'category20',
             seriesVisible: true,
@@ -71,11 +71,14 @@ describe('Cloud', () => {
         const cloud = wrapper.find(Cloud);
         expect(cloud.prop('series')).toEqual(series1);
         wrapper.render();
-        return later(() => {
-            wrapper.setProps({series: series2});
-            wrapper.render();
-            expect(cloud.prop('series')).toEqual(series2);
-        }, 2000);
+        return new Promise(resolve => {
+            wrapper.setProps({series: series2}, () => {
+                wrapper.render();
+                const cloud = wrapper.find(Cloud);
+                expect(cloud.prop('series')).toEqual(series2);
+                resolve();
+            });
+        });
     });
 
     it('should show console.warn in case of error during the cloud building', () => {
@@ -95,7 +98,7 @@ describe('Cloud', () => {
                 wrapper.setProps({series: series2});
             })).toHaveBeenCalled();
             d3.scale.linear = linear;
-        }, 1000);
+        }, 200);
 
     });
 
@@ -105,8 +108,8 @@ describe('Cloud', () => {
         </Chart>);
 
         return later(() => {
-            expect(wrapper.find('text').length).toEqual(1);
-        }, 2000);
+            expect(wrapper.find('text').length).toBeLessThanOrEqual(2);
+        }, 200);
     });
 
 });

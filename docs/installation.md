@@ -6,7 +6,7 @@ npm install --save rumble-charts
 
 Include
 
-```javascript
+```javascript static
 const {
   // main component
   Chart, 

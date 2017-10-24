@@ -31,7 +31,7 @@ describe('Transform', () => {
             </Transform>
         </Chart>);
 
-        const transform = wrapper.find('.transform');
+        const transform = wrapper.find('g.transform');
         expect(transform.type()).toEqual('g');
         expect(transform.length).toEqual(1);
     });

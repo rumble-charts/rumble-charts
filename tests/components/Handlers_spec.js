@@ -80,7 +80,7 @@ describe('Handlers', () => {
                 <Graphics />
             </Handlers>
         </Chart>);
-        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+        wrapper.find(Handlers).instance().rect.getBoundingClientRect = () => ({
             left: chartWidth * 0.1,
             top: chartHeight * 0.1,
             width: chartWidth * 0.6,
@@ -106,7 +106,7 @@ describe('Handlers', () => {
                 <Graphics />
             </Handlers>
         </Chart>);
-        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+        wrapper.find(Handlers).instance().rect.getBoundingClientRect = () => ({
             left: chartWidth * 0.1,
             top: chartHeight * 0.1,
             width: chartWidth * 0.6,
@@ -132,7 +132,7 @@ describe('Handlers', () => {
                 <Graphics />
             </Handlers>
         </Chart>);
-        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+        wrapper.find(Handlers).instance().rect.getBoundingClientRect = () => ({
             left: chartWidth * 0.1,
             top: chartHeight * 0.1,
             width: chartWidth * 0.6,
@@ -192,8 +192,8 @@ describe('Handlers', () => {
                 <Graphics />
             </Handlers>
         </Chart>);
-        wrapper.find(Handlers).node.ratio = 0;
-        wrapper.find(Handlers).node.rect.getBoundingClientRect = () => ({
+        wrapper.find(Handlers).instance().ratio = 0;
+        wrapper.find(Handlers).instance().rect.getBoundingClientRect = () => ({
             left: chartWidth * 0.1,
             top: chartHeight * 0.1,
             width: chartWidth * 0.6,

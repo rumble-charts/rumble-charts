@@ -11,8 +11,8 @@ describe('Gradient', () => {
                 type='linear'
                 gradientTransform='matrix()'
                 from={['0%', '5%']} to={['15%', '100%']}>
-                <stop offset='60%' stopColor='black'/>
-                <stop offset='100%' stopColor='white'/>
+                <stop offset='60%' stopColor='black' />
+                <stop offset='100%' stopColor='white' />
             </Gradient>);
             const gradient = wrapper.find('linearGradient');
             expect(gradient.prop('id')).toEqual('linearGrad');
@@ -31,8 +31,8 @@ describe('Gradient', () => {
                 id='linearGrad'
                 type='linear'
                 x1='0%' y1='5%' x2={100} y2={150}>
-                <stop offset='60%' stopColor='black'/>
-                <stop offset='100%' stopColor='white'/>
+                <stop offset='60%' stopColor='black' />
+                <stop offset='100%' stopColor='white' />
             </Gradient>);
             const gradient = wrapper.find('linearGradient');
             expect(gradient.prop('x1')).toEqual('0%');
@@ -52,8 +52,8 @@ describe('Gradient', () => {
                 gradientTransform='matrix()'
                 radius={77}
                 center={['40%', '45%']} focalPoint={['15%', '100%']}>
-                <stop offset='60%' stopColor='black'/>
-                <stop offset='100%' stopColor='white'/>
+                <stop offset='60%' stopColor='black' />
+                <stop offset='100%' stopColor='white' />
             </Gradient>);
             const gradient = wrapper.find('radialGradient');
             expect(gradient.prop('id')).toEqual('radialGrad');
@@ -74,8 +74,8 @@ describe('Gradient', () => {
                 type='radial'
                 gradientTransform='matrix()'
                 cx='40%' cy='45%' fx={5} fy={7} r={13}>
-                <stop offset='60%' stopColor='black'/>
-                <stop offset='100%' stopColor='white'/>
+                <stop offset='60%' stopColor='black' />
+                <stop offset='100%' stopColor='white' />
             </Gradient>);
             const gradient = wrapper.find('radialGradient');
             expect(gradient.prop('cx')).toEqual('40%');
@@ -90,11 +90,11 @@ describe('Gradient', () => {
 
     it('should support autoincrement id', () => {
         const wrapper = mount(<Gradient type='linear'>
-            <stop offset='60%' stopColor='black'/>
-            <stop offset='100%' stopColor='white'/>
+            <stop offset='60%' stopColor='black' />
+            <stop offset='100%' stopColor='white' />
         </Gradient>);
         expect(wrapper.find('linearGradient').prop('id')).toEqual('chartGradient1');
-        expect(wrapper.find(Gradient).node.getLink()).toEqual('url(#chartGradient1)');
+        expect(wrapper.find(Gradient).instance().getLink()).toEqual('url(#chartGradient1)');
     });
 
 });

@@ -1,4 +1,6 @@
 ```
+const _ = require('lodash');
+
 const series = [{
   name: 'John',
   data: [1, 2, 3]

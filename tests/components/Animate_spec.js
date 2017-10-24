@@ -30,7 +30,7 @@ describe('Animate', () => {
             series={series1}
             minX={0} maxX={2} minY={0} maxY={100}
             layerWidth={100} layerHeight={100}
-            duration={1000}>
+            duration={500}>
             <Graphics />
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
@@ -46,6 +46,7 @@ describe('Animate', () => {
         });
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).not.toEqual(series1);
@@ -64,7 +65,9 @@ describe('Animate', () => {
             expect(Graphics.prop('layerWidth')).not.toBeGreaterThan(100);
             expect(Graphics.prop('layerHeight')).not.toBeLessThan(100);
 
+        }, 250).then(() =>
             later(() => {
+                wrapper.update();
                 const Graphics = wrapper.find('Graphics');
                 const expectedSeries = Graphics.prop('series');
                 expect(expectedSeries).toEqual(series2);
@@ -75,8 +78,8 @@ describe('Animate', () => {
                 expect(Graphics.prop('layerWidth')).toEqual(50);
                 expect(Graphics.prop('layerHeight')).toEqual(150);
 
-            }, 1000);
-        }, 500);
+            }, 500)
+        );
     });
 
     it('should log FPS metrics', () => {
@@ -93,12 +96,13 @@ describe('Animate', () => {
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
             expect(console.warn).toHaveBeenCalled();
             console.warn = consoleWarn;
-        }, 500);
+        }, 200);
     });
 
     it('should stop timer on unmount', () => {
@@ -111,75 +115,79 @@ describe('Animate', () => {
         wrapper.setProps({series: series2});
 
         return later(() => {
-            const timer = wrapper.find(Animate).node._timer;
+            const timer = wrapper.find(Animate).instance()._timer;
             spyOn(timer, 'stop');
             wrapper.unmount();
             expect(timer.stop).toHaveBeenCalledTimes(1);
-        }, 300);
+        }, 100);
     });
 
     it('should interpolate series points from numbers to objects', () => {
         const wrapper = mount(<Animate
             series={seriesNumber}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should interpolate series points from arrays to objects', () => {
         const wrapper = mount(<Animate
             series={seriesArray}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should interpolate series points from null to objects', () => {
         const wrapper = mount(<Animate
             series={[{data: [null]}]}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should interpolate series from nothing to objects', () => {
         const wrapper = mount(<Animate
             series={null}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should trigger onStart and onEnd callback', () => {
@@ -189,80 +197,83 @@ describe('Animate', () => {
             series={series1}
             onStart={onStart}
             onEnd={onEnd}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
             expect(onStart).toHaveBeenCalledTimes(1);
             expect(onEnd).toHaveBeenCalledTimes(1);
-        }, 1500);
+        }, 250);
     });
 
     it('should support ease prop as a function', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={d3.ease('linear')}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should support empty ease prop', () => {
         const wrapper = mount(<Animate
             series={series1}
             ease={null}
-            duration={1000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
 
         return later(() => {
+            wrapper.update();
             const Graphics = wrapper.find('Graphics');
             const expectedSeries = Graphics.prop('series');
             expect(expectedSeries).toEqual(series2);
-        }, 1500);
+        }, 250);
     });
 
     it('should support sequential updates', () => {
         const wrapper = mount(<Animate
             series={series1}
-            duration={2000}>
+            duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
-        const timer = wrapper.find(Animate).node._timer;
+        const timer = wrapper.find(Animate).instance()._timer;
 
         return later(() => {
             spyOn(timer, 'stop');
 
             wrapper.setProps({series: series1});
-            later(() => {
+        }, 50)
+            .then(() => later(() => {
                 expect(timer.stop).toHaveBeenCalledTimes(1);
-
-                later(() => {
-                    const Graphics = wrapper.find('Graphics');
-                    const expectedSeries = Graphics.prop('series');
-                    expect(wrapper.state().series).toEqual(series1);
-                    expect(expectedSeries).toEqual(series1);
-                }, 2500);
-            }, 100);
-        }, 500);
+            }, 10))
+            .then(() => later(() => {
+                wrapper.update();
+                const Graphics = wrapper.find('Graphics');
+                const expectedSeries = Graphics.prop('series');
+                expect(wrapper.state().series).toEqual(series1);
+                expect(expectedSeries).toEqual(series1);
+            }, 200));
     });
 
 });

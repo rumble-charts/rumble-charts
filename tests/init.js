@@ -13,3 +13,8 @@ import React from 'react';
 global['React'] = React;
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 3000;
+
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({adapter: new Adapter()});

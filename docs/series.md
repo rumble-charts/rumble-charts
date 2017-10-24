@@ -3,7 +3,7 @@ For instance, line graphs, cloud of tags, bars, pies etc.
  
 Series is an array of several (one or more) specific series objects.
 
-```javascript
+```javascript static
 const series = [{
   name: '', // optional
   // ... other attributes
@@ -21,13 +21,13 @@ It's an array of data points and can be presented in three ways
 
 1. Primitive numerical values
 
-```javascript
+```javascript static
 [1, 2, 4]
 ```
 2. Pairs of numbers [x, y], where the first value represents `x` value 
 and the second one - `y` value (as main value).
 
-```javascript
+```javascript static
 [[0, 1], [1, 2], [2, 4]]
 ```
 
@@ -37,7 +37,7 @@ and the second one - `y` value (as main value).
 
 As in series objects, here you also can add your own attribute and use it in a chart.
 
-```javascript
+```javascript static
 [{
   x: 0, // optional
   y: 1
@@ -52,7 +52,7 @@ As in series objects, here you also can add your own attribute and use it in a c
 
 In propTypes series property described as:
 
-```javascript
+```javascript static
 series: React.PropTypes.arrayOf(React.PropTypes.shape({
   name: React.PropTypes.string,
   color: React.PropTypes.string,

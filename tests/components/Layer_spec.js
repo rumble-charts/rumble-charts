@@ -22,7 +22,7 @@ describe('Layer', () => {
             </Layer>
         </Chart>);
 
-        const layer = wrapper.find('.layer');
+        const layer = wrapper.find('g.layer');
         expect(layer.type()).toEqual('g');
         expect(layer.length).toEqual(1);
     });

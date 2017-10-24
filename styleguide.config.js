@@ -58,6 +58,11 @@ module.exports = {
         return {
             module: {
                 loaders: [babel]
+            },
+            resolve: {
+                alias: {
+                    'rumble-charts': path.resolve(dir, 'index.js')
+                }
             }
         };
     },
