@@ -273,7 +273,7 @@ describe('Animate', () => {
                 const expectedSeries = Graphics.prop('series');
                 expect(wrapper.state().series).toEqual(series1);
                 expect(expectedSeries).toEqual(series1);
-            }, 200));
+            }, 210));
     });
 
 });
