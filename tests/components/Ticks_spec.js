@@ -152,13 +152,17 @@ describe('Ticks', () => {
         describe('could be a list of settings', () => {
             it('should support max ticks value', () => {
                 const maxY = 100;
+                const minY = 0;
                 const ticks = {
                     maxTicks: 5
                 };
-                const wrapper = mount(<Chart width={chartWidth} height={chartHeight} series={series} maxY={maxY}>
-                    <Ticks className='ticks' ticks={ticks} axis='y' maxY={maxY} />
+                const wrapper = mount(<Chart
+                    width={chartWidth} height={chartHeight}
+                    series={series}
+                    maxY={maxY} minY={minY}>
+                    <Ticks className='ticks' ticks={ticks} axis='y' maxY={maxY} minY={minY} />
                 </Chart>);
-                expect(wrapper.find('g.ticks-tick').length).toEqual(ticks.maxTicks);
+                expect(wrapper.find('g.ticks-tick').length).toEqual(ticks.maxTicks + 1);
             });
 
             it('should support distance value', () => {

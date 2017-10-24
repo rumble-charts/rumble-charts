@@ -1,4 +1,5 @@
 import {shallow, mount} from 'enzyme';
+import _ from 'lodash';
 import d3 from 'd3';
 import Animate from '../../src/Animate';
 import generateRandomSeries from '../helpers/generateRandomSeries';
@@ -249,31 +250,44 @@ describe('Animate', () => {
         }, 250);
     });
 
-    it('should support sequential updates', () => {
+    it('should support sequential updates and should not mutate series data', () => {
+        const originalSeries1 = _.cloneDeep(series1);
+        const originalSeries2 = _.cloneDeep(series2);
+
+        const onStart = jest.fn();
+
         const wrapper = mount(<Animate
             series={series1}
+            onStart={onStart}
+            minX={0} maxX={2} minY={0} maxY={100}
+            layerWidth={100} layerHeight={100}
             duration={200}>
             <Graphics />
         </Animate>);
 
         wrapper.setProps({series: series2});
-        const timer = wrapper.find(Animate).instance()._timer;
+        expect(onStart).toHaveBeenCalledTimes(1);
+
+        wrapper.setProps({
+            series: series1,
+            minX: 1,
+            maxX: 3,
+            minY: -50,
+            maxY: 50,
+            layerWidth: 50,
+            layerHeight: 150
+        });
+        expect(onStart).toHaveBeenCalledTimes(2);
 
         return later(() => {
-            spyOn(timer, 'stop');
-
-            wrapper.setProps({series: series1});
-        }, 50)
-            .then(() => later(() => {
-                expect(timer.stop).toHaveBeenCalledTimes(1);
-            }, 10))
-            .then(() => later(() => {
-                wrapper.update();
-                const Graphics = wrapper.find('Graphics');
-                const expectedSeries = Graphics.prop('series');
-                expect(wrapper.state().series).toEqual(series1);
-                expect(expectedSeries).toEqual(series1);
-            }, 210));
+            wrapper.update();
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
+            expect(originalSeries1).toEqual(series1);
+            expect(originalSeries2).toEqual(series2);
+            expect(expectedSeries).toEqual(series1);
+            expect(wrapper.state('series')).toEqual(series1);
+        }, 300);
     });
 
 });
