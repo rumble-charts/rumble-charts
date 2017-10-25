@@ -5,13 +5,22 @@
 [![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
 [![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
+[![bitHound Code](https://www.bithound.io/github/rumble-charts/rumble-charts/badges/code.svg)](https://www.bithound.io/github/rumble-charts/rumble-charts)
 
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 [![npm](https://img.shields.io/npm/dm/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
-React components for building composable and flexible charts. 
+React components for building composable and flexible charts to visualize your data. 
 
 It's based on D3.js under the hood, but most of the time you will not feel that.
+
+## Real-world examples
+
+![Pie Charts](./docs/images/05.png)
+
+![Bar Charts](./docs/images/07.png)
+
+![Line Chart](./docs/images/03.png)
 
 ## Documentation
 
@@ -36,7 +45,7 @@ npm install --save rumble-charts
 Just include it:
 
 ```javascript
-const {
+import {
   // main component
   Chart, 
   // graphs
@@ -45,7 +54,7 @@ const {
   Layer, Animate, Transform, Handlers,
   // helpers
   helpers, DropShadow, Gradient
-} = require('rumble-charts');
+} from 'rumble-charts';
 ```
 
 And use:
@@ -59,10 +68,10 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-class Demo extends Component {
+class Demo extends React.Component {
   render() {
-    return <Chart width={400} height={400} series={series} minY={0}>
-      <Bars />
+    return <Chart width={600} height={250} series={series} minY={0} maxY={20}>
+      <Bars innerPadding={5} groupPadding={10} />
       <Lines />
       <Dots />
     </Chart>;
@@ -70,15 +79,11 @@ class Demo extends Component {
 }
 ```
 
-## Road map
+Result:
 
-- [x] Write unit tests for graphics components
-- [x] Make a first version of documentation with examples
-- [x] Update to React 15.x
-- [x] Update to lodash 4.x
-- [ ] Write unit tests for wrappers and helpers components 
-- [ ] Support React ART
-- [ ] Support morphing between graphics types (Pies <=> Bars)
+![Combined Chart](./docs/images/08.png)
+
+## [Road map](ROADMAP.md)
 
 ## Similar projects 
 

@@ -42,7 +42,7 @@
   "bugs": {
     "url": "https://github.com/rumble-charts/rumble-charts/issues"
   },
-  "homepage": "https://github.com/rumble-charts/rumble-charts#readme",
+  "homepage": "https://rumble-charts.github.io/",
   "dependencies": {
     "d3-cloud": "^1.2.4",
     "d3-color": "^1.0.3",
