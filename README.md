@@ -1,5 +1,7 @@
 # <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
+
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/rumble-charts/rumble-charts)
 
 [![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts)
