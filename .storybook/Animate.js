@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import _ from 'lodash';
-import { storiesOf } from '@storybook/react';
+import {storiesOf} from '@storybook/react';
 const {Chart, Bars, Layer, Animate, Ticks, Lines, Dots, Labels} = require('../src');
 
 const series1 = [{
@@ -16,17 +16,20 @@ const series2 = [{
 }];
 
 const generateSeries = () => {
-    return _.map(_.range(3), index => ({
-        data: _.map(_.range(7), index => Math.random() * 100)
+    return _.map(_.range(3), () => ({
+        data: _.map(_.range(7), () => Math.random() * 100)
     }));
 };
 
-const Simple = React.createClass({
-    getInitialState() {
-        return {
+class Simple extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             series: series1
         };
-    },
+    }
+
     render() {
         return <Chart
             onClick={() => this.setState({series: generateSeries()})}
@@ -41,14 +44,16 @@ const Simple = React.createClass({
             </Layer>
         </Chart>;
     }
-});
+}
 
-const Complex = React.createClass({
-    getInitialState() {
-        return {
+class Complex extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             series: series2
         };
-    },
+    }
 
     render() {
         return <Chart
@@ -99,7 +104,7 @@ const Complex = React.createClass({
             </Layer>
         </Chart>;
     }
-});
+}
 
 storiesOf('Animate', module)
     .add('default', () =>

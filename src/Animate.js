@@ -21,7 +21,7 @@ export default class Animate extends Component {
     constructor(props) {
         super(props);
 
-        this.state = normalizeSeries(this.props);
+        this.state = _.assign({}, this.props, normalizeSeries(this.props));
     }
 
     // lifecycle

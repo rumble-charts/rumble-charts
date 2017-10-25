@@ -3,10 +3,6 @@ import {storiesOf} from '@storybook/react';
 const {Chart, Bars, Lines, Layer, Handlers, Dots, Ticks} = require('../src');
 const Filters = require('../docs/examples/filters');
 
-const series1 = [{
-    data: [1, 2, 4]
-}];
-
 const series2 = [{
     data: [1, 2, 3]
 }, {
@@ -55,7 +51,7 @@ function handleMouseLeave() {
     hideHovered();
 }
 
-const months = ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN']
+const months = ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'];
 
 storiesOf('Chart', module)
     .add('default', () =>

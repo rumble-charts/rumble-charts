@@ -1,7 +1,7 @@
 'use strict';
 
 const React = require('react');
-const d3 = require('d3');
+const {scaleOrdinal, schemeCategory10} = require('d3-scale');
 const _ = require('lodash');
 const {Chart, Pies, Bars, Layer, Transform, Ticks, Labels, Title, Animate} = require('../../src/index');
 
@@ -45,7 +45,7 @@ metrics.forEach(metric => {
     groups[metric] = _.groupBy(points, metric);
 });
 
-const colors = d3.scale.category10();
+const colors = scaleOrdinal(schemeCategory10);
 
 const getSeriesByGroup = (groups, mainMetric, filter) => {
     const group = groups[mainMetric];
@@ -137,7 +137,7 @@ class Demo extends React.Component {
                 width='30%' height='30%' position='right bottom'
                 series={getSeriesByGroup(groups, 'title', filter)}>
                 {filter[0] === 'title' && <Title position='center middle'>
-                    <text style={{textAnchor:'middle',dominantBaseline:'middle'}}>{filter[1]}</text>
+                    <text style={{textAnchor: 'middle', dominantBaseline: 'middle'}}>{filter[1]}</text>
                 </Title>}
                 <Transform method={['transpose', 'stack']}>
                     <Animate ease='bounce'>

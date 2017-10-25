@@ -51,7 +51,7 @@ module.exports = {
         };
         if (env !== 'production') {
             babel.query = {
-                presets: ['es2015', 'react-hmre']
+                presets: ['env', 'react-hmre']
             };
         }
 
