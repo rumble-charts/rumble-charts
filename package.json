@@ -1,6 +1,6 @@
 {
   "name": "rumble-charts",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "description": "React charts components based on d3.js",
   "main": "lib/index.js",
   "scripts": {
