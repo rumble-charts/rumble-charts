@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
 import {timer} from 'd3-timer';
+import {interpolate as d3Interpolate} from 'd3-interpolate';
 
+import eases from './helpers/eases';
 import proxyChildren from './helpers/proxyChildren';
+import normalizeSeries from './helpers/normalizeSeries';
 
 /**
  * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
@@ -19,35 +21,43 @@ export default class Animate extends Component {
     constructor(props) {
         super(props);
 
-        this.state = this.props;
+        this.state = normalizeSeries(this.props);
     }
 
     // lifecycle
 
     componentWillReceiveProps(nextProps) {
-        const interpolate = d3.interpolateObject(
+
+        const interpolate = d3Interpolate(
             _.pick(this.state, this.props.interpolateProps),
-            _.pick(nextProps, this.props.interpolateProps)
+            _.pick(
+                _.assign({}, nextProps, normalizeSeries(nextProps)),
+                this.props.interpolateProps
+            )
         );
 
         const {duration, onStart, onEnd, logFPS} = this.props;
         let {ease} = this.props;
         ease = _.isString(ease) ?
-            d3.ease(ease) :
-            (_.isFunction(ease) ? ease : d3.ease('linear'));
+            eases[ease] :
+            (_.isFunction(ease) ? ease : eases['linear']);
 
         let i = 0;
         this._timer && this._timer.stop();
         onStart && onStart();
         const _timer = timer(p => {
-            this.setState(interpolate(ease(p / duration)));
             i++;
             if (p >= duration) {
+                p = duration;
+                this.setState(interpolate(ease(p / duration)));
+
                 onEnd && onEnd();
                 if (logFPS) {
                     console.warn(i * (1000 / duration) + 'fps; ' + i + ' frames in ' + duration + 'ms');
                 }
                 _timer.stop();
+            } else {
+                this.setState(interpolate(ease(p / duration)));
             }
         });
         this._timer = _timer;
@@ -114,53 +124,3 @@ Animate.defaultProps = {
     duration: 500,
     ease: 'linear'
 };
-
-d3.interpolators.push(function(a, b) {
-    let c, i, an = typeof a == 'number';
-    if (b && !_.isUndefined(b.x) && !_.isUndefined(b.y)) {
-        // point
-        a = a || {};
-        c = {};
-        i = {};
-        let k;
-        for (k in a) {
-            if (k in b) {
-                i[k] = d3.interpolate(a[k], b[k]);
-            }
-        }
-        for (k in b) {
-            if (an && k === 'y') {
-                // from number to object
-                i[k] = d3.interpolate(a, b[k]);
-            } else if (!an && !(k in a)) {
-                c[k] = b[k];
-            }
-        }
-        return function(t) {
-            for (k in i) {
-                c[k] = i[k](t);
-            }
-            return c;
-        };
-    } else if (b && b[0] && (!_.isUndefined(b[0].data) || (!_.isUndefined(b[0].x) && !_.isUndefined(b[0].y)))) {
-        // series or points
-        a = a || [];
-        c = [];
-        let x = [],
-            na = a.length,
-            nb = b.length,
-            n0 = Math.min(na, nb);
-        for (i = 0; i < n0; ++i) {
-            x.push(d3.interpolate(a[i], b[i]));
-        }
-        for (; i < nb; ++i) {
-            c[i] = b[i];
-        }
-        return function(t) {
-            for (i = 0; i < n0; ++i) {
-                c[i] = x[i](t);
-            }
-            return c;
-        };
-    }
-});

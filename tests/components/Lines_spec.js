@@ -1,8 +1,11 @@
 import {shallow, mount} from 'enzyme';
-import d3 from 'd3';
-import _  from 'lodash';
+import {line as d3Line, area as d3Area} from 'd3-shape';
+import {curveCatmullRom} from 'd3-shape';
+import _ from 'lodash';
+
 import Transform from '../../src/Transform';
 import Chart from '../../src/Chart';
+import curves from '../../src/helpers/curves';
 import graphicsComponent from '../helpers/graphicsComponent';
 import linesComponent from '../helpers/linesComponent';
 import generateRandomSeries from '../helpers/generateRandomSeries';
@@ -51,18 +54,21 @@ describe('Lines', () => {
 
         it('as lines', () => {
             const wrapper = shallow(<Chart width={100} height={100} series={series}>
-                <Lines/>
+                <Lines interpolation={curveCatmullRom} />
             </Chart>);
             const graph = wrapper.find(Lines);
             const realCurve = wrapper.render().find('path').prop('d');
 
+            const interpolation = graph.prop('interpolation');
+            const curve = _.isString(interpolation) ? curves[interpolation] : interpolation;
+
             const scaleX = graph.prop('scaleX').factory(graph.props());
             const scaleY = graph.prop('scaleY').factory(graph.props());
-            const line = d3.svg.line()
+            const line = d3Line()
                 .x(({x}) => scaleX(x))
                 .y(({y}) => scaleY(y))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curve);
 
             expect(realCurve).toEqual(line(series[0].data));
         });
@@ -78,11 +84,11 @@ describe('Lines', () => {
 
             const scaleX = graph.prop('scaleX').factory(graph.props());
             const scaleY = graph.prop('scaleY').factory(graph.props());
-            const line = d3.svg.line()
+            const line = d3Line()
                 .y(({x}) => scaleX(x))
                 .x(({y}) => scaleY(y))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curves[graph.prop('interpolation')]);
 
             expect(realCurve).toEqual(line(series[0].data));
         });
@@ -90,7 +96,7 @@ describe('Lines', () => {
         it('as areas', () => {
             const wrapper = mount(<Chart width={100} height={100} series={series} minY={0}>
                 <Transform method='stack'>
-                    <Lines asAreas={true}/>
+                    <Lines asAreas={true} />
                 </Transform>
             </Chart>);
             const graph = wrapper.find(Lines);
@@ -99,12 +105,12 @@ describe('Lines', () => {
             const scaleX = graph.prop('scaleX').factory(graph.props());
             const scaleY = graph.prop('scaleY').factory(graph.props());
             const _y0 = scaleY(0);
-            const line = d3.svg.area()
+            const line = d3Area()
                 .x(({x}) => scaleX(x))
                 .y0(({y0}) => _.isUndefined(y0) ? _y0 : scaleY(y0))
                 .y1(({y}) => scaleY(y))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curves[graph.prop('interpolation')]);
 
             expect(realCurve).toEqual(line(series[0].data));
         });
@@ -112,7 +118,7 @@ describe('Lines', () => {
         it('as areas after "rotate" transformation', () => {
             const wrapper = shallow(<Chart width={100} height={100} series={series} minY={0}>
                 <Transform method={['stack', 'rotate']}>
-                    <Lines asAreas={true}/>
+                    <Lines asAreas={true} />
                 </Transform>
             </Chart>);
             const graph = wrapper.find(Transform).shallow().find(Lines);
@@ -121,12 +127,12 @@ describe('Lines', () => {
             const scaleX = graph.prop('scaleX').factory(graph.props());
             const scaleY = graph.prop('scaleY').factory(graph.props());
             const _y0 = scaleY(0);
-            const line = d3.svg.area()
+            const line = d3Area()
                 .y(({x}) => scaleX(x))
                 .x0(({y0}) => _.isUndefined(y0) ? _y0 : scaleY(y0))
                 .x1(({y}) => scaleY(y))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curves[graph.prop('interpolation')]);
 
             expect(realCurve).toEqual(line(series[0].data));
         });

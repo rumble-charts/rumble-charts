@@ -3,7 +3,8 @@ import {mount} from 'enzyme';
 import Pies from '../../src/Pies';
 import Chart from '../../src/Chart';
 import Transform from '../../src/Transform';
-import d3 from 'd3';
+import {arc as d3Arc} from 'd3-shape';
+import {scaleLinear} from 'd3-scale';
 
 import graphicsComponent from '../helpers/graphicsComponent';
 
@@ -50,7 +51,7 @@ describe('Pies', () => {
 
     it('should support positioning', () => {
         const wrapper = mount(<Chart width={200} height={100} series={series}>
-            <Pies position='bottom right' className='pies'/>
+            <Pies position='bottom right' className='pies' />
         </Chart>);
         const pies = wrapper.find('g.pies');
         expect(pies.prop('transform')).toEqual('translate(150 50)');
@@ -60,42 +61,42 @@ describe('Pies', () => {
         const size = 100;
         const innerRadius = 20;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
-            <Pies className='pies' innerRadius={innerRadius}/>
+            <Pies className='pies' innerRadius={innerRadius} />
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
-        expect(d[d.length - 1]).toEqual((size / 4 + innerRadius / 2) + 'Z');
+        expect(d[d.length - 1]).toEqual('-' + (size / 4 + innerRadius / 2) + 'Z');
     });
 
     it('should support an inner radius prop in percents', () => {
         const size = 100;
         const innerRadius = 0.25;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
-            <Pies className='pies' innerRadius={innerRadius}/>
+            <Pies className='pies' innerRadius={innerRadius} />
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
-        expect(d[d.length - 1]).toEqual((size / 4 + (size / 2 * innerRadius) / 2) + 'Z');
+        expect(d[d.length - 1]).toEqual('-' + (size / 4 + (size / 2 * innerRadius) / 2) + 'Z');
     });
 
     it('should support a pie width prop in pixels', () => {
         const size = 100;
         const pieWidth = 15;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
-            <Pies className='pies' pieWidth={pieWidth}/>
+            <Pies className='pies' pieWidth={pieWidth} />
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
         const width = size / 4 + pieWidth;
-        expect(d[1]).toEqual(width + 'A' + width);
+        expect(d[1]).toEqual('-' + width + 'A' + width);
     });
 
     it('should support a pie width prop in percents', () => {
         const size = 100;
         const pieWidth = '40%';
         const wrapper = mount(<Chart width={size} height={size} series={series}>
-            <Pies className='pies' pieWidth={pieWidth}/>
+            <Pies className='pies' pieWidth={pieWidth} />
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
         const width = size / 4 + size / 2 * parseFloat(pieWidth) / 100;
-        expect(d[1]).toEqual(width + 'A' + width);
+        expect(d[1]).toEqual('-' + width + 'A' + width);
     });
 
     it('should support a corner radius prop in pixels', () => {
@@ -103,11 +104,11 @@ describe('Pies', () => {
         const cornerRadius = 9;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
             <Transform method='stack'>
-                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius} />
             </Transform>
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
-        expect(d[2]).toEqual(cornerRadius + ' 0 0');
+        expect(d[2]).toEqual(cornerRadius + '');
     });
 
     it('should support a corner radius prop in percents', () => {
@@ -115,11 +116,11 @@ describe('Pies', () => {
         const cornerRadius = '25%';
         const wrapper = mount(<Chart width={size} height={size} series={series}>
             <Transform method='stack'>
-                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius} />
             </Transform>
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
-        expect(d[2]).toEqual(parseFloat(cornerRadius) / 100 * size / 2 + ' 0 0');
+        expect(d[2]).toEqual(parseFloat(cornerRadius) / 100 * size / 2 + '');
     });
 
     it('should support a corner radius prop as function', () => {
@@ -127,11 +128,11 @@ describe('Pies', () => {
         const cornerRadius = () => 0.35;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
             <Transform method='stack'>
-                <Pies className='pies' combined={true} cornerRadius={cornerRadius}/>
+                <Pies className='pies' combined={true} cornerRadius={cornerRadius} />
             </Transform>
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d').split(',');
-        expect(d[2]).toEqual(cornerRadius() * size / 2 + ' 0 0');
+        expect(d[2]).toEqual(cornerRadius() * size / 2 + '');
     });
 
     it('should render proper svg shape', () => {
@@ -152,16 +153,21 @@ describe('Pies', () => {
         </Chart>);
         const d = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').first().prop('d');
 
-        const arc = d3.svg.arc()
+        const arc = d3Arc()
             .cornerRadius(cornerRadius)
             .padRadius(10)
             .innerRadius(size * 0.25 - pieWidth * 0.5)
             .outerRadius(size * 0.25 + pieWidth * 0.5);
-        const expectedD = arc({
-            startAngle: startAngle,
-            endAngle: startAngle + endAngle / 3 - startAngle / 3
-        });
-        expect(d).toEqual(expectedD);
+
+        const circularScale = scaleLinear()
+            .range([startAngle, endAngle])
+            .domain([0, 3]);
+
+        const angles = {
+            startAngle: circularScale(0),
+            endAngle: circularScale(1)
+        };
+        expect(d).toEqual(arc(angles));
     });
 
     it('should support radial gradients', () => {
@@ -198,7 +204,7 @@ describe('Pies', () => {
         const size = 100;
         const wrapper = mount(<Chart width={size} height={size} series={series}>
             <Transform method='stack'>
-                <Pies className='pies' maxY={0.25}/>
+                <Pies className='pies' maxY={0.25} />
             </Transform>
         </Chart>);
         const length = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').length;
@@ -210,7 +216,7 @@ describe('Pies', () => {
             width={100} height={100} series={series}
             scaleX={{direction: -1}} scaleY={{direction: -1}}>
             <Transform method='stack'>
-                <Pies className='pies' combined={true} colors={['#ff00ff', '#ff0000']}/>
+                <Pies className='pies' combined={true} colors={['#ff00ff', '#ff0000']} />
             </Transform>
         </Chart>);
         const color = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').prop('fill');
@@ -221,7 +227,7 @@ describe('Pies', () => {
         const wrapper = mount(<Chart
             width={100} height={100} series={series} scaleX={{direction: 0}}>
             <Transform method='stack'>
-                <Pies className='pies' position='' combined={true} colors={['#ff00ff', '#ff0000']}/>
+                <Pies className='pies' position='' combined={true} colors={['#ff00ff', '#ff0000']} />
             </Transform>
         </Chart>);
         const color = wrapper.find('g.pies-series-0 > g.pies-pie-0 > path').prop('fill');

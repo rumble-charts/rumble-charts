@@ -1,7 +1,8 @@
 import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
-import d3 from 'd3';
 import Animate from '../../src/Animate';
+import eases from '../../src/helpers/eases';
+import normalizeSeries from '../../src/helpers/normalizeSeries';
 import generateRandomSeries from '../helpers/generateRandomSeries';
 import later from '../helpers/later';
 
@@ -31,7 +32,8 @@ describe('Animate', () => {
             series={series1}
             minX={0} maxX={2} minY={0} maxY={100}
             layerWidth={100} layerHeight={100}
-            duration={500}>
+            duration={500}
+            interpolateProps={['series', 'maxX', 'maxY', 'minX', 'minY', 'layerWidth', 'layerHeight', 'newProp']}>
             <Graphics />
         </Animate>);
         const expectedSeries = wrapper.find('Graphics').prop('series');
@@ -43,7 +45,8 @@ describe('Animate', () => {
             minY: -50,
             maxY: 50,
             layerWidth: 50,
-            layerHeight: 150
+            layerHeight: 150,
+            newProp: 'value'
         });
 
         return later(() => {
@@ -140,6 +143,23 @@ describe('Animate', () => {
         }, 250);
     });
 
+    it('should interpolate series points from objects to numbers', () => {
+        const wrapper = mount(<Animate
+            series={series2}
+            duration={200}>
+            <Graphics />
+        </Animate>);
+
+        wrapper.setProps({series: seriesNumber});
+
+        return later(() => {
+            wrapper.update();
+            const Graphics = wrapper.find('Graphics');
+            const expectedSeries = Graphics.prop('series');
+            expect(expectedSeries).toEqual(normalizeSeries({series: seriesNumber}).series);
+        }, 250);
+    });
+
     it('should interpolate series points from arrays to objects', () => {
         const wrapper = mount(<Animate
             series={seriesArray}
@@ -217,7 +237,7 @@ describe('Animate', () => {
     it('should support ease prop as a function', () => {
         const wrapper = mount(<Animate
             series={series1}
-            ease={d3.ease('linear')}
+            ease={eases['linear-out-in']}
             duration={200}>
             <Graphics />
         </Animate>);

@@ -1,5 +1,5 @@
 import index, {
-    colorFunc, getCoords, normalizeNumber, normalizeSeries,
+    colorFunc, curves, eases, getCoords, normalizeNumber, normalizeSeries,
     propTypes, proxyChildren, transform, value, transforms
 } from '../../../src/helpers';
 
@@ -7,6 +7,8 @@ describe('Helpers index file', () => {
 
     it('should export all the components in default object', () => {
         expect(index.colorFunc).toBeDefined();
+        expect(index.curves).toBeDefined();
+        expect(index.eases).toBeDefined();
         expect(index.getCoords).toBeDefined();
         expect(index.normalizeSeries).toBeDefined();
         expect(index.normalizeNumber).toBeDefined();
@@ -27,6 +29,8 @@ describe('Helpers index file', () => {
 
     it('should export the same components in two different approaches', () => {
         expect(index.colorFunc).toEqual(colorFunc);
+        expect(index.curves).toEqual(curves);
+        expect(index.eases).toEqual(eases);
         expect(index.getCoords).toEqual(getCoords);
         expect(index.normalizeSeries).toEqual(normalizeSeries);
         expect(index.normalizeNumber).toEqual(normalizeNumber);

@@ -1,5 +1,7 @@
 import {shallow, mount} from 'enzyme';
 import Chart from '../../src/Chart';
+import Lines from '../../src/Lines';
+import Transform from '../../src/Transform';
 import generateRandomSeries from '../helpers/generateRandomSeries';
 
 const series1 = generateRandomSeries(3, 5, {type: 'object'});
@@ -28,13 +30,15 @@ describe('Chart', () => {
     });
 
     it('should render any element', () => {
-        const wrapper = shallow(<Chart
+        const wrapper = mount(<Chart
             width={chartWidth} height={chartHeight}
             tag='g'
             series={series1} className='chart'>
-            <Graphics />
+            <Transform method='rotate'>
+                <Lines />
+            </Transform>
         </Chart>);
-        const g = wrapper.find('g');
+        const g = wrapper.find('g.chart');
         expect(g.length).toEqual(1);
         expect(g.prop('className')).toEqual('chart');
     });
@@ -61,8 +65,9 @@ describe('Chart', () => {
         const wrapper = mount(<Chart
             width={chartWidth} height={chartHeight}
             viewBox='50 50 500 500'
+            scaleX={{direction: -1}}
             series={seriesArray}>
-            <Graphics />
+            <Lines />
         </Chart>);
         const svg = wrapper.find('svg');
         expect(svg.prop('viewBox')).toEqual('50 50 500 500');

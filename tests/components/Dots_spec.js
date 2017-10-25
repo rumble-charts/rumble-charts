@@ -1,4 +1,5 @@
 import {shallow} from 'enzyme';
+import {symbolStar} from 'd3-shape';
 
 import Chart from '../../src/Chart';
 import Transform from '../../src/Transform';
@@ -88,6 +89,20 @@ describe('Dots', () => {
         expect(attribs.fill).toEqual('red');
     });
 
+    it('should render custom symbols', () => {
+        const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
+            <Dots
+                className='chart'
+                dotType='symbol'
+                symbolType={symbolStar}
+                symbolAttributes={{fill: 'red'}}
+            />
+        </Chart>).render().find('path.chart-symbol');
+        expect(wrapper.length).toEqual(15);
+        const attribs = wrapper[0]['attribs'];
+        expect(attribs.fill).toEqual('red');
+    });
+
     it('should render labels', () => {
         const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
             <Dots
@@ -143,7 +158,7 @@ describe('Dots', () => {
         const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
             <Dots
                 className='chart'
-                dotRender={() => <path className='chart-own' fill='red' d='M10'/>}
+                dotRender={() => <path className='chart-own' fill='red' d='M10' />}
             />
         </Chart>).render();
         expect(wrapper.find('path.chart-own').length).toEqual(15);
@@ -152,7 +167,7 @@ describe('Dots', () => {
     it('should support transform rotate', () => {
         const wrapper = shallow(<Chart width={chartWidth} height={chartHeight} series={series}>
             <Transform method='rotate'>
-                <Dots className='chart'/>
+                <Dots className='chart' />
             </Transform>
         </Chart>).render();
         expect(wrapper.find('.chart-circle').length).toEqual(15);

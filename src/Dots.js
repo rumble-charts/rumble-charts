@@ -1,7 +1,21 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
+import {
+    symbol,
+    symbolCircle, symbolCross, symbolDiamond, symbolSquare,
+    symbolWye, symbolTriangle, symbolStar
+} from 'd3-shape';
+
+const symbolsMap = {
+    'circle': symbolCircle,
+    'cross': symbolCross,
+    'diamond': symbolDiamond,
+    'square': symbolSquare,
+    'triangle-down': symbolWye,
+    'triangle-up': symbolTriangle,
+    'star': symbolStar
+};
 
 import value from './helpers/value';
 import colorFunc from './helpers/colorFunc';
@@ -66,7 +80,7 @@ export default class Dots extends Component {
         return <ellipse
             key={key}
             className={className && (className + '-ellipse ' +
-            className + '-ellipse-' + seriesIndex + '-' + pointIndex)}
+                className + '-ellipse-' + seriesIndex + '-' + pointIndex)}
             cx={0}
             cy={0}
             rx={ellipseRadiusX}
@@ -107,10 +121,12 @@ export default class Dots extends Component {
         symbolType = value(symbolType, {seriesIndex, pointIndex, point, series, props});
         symbolAttributes = value(symbolAttributes, {seriesIndex, pointIndex, point, series, props});
 
+        const type = _.isString(symbolType) ? symbolsMap[symbolType] : symbolType;
+
         return <path
             key={key}
             className={className && (className + '-symbol ' + className + '-symbol-' + seriesIndex + '-' + pointIndex)}
-            d={d3.svg.symbol().type(symbolType)(point, pointIndex)}
+            d={symbol().type(type)(point, pointIndex)}
             style={dotStyle}
             fill={point.color || series.color || color(seriesIndex)}
             fillOpacity={point.opacity}
@@ -283,7 +299,7 @@ Dots.propTypes = {
      * Possible values: `"circle"`, `"cross"`, `"diamond"`, `"square"`,
      * `"triangle-down"`, `"triangle-up"`
      */
-    symbolType: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    symbolType: PropTypes.oneOfType([PropTypes.string, PropTypes.func, PropTypes.object]),
     symbolAttributes: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),

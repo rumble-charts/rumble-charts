@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import d3 from 'd3';
+import {scaleLinear} from 'd3-scale';
 import _ from 'lodash';
 
 import proxyChildren from './helpers/proxyChildren';
@@ -51,7 +51,7 @@ export default function Chart(props) {
                     const minX = props.minX - paddingStart;
                     const maxX = props.maxX + paddingEnd;
 
-                    return d3.scale.linear()
+                    return scaleLinear()
                         .range([
                             normalizeNumber(paddingLeft, layerWidth),
                             layerWidth - normalizeNumber(paddingRight, layerWidth)
@@ -74,7 +74,7 @@ export default function Chart(props) {
                     const minY = props.minY - paddingStart;
                     const maxY = props.maxY + paddingEnd;
 
-                    return d3.scale.linear()
+                    return scaleLinear()
                         .range([
                             layerHeight - normalizeNumber(paddingBottom, layerHeight),
                             normalizeNumber(paddingTop, layerHeight)

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
+import {scaleLinear} from 'd3-scale';
 import cloud from 'd3-cloud';
 
 import colorFunc from './helpers/colorFunc';
@@ -33,7 +33,7 @@ export default class Cloud extends Component {
         const {layerWidth, layerHeight, series} = props;
         const {font, fontStyle, fontWeight, rotate, spiral, padding, random} = props;
 
-        const scale = d3.scale.linear()
+        const scale = scaleLinear()
             .range([props.minFontSize, props.maxFontSize])
             .domain([props.minY, props.maxY]);
 

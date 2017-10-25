@@ -1,9 +1,11 @@
 import {shallow, mount} from 'enzyme';
-import d3 from 'd3';
+import {areaRadial, lineRadial, curveNatural} from 'd3-shape';
+import {scaleLinear} from 'd3-scale';
 import _ from 'lodash';
 import helpers from '../../src/helpers';
 import Chart from '../../src/Chart';
 import Transform from '../../src/Transform';
+import curves from '../../src/helpers/curves';
 import graphicsComponent from '../helpers/graphicsComponent';
 import linesComponent from '../helpers/linesComponent';
 import generateRandomSeries from '../helpers/generateRandomSeries';
@@ -60,6 +62,7 @@ describe('RadialLines', () => {
                     startAngle={0.5 * Math.PI}
                     endAngle={1.75 * Math.PI}
                     innerRadius={20}
+                    interpolation={curveNatural}
                 />
             </Chart>);
             const graph = wrapper.find(RadialLines);
@@ -71,18 +74,21 @@ describe('RadialLines', () => {
             const outerRadius = Math.min(props.layerWidth, props.layerHeight) / 2;
             const innerRadius = helpers.normalizeNumber(props.innerRadius, outerRadius);
 
-            const radialScale = d3.scale.linear()
+            const radialScale = scaleLinear()
                 .range([innerRadius, outerRadius])
                 .domain(scaleY.direction >= 0 ? [minY, maxY] : [maxY, minY]);
-            const circularScale = d3.scale.linear()
+            const circularScale = scaleLinear()
                 .range([props.startAngle, props.endAngle])
                 .domain(scaleX.direction >= 0 ? [minX - 0.5, maxX + 0.5] : [maxX + 0.5, minX - 0.5]);
 
-            const line = d3.svg.line.radial()
+            const interpolation = graph.prop('interpolation');
+            const curve = _.isString(interpolation) ? curves[interpolation] : interpolation;
+
+            const line = lineRadial()
                 .radius(({y}) => radialScale(y))
                 .angle(({x}) => circularScale(x))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curve);
 
             expect(realCurve).toEqual(line(series[0].data));
         });
@@ -107,20 +113,20 @@ describe('RadialLines', () => {
             const outerRadius = Math.min(props.layerWidth, props.layerHeight) / 2;
             const innerRadius = helpers.normalizeNumber(props.innerRadius, outerRadius);
 
-            const radialScale = d3.scale.linear()
+            const radialScale = scaleLinear()
                 .range([innerRadius, outerRadius])
                 .domain(scaleY.direction >= 0 ? [minY, maxY] : [maxY, minY]);
-            const circularScale = d3.scale.linear()
+            const circularScale = scaleLinear()
                 .range([props.startAngle, props.endAngle])
                 .domain(scaleX.direction >= 0 ? [minX - 0.5, maxX + 0.5] : [maxX + 0.5, minX - 0.5]);
 
             const _radius0 = radialScale(0);
-            const line = d3.svg.area.radial()
+            const line = areaRadial()
                 .innerRadius(({y0}) => _.isUndefined(y0) ? _radius0 : radialScale(y0))
                 .outerRadius(({y}) => radialScale(y))
                 .angle(({x}) => circularScale(x))
                 .defined(({y}) => _.isNumber(y))
-                .interpolate(graph.prop('interpolation'));
+                .curve(curves[graph.prop('interpolation')]);
 
             expect(realCurve).toEqual(line(series[0].data));
         });
@@ -129,7 +135,7 @@ describe('RadialLines', () => {
             const wrapper = mount(<Chart
                 width={100} height={100} series={series}
                 scaleX={{direction: -1}} scaleY={{direction: -1}}>
-                <RadialLines/>
+                <RadialLines />
             </Chart>);
             expect(wrapper.find('path').length).toEqual(series.length);
         });
@@ -137,7 +143,7 @@ describe('RadialLines', () => {
         it('should support empty position', () => {
             const wrapper = mount(<Chart
                 width={200} height={100} series={series}>
-                <RadialLines position=''/>
+                <RadialLines position='' />
             </Chart>);
             expect(wrapper.find('g').first().prop('transform')).toEqual('translate(50 50)');
         });

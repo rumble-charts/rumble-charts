@@ -2,7 +2,6 @@ import {mount} from 'enzyme';
 
 import Cloud from '../../src/Cloud';
 import Chart from '../../src/Chart';
-import d3 from 'd3';
 
 import graphicsComponent from '../helpers/graphicsComponent';
 import generateRandomSeries from '../helpers/generateRandomSeries';
@@ -82,14 +81,12 @@ describe('Cloud', () => {
     });
 
     it('should show console.warn in case of error during the cloud building', () => {
-        const linear = d3.scale.linear;
-        d3.scale.linear = () => {
-            throw new Error('error');
-        };
         let wrapper;
         expect(spyOnWarnings(() => {
             wrapper = mount(<Chart width={1000} height={1000} series={series1}>
-                <Cloud />
+                <Cloud random={() => {
+                    throw new Error('error');
+                }} />
             </Chart>);
         })).toHaveBeenCalled();
 
@@ -97,7 +94,6 @@ describe('Cloud', () => {
             expect(spyOnWarnings(() => {
                 wrapper.setProps({series: series2});
             })).toHaveBeenCalled();
-            d3.scale.linear = linear;
         }, 200);
 
     });

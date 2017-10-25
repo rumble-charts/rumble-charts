@@ -98,17 +98,17 @@ export default class Ticks extends Component {
             labelStyle = value([tick.labelStyle, labelStyle], {index, ticksLength, tick, props});
 
             label = value([tick.label, label, tick[axis]], {index, ticksLength, tick, props});
-            labelFormat = value(labelFormat, label) || label;
 
             if (_.isString(label) || _.isNumber(label)) {
-                label = <text
+                return <text
                     style={labelStyle}
                     className={className && (className + '-label ' + className + '-label-' + index)}
                     {...labelAttributes}>
-                    {labelFormat}
+                    {value(labelFormat, label + '') || label}
                 </text>;
+            } else {
+                return label;
             }
-            return label;
         }
     }
 
@@ -117,33 +117,34 @@ export default class Ticks extends Component {
         const {layerWidth, layerHeight, className} = props;
 
         let {lineVisible, lineAttributes, lineStyle, lineLength, lineOffset} = props;
-        let line;
+
         lineVisible = value(lineVisible, {index, ticksLength, tick, props});
-        if (lineVisible) {
 
-            lineAttributes = value([tick.lineAttributes, lineAttributes], {index, ticksLength, tick, props});
-            lineStyle = value([tick.lineStyle, lineStyle], {index, ticksLength, tick, props});
-
-            lineLength = normalizeNumber(
-                value([tick.lineLength, lineLength], {index, ticksLength, tick, props}),
-                horizontal ? layerWidth : layerHeight
-            );
-            lineOffset = normalizeNumber(
-                value([tick.lineOffset, lineOffset], {index, ticksLength, tick, props}),
-                horizontal ? layerWidth : layerHeight
-            );
-
-            const d = horizontal ?
-                ('M' + lineOffset + ',0 h' + lineLength) :
-                ('M0,' + lineOffset + ' v' + lineLength);
-
-            line = <path
-                style={lineStyle}
-                className={className && (className + '-line ' + className + '-line-' + index)}
-                d={d}
-                {...lineAttributes}/>;
+        if (!lineVisible) {
+            return null;
         }
-        return line;
+
+        lineAttributes = value([tick.lineAttributes, lineAttributes], {index, ticksLength, tick, props});
+        lineStyle = value([tick.lineStyle, lineStyle], {index, ticksLength, tick, props});
+
+        lineLength = normalizeNumber(
+            value([tick.lineLength, lineLength], {index, ticksLength, tick, props}),
+            horizontal ? layerWidth : layerHeight
+        );
+        lineOffset = normalizeNumber(
+            value([tick.lineOffset, lineOffset], {index, ticksLength, tick, props}),
+            horizontal ? layerWidth : layerHeight
+        );
+
+        const d = horizontal ?
+            ('M' + lineOffset + ',0 h' + lineLength) :
+            ('M0,' + lineOffset + ' v' + lineLength);
+
+        return <path
+            style={lineStyle}
+            className={className && (className + '-line ' + className + '-line-' + index)}
+            d={d}
+            {...lineAttributes} />;
     }
 
     render() {

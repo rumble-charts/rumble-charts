@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
+import {scaleLinear} from 'd3-scale';
+import {arc as d3Arc} from 'd3-shape';
+import {interpolate} from 'd3-interpolate';
 
 import normalizeNumber from './helpers/normalizeNumber';
 import value from './helpers/value';
@@ -111,7 +113,7 @@ export default class Pies extends Component {
 
         cornerRadius = value(cornerRadius, {seriesIndex, pointIndex, point, series, props});
 
-        const arc = d3.svg.arc()
+        const arc = d3Arc()
             .cornerRadius(normalizeNumber(cornerRadius, pieWidth))
             .padRadius(10)
             .innerRadius(radius - halfWidth)
@@ -141,20 +143,20 @@ export default class Pies extends Component {
         // fill color interpolation
         if (_.isArray(fillColor)) {
 
-            let interpolateAngle = d3.interpolate(startAngle, endAngle);
+            const interpolateAngle = interpolate(startAngle, endAngle);
             _.forEach(fillColor, (color, index) => {
 
                 if (index === fillColor.length - 1) {
                     return;
                 }
 
-                let interpolateFillColor = d3.interpolate(color, fillColor[index + 1]);
-                let step = 1 / ((endAngle - startAngle) / this.props.gradientStep);
+                const interpolateFillColor = interpolate(color, fillColor[index + 1]);
+                const step = 1 / ((endAngle - startAngle) / this.props.gradientStep);
 
                 _.forEach(_.range(0, 1, step), (i) => {
 
                     pathProps.fill = interpolateFillColor(i);
-                    let angleIndex = (index + i) / (fillColor.length - 1);
+                    const angleIndex = (index + i) / (fillColor.length - 1);
                     pathList = pathList.concat(this.renderArcPart({
                         startAngle: interpolateAngle(angleIndex),
                         endAngle: interpolateAngle(angleIndex + step),
@@ -197,11 +199,11 @@ export default class Pies extends Component {
         const innerRadius = this.getInnerRadius(props);
         const outerRadius = this.getOuterRadius(props);
 
-        const radialScale = d3.scale.linear()
+        const radialScale = scaleLinear()
             .range([outerRadius, innerRadius])
             .domain(props.scaleX.direction >= 0 ? [minX - 0.5, maxX + 0.5] : [maxX + 0.5, minX - 0.5]);
 
-        const circularScale = d3.scale.linear()
+        const circularScale = scaleLinear()
             .range([props.startAngle, props.endAngle])
             .domain(props.scaleY.direction >= 0 ? [minY, maxY] : [maxY, minY]);
 

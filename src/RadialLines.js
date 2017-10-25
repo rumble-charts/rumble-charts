@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
+import {scaleLinear} from 'd3-scale';
+import {areaRadial, lineRadial} from 'd3-shape';
 
+import curves from './helpers/curves';
 import normalizeNumber from './helpers/normalizeNumber';
 import value from './helpers/value';
 import colorFunc from './helpers/colorFunc';
@@ -41,11 +43,11 @@ export default class RadialLines extends Component {
         const innerRadius = this.getInnerRadius(props);
         const outerRadius = this.getOuterRadius(props);
 
-        const radialScale = d3.scale.linear()
+        const radialScale = scaleLinear()
             .range([innerRadius, outerRadius])
             .domain(props.scaleY.direction >= 0 ? [minY, maxY] : [maxY, minY]);
 
-        const circularScale = d3.scale.linear()
+        const circularScale = scaleLinear()
             .range([props.startAngle, props.endAngle])
             .domain(props.scaleX.direction >= 0 ? [minX - 0.5, maxX + 0.5] : [maxX + 0.5, minX - 0.5]);
 
@@ -80,17 +82,21 @@ export default class RadialLines extends Component {
                 lineVisible = value(lineVisible, {seriesIndex: index, series, props});
                 if (lineVisible) {
                     const line = asAreas ?
-                        d3.svg.area.radial()
+                        areaRadial()
                             .innerRadius(point => point.y0 ? radialScale(point.y0) : _radius0)
                             .outerRadius(point => radialScale(point.y)) :
-                        d3.svg.line.radial()
+                        lineRadial()
                             .radius(point => radialScale(point.y));
 
                     const lineColor = series.color || color(index);
 
+                    const curve = _.isString(props.interpolation) ?
+                        curves[props.interpolation] :
+                        props.interpolation;
+
                     line.angle(point => circularScale(point.x))
                         .defined(point => _.isNumber(point.y))
-                        .interpolate(this.props.interpolation);
+                        .curve(curve);
 
                     lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});
                     lineStyle = value([series.style, lineStyle], {seriesIndex: index, series, props});
@@ -165,10 +171,13 @@ RadialLines.propTypes = {
     innerRadius: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     startAngle: PropTypes.number,
     endAngle: PropTypes.number,
-    interpolation: PropTypes.oneOf([
-        'linear', 'linear-closed', 'step', 'step-before', 'step-after',
-        'basis', 'basis-open', 'basis-closed', 'bundle',
-        'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
+    interpolation: PropTypes.oneOfType([
+        PropTypes.oneOf([
+            'linear', 'linear-closed', 'step', 'step-before', 'step-after',
+            'basis', 'basis-open', 'basis-closed', 'bundle',
+            'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
+        ]),
+        PropTypes.func
     ]),
 
     seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),

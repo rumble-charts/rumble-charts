@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import d3 from 'd3';
+import {area as d3Area, line as d3Line} from 'd3-shape';
 
+import curves from './helpers/curves';
 import value from './helpers/value';
 import colorFunc from './helpers/colorFunc';
 import propTypes from './helpers/propTypes';
@@ -43,19 +44,19 @@ export default function Lines(props) {
                 let line;
                 if (rotate) {
                     line = asAreas ?
-                        d3.svg.area()
+                        d3Area()
                             .x0(point => point.y0 ? y(point.y0) : _y0)
                             .x1(point => y(point.y)) :
-                        d3.svg.line()
+                        d3Line()
                             .x(point => y(point.y));
 
                     line.y(point => x(point.x));
                 } else {
                     line = asAreas ?
-                        d3.svg.area()
+                        d3Area()
                             .y0(point => point.y0 ? y(point.y0) : _y0)
                             .y1(point => y(point.y)) :
-                        d3.svg.line()
+                        d3Line()
                             .y(point => y(point.y));
 
                     line.x(point => x(point.x));
@@ -63,8 +64,11 @@ export default function Lines(props) {
 
                 let lineColor = series.color || color(index);
 
-                line.defined(point => _.isNumber(point.y))
-                    .interpolate(props.interpolation);
+                const curve = _.isString(props.interpolation) ?
+                    curves[props.interpolation] :
+                    props.interpolation;
+
+                line.defined(point => _.isNumber(point.y)).curve(curve);
 
                 lineAttributes = value(lineAttributes, {seriesIndex: index, series, props});
                 lineStyle = value([series.style, lineStyle], {seriesIndex: index, series, props});
@@ -106,10 +110,13 @@ Lines.propTypes = {
     opacity: PropTypes.number,
 
     asAreas: PropTypes.bool,
-    interpolation: PropTypes.oneOf([
-        'linear', 'linear-closed', 'step', 'step-before', 'step-after',
-        'basis', 'basis-open', 'basis-closed', 'bundle',
-        'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
+    interpolation: PropTypes.oneOfType([
+        PropTypes.oneOf([
+            'linear', 'linear-closed', 'step', 'step-before', 'step-after',
+            'basis', 'basis-open', 'basis-closed', 'bundle',
+            'cardinal', 'cardinal-open', 'cardinal-closed', 'monotone'
+        ]),
+        PropTypes.func
     ]),
 
     seriesVisible: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),

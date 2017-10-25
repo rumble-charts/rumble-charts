@@ -3,7 +3,7 @@ const enzyme = {
     shallow, mount, render
 };
 import _ from 'lodash';
-import d3 from 'd3';
+import {scaleOrdinal, schemeCategory10} from 'd3-scale';
 import Chart from '../../src/Chart';
 import generateRandomSeries from './generateRandomSeries';
 import visibleProps from './visibleProps';
@@ -97,7 +97,7 @@ export default function(Component, options = {}) {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].color = 'violet';
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                        <Component/>
+                        <Component />
                     </Chart>);
                     return delayed(() => {
                         const path = wrapper.render().find(options.deepestTag).first();
@@ -115,7 +115,7 @@ export default function(Component, options = {}) {
                     const series = _.cloneDeep(seriesNumbers3x5);
                     series[0].opacity = 0.85;
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                        <Component className='chart'/>
+                        <Component className='chart' />
                     </Chart>);
                     return delayed(() => {
                         const path = wrapper.render().find('g.chart-series').first();
@@ -132,7 +132,7 @@ export default function(Component, options = {}) {
                         fontSize: 24
                     };
                     const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                        <Component/>
+                        <Component />
                     </Chart>);
                     return delayed(() => {
                         const path = wrapper.render().find(options.deepestTag).first();
@@ -151,7 +151,7 @@ export default function(Component, options = {}) {
                         series[0].color = 'red';
                         series[0].data[0].color = 'violet';
                         const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                            <Component/>
+                            <Component />
                         </Chart>);
                         return delayed(() => {
                             const path = wrapper.render().find(options.deepestTag).first();
@@ -170,7 +170,7 @@ export default function(Component, options = {}) {
                         series[0].opacity = 0.85;
                         series[0].data[0].opacity = 0.74;
                         const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                            <Component className='chart'/>
+                            <Component className='chart' />
                         </Chart>);
                         return delayed(() => {
                             const path = wrapper.render().find(options.deepestTag).first();
@@ -188,7 +188,7 @@ export default function(Component, options = {}) {
                             fontSize: 24
                         };
                         const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={series}>
-                            <Component/>
+                            <Component />
                         </Chart>);
                         return delayed(() => {
                             const path = wrapper.render().find(options.deepestTag).first();
@@ -205,13 +205,13 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.series).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
-                    <Component series={seriesNumbers3x5}/>
+                    <Component series={seriesNumbers3x5} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
-                    <Component series={seriesArrays3x5}/>
+                    <Component series={seriesArrays3x5} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight}>
-                    <Component series={seriesObjects3x5}/>
+                    <Component series={seriesObjects3x5} />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -242,8 +242,8 @@ export default function(Component, options = {}) {
 
             it('as a number', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' seriesIndex={1}/>
-                    <Component className='chart2' seriesIndex={2}/>
+                    <Component className='chart' seriesIndex={1} />
+                    <Component className='chart2' seriesIndex={2} />
                 </Chart>);
                 return delayed(() => {
                     expect(wrapper.render().find('.chart-series').length).toEqual(1);
@@ -255,7 +255,7 @@ export default function(Component, options = {}) {
 
             it('as an array of numbers', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' seriesIndex={[0, 2]}/>
+                    <Component className='chart' seriesIndex={[0, 2]} />
                 </Chart>);
                 return delayed(() => {
                     expect(wrapper.render().find('.chart-series').length).toEqual(2);
@@ -266,7 +266,7 @@ export default function(Component, options = {}) {
 
             it('as a function that filters series property', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' seriesIndex={(series, seriesIndex) => seriesIndex > 1}/>
+                    <Component className='chart' seriesIndex={(series, seriesIndex) => seriesIndex > 1} />
                 </Chart>);
                 return delayed(() => {
                     expect(wrapper.render().find('.chart-series').length).toEqual(1);
@@ -277,13 +277,13 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.seriesIndex).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component seriesIndex={1}/>
+                    <Component seriesIndex={1} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component seriesIndex={[0, 2]}/>
+                    <Component seriesIndex={[0, 2]} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component seriesIndex={(series, seriesIndex) => seriesIndex > 1}/>
+                    <Component seriesIndex={(series, seriesIndex) => seriesIndex > 1} />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -300,7 +300,7 @@ export default function(Component, options = {}) {
 
             it('should render proper class names', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart'/>
+                    <Component className='chart' />
                 </Chart>);
                 return delayed(() => {
                     const root = wrapper.render().find('g.chart');
@@ -324,7 +324,7 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.className).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart'/>
+                    <Component className='chart' />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -339,7 +339,7 @@ export default function(Component, options = {}) {
 
             it('should render style in the root element', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight}>
-                    <Component className='chart' style={{fill: 'red'}}/>
+                    <Component className='chart' style={{fill: 'red'}} />
                 </Chart>);
                 return delayed(() => {
                     const root = wrapper.render().find('g.chart');
@@ -350,7 +350,7 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.style).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component style={{fill: 'red'}}/>
+                    <Component style={{fill: 'red'}} />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -365,11 +365,11 @@ export default function(Component, options = {}) {
 
             it('can be name of predefined color schema', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' colors='category10'/>
+                    <Component className='chart' colors='category10' />
                 </Chart>);
                 return delayed(() => {
                     const paths = wrapper.render().find(options.deepestTag);
-                    const colors = d3.scale.category10().domain(_.range(3));
+                    const colors = scaleOrdinal(schemeCategory10).domain(_.range(3));
                     expect(paths.first().prop(options.colorProperty)).toEqual(colors(0));
                     expect(paths.last().prop(options.colorProperty)).toEqual(colors(2));
                 });
@@ -377,11 +377,11 @@ export default function(Component, options = {}) {
 
             it('can be array', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' colors={['red', 'green', 'blue']}/>
+                    <Component className='chart' colors={['red', 'green', 'blue']} />
                 </Chart>);
                 return delayed(() => {
                     const paths = wrapper.render().find(options.deepestTag);
-                    const colors = d3.scale.ordinal().range(['red', 'green', 'blue']).domain(_.range(3));
+                    const colors = scaleOrdinal(['red', 'green', 'blue']).domain(_.range(3));
                     expect(paths.first().prop(options.colorProperty)).toEqual(colors(0));
                     expect(paths.last().prop(options.colorProperty)).toEqual(colors(2));
                 });
@@ -389,7 +389,7 @@ export default function(Component, options = {}) {
 
             it('can be function or d3 scale', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' colors={seriesIndex => '#fff00' + seriesIndex}/>
+                    <Component className='chart' colors={seriesIndex => '#fff00' + seriesIndex} />
                 </Chart>);
                 return delayed(() => {
                     const paths = wrapper.render().find(options.deepestTag);
@@ -401,16 +401,16 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.colors).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component colors='category20b'/>
+                    <Component colors='category20b' />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component colors={['red', 'blue']}/>
+                    <Component colors={['red', 'blue']} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component colors={seriesIndex => '#fff00' + seriesIndex}/>
+                    <Component colors={seriesIndex => '#fff00' + seriesIndex} />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component colors={d3.scale.category10()}/>
+                    <Component colors={scaleOrdinal(schemeCategory10)} />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -425,7 +425,7 @@ export default function(Component, options = {}) {
 
             it('should apply opacity attribute to the root element', () => {
                 const wrapper = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component className='chart' opacity={0.9}/>
+                    <Component className='chart' opacity={0.9} />
                 </Chart>);
                 return delayed(() => {
                     const root = wrapper.render().find('g.chart');
@@ -436,7 +436,7 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.opacity).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component opacity={0.9}/>
+                    <Component opacity={0.9} />
                 </Chart>)).not.toHaveBeenCalled();
             });
 
@@ -515,7 +515,7 @@ export default function(Component, options = {}) {
         it('should have no children', () => {
             const html1 = render(<Chart
                 width={chartWidth} height={chartHeight}
-                series={seriesObjects3x5}><Component/></Chart>).html();
+                series={seriesObjects3x5}><Component /></Chart>).html();
             const html2 = render(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}><Component>
                 <g>
                     <text />
