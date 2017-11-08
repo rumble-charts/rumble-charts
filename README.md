@@ -2,7 +2,7 @@
 
 [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg)](https://gitter.im/rumble-charts/rumble-charts)
 
-[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg)](https://travis-ci.org/rumble-charts/rumble-charts)
+[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg?branch=master)](https://travis-ci.org/rumble-charts/rumble-charts)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
 [![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
 [![bitHound Code](https://www.bithound.io/github/rumble-charts/rumble-charts/badges/code.svg)](https://www.bithound.io/github/rumble-charts/rumble-charts)
