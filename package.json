@@ -74,7 +74,7 @@
     "raf": "^3.4.0",
     "react": "0.14.x || >=15.0.0 || 16.0.x",
     "react-dom": "0.14.x || >=15.0.0 || 16.0.x",
-    "react-styleguidist": "^6.0.31",
+    "react-styleguidist": "^7.0.0",
     "react-test-renderer": "^16.0.0"
   },
   "peerDependencies": {
