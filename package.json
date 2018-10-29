@@ -55,7 +55,7 @@
     "prop-types": "^15.6.0"
   },
   "devDependencies": {
-    "@storybook/react": "^3.2.13",
+    "@storybook/react": "^4.0.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "^22.0.0",
     "babel-loader": "^7.1.2",
