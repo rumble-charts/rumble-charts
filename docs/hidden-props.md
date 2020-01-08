@@ -59,6 +59,8 @@ any by yourself. Especially it relates to `minY` property. Very often you have t
 Compare next two examples. Without `minY` (it's calculated automatically).
 
 ```
+import { Chart, Bars } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {
@@ -75,6 +77,8 @@ const series = [{
 And with `minY={0}`:
 
 ```
+import { Chart, Bars } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {
@@ -112,6 +116,8 @@ For better understanding see examples below.
 Scales' paddings (try to play with these properties right here):
 
 ```
+import { Chart, Bars, Lines, Dots } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {
@@ -139,6 +145,8 @@ const series = [{
 Invert scale's direction:
 
 ```
+import { Chart, Bars } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {
@@ -164,6 +172,8 @@ When you set [`<Chart width={100} height={100}>`](#chart) all descendant compone
 as `layerWidth` and `layerHeight` correspondingly.
  
 ```
+import { Chart, Title } from 'rumble-charts';
+
 <Chart width={600} height={50}>
   <Title position='center middle'>
     {props => <text>
@@ -186,6 +196,8 @@ Children can be any rumble-charts components (one or more) or any other valid sv
 Using `seriesIndex` you can choose which specific series will be using in this component. 
 
 ```
+import { Chart, Bars, Lines, Dots } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {

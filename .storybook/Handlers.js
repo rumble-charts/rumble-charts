@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-const {Chart, Layer, Handlers, Lines, Dots} = require('../src');
+import {storiesOf} from '@storybook/react';
+import {Chart, Layer, Handlers, Lines, Dots} from '../src';
 
 const series = [{
     data: [1, 2, 3]
@@ -10,7 +10,8 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-var hovered = null;
+let hovered = null;
+
 function hideHovered() {
     if (hovered && hovered.circle) {
         hovered.circle.setAttribute('r', hovered.radius);
@@ -52,8 +53,8 @@ storiesOf('Handlers', module)
                 <Handlers
                     onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}
                     optimized={false}>
-                    <Lines lineWidth={2}/>
-                    <Dots className='dots' dotStyle={{transition: 'all 250ms', fillOpacity: 0}}/>
+                    <Lines lineWidth={2} />
+                    <Dots className='dots' dotStyle={{transition: 'all 250ms', fillOpacity: 0}} />
                 </Handlers>
             </Layer>
         </Chart>

@@ -1,6 +1,8 @@
 Simple
 
 ```
+import { Chart, RadialLines } from 'rumble-charts';
+
 const series = [{
     data: [1, 3, 2, 5, 7]
 }, {
@@ -20,6 +22,8 @@ const series = [{
 Areas
 
 ```
+import { Chart, RadialLines, Transform } from 'rumble-charts';
+
 const series = [{
     data: [1, 3, 2, 5, 7]
 }, {

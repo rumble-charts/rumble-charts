@@ -1,4 +1,6 @@
 ```
+import { Chart, Title, Transform, Bars } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 4]
 }];
@@ -15,10 +17,13 @@ const series = [{
 
 
 ```
+import { Chart, Title } from 'rumble-charts';
+
 <Chart width={600} height={50}>
   <Title position='center middle' style={{textAnchor:'middle'}}>
     {props => <text>
-      {props.layerWidth + 'x' + props.layerHeight}
+      Example of auto-updating title
+      [width={props.layerWidth}, height={props.layerHeight}]
     </text>} 
   </Title>
 </Chart>

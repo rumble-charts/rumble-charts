@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-const {Chart, Layer, Ticks, Bars} = require('../src');
+import {storiesOf} from '@storybook/react';
+import {Chart, Layer, Ticks, Bars} from '../src';
 
 const series = [{
     name: 'John',

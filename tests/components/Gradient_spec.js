@@ -1,4 +1,6 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
+
 import Gradient from '../../src/Gradient';
 
 describe('Gradient', () => {
@@ -92,7 +94,7 @@ describe('Gradient', () => {
         const wrapper = mount(<Gradient type='linear'>
             <stop offset='60%' stopColor='black' />
             <stop offset='100%' stopColor='white' />
-        </Gradient>);
+        </Gradient>, {wrappingComponent: 'svg'});
         expect(wrapper.find('linearGradient').prop('id')).toEqual('chartGradient1');
         expect(wrapper.find(Gradient).instance().getLink()).toEqual('url(#chartGradient1)');
     });

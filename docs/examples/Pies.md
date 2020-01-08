@@ -1,6 +1,8 @@
 Simple
 
 ```
+import { Chart, Pies, Transform } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 4]
 }];
@@ -15,6 +17,8 @@ const series = [{
 Three series
 
 ```
+import { Chart, Pies, Transform } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 3]
 }, {
@@ -38,6 +42,8 @@ Conical gradient. Actually it's a not real conical gradient since svg doesn't su
 using many small sectors.
 
 ```
+import { Chart, Pies, Transform } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 4]
 }];
@@ -55,6 +61,8 @@ const series = [{
 Fancy. Interacts with your mouse.
 
 ```
+import { Chart, Pies, Transform } from 'rumble-charts';
+
 const series = [{
   data: [1, 3, 2, 5, 7]
 }, {

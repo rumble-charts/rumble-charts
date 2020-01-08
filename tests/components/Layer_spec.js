@@ -1,4 +1,6 @@
+import React from 'react';
 import {mount, shallow} from 'enzyme';
+
 import Chart from '../../src/Chart';
 import Layer from '../../src/Layer';
 import generateRandomSeries from '../helpers/generateRandomSeries';

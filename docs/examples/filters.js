@@ -1,9 +1,8 @@
-'use strict';
-
-const React = require('react');
-const {scaleOrdinal, schemeCategory10} = require('d3-scale');
-const _ = require('lodash');
-const {Chart, Pies, Bars, Layer, Transform, Ticks, Labels, Title, Animate} = require('../../src/index');
+import React from 'react';
+import {scaleOrdinal} from 'd3-scale';
+import {schemeCategory10} from 'd3-scale-chromatic';
+import _ from 'lodash';
+import {Chart, Pies, Bars, Layer, Transform, Ticks, Labels, Title, Animate} from '../../src/index';
 
 const points = [{
     country: 'UA',
@@ -163,4 +162,4 @@ class Demo extends React.Component {
     }
 }
 
-module.exports = Demo;
+export default Demo;

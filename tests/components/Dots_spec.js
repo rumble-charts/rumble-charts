@@ -1,3 +1,4 @@
+import React from 'react';
 import {shallow} from 'enzyme';
 import {symbolStar} from 'd3-shape';
 

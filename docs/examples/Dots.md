@@ -1,6 +1,8 @@
 Just dots
 
 ```
+import { Chart, Layer, Dots } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 3]
 }, {
@@ -19,6 +21,8 @@ const series = [{
 Scatter plot
 
 ```
+import { Chart, Layer, Dots } from 'rumble-charts';
+
 const series = [{
     data: [{y: 1, weight: 2}, {y: 2, weight: 3}, {y: 3, weight: 2}]
 }, {
@@ -37,6 +41,8 @@ const series = [{
 Combine dot types
 
 ```
+import { Chart, Layer, Dots } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 3]
 }, {

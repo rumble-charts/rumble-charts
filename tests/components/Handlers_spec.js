@@ -1,5 +1,7 @@
+import React from 'react';
 import _ from 'lodash';
 import {mount} from 'enzyme';
+
 import Chart from '../../src/Chart';
 import Handlers from '../../src/Handlers';
 import generateRandomSeries from '../helpers/generateRandomSeries';

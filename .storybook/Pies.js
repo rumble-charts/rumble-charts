@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-const {Chart, Transform, Pies} = require('../src');
+import {storiesOf} from '@storybook/react';
+import {Chart, Transform, Pies} from '../src';
 
 const series1 = [{
     data: [1, 2, 4]
@@ -18,7 +18,7 @@ storiesOf('Pies', module)
     .add('default', () =>
         <Chart width={600} height={400} series={series1}>
             <Transform method={['transpose', 'stack']}>
-                <Pies combined={true}/>
+                <Pies combined={true} />
             </Transform>
         </Chart>
     )

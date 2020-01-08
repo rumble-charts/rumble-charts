@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-const {Chart, Lines, Transform, Layer, Ticks} = require('../src');
+import {storiesOf} from '@storybook/react';
+import {Chart, Lines, Transform, Layer, Ticks} from '../src';
 
 const series = [{
     data: [1, 2, 3]
@@ -30,7 +30,7 @@ storiesOf('Lines', module)
             scaleX={{paddingStart: 0, paddingEnd: 0}}
             scaleY={{paddingTop: 10}}>
             <Transform method='stack'>
-                <Lines asAreas={true}/>
+                <Lines asAreas={true} />
             </Transform>
         </Chart>
     )
@@ -40,7 +40,7 @@ storiesOf('Lines', module)
             scaleX={{paddingStart: 0, paddingEnd: 0}}
             scaleY={{paddingTop: 10}}>
             <Layer height='80%' seriesIndex={[2, 1, 0]}>
-                <Lines asAreas={true}/>
+                <Lines asAreas={true} />
                 <Ticks
                     axis='y'
                     labelAttributes={{fontFamily: 'sans-serif'}}

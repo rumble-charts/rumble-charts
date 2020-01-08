@@ -1,3 +1,4 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {line as d3Line, area as d3Area} from 'd3-shape';
 import {curveCatmullRom} from 'd3-shape';

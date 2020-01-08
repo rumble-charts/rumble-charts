@@ -1,5 +1,7 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
 import _ from 'lodash';
+
 import Animate from '../../src/Animate';
 import eases from '../../src/helpers/eases';
 import normalizeSeries from '../../src/helpers/normalizeSeries';
@@ -35,7 +37,7 @@ describe('Animate', () => {
             duration={500}
             interpolateProps={['series', 'maxX', 'maxY', 'minX', 'minY', 'layerWidth', 'layerHeight', 'newProp']}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
         const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
         wrapper.setProps({
@@ -92,7 +94,7 @@ describe('Animate', () => {
             logFPS={true}
             duration={100}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
         const expectedSeries = wrapper.find('Graphics').prop('series');
         expect(expectedSeries).toEqual(series1);
         let consoleWarn = console.warn;
@@ -114,7 +116,7 @@ describe('Animate', () => {
             series={series1}
             duration={10}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -131,7 +133,7 @@ describe('Animate', () => {
             series={seriesNumber}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -148,7 +150,7 @@ describe('Animate', () => {
             series={series2}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: seriesNumber});
 
@@ -165,7 +167,7 @@ describe('Animate', () => {
             series={seriesArray}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -182,7 +184,7 @@ describe('Animate', () => {
             series={[{data: [null]}]}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -199,7 +201,7 @@ describe('Animate', () => {
             series={null}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -220,7 +222,7 @@ describe('Animate', () => {
             onEnd={onEnd}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -240,7 +242,7 @@ describe('Animate', () => {
             ease={eases['linear-out-in']}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -258,7 +260,7 @@ describe('Animate', () => {
             ease={null}
             duration={200}>
             <Graphics />
-        </Animate>);
+        </Animate>, {wrappingComponent: 'svg'});
 
         wrapper.setProps({series: series2});
 
@@ -277,6 +279,7 @@ describe('Animate', () => {
         const onStart = jest.fn();
 
         const wrapper = mount(<Animate
+            tag='div'
             series={series1}
             onStart={onStart}
             minX={0} maxX={2} minY={0} maxY={100}

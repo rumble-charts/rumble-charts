@@ -160,7 +160,10 @@ RadialLines.propTypes = {
         ]))
     })),
     colors: PropTypes.oneOfType([
-        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.oneOf([
+            'category10', 'category20', 'category20b', 'category20c',
+            'accent', 'dark2', 'paired', 'pastel1', 'pastel2', 'set1', 'set2', 'set3', 'tableau10'
+        ]),
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.func
     ]),

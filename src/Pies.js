@@ -266,7 +266,10 @@ Pies.displayName = 'Pies';
 
 Pies.propTypes = {
     colors: PropTypes.oneOfType([
-        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.oneOf([
+            'category10', 'category20', 'category20b', 'category20c',
+            'accent', 'dark2', 'paired', 'pastel1', 'pastel2', 'set1', 'set2', 'set3', 'tableau10'
+        ]),
         PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string])),
         PropTypes.func
     ]),
@@ -310,7 +313,9 @@ Pies.propTypes = {
     minY: PropTypes.number,
     maxY: PropTypes.number,
     layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
 };
 
 Pies.defaultProps = {

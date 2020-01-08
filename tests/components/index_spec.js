@@ -1,8 +1,9 @@
-import index, {
+import {
     Animate, Bars, Chart, Cloud, Dots, DropShadow,
     Gradient, Handlers, Labels, Layer, Lines, Pies, RadialLines,
     Ticks, Title, Transform, helpers
 } from '../../src';
+import * as index from '../../src';
 
 describe('Main index file', () => {
 

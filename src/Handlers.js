@@ -149,7 +149,7 @@ export default class Handlers extends Component {
             <rect
                 ref={ref => this.rect = ref}
                 x={0} y={0} width={layerWidth} height={layerHeight}
-                fill='transparent' stroke='transparent'/>
+                fill='transparent' stroke='transparent' />
             {children}
         </g>;
     }
@@ -170,7 +170,8 @@ Handlers.propTypes = {
     scaleX: PropTypes.object,
     scaleY: PropTypes.object,
     layerWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    layerHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    children: PropTypes.node,
 };
 
 Handlers.defaultProps = {

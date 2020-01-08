@@ -1,4 +1,6 @@
 ```
+import { Chart, Layer, Dots, Labels } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 3]
 }, {

@@ -1,9 +1,12 @@
+import React from 'react';
 import {shallow, mount, render} from 'enzyme';
+
 const enzyme = {
     shallow, mount, render
 };
 import _ from 'lodash';
-import {scaleOrdinal, schemeCategory10} from 'd3-scale';
+import {scaleOrdinal} from 'd3-scale';
+import {schemeCategory10} from 'd3-scale-chromatic';
 import Chart from '../../src/Chart';
 import generateRandomSeries from './generateRandomSeries';
 import visibleProps from './visibleProps';
@@ -12,17 +15,17 @@ import styleProps from './styleProps';
 import later from './later';
 import spyOnWarnings from './spyOnWarnings';
 
-export default function(Component, options = {}) {
+export default function (Component, options = {}) {
     options = _.defaults({}, options, {
         deepestTag: 'path',
         renderMethod: 'shallow',
         oneDeepestTagPerSeries: false,
         pointStyling: false,
-        delay: 0,
+        delay: 100,
         pointGroupClassName: '', // dot, bar
         colorProperty: 'fill', // fill, stroke
         defaultProps: {
-            colors: 'category20'
+            colors: 'paired'
         },
         visibleProperties: {
             seriesVisible: ['g', 'series']
@@ -37,7 +40,7 @@ export default function(Component, options = {}) {
         chartHeight: 100
     });
 
-    const delayed = function(callback) {
+    const delayed = function (callback) {
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -401,7 +404,7 @@ export default function(Component, options = {}) {
             it('should be correctly defined in propTypes', () => {
                 expect(Component.propTypes.colors).toEqual(jasmine.any(Function));
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                    <Component colors='category20b' />
+                    <Component colors='set1' />
                 </Chart>)).not.toHaveBeenCalled();
                 expect(spyOnWarnings(() => <Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
                     <Component colors={['red', 'blue']} />

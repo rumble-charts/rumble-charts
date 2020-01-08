@@ -1,4 +1,6 @@
+import React from 'react';
 import {shallow} from 'enzyme';
+
 import Title from '../../src/Title';
 
 describe('Title', () => {
@@ -14,7 +16,7 @@ describe('Title', () => {
 
     it('should render everything else as children', () => {
         const wrapper = shallow(<Title layerWidth={100} layerHeight={100}>
-            <circle r={50}/>
+            <circle r={50} />
         </Title>);
         const g = wrapper.find('g');
         expect(g.length).toEqual(1);
@@ -67,7 +69,7 @@ describe('Title', () => {
     it('should not render empty tag', () => {
         const consoleError = console.error;
         console.error = jest.fn();
-        shallow(<Title layerWidth={100} layerHeight={100}/>);
+        shallow(<Title layerWidth={100} layerHeight={100} />);
         expect(console.error).toBeCalled();
         expect(console.error.mock.calls[0][0]).toContain('children');
         console.error = consoleError;

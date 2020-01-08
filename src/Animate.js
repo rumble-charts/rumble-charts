@@ -26,7 +26,7 @@ export default class Animate extends Component {
 
     // lifecycle
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
 
         const interpolate = d3Interpolate(
             _.pick(this.state, this.props.interpolateProps),
@@ -72,8 +72,10 @@ export default class Animate extends Component {
     render() {
         const {props, state} = this;
 
-        return <g className={props.className}>
-            {proxyChildren(
+        return React.createElement(
+            props.tag,
+            {className: props.className},
+            proxyChildren(
                 props.children,
                 _.omitBy(state, _.isUndefined),
                 {
@@ -82,8 +84,8 @@ export default class Animate extends Component {
                     scaleX: props.scaleX,
                     scaleY: props.scaleY
                 }
-            )}
-        </g>;
+            )
+        );
     }
 
 }
@@ -114,6 +116,11 @@ Animate.propTypes = {
             'circle-out-in', 'bounce-out-in', 'elastic-out-in', 'back-out-in'
         ])
     ]),
+    className: PropTypes.string,
+    scaleX: PropTypes.object,
+    scaleY: PropTypes.object,
+    children: PropTypes.node,
+    tag: PropTypes.string,
     onStart: PropTypes.func,
     onEnd: PropTypes.func
 };
@@ -122,5 +129,6 @@ Animate.defaultProps = {
     interpolateProps: ['series', 'maxX', 'maxY', 'minX', 'minY', 'layerWidth', 'layerHeight'],
     proxyProps: ['seriesNormalized'],
     duration: 500,
-    ease: 'linear'
+    ease: 'linear',
+    tag: 'g'
 };

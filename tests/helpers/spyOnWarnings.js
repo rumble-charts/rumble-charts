@@ -1,11 +1,16 @@
-export default function spyOnWarnings(callback) {
-    const error = console.error;
-    const warn = console.warn;
-    const spy = jasmine.createSpy('console.error');
+const originalError = console.error;
+const originalWarn = console.warn;
+
+export default function spyOnWarnings(callback, {
+    spy = jasmine.createSpy('console.error'),
+    revert = true
+} = {}) {
     console.error = spy;
     console.warn = spy;
     callback();
-    console.error = error;
-    console.warn = warn;
+    if (revert) {
+        console.error = originalError;
+        console.warn = originalWarn;
+    }
     return spy;
 }

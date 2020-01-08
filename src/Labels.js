@@ -12,7 +12,7 @@ import Dots from './Dots';
  * @example ../docs/examples/Labels.md
  */
 export default function Labels(props) {
-    return <Dots {...props} dotType='labels'/>;
+    return <Dots {...props} dotType='labels' />;
 }
 
 Labels.displayName = 'Labels';
@@ -20,7 +20,10 @@ Labels.displayName = 'Labels';
 Labels.propTypes = {
     className: PropTypes.string,
     colors: PropTypes.oneOfType([
-        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.oneOf([
+            'category10', 'category20', 'category20b', 'category20c',
+            'accent', 'dark2', 'paired', 'pastel1', 'pastel2', 'set1', 'set2', 'set3', 'tableau10'
+        ]),
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.func
     ]),

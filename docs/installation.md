@@ -7,7 +7,7 @@ npm install --save rumble-charts
 Include
 
 ```javascript static
-const {
+import {
   // main component
   Chart, 
   // graphs
@@ -16,5 +16,10 @@ const {
   Layer, Animate, Transform, Handlers,
   // helpers
   DropShadow, Gradient, helpers
-} = require('rumble-charts');
+} from 'rumble-charts';
+```
+
+or
+```javascript static
+import * as rc from 'rumble-charts';
 ```

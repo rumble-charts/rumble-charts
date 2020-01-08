@@ -1,3 +1,4 @@
+import React from 'react';
 import {mount} from 'enzyme';
 
 import Pies from '../../src/Pies';

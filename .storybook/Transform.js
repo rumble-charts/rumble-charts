@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-const {Chart, Bars, Transform} = require('../src');
+import {Chart, Bars, Transform} from '../src';
 
 const series = [{
     data: [1, 3, 2]
@@ -18,55 +18,55 @@ const props = {
 storiesOf('Transform', module)
     .add('default', () =>
         <Chart width={600} height={300} series={series} minY={0}>
-            <Bars {...props}/>
+            <Bars {...props} />
         </Chart>
     )
     .add('transpose', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method='transpose'>
-                <Bars {...props}/>
+                <Bars {...props} />
             </Transform>
         </Chart>
     )
     .add('rotate', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method='rotate'>
-                <Bars {...props}/>
+                <Bars {...props} />
             </Transform>
         </Chart>
     )
     .add('transpose + rotate', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method={['transpose', 'rotate']}>
-                <Bars {...props}/>
+                <Bars {...props} />
             </Transform>
         </Chart>
     )
     .add('reverse', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method='reverse'>
-                <Bars {...props}/>
+                <Bars {...props} />
             </Transform>
         </Chart>
     )
     .add('transpose + reverse', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method={['transpose', 'reverse']}>
-                <Bars {...props}/>
+                <Bars {...props} />
             </Transform>
         </Chart>
     )
     .add('stack', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method={['stack']}>
-                <Bars {...props} combined={true}/>
+                <Bars {...props} combined={true} />
             </Transform>
         </Chart>
     )
     .add('transpose + stack', () =>
         <Chart width={600} height={300} series={series} minY={0}>
             <Transform method={['transpose', 'stack']}>
-                <Bars {...props} combined={true}/>
+                <Bars {...props} combined={true} />
             </Transform>
         </Chart>
     )

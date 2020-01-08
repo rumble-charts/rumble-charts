@@ -4,6 +4,8 @@ It means you can use them in different orders and make a different nested struct
 **Important**. All examples on this site are editable. You are encouraged to experiment with them.
 
 ```
+import { Chart, Layer, Bars, Lines, Dots } from 'rumble-charts';
+
 const series = [{
   data: [1, 2, 3]
 }, {

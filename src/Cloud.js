@@ -49,7 +49,7 @@ export default class Cloud extends Component {
             return words;
         }, []);
 
-        cloud()
+        const cl = cloud()
             .size([layerWidth, layerHeight])
             .words(words)
             .font(font)
@@ -60,33 +60,30 @@ export default class Cloud extends Component {
             .padding(padding)
             .random(random)
             .timeInterval(15)
-            .fontSize(d => scale(d.size))
-            .on('end', function(series, labels) {
-                labels = _.map(
-                    _.groupBy(labels, 'seriesIndex'),
-                    labels => _.sortBy(labels, 'pointIndex')
-                );
-                this.setState({series, labels});
-            }.bind(this, series))
-            .start();
+            .fontSize(d => scale(d.size));
+
+        if (props.canvas) {
+            cl.canvas(props.canvas);
+        }
+
+        cl.on('end', (labels) => {
+            labels = _.map(
+                _.groupBy(labels, 'seriesIndex'),
+                labels => _.sortBy(labels, 'pointIndex')
+            );
+            this.setState({series, labels});
+        });
+        cl.start();
     }
 
     // lifecycle
 
-    componentWillMount() {
-        try {
-            this.buildCloud(this.props);
-        } catch (e) {
-            console.warn(e);
-        }
+    UNSAFE_componentWillMount() {
+        this.buildCloud(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        try {
-            this.buildCloud(nextProps);
-        } catch (e) {
-            console.warn(e);
-        }
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.buildCloud(nextProps);
     }
 
     // render
@@ -173,7 +170,10 @@ Cloud.displayName = 'Cloud';
 Cloud.propTypes = {
     className: PropTypes.string,
     colors: PropTypes.oneOfType([
-        PropTypes.oneOf(['category10', 'category20', 'category20b', 'category20c']),
+        PropTypes.oneOf([
+            'category10', 'category20', 'category20b', 'category20c',
+            'accent', 'dark2', 'paired', 'pastel1', 'pastel2', 'set1', 'set2', 'set3', 'tableau10'
+        ]),
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.func
     ]),
@@ -227,7 +227,8 @@ Cloud.propTypes = {
     minX: PropTypes.number,
     maxX: PropTypes.number,
     minY: PropTypes.number,
-    maxY: PropTypes.number
+    maxY: PropTypes.number,
+    canvas: PropTypes.object
 };
 
 Cloud.defaultProps = {

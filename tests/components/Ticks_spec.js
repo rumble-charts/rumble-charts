@@ -1,4 +1,6 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
+
 import generateRandomSeries from '../helpers/generateRandomSeries';
 import spyOnWarnings from '../helpers/spyOnWarnings';
 import Chart from '../../src/Chart';

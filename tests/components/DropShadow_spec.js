@@ -1,4 +1,6 @@
+import React from 'react';
 import {shallow} from 'enzyme';
+
 import DropShadow from '../../src/DropShadow';
 
 describe('DropShadow', () => {

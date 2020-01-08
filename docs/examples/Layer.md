@@ -1,4 +1,6 @@
 ```
+import { Chart, Transform, Layer, Bars, Pies } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 4]
 }];

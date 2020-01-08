@@ -1,4 +1,6 @@
 ```
+import { Chart, Lines } from 'rumble-charts';
+
 const series = [{
     data: [1, 3, 2]
 }, {
@@ -15,6 +17,8 @@ const series = [{
 Makes sense to use scaleX and scaleY
 
 ```
+import { Chart, Lines } from 'rumble-charts';
+
 const series = [{
     data: [1, 3, 2]
 }, {
@@ -34,6 +38,8 @@ const series = [{
 Area chart
 
 ```
+import { Chart, Lines, Transform } from 'rumble-charts';
+
 const series = [{
     data: [1, 3, 2]
 }, {

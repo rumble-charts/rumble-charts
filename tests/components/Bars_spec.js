@@ -1,4 +1,6 @@
+import React from 'react';
 import {mount} from 'enzyme';
+
 import graphicsComponent from '../helpers/graphicsComponent';
 import generateRandomSeries from '../helpers/generateRandomSeries';
 
@@ -38,7 +40,7 @@ describe('Bars', () => {
 
     it('should set bars width', () => {
         const wrapper = mount(<Chart width={100} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' barWidth={72}/>
+            <Bars className='bars' barWidth={72} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h72 ');
@@ -47,7 +49,7 @@ describe('Bars', () => {
 
     it('should have combined mode', () => {
         const wrapper = mount(<Chart width={100} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' combined={true}/>
+            <Bars className='bars' combined={true} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h20 '); // 100 (chart width) / 5 (number of points)
@@ -56,7 +58,7 @@ describe('Bars', () => {
     describe('should support inner padding', () => {
         it('can be a number', () => {
             const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' innerPadding={2}/>
+                <Bars className='bars' innerPadding={2} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h8 '); // 150 (chart width) / 15 (number of points) - 2 (inner padding)
@@ -64,7 +66,7 @@ describe('Bars', () => {
 
         it('can be percents as a string', () => {
             const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' innerPadding='1%'/>
+                <Bars className='bars' innerPadding='1%' />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h8.5 '); // 150 (chart width) / 15 (number of points) - 1.5 (inner padding, 1%)
@@ -72,7 +74,7 @@ describe('Bars', () => {
 
         it('can be percents as a number', () => {
             const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' innerPadding={0.02}/>
+                <Bars className='bars' innerPadding={0.02} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h7 '); // 150 (chart width) / 15 (number of points) - 3 (inner padding, 1%)
@@ -81,7 +83,7 @@ describe('Bars', () => {
 
     it('should set inner padding and bar width', () => {
         const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' innerPadding={10} combined={true}/>
+            <Bars className='bars' innerPadding={10} combined={true} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h20 '); // 150 (chart width) / 5 (number of points) - 10 (inner padding)
@@ -90,7 +92,7 @@ describe('Bars', () => {
     describe('should support group padding', () => {
         it('can be a number', () => {
             const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' groupPadding={6}/>
+                <Bars className='bars' groupPadding={6} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h8 '); // (150 (chart width) - 6 (group padding) * 5 (groups)) / 15 (number of points)
@@ -98,7 +100,7 @@ describe('Bars', () => {
 
         it('can be percents as a string', () => {
             const wrapper = mount(<Chart width={150} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' groupPadding='2%'/>
+                <Bars className='bars' groupPadding='2%' />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h9 '); // (150 (chart width) - 3 (group padding) * 5 (groups)) / 15 (number of points)
@@ -106,7 +108,7 @@ describe('Bars', () => {
 
         it('can be percents as a number', () => {
             const wrapper = mount(<Chart width={100} height={100} series={seriesObjects3x5}>
-                <Bars className='bars' groupPadding={0.02}/>
+                <Bars className='bars' groupPadding={0.02} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h6 '); // (100 (chart width) - 2 (group padding) * 5 (groups)) / 15 (number of points)
@@ -115,7 +117,7 @@ describe('Bars', () => {
 
     it('should support group padding and inner padding together', () => {
         const wrapper = mount(<Chart width={250} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' groupPadding={5} innerPadding={2}/>
+            <Bars className='bars' groupPadding={5} innerPadding={2} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h13 '); // (250 (chart width) - 5 (group padding) * 5 (groups)) / 15 (number of points) - 2 (inner padding)
@@ -123,7 +125,7 @@ describe('Bars', () => {
 
     it('should ignore group padding in case of combined enabled', () => {
         const wrapper = mount(<Chart width={250} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' groupPadding={5} combined={true}/>
+            <Bars className='bars' groupPadding={5} combined={true} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h50 '); // (250 (chart width) / 5 (number of points)
@@ -131,7 +133,7 @@ describe('Bars', () => {
 
     it('should support group padding and combined props together', () => {
         const wrapper = mount(<Chart width={250} height={100} series={seriesObjects3x5}>
-            <Bars className='bars' innerPadding={5} combined={true}/>
+            <Bars className='bars' innerPadding={5} combined={true} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h45 '); // (250 (chart width) / 5 (number of points) - 5 (inner padding)
@@ -141,7 +143,7 @@ describe('Bars', () => {
         const wrapper = mount(<Chart
             width={150} height={100} series={seriesObjects3x5}
             scaleX={{paddingStart: -0.5, paddingEnd: -0.5}}>
-            <Bars className='bars' combined={true}/>
+            <Bars className='bars' combined={true} />
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
         expect(d).toContain(' h50 ');
@@ -153,7 +155,7 @@ describe('Bars', () => {
             const wrapper = mount(<Chart
                 width={250} height={100} series={seriesObjects3x5}
                 scaleX={{paddingStart: 0, paddingEnd: 0}}>
-                <Bars className='bars' innerPadding={5} combined={true}/>
+                <Bars className='bars' innerPadding={5} combined={true} />
             </Chart>);
             // it corrects paddingStart=0 and paddingEnd=0 to paddingStart=0.5 and paddingEnd=0.5
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
@@ -164,7 +166,7 @@ describe('Bars', () => {
             const wrapper = mount(<Chart
                 width={250} height={100} series={seriesObjects3x5}
                 scaleX={{paddingStart: 0, paddingEnd: 0, direction: -1}}>
-                <Bars className='bars' innerPadding={5} combined={true}/>
+                <Bars className='bars' innerPadding={5} combined={true} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h45 ');
@@ -176,7 +178,7 @@ describe('Bars', () => {
         const wrapper = mount(<Chart
             width={250} height={250} series={seriesObjects3x5}>
             <Transform method='rotate'>
-                <Bars className='bars' innerPadding={5} combined={true}/>
+                <Bars className='bars' innerPadding={5} combined={true} />
             </Transform>
         </Chart>);
         const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
@@ -188,7 +190,7 @@ describe('Bars', () => {
         const wrapper = mount(<Chart
             width={150} height={height} series={seriesObjects3x5}>
             <Transform method='stack'>
-                <Bars className='bars' combined={true}/>
+                <Bars className='bars' combined={true} />
             </Transform>
         </Chart>);
         let remain = height;
@@ -208,7 +210,7 @@ describe('Bars', () => {
             const wrapper = mount(<Chart
                 width={250} height={100} series={seriesObjects3x5}
                 scaleX={{direction: null}}>
-                <Bars className='bars' innerPadding={5} combined={true}/>
+                <Bars className='bars' innerPadding={5} combined={true} />
             </Chart>);
             const d = wrapper.find('g.bars-bar').at(3).children('path').prop('d');
             expect(d).toContain(' h45 ');
@@ -216,7 +218,7 @@ describe('Bars', () => {
 
         it('undefined series', () => {
             const wrapper = mount(<Chart width={100} height={100}>
-                <Bars className='bars'/>
+                <Bars className='bars' />
             </Chart>);
             expect(wrapper.find('g.bars').length).toEqual(1);
         });

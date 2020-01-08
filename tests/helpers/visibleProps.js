@@ -1,4 +1,5 @@
 import {shallow, mount, render} from 'enzyme';
+
 const enzyme = {
     shallow, mount, render
 };
@@ -8,7 +9,7 @@ import generateRandomSeries from './generateRandomSeries';
 import later from './later';
 import spyOnWarnings from './spyOnWarnings';
 
-export default function(Component, options = {}) {
+export default function (Component, options = {}) {
     options = _.defaults({}, options, {
         renderMethod: 'shallow',
         chartWidth: 100,
@@ -24,7 +25,7 @@ export default function(Component, options = {}) {
         seriesObjects3x5 = generateRandomSeries(3, 5, {type: 'object'});
     }
 
-    const delayed = function(callback) {
+    const delayed = function (callback) {
         return later(callback, options.delay);
     };
     const render = _.isFunction(options.renderMethod) ?
@@ -65,7 +66,7 @@ export default function(Component, options = {}) {
 
                     const maxWrapper = render(<Chart
                         width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
-                        <Component className='chart'/>
+                        <Component className='chart' />
                     </Chart>);
 
                     return delayed(() => {

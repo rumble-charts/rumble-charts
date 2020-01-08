@@ -1,5 +1,6 @@
 ```
-const _ = require('lodash');
+import { Chart, Layer, Animate, Ticks, Bars, Lines, Dots, Labels } from 'rumble-charts';
+import _ from 'lodash';
 
 const series = [{
   name: 'John',

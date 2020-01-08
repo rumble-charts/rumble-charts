@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 export default function DropShadow(props) {
     return <filter id={props.id}>
-        <feGaussianBlur in={props.blurIn} stdDeviation={props.blurDeviation}/>
-        <feOffset dx={props.dx} dy={props.dy}/>
+        <feGaussianBlur in={props.blurIn} stdDeviation={props.blurDeviation} />
+        <feOffset dx={props.dx} dy={props.dy} />
         <feMerge>
             <feMergeNode />
-            <feMergeNode in='SourceGraphic'/>
+            <feMergeNode in='SourceGraphic' />
         </feMerge>
     </filter>;
 }

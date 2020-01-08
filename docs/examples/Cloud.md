@@ -1,4 +1,6 @@
 ```
+import { Chart, Transform, Cloud } from 'rumble-charts';
+
 const series = [{
   data: [
     {label: 'Highcharts', y: 30},

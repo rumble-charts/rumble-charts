@@ -1,43 +1,18 @@
-import _Animate from './Animate';
-import _Bars from './Bars';
-import _Chart from './Chart';
-import _Cloud from './Cloud';
-import _Dots from './Dots';
-import _DropShadow from './DropShadow';
-import _Gradient from './Gradient';
-import _Handlers from './Handlers';
-import _Labels from './Labels';
-import _Layer from './Layer';
-import _Lines from './Lines';
-import _Pies from './Pies';
-import _RadialLines from './RadialLines';
-import _Ticks from './Ticks';
-import _Title from './Title';
-import _Transform from './Transform';
+export {default as Animate} from './Animate';
+export {default as Bars} from './Bars';
+export {default as Chart} from './Chart';
+export {default as Cloud} from './Cloud';
+export {default as Dots} from './Dots';
+export {default as DropShadow} from './DropShadow';
+export {default as Gradient} from './Gradient';
+export {default as Handlers} from './Handlers';
+export {default as Labels} from './Labels';
+export {default as Layer} from './Layer';
+export {default as Lines} from './Lines';
+export {default as Pies} from './Pies';
+export {default as RadialLines} from './RadialLines';
+export {default as Ticks} from './Ticks';
+export {default as Title} from './Title';
+export {default as Transform} from './Transform';
 
-import _helpers from './helpers';
-
-export const Animate = _Animate;
-export const Bars = _Bars;
-export const Chart = _Chart;
-export const Cloud = _Cloud;
-export const Dots = _Dots;
-export const DropShadow = _DropShadow;
-export const Gradient = _Gradient;
-export const Handlers = _Handlers;
-export const Labels = _Labels;
-export const Layer = _Layer;
-export const Lines = _Lines;
-export const Pies = _Pies;
-export const RadialLines = _RadialLines;
-export const Ticks = _Ticks;
-export const Title = _Title;
-export const Transform = _Transform;
-
-export const helpers = _helpers;
-
-export default {
-    Animate, Bars, Chart, Cloud, Dots, DropShadow, Gradient, Handlers, Labels,
-    Layer, Lines, Pies, RadialLines, Ticks, Title, Transform,
-    helpers
-};
+export {default as helpers} from './helpers';

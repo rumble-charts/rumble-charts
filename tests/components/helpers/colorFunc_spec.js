@@ -1,7 +1,8 @@
-import {scaleOrdinal, schemeCategory10, schemeCategory20} from 'd3-scale';
+import {scaleOrdinal} from 'd3-scale';
+import {schemeCategory10} from 'd3-scale-chromatic';
 import _ from 'lodash';
 
-import colorFunc from '../../../src/helpers/colorFunc';
+import colorFunc, {defaultScheme} from '../../../src/helpers/colorFunc';
 
 describe('Helper colorFunc', () => {
 
@@ -11,7 +12,7 @@ describe('Helper colorFunc', () => {
     });
 
     it('should return a default palette in case of empty value', () => {
-        const defaultPalette = scaleOrdinal(schemeCategory20);
+        const defaultPalette = scaleOrdinal(defaultScheme);
         const palette = colorFunc();
         _.forEach(_.range(0, 10), index => {
             expect(defaultPalette(index)).toEqual(palette(index));

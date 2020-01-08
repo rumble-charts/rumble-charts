@@ -1,4 +1,6 @@
 ```
+import { Chart, Layer, Handlers, Bars, Lines, Dots } from 'rumble-charts';
+
 const series = [{
     data: [1, 2, 3]
 }, {
@@ -6,27 +8,6 @@ const series = [{
 }, {
     data: [13, 17, 19]
 }];
-
-<Chart width={600} height={300} series={series} minY={0}>
-  <Layer width='100%' height='90%' position='bottom center'>
-  <Handlers onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} optimized={false}>
-    <Bars
-      groupPadding='3%'
-      innerPadding='0.5%'
-      barAttributes={{
-        onMouseMove: e => e.target.style.fillOpacity = 1,
-        onMouseLeave: e => e.target.style.fillOpacity = 0.5
-      }}
-      barStyle={{
-        fillOpacity: 0.5,
-        transition: 'all 250ms'
-      }}
-    />
-    <Lines lineWidth={2} />
-    <Dots className='dots' dotStyle={{transition:'all 250ms',fillOpacity:0}} />
-  </Handlers>
-  </Layer>
-</Chart>
 
 var hovered = null;
 function hideHovered() {
@@ -62,4 +43,25 @@ function handleMouseMove({closestPoints}) {
 function handleMouseLeave() {
   hideHovered();
 }
+
+<Chart width={600} height={300} series={series} minY={0}>
+  <Layer width='100%' height='90%' position='bottom center'>
+  <Handlers onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} optimized={false}>
+    <Bars
+      groupPadding='3%'
+      innerPadding='0.5%'
+      barAttributes={{
+        onMouseMove: e => e.target.style.fillOpacity = 1,
+        onMouseLeave: e => e.target.style.fillOpacity = 0.5
+      }}
+      barStyle={{
+        fillOpacity: 0.5,
+        transition: 'all 250ms'
+      }}
+    />
+    <Lines lineWidth={2} />
+    <Dots className='dots' dotStyle={{transition:'all 250ms',fillOpacity:0}} />
+  </Handlers>
+  </Layer>
+</Chart>
 ```

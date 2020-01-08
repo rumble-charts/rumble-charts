@@ -1,4 +1,6 @@
 ```
+import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
+
 const series = [{
   name: 'John',
   data: [1, 2, 3]
@@ -37,6 +39,8 @@ const series = [{
 ```
 
 ```
+import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
+
 const series = [{
   name: 'John',
   data: [1, 2, 3]

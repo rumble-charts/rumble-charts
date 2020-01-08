@@ -1,6 +1,8 @@
-import {PropTypes} from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {mount} from 'enzyme';
 import _ from 'lodash';
+
 import Chart from '../../src/Chart';
 import Transform from '../../src/Transform';
 import transformProps from '../../src/helpers/transform';

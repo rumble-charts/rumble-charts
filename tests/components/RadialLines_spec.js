@@ -1,7 +1,9 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {areaRadial, lineRadial, curveNatural} from 'd3-shape';
 import {scaleLinear} from 'd3-scale';
 import _ from 'lodash';
+
 import helpers from '../../src/helpers';
 import Chart from '../../src/Chart';
 import Transform from '../../src/Transform';

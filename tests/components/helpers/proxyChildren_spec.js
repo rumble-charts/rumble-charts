@@ -1,3 +1,4 @@
+import React from 'react';
 import {mount} from 'enzyme';
 import proxyChildren from '../../../src/helpers/proxyChildren';
 import generateRandomSeries from '../../helpers/generateRandomSeries';
@@ -24,8 +25,8 @@ describe('Helper proxyChildren', () => {
 
     it('should apply special props from the parent to children', () => {
         const wrapper = mount(<g>
-            {proxyChildren(<Graphics classname='chart'/>, parentProps, extraProps)}
-        </g>);
+            {proxyChildren(<Graphics classname='chart' />, parentProps, extraProps)}
+        </g>, {wrappingComponent: 'svg'});
         const {series, minX, minY, maxX, maxY} = wrapper.find(Graphics).props();
         expect(series.length).toEqual(3);
         expect(minX).toEqual(0);
@@ -36,16 +37,16 @@ describe('Helper proxyChildren', () => {
 
     it('should support seriesIndex as a number', () => {
         const wrapper = mount(<g>
-            {proxyChildren(<Graphics classname='chart' seriesIndex={1}/>, parentProps, extraProps)}
-        </g>);
+            {proxyChildren(<Graphics classname='chart' seriesIndex={1} />, parentProps, extraProps)}
+        </g>, {wrappingComponent: 'svg'});
         const series = wrapper.find(Graphics).prop('series');
         expect(series.length).toEqual(1);
     });
 
     it('should support seriesIndex as an array', () => {
         const wrapper = mount(<g>
-            {proxyChildren(<Graphics classname='chart' seriesIndex={[1, 2]}/>, parentProps, extraProps)}
-        </g>);
+            {proxyChildren(<Graphics classname='chart' seriesIndex={[1, 2]} />, parentProps, extraProps)}
+        </g>, {wrappingComponent: 'svg'});
         const series = wrapper.find(Graphics).prop('series');
         expect(series.length).toEqual(2);
     });
@@ -58,15 +59,15 @@ describe('Helper proxyChildren', () => {
                     seriesIndex={(series, index) => index < 2}
                 />,
                 parentProps, extraProps)}
-        </g>);
+        </g>, {wrappingComponent: 'svg'});
         const series = wrapper.find(Graphics).prop('series');
         expect(series.length).toEqual(2);
     });
 
     it('should handle broken seriesIndex', () => {
         const wrapper = mount(<g>
-            {proxyChildren(<Graphics classname='chart' seriesIndex={null}/>, parentProps, extraProps)}
-        </g>);
+            {proxyChildren(<Graphics classname='chart' seriesIndex={null} />, parentProps, extraProps)}
+        </g>, {wrappingComponent: 'svg'});
         const series = wrapper.find(Graphics).prop('series');
         expect(series.length).toEqual(3);
     });
@@ -74,9 +75,9 @@ describe('Helper proxyChildren', () => {
     it('should not override series prop for children', () => {
         const wrapper = mount(<g>
             {proxyChildren(
-                <Graphics series={seriesObject} classname='chart'/>,
+                <Graphics series={seriesObject} classname='chart' />,
                 parentProps, extraProps)}
-        </g>);
+        </g>, {wrappingComponent: 'svg'});
         const {series} = wrapper.find(Graphics).props();
         expect(series.length).toEqual(3);
     });
@@ -84,14 +85,14 @@ describe('Helper proxyChildren', () => {
     it('should handle empty arguments', () => {
         const wrapper = mount(<g>
             {proxyChildren([null])}
-        </g>);
-        expect(wrapper.html()).toEqual('<g></g>');
+        </g>, {wrappingComponent: 'svg'});
+        expect(wrapper.html()).toEqual('<svg><g></g></svg>');
     });
 
     it('should support extraProps (3rd argument) as a function', () => {
         const wrapper = mount(<g>
-            {proxyChildren(<Graphics classname='chart'/>, parentProps, () => extraProps)}
-        </g>);
+            {proxyChildren(<Graphics classname='chart' />, parentProps, () => extraProps)}
+        </g>, {wrappingComponent: 'svg'});
         const graphics = wrapper.find(Graphics);
         expect(graphics.prop('layerWidth')).toEqual(100);
     });

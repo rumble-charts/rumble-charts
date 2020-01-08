@@ -1,6 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-const {Chart, Dots, Layer} = require('../src');
+import {storiesOf} from '@storybook/react';
+import {Chart, Dots, Layer} from '../src';
 
 const series1 = [{
     data: [1, 2, 3]
@@ -30,7 +30,7 @@ storiesOf('Dots', module)
     .add('scatter plot', () =>
         <Chart width={600} height={300} series={series2} minY={0}>
             <Layer width='90%' height='90%'>
-                <Dots circleRadius={({point}) => point.weight}/>
+                <Dots circleRadius={({point}) => point.weight} />
             </Layer>
         </Chart>
     )

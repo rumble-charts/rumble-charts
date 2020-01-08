@@ -5,6 +5,7 @@ You can change [`<Bars>`](#bars) to [`<Lines>`](#lines), [`<Dots>`](#dots) or [`
 Also you can put all these 4 components all together in different order.
 
 ```
+import { Chart, Bars} from 'rumble-charts';
 // EVERY EXAMPLE IS EDITABLE
 
 const series = [{

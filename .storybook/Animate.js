@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import _ from 'lodash';
 import {storiesOf} from '@storybook/react';
-const {Chart, Bars, Layer, Animate, Ticks, Lines, Dots, Labels} = require('../src');
+import {Chart, Bars, Layer, Animate, Ticks, Lines, Dots, Labels} from '../src';
 
 const series1 = [{
     data: [1, 2, 4]

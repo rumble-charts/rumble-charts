@@ -1,7 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react';
-const {Chart, Bars, Lines, Layer, Handlers, Dots, Ticks} = require('../src');
-const Filters = require('../docs/examples/filters');
+import {Chart, Bars, Lines, Layer, Handlers, Dots, Ticks} from '../src';
+import Filters from '../docs/examples/filters';
 
 const series2 = [{
     data: [1, 2, 3]

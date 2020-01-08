@@ -56,20 +56,20 @@ export default {
     'sin-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeSin)),
     'exp-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeExp)),
 
-    'circle-out-in': d3_ease_reflect(d3_ease_reverse(ease.easecircle)),
-    'bounce-out-in': d3_ease_reflect(d3_ease_reverse(ease.easebounce)),
-    'elastic-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeelastic)),
+    'circle-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeCircle)),
+    'bounce-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeBounce)),
+    'elastic-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeElastic)),
     'back-out-in': d3_ease_reflect(d3_ease_reverse(ease.easeBack))
 };
 
 function d3_ease_reverse(f) {
-    return function(t) {
+    return function (t) {
         return 1 - f(1 - t);
     };
 }
 
 function d3_ease_reflect(f) {
-    return function(t) {
+    return function (t) {
         return 0.5 * (t < 0.5 ? f(2 * t) : (2 - f(2 - 2 * t)));
     };
 }

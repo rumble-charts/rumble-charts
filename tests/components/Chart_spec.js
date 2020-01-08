@@ -1,4 +1,6 @@
+import React from 'react';
 import {shallow, mount} from 'enzyme';
+
 import Chart from '../../src/Chart';
 import Lines from '../../src/Lines';
 import Transform from '../../src/Transform';
@@ -37,7 +39,7 @@ describe('Chart', () => {
             <Transform method='rotate'>
                 <Lines />
             </Transform>
-        </Chart>);
+        </Chart>, {wrappingComponent: 'svg'});
         const g = wrapper.find('g.chart');
         expect(g.length).toEqual(1);
         expect(g.prop('className')).toEqual('chart');
