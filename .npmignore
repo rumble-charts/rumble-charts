@@ -80,3 +80,5 @@ storybook/*
 .travis.yml
 npm-debug.log
 /images/*
+/tests/*
+/docs/*
