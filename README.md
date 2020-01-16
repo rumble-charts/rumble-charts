@@ -7,6 +7,12 @@
 [![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
 [![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
 
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=alert_status)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=security_rating)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
+
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 [![npm](https://img.shields.io/npm/dm/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
