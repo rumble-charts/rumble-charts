@@ -73,7 +73,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "eslint": "^7.0.0",
     "eslint-plugin-react": "^7.20.0",
-    "gh-pages": "^2.2.0",
+    "gh-pages": "^3.0.0",
     "jest": "^26.0.1",
     "jest-canvas-mock": "^2.2.0",
     "jest-cli": "^26.0.1",
