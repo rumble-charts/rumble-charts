@@ -1,6 +1,6 @@
 # <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
-[![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg?branch=master)](https://travis-ci.org/rumble-charts/rumble-charts)
+[![Build Status](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
 [![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
 
