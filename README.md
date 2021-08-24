@@ -2,7 +2,6 @@
 
 [![Build Status](https://travis-ci.org/rumble-charts/rumble-charts.svg?branch=master)](https://travis-ci.org/rumble-charts/rumble-charts)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
-[![Dependency Status](https://david-dm.org/rumble-charts/rumble-charts.svg)](https://david-dm.org/rumble-charts/rumble-charts) 
 [![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)

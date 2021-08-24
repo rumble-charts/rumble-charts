@@ -10,8 +10,8 @@ module.exports = {
         'global': {
             'branches': 90,
             'functions': 99,
-            'lines': 99,
-            'statements': 99
+            'lines': 98,
+            'statements': 98
         }
     },
     roots: [
