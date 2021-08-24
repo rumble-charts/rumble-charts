@@ -1,0 +1,19 @@
+{
+  "exclude": [
+    "dist",
+    "es",
+    "node_modules",
+    "umd"
+  ],
+  "compilerOptions": {
+    "rootDir": "src",
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "isolatedModules": false
+  },
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "typedoc"
+  }
+}

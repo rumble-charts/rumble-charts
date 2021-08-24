@@ -1,9 +1,0 @@
-{
-  "presets": [
-    "@babel/preset-env"
-  ],
-  "plugins": [
-    "transform-react-jsx",
-    "lodash"
-  ]
-}

@@ -1,2 +1,10 @@
-node_modules
-styleguide/*
+cjs/
+coverage/
+docs/
+es/
+node_modules/
+typedoc/
+types/
+umd/
+
+*.config.js

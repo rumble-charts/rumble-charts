@@ -1,7 +1,6 @@
 import React from 'react';
 import {scaleOrdinal} from 'd3-scale';
 import {schemeCategory10} from 'd3-scale-chromatic';
-import _ from 'lodash';
 import {Chart, Pies, Bars, Layer, Transform, Ticks, Labels, Title, Animate} from '../../src/index';
 
 const points = [{
@@ -38,10 +37,20 @@ const points = [{
     value: 2
 }];
 
+const groupBy = (list, key) => {
+    const result = {};
+    list.forEach(item => {
+        const value = item[key];
+        result[value] = result[value] || [];
+        result[value].push(item);
+    });
+    return result;
+};
+
 const metrics = ['country', 'title'];
 const groups = {};
 metrics.forEach(metric => {
-    groups[metric] = _.groupBy(points, metric);
+    groups[metric] = groupBy(points, metric);
 });
 
 const colors = scaleOrdinal(schemeCategory10);
@@ -94,12 +103,12 @@ class Demo extends React.Component {
     render() {
         const {filter} = this.state;
 
-        return <Chart width={600} height={400} minY={0}>
+        return <Chart width={600} height={400} minY={0} {...this.props.args}>
             <Layer
                 width='80%' height='80%'
                 series={getSeriesByGroup(groups, 'country', filter)}
                 position='left middle'>
-                <Animate ease='bounce'>
+                <Animate ease='bounce' interpolateProps={['series', 'maxY']}>
                     <Bars
                         innerPadding='10%'
                         barStyle={({pointIndex, point}) => ({
@@ -139,12 +148,12 @@ class Demo extends React.Component {
                     <text style={{textAnchor: 'middle', dominantBaseline: 'middle'}}>{filter[1]}</text>
                 </Title>}
                 <Transform method={['transpose', 'stack']}>
-                    <Animate ease='bounce'>
+                    <Animate ease='bounce' interpolateProps={['series', 'maxY']}>
                         <Pies
                             combined={true}
                             innerRadius='25%'
                             cornerRadius='0.15%'
-                            colors='category20'
+                            colors='set3'
                             pieStyle={({point}) => ({
                                 transition: 'fill-opacity 250ms',
                                 fillOpacity: this.getPointOpacity('title', point)

@@ -4,7 +4,7 @@
 - [x] Make a first version of documentation with examples
 - [x] Update to React 15.x
 - [x] Update to lodash 4.x
-- [x] Write unit tests for wrappers and helpers components 
+- [x] Write unit tests for wrappers and helpers components
 - [x] Update to React 16
 - [x] Update to d3 4.x
 - [ ] Support React ART
