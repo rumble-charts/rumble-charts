@@ -14,7 +14,7 @@
     "build:dist": "rollup --config rollup.config.js",
     "build:types": "tsc --jsx react --declaration --emitDeclarationOnly --outDir types --esModuleInterop src/index.ts",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
-    "deploy:docs": "gh-pages -d storybook",
+    "deploy:docs": "gh-pages -d storybook -r git@github.com:rumble-charts/rumble-charts.github.io.git -b master",
     "docs": "npm run docs:clear && npm run docs:storybook && npm run docs:playroom && npm run docs:types",
     "docs:clear": "rimraf ./storybook",
     "docs:playroom": "playroom build",

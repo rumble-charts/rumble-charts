@@ -20,7 +20,7 @@ module.exports = {
   <Bars colors='set1' innerPadding='1%' groupPadding='2%' />
 </Chart>
 `.trim(),
-    baseUrl: '/rumble-charts/playroom/',
+    baseUrl: '/playroom/',
     // webpackConfig: () => ({
     //     // Custom webpack config goes here...
     // }),

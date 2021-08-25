@@ -7,6 +7,8 @@ import {
     Heading,
 } from '@storybook/addon-docs';
 
+import playroomConfig from '../playroom.config';
+
 export const parameters = {
     actions: {argTypesRegex: '^on[A-Z].*'},
     options: {
@@ -42,6 +44,6 @@ export const parameters = {
             showFunctions: false,
             maxInlineAttributesLineLength: 120
         },
-        url: process.env.NODE_ENV === 'production' ? '/rumble-charts/playroom/' : 'http://localhost:9000'
+        url: process.env.NODE_ENV === 'production' ? playroomConfig.baseUrl : 'http://localhost:9000'
     }
 };
