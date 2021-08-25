@@ -19,7 +19,8 @@ const plugins = [
     replace({
         preventAssignment: true,
         values: {
-            'node_modules/': 'external/'
+            'node_modules/': 'external/',
+            'require(\'crypto\')': '(window.crypto || window.msCrypto)',
         },
         delimiters: ['', '']
     })
@@ -33,7 +34,7 @@ const onwarn = (warning, rollupWarn) => {
 
 export default [
     {
-        input: 'src/index.ts',
+        input: ['src/index.ts', 'src/helpers/index.ts'],
         output: [
             {
                 dir: 'cjs',

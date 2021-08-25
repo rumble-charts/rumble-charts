@@ -4,8 +4,6 @@ coverage/
 es/
 node_modules/
 storybook/
-storybook/playroom/
-typedoc/
 types/
 umd/
 

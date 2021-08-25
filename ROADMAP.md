@@ -7,6 +7,8 @@
 - [x] Write unit tests for wrappers and helpers components
 - [x] Update to React 16
 - [x] Update to d3 4.x
+- [x] Update to React 17
+- [x] Refactor, move to Typescript and functional components 
 - [ ] Support React ART
 - [ ] Support morphing between graphics types (Pies <=> Bars)
 - [ ] New graphic components (e.g. Geo, Candlesticks, RadarAxis (for radar charts))

@@ -1,6 +1,7 @@
 # <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
-[![Build Status](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml)
+[![Node.js CI](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml)
+[![CodeQL](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
 [![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
 
@@ -71,15 +72,11 @@ const series = [{
     data: [13, 17, 19]
 }];
 
-class Demo extends React.Component {
-  render() {
-    return <Chart width={600} height={250} series={series} minY={0} maxY={20}>
-      <Bars innerPadding={5} groupPadding={10} />
-      <Lines />
-      <Dots />
-    </Chart>;
-  }
-}
+<Chart width={600} height={250} series={series} minY={0} maxY={20}>
+  <Bars innerPadding={5} groupPadding={10} />
+    <Lines />
+  <Dots />
+</Chart>;
 ```
 
 Result:

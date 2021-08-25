@@ -41,6 +41,7 @@ export const parameters = {
             sortProps: false,
             showFunctions: false,
             maxInlineAttributesLineLength: 120
-        }
+        },
+        url: process.env.NODE_ENV === 'production' ? '/rumble-charts/playroom/' : 'http://localhost:9000'
     }
 };

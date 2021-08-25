@@ -13,7 +13,9 @@
     "isolatedModules": false
   },
   "typedocOptions": {
-    "entryPoints": ["src/index.ts"],
-    "out": "typedoc"
+    "entryPoints": [
+      "src/index.ts"
+    ],
+    "out": "storybook/typedoc"
   }
 }

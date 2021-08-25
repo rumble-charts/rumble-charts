@@ -3,7 +3,7 @@ coverage/
 docs/
 es/
 node_modules/
-typedoc/
+storybook/
 types/
 umd/
 

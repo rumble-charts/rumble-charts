@@ -8,19 +8,23 @@
   "typings": "types/index.d.ts",
   "browser": "umd/rumble-charts.js",
   "scripts": {
+    "all": "npm run lint && npm test && npm run build && npm run docs",
     "build": "npm run build:clear && npm run build:dist && npm run build:types",
     "build:clear": "rimraf ./cjs ./es ./types ./umd",
     "build:dist": "rollup --config rollup.config.js",
-    "tsc": "tsc",
     "build:types": "tsc --jsx react --declaration --emitDeclarationOnly --outDir types --esModuleInterop src/index.ts",
-    "build:storybook": "build-storybook",
+    "deploy:docs": "gh-pages -d storybook",
+    "docs": "npm run docs:clear && npm run docs:storybook && npm run docs:playroom && npm run docs:types",
+    "docs:clear": "rimraf ./storybook",
+    "docs:playroom": "playroom build",
+    "docs:storybook": "build-storybook -o storybook",
+    "docs:types": "typedoc",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "playroom:start": "playroom start",
-    "playroom:build": "playroom build",
-    "storybook": "start-storybook -p 6006",
-    "test": "jest",
-    "typedoc": "typedoc",
-    "prepare": "husky install"
+    "start": "concurrently \"npm run start:storybook\" \"npm run start:playroom\"",
+    "start:playroom": "playroom start",
+    "start:storybook": "start-storybook -p 6006",
+    "prepare": "husky install",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -87,9 +91,11 @@
     "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
+    "concurrently": "^6.2.1",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^24.4.0",
     "eslint-plugin-react": "^7.24.0",
+    "gh-pages": "^3.2.3",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
     "lz-string": "^1.4.4",
@@ -105,7 +111,7 @@
     "storybook-addon-playroom": "^2.1.2",
     "tslib": "^2.3.1",
     "typedoc": "^0.21.6",
-    "typescript": "4.3.5"
+    "typescript": "^4.3.5"
   },
   "peerDependencies": {
     "react": "^17.0.2",
