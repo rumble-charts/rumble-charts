@@ -1,6 +1,6 @@
 import type {ReactElement, ReactNode} from 'react';
 import type {ScaleContinuousNumeric} from 'd3-scale';
-import type {Point, SharedProps} from './types';
+import type {Point, CommonProps} from './types';
 
 import React, {useRef} from 'react';
 import {proxyChildren, sortBy} from './helpers';
@@ -16,7 +16,7 @@ export type MouseEvent = {
     originalEvent: React.MouseEvent;
 }
 
-export type HandlersProps = SharedProps & {
+export type HandlersProps = CommonProps & {
     className?: string;
     sensitivity?: number;
     optimized?: boolean;
@@ -31,8 +31,6 @@ export type HandlersProps = SharedProps & {
  * Helps to use mouse events. For now supports only `onClick`, `onMouseMove` and `onMouseLeave`.
  *
  * This component will be improved and simplified in the future.
- *
- * @example ../docs/examples/Handlers.md
  */
 export function Handlers(props: HandlersProps): ReactElement {
     const {className, layerWidth, layerHeight} = props;

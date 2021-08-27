@@ -1,4 +1,4 @@
-import type {Series, SharedProps} from '../types';
+import type {GraphicProps, Series} from '../types';
 
 import React from 'react';
 import {scaleOrdinal} from 'd3-scale';
@@ -29,7 +29,7 @@ type Options = Partial<{
     seriesObjects3x5: Series[];
 }>;
 
-export function graphicsComponent(Component: React.FC<SharedProps>, options: Options = {}): void {
+export function graphicsComponent(Component: React.FC<GraphicProps>, options: Options = {}): void {
     options = {
         deepestTag: 'path',
         oneDeepestTagPerSeries: false,

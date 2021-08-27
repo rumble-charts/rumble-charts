@@ -1,4 +1,4 @@
-import type {Point, Series, SharedProps} from '../types';
+import type {CommonProps, Point, Series} from '../types';
 
 import React from 'react';
 import {create, act} from 'react-test-renderer';
@@ -15,7 +15,7 @@ type Options = Partial<{
     delay: number;
 }>;
 
-export function attributesProps(Component: React.FC<SharedProps>, options: Options = {}): void {
+export function attributesProps(Component: React.FC<CommonProps>, options: Options = {}): void {
     options = {
         chartWidth: 100,
         chartHeight: 100,

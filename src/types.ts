@@ -51,7 +51,7 @@ export type ScaleX = {
      * Right padding in pixels, default value is 0
      */
     paddingRight?: number;
-    factory?: (props: SharedProps) => ScaleContinuousNumeric<any, any>;
+    factory?: (props: CommonProps) => ScaleContinuousNumeric<any, any>;
     swap?: boolean;
 };
 
@@ -76,19 +76,36 @@ export type ScaleY = {
      * Bottom padding in pixels, default value is 0
      */
     paddingBottom?: number;
-    factory?: (props: SharedProps) => ScaleContinuousNumeric<any, any>;
+    factory?: (props: CommonProps) => ScaleContinuousNumeric<any, any>;
     swap?: boolean;
 };
 
 export type SeriesProps = {
     /**
-     * Series data
+     * An array of series objects.
      */
     series?: Series[];
     seriesNormalized?: boolean;
+    /**
+     * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
+     * `series` you've supplied, but sometimes you will need to define it by yourself.
+     */
     minX?: number;
+    /**
+     * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
+     * `series` you've supplied, but sometimes you will need to define it by yourself.
+     */
     maxX?: number;
+    /**
+     * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
+     * `series` you've supplied, but sometimes you will need to define it by yourself.
+     * Especially it relates to `minY` property. Very often you have to set it as `minY={0}`.
+     */
     minY?: number;
+    /**
+     * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
+     * `series` you've supplied, but sometimes you will need to define it by yourself.
+     */
     maxY?: number;
 } & Record<string, any>;
 
@@ -97,13 +114,29 @@ export type NormalizedSeriesProps = Omit<SeriesProps, 'series' & 'seriesNormaliz
     seriesNormalized?: true
 }
 
-export type SharedProps = SeriesProps & {
+export type CommonProps = SeriesProps & {
     seriesIndex?: number | number[] | ((series: Series, index: number) => boolean);
     layerWidth?: number;
     layerHeight?: number;
+    /**
+     * X-scale (horizontal) attributes. For better understanding see examples below.
+     */
     scaleX?: ScaleX;
+    /**
+     * Y-scale (vertical) attributes. For better understanding see examples below.
+     */
     scaleY?: ScaleY;
 }
+
+export type GraphicProps = {
+    className?: string;
+    /**
+     * Colors
+     */
+    colors?: Colors;
+    opacity?: number;
+    style?: Style;
+} & CommonProps;
 
 export type Size = number | string;
 

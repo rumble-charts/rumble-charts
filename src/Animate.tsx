@@ -1,5 +1,5 @@
 import type {ReactElement, ReactNode} from 'react';
-import type {ScaleX, ScaleY, SeriesProps} from './types';
+import type {CommonProps} from './types';
 
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {timer} from 'd3-timer';
@@ -7,28 +7,30 @@ import {interpolate as d3Interpolate} from 'd3-interpolate';
 
 import {eases, isFunction, isString, isUndefined, normalizeSeries, omitBy, pick, proxyChildren} from './helpers';
 
-export type AnimateProps = SeriesProps & {
-    interpolateProps?: Array<keyof SeriesProps>;
+export type AnimateProps = {
+    interpolateProps?: Array<keyof CommonProps>;
     duration?: number;
     logFPS?: boolean;
     ease?: ((num: number) => number) | keyof typeof eases;
     className?: string;
-    scaleX?: ScaleX;
-    scaleY?: ScaleY;
     children: ReactNode;
     tag?: string;
     onStart?: () => void;
     onEnd?: () => void;
     onCancel?: () => void;
-}
+} & CommonProps;
 
 /**
- * Animates (actually interpolates) your `series` data. Very useful when you want to have a simple transitions
- * between data state.
+ * Animates (actually interpolates) your `series` data. Very useful when you want to have
+ * simple and nice transitions between data state.
  *
  * As a wrapper it takes `series` obtained from its parent and gives it to its children.
  *
- * @example ../docs/examples/Animate.md
+ * By default, `interpolateProps` list contains all the common props:
+ * ['series', 'maxX', 'maxY', 'minX', 'minY', 'layerWidth', 'layerHeight'].
+ * Though, sometimes it makes a lot of sense to interpolate only `series`. Especially, when the
+ * components wrapped by `<Animate>` are "jumping". Also, you can explicitly define `minY` as a prop
+ * to make the limits stable (and therefore prevent the "jumping" effect)
  */
 export function Animate(props: AnimateProps): ReactElement {
     const {
@@ -46,7 +48,7 @@ export function Animate(props: AnimateProps): ReactElement {
 
     const prevPropsRef = useRef<AnimateProps>(props);
 
-    const newPropsRef = useRef<SeriesProps>();
+    const newPropsRef = useRef<CommonProps>();
     newPropsRef.current = useMemo(() => {
 
         const newProps = Object.keys(pickProps).reduce((newProps, propName) => {

@@ -1,24 +1,22 @@
 import type {ReactElement, ReactNode} from 'react';
-import type {ScaleX, ScaleY, Series, Size} from './types';
+import type {CommonProps, ScaleX, ScaleY, Size} from './types';
 
 import React from 'react';
 import {scaleLinear} from 'd3-scale';
 
 import {isNumber, isUndefined, normalizeNumber, omitBy, proxyChildren} from './helpers';
 
-export type ChartProps = {
+export type ChartProps = CommonProps & {
     /**
-     * Chart width
+     * Chart width (pixels or percents). In case of percents, layoutWidth or viewBox should be defined
      */
     width?: Size,
     /**
-     * Chart height
+     * Chart height (pixels or percents). In case of percents, layoutHeight or viewBox should be defined
      */
     height?: Size,
     /**
      * Chart SVG viewBox.
-     * Using that property user can make the chart responsive using CSS
-     * Example: svg { width: 100%; height: auto; }
      */
     viewBox?: string,
     /**
@@ -32,44 +30,14 @@ export type ChartProps = {
      */
     layerHeight?: number,
     /**
-     * An array of series objects. Read more [about series](#series). (or docs/series.md)
-     */
-    series?: Series[],
-    /**
      * It can be change to `"g"`, if you want to include your chart inside another svg graphic.
      */
     tag?: string,
     /**
-     * Rumble-charts components (one or more) or any other valid svg tag
+     * Rumble-charts components (one or more) and any other valid svg tag
      * (i.e. `<defs>`, `<g>`, `<rect>`, `<circle>` etc)
      */
     children: ReactNode,
-    /**
-     * Optional limit, affects on how graphics will be drawn. It's calculated automatically based on
-     * `series` you've supplied, but sometimes you will need to define it by yourself.
-     * Especially it relates to `minY` property. Very often you have to set it as `minY={0}`.
-     */
-    minX?: number,
-    /**
-     * See above
-     */
-    maxX?: number,
-    /**
-     * See above
-     */
-    minY?: number,
-    /**
-     * See above
-     */
-    maxY?: number,
-    /**
-     * X-scale (horizontal) attributes. For better understanding see examples below.
-     */
-    scaleX?: ScaleX;
-    /**
-     * Y-scale (vertical) attributes. For better understanding see examples below.
-     */
-    scaleY?: ScaleY;
 } & Record<string, any>;
 
 /**
@@ -80,8 +48,6 @@ export type ChartProps = {
  * - [Helpers](#helpers)
  *
  * Also read more about [hidden props](#magic--hidden-props).
- *
- * @example ../docs/examples/Chart.md
  */
 export function Chart(
     allProps: ChartProps

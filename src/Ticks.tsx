@@ -1,6 +1,6 @@
 import type {ReactElement, ReactNode} from 'react';
 import type {ScaleContinuousNumeric} from 'd3-scale';
-import type {SharedProps, Size, Style} from './types';
+import type {GraphicProps, Size, Style} from './types';
 
 import React from 'react';
 import {isNumber, isString, isUndefined, normalizeNumber, value} from './helpers';
@@ -33,10 +33,6 @@ export type TickParams = {
 }
 
 export type TicksProps = {
-    style?: Style;
-    opacity?: number;
-    className?: string;
-
     axis?: 'x' | 'y';
     position?: 'top' | 'bottom' | 'left' | 'right';
 
@@ -57,12 +53,10 @@ export type TicksProps = {
     lineStyle?: Style | ((params: TickParams) => Style);
     lineLength?: Size | ((params: TickParams) => Size);
     lineOffset?: Size | ((params: TickParams) => Size);
-} & SharedProps;
+} & Omit<GraphicProps, 'colors'>;
 
 /**
  * Renders ticks (labels and lines) for axis (x and y).
- *
- * @example ../docs/examples/Ticks.md
  */
 export function Ticks(props: TicksProps): ReactElement {
     const {className, scaleX, scaleY, axis = 'x', style} = props;

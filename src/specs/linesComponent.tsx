@@ -1,4 +1,4 @@
-import type {SharedProps} from '../types';
+import type {CommonProps} from '../types';
 
 import React from 'react';
 import {create} from 'react-test-renderer';
@@ -12,7 +12,7 @@ type Options = Partial<{
     lineInterpolations: any[];
 }>;
 
-export function linesComponent(Component: React.FC<SharedProps>, options: Options = {}): void {
+export function linesComponent(Component: React.FC<CommonProps>, options: Options = {}): void {
     options = {
         lineWidth: false, // true, false
         lineInterpolations: [],

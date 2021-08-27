@@ -1,6 +1,6 @@
 import type {ReactElement, ReactNode} from 'react';
 import type {Arc} from 'd3-shape';
-import type {Colors, ColorScale, Point, Position, Series, SharedProps, Size, Style} from './types';
+import type {ColorScale, GraphicProps, Point, Position, Series, Size, Style} from './types';
 
 import React from 'react';
 import {scaleLinear} from 'd3-scale';
@@ -25,11 +25,7 @@ export type PieParams = {
     props: PiesProps
 };
 
-export type PiesProps = SharedProps & {
-    colors?: Colors;
-    opacity?: number;
-    style?: Style;
-    className?: string;
+export type PiesProps = {
     position?: Position;
 
     innerRadius?: Size;
@@ -53,12 +49,10 @@ export type PiesProps = SharedProps & {
     pieStyle?: Style | ((params: PieParams) => Style);
 
     pieWidth?: Size;
-};
+} & GraphicProps;
 
 /**
  * Renders pies for you pie chart or donut chart
- *
- * @example ../docs/examples/Pies.md
  */
 export function Pies(props: PiesProps): ReactElement {
     const {

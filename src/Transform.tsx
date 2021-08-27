@@ -1,10 +1,10 @@
 import type {ReactElement, ReactNode} from 'react';
-import type {NormalizedSeriesProps, SeriesProps, TransformMethod} from './types';
+import type {CommonProps, NormalizedSeriesProps, TransformMethod} from './types';
 
 import React from 'react';
 import {isUndefined, proxyChildren, transform} from './helpers';
 
-export type TransformProps = SeriesProps & {
+export type TransformProps = {
     className?: string;
     /**
      * Possible string values: `stack`, `stackNormalized`, `sort`, `unstack`,
@@ -13,14 +13,12 @@ export type TransformProps = SeriesProps & {
      */
     method: TransformMethod | TransformMethod[];
     children: ReactNode
-};
+} & CommonProps;
 
 /**
  * Transforms `series` data according chosen `method`.
  *
  * As a wrapper it takes `series` obtained from its parent and gives it to its children.
- *
- * @example ../docs/examples/Transform.md
  */
 export function Transform(props: TransformProps): ReactElement {
     const {className, layerWidth, layerHeight, scaleX, scaleY} = props;

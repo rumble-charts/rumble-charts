@@ -1,4 +1,4 @@
-import type {SeriesProps, SharedProps} from '../types';
+import type {CommonProps, SeriesProps} from '../types';
 
 import React, {ReactElement, ReactNode} from 'react';
 
@@ -19,7 +19,7 @@ export function proxyChildren(
     seriesProps: SeriesProps = {},
     // Extra props to add to every child (but a child's own props will have higher priority)
     extraProps: ((child: ReactNode) => Record<string, any>) | Record<string, any> = {}
-): ReactElement<SharedProps>[] {
+): ReactElement<CommonProps>[] {
 
     // 1. Extract defined limits (if any) (minX/maxX/minY/maxY)
     const definedLimits = pick(seriesProps, limitsPropNames);
@@ -29,7 +29,7 @@ export function proxyChildren(
     const calculatedLimits = pick(normalizedSeriesProps, limitsPropNames);
     const {series: normalizedSeries} = normalizedSeriesProps;
 
-    return React.Children.map(children, (child: ReactElement<SharedProps>) => {
+    return React.Children.map(children, (child: ReactElement<CommonProps>) => {
         if (!child || !React.isValidElement(child)) {
             return child;
         }
@@ -37,7 +37,7 @@ export function proxyChildren(
         // Building the child props
 
         // 1. Copy child's own props
-        let cloneChildProps: SharedProps = {
+        let cloneChildProps: CommonProps = {
             ...child.props
         };
 

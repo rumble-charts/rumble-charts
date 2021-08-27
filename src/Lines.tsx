@@ -1,6 +1,6 @@
 import type {ReactElement} from 'react';
 import type {CurveFactory} from 'd3-shape';
-import type {Colors, Point, Series, SharedProps, Size, Style} from './types';
+import type {GraphicProps, Point, Series, Size, Style} from './types';
 
 import React from 'react';
 import {area as d3Area, line as d3Line} from 'd3-shape';
@@ -13,12 +13,7 @@ export type LineSeriesParams = {
     props: LinesProps;
 }
 
-export type LinesProps = SharedProps & {
-    className?: string;
-    style?: Style;
-    colors?: Colors;
-    opacity?: number;
-
+export type LinesProps = {
     asAreas?: boolean;
     interpolation?: keyof typeof curves | CurveFactory,
 
@@ -31,12 +26,10 @@ export type LinesProps = SharedProps & {
     lineStyle?: Style | ((params: LineSeriesParams) => Style);
 
     lineWidth?: Size | ((params: LineSeriesParams) => Size);
-};
+} & GraphicProps;
 
 /**
  * Renders lines for your line chart.
- *
- * @example ../docs/examples/Lines.md
  */
 export function Lines(props: LinesProps): ReactElement {
     const {

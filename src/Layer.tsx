@@ -1,10 +1,10 @@
 import type {ReactElement, ReactNode} from 'react';
-import type {Position, SharedProps, Size, Style} from './types';
+import type {Position, CommonProps, Size, Style} from './types';
 
 import React, {useMemo} from 'react';
 import {getCoords, normalizeNumber, proxyChildren} from './helpers';
 
-export type LayerProps = SharedProps & {
+export type LayerProps = CommonProps & {
     className?: string;
     style?: Style;
     width?: Size;
@@ -16,8 +16,6 @@ export type LayerProps = SharedProps & {
 /**
  * Creates a new layer using specific `width` and `height` at specific `position`. It's useful when
  * you have two or more graphics on the same chart. Or in case you to have a margins.
- *
- * @example ../docs/examples/Layer.md
  */
 export function Layer(
     {

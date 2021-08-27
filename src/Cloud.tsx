@@ -1,5 +1,5 @@
 import type {ReactElement} from 'react';
-import type {ColorScale, Point, Series, SharedProps, Style} from './types';
+import type {GraphicProps, Point, Series, Style} from './types';
 
 import React, {useEffect, useState} from 'react';
 import {scaleLinear} from 'd3-scale';
@@ -40,11 +40,6 @@ export type CloudLabelParams = {
 };
 
 export type CloudProps = {
-    className?: string;
-    colors?: ColorScale;
-    opacity?: number;
-    style?: Style;
-
     font?: string | ((params: CloudLabel, index: number) => string);
     minFontSize?: number;
     maxFontSize?: number;
@@ -71,13 +66,11 @@ export type CloudProps = {
     seriesVisible?: boolean | ((params: CloudSeriesParams) => boolean);
     seriesAttributes?: Record<string, unknown> | ((params: CloudSeriesParams) => Record<string, unknown>);
     seriesStyle?: Style | ((params: CloudSeriesParams) => Style);
-} & SharedProps;
+} & GraphicProps;
 
 /**
  * Renders cloud of tags/keywords. Uses [d3-cloud](https://www.npmjs.com/package/d3-cloud) for calculations.
  * Please notice, `series` data points should have `label` attribute. See example below.
- *
- * @example ../docs/examples/Cloud.md
  */
 export function Cloud(props: CloudProps): ReactElement {
     const {className, layerWidth, layerHeight, colors = defaultSchemeName} = props;

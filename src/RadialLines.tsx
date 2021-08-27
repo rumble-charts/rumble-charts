@@ -1,6 +1,6 @@
 import type {ReactElement} from 'react';
 import type {CurveFactory} from 'd3-shape';
-import type {Colors, Point, Position, Series, SharedProps, Size, Style} from './types';
+import type {GraphicProps, Point, Position, Series, Size, Style} from './types';
 
 import React from 'react';
 import {scaleLinear} from 'd3-scale';
@@ -23,13 +23,8 @@ type RadialLineParams = {
     props: RadialLinesProps;
 };
 
-export type RadialLinesProps = SharedProps & {
-    className?: string;
-    style?: Style;
-    colors?: Colors;
+export type RadialLinesProps = {
     position?: Position;
-
-    opacity?: number;
     asAreas?: boolean;
     innerRadius?: Size;
     startAngle?: number;
@@ -45,12 +40,10 @@ export type RadialLinesProps = SharedProps & {
     lineStyle?: Style | ((params: RadialLineParams) => Style);
 
     lineWidth?: Size | ((params: RadialLineParams) => Size);
-};
+} & GraphicProps;
 
 /**
  * Renders radial lines for your radar chart
- *
- * @example ../docs/examples/RadialLines.md
  */
 export function RadialLines(props: RadialLinesProps): ReactElement {
     const {

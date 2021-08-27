@@ -1,5 +1,5 @@
 import type {ReactElement} from 'react';
-import type {Colors, Point, Series, SharedProps, Size, Style} from './types';
+import type {GraphicProps, Point, Series, Size, Style} from './types';
 
 import React, {useMemo} from 'react';
 
@@ -19,15 +19,7 @@ export type BarSeriesParams = {
     props: BarsProps;
 }
 
-export type BarsProps = SharedProps & {
-    className?: string;
-    /**
-     * Colors
-     */
-    colors?: Colors;
-    opacity?: number;
-    style?: Style;
-
+export type BarsProps = {
     combined?: boolean;
     groupPadding?: Size | ((props: BarsProps) => Size);
     innerPadding?: Size | ((props: BarsProps) => Size);
@@ -43,12 +35,10 @@ export type BarsProps = SharedProps & {
     barStyle?: Style | ((params: BarParams) => Style);
 
     barWidth?: Size | ((props: BarsProps) => Size);
-};
+} & GraphicProps;
 
 /**
- * 123Renders bars for your bar chart.
- *
- * @example ../docs/examples/Bars.md
+ * Renders bars for your bar chart.
  */
 export function Bars(props: BarsProps): ReactElement {
     const {className, style, colors = defaultSchemeName, opacity} = props;

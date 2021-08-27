@@ -1,7 +1,7 @@
 import type {ReactElement, ReactNode} from 'react';
 import type {ScaleContinuousNumeric} from 'd3-scale';
 import type {SymbolType} from 'd3-shape';
-import type {Colors, ColorScale, Point, Series, SharedProps, Style} from './types';
+import type {ColorScale, GraphicProps, Point, Series, Style} from './types';
 
 import React from 'react';
 import {
@@ -68,12 +68,7 @@ export type DotRenderProps = {
     color: ColorScale;
 };
 
-export type DotsProps = SharedProps & {
-    className?: string;
-    colors?: Colors;
-    opacity?: number;
-    style?: Style;
-
+export type DotsProps = {
     /**
      * Possible values: `"dot"`, `"circle"`, `"ellipse"`, `"symbol"`, `"label"`, `"path"`.
      */
@@ -109,12 +104,10 @@ export type DotsProps = SharedProps & {
     dotVisible?: boolean | ((params: DotParams) => boolean);
     dotAttributes?: Record<string, any> | ((params: DotTypeParams) => Record<string, any>);
     dotStyle?: Style | ((params: DotTypeParams) => Style);
-};
+} & GraphicProps;
 
 /**
  * Renders dots for your scatter plot.
- *
- * @example ../docs/examples/Dots.md
  */
 export function Dots(props: DotsProps): ReactElement {
     const {className, scaleX, scaleY, colors = defaultSchemeName} = props;

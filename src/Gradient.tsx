@@ -11,27 +11,40 @@ export type GradientProps = {
     spreadMethod?: 'pad' | 'repeat' | 'reflect';
     gradientUnits?: 'userSpaceOnUse' | 'objectBoundingBox';
     gradientTransform?: string;
-    // for linear gradient
+    /**
+     * For type=linear
+     */
     from?: [Size, Size];
+    /**
+     * For type=linear
+     */
     to?: [Size, Size];
-    // for radial gradient
+    x1?: Size;
+    y1?: Size;
+    x2?: Size;
+    y2?: Size;
+    /**
+     * For type=radial
+     */
     center?: [Size, Size];
+    /**
+     * For type=radial
+     */
     focalPoint?: [Size, Size];
     cx?: Size;
     cy?: Size;
     fx?: Size;
     fy?: Size;
     r?: Size;
-    x1?: Size;
-    y1?: Size;
-    x2?: Size;
-    y2?: Size;
     radius?: Size;
     children?: ReactNode;
 }
 
 let counter = 0;
 
+/**
+ * Wrapper around standard svg linearGradient and radialGradient.
+ */
 export function Gradient(
     {
         type = 'linear',
