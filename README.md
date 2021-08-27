@@ -12,7 +12,8 @@
 
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 [![npm](https://img.shields.io/npm/dm/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
-[![Bundle size](https://flat.badgen.net/bundlephobia/minzip/rumble-charts)](https://bundlephobia.com/package/rumble-charts@latest)
+[![Bundle size](https://badgen.net/bundlephobia/minzip/rumble-charts)](https://bundlephobia.com/package/rumble-charts@latest)
+[![Tree shaking](https://badgen.net/bundlephobia/tree-shaking/rumble-charts)](https://bundlephobia.com/package/rumble-charts@latest)
 
 React components for building composable and flexible charts to visualize your data.
 
@@ -42,6 +43,13 @@ All examples are live editable on "Playroom" tab.
 
 ```bash
 npm install --save rumble-charts
+```
+
+### CDN
+
+```html
+
+<script src='https://unpkg.com/rumble-charts/umd/rumble-charts.min.js'></script>
 ```
 
 ## Usage
