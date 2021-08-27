@@ -13,7 +13,7 @@
 [![npm](https://img.shields.io/npm/v/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 [![npm](https://img.shields.io/npm/dm/rumble-charts.svg)](https://www.npmjs.com/package/rumble-charts)
 
-React components for building composable and flexible charts to visualize your data. 
+React components for building composable and flexible charts to visualize your data.
 
 It's based on D3.js under the hood, but most of the time you will not feel that.
 
@@ -27,13 +27,13 @@ It's based on D3.js under the hood, but most of the time you will not feel that.
 
 ## Documentation
 
-All examples are editable. You can see a result right on the page.
+All examples are live editable on "Playroom" tab.
 
 [https://rumble-charts.github.io](https://rumble-charts.github.io)
 
 ## Demo / live edit
 
-[rosko.github.io/slides/2016-04-declarative-charts/#/liveedit](https://rosko.github.io/slides/2016-04-declarative-charts/#/liveedit)
+[https://rumble-charts.github.io/playroom/](https://rumble-charts.github.io/playroom/)
 
 ## Installation
 
@@ -50,7 +50,7 @@ Just include it:
 ```javascript
 import {
   // main component
-  Chart, 
+  Chart,
   // graphs
   Bars, Cloud, Dots, Labels, Lines, Pies, RadialLines, Ticks, Title,
   // wrappers
@@ -64,16 +64,16 @@ And use:
 
 ```jsx
 const series = [{
-    data: [1, 2, 3]
+  data: [1, 2, 3]
 }, {
-    data: [5, 7, 11]
+  data: [5, 7, 11]
 }, {
-    data: [13, 17, 19]
+  data: [13, 17, 19]
 }];
 
 <Chart width={600} height={250} series={series} minY={0} maxY={20}>
   <Bars innerPadding={5} groupPadding={10} />
-    <Lines />
+  <Lines />
   <Dots />
 </Chart>;
 ```
@@ -82,25 +82,9 @@ Result:
 
 ![Combined Chart](./docs/images/08.png)
 
+## [Changelog](CHANGELOG.md)
+
 ## [Road map](ROADMAP.md)
-
-## Similar projects 
-
-Mainly there are 3 approaches to integrate React and D3:  
-
- - React wraps D3
-    - [d3-react-squared](https://github.com/bgrsquared/d3-react-squared)  
-    - [d3act](https://github.com/AnSavvides/d3act)
- - D3 prepares virtual DOM for React
-    - [d3-react-sparkline](https://github.com/QubitProducts/d3-react-sparkline/) - based on react-faux-dom
-    - [react-faux-dom](https://github.com/Olical/react-faux-dom)
- - React builds virtual DOM, D3 makes math (`rumble-charts` is here) 
-    - [react-d3](https://github.com/esbullington/react-d3/) and [rd3](https://github.com/yang-wei/rd3) as a fork
-    - [react-d3-components](https://github.com/codesuki/react-d3-components)
-    - [react-vis](https://github.com/uber/react-vis)
-    - [recharts](https://github.com/recharts/recharts)
-    - [victory](https://github.com/FormidableLabs/victory)
-    - [vx](https://github.com/hshoff/vx)
 
 ## License
 
