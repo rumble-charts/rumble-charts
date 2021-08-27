@@ -3,7 +3,6 @@
 [![Node.js CI](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml)
 [![CodeQL](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
-[![Greenkeeper badge](https://badges.greenkeeper.io/rumble-charts/rumble-charts.svg)](https://greenkeeper.io/)
 
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=rumble-charts_rumble-charts&metric=alert_status)](https://sonarcloud.io/dashboard?id=rumble-charts_rumble-charts)
