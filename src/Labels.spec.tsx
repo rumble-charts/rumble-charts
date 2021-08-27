@@ -11,14 +11,6 @@ describe('Labels', () => {
     graphicsComponent(Labels, {
         deepestTag: 'text',
         pointGroupClassName: 'dot',
-        defaultProps: {
-            colors: 'category20',
-            circleRadius: 4,
-            ellipseRadiusX: 6,
-            ellipseRadiusY: 4,
-            seriesVisible: true,
-            dotVisible: true
-        },
         visibleProperties: {
             seriesVisible: ['g', 'series'],
             dotVisible: ['text']

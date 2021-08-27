@@ -4,12 +4,18 @@ import {isFunction} from './isFunction';
 import {random} from './random';
 import {range} from './range';
 
+type RandomParams = {
+    seriesIndex: number;
+    pointIndex: number;
+    value: number;
+};
+
 type Options = {
     type?: 'number' | 'integer' | 'array' | 'object';
     min?: number;
     max?: number;
     float?: boolean;
-    point?: Point
+    point?: Point | ((params: RandomParams) => Point)
 };
 
 export function generateRandomSeries(seriesCount: number, pointsCount: number, options: Options = {}): Series[] {

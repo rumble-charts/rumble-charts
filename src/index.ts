@@ -3,6 +3,7 @@ export * from './types';
 export * from './Animate';
 export * from './Bars';
 export * from './Chart';
+export * from './Cloud';
 export * from './Dots';
 export * from './DropShadow';
 export * from './Gradient';

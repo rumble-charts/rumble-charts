@@ -9,7 +9,7 @@ export type Coords = {
 };
 
 export type Point = {
-    x: number;
+    x?: number;
     y: number;
     color?: string;
     opacity?: number;

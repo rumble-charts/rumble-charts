@@ -19,7 +19,6 @@ type Options = Partial<{
     delay: number;
     pointGroupClassName: string;
     colorProperty: string;
-    defaultProps: Record<string, any>;
     visibleProperties: Record<any, string[]>;
     attributesProperties: Record<any, string[]>;
     styleProperties: Record<any, string[]>;
@@ -38,9 +37,6 @@ export function graphicsComponent(Component: React.FC<SharedProps>, options: Opt
         delay: 100,
         pointGroupClassName: '', // dot, bar
         colorProperty: 'fill', // fill, stroke
-        defaultProps: {
-            colors: 'paired'
-        },
         visibleProperties: {
             seriesVisible: ['g', 'series']
         },
@@ -443,15 +439,18 @@ export function graphicsComponent(Component: React.FC<SharedProps>, options: Opt
         });
 
         it('should have no children', () => {
-            const html1 = create(<Chart
-                width={chartWidth} height={chartHeight}
-                series={seriesObjects3x5}><Component /></Chart>).toJSON();
-            const html2 = create(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}><Component>
-                <g>
-                    <text />
-                </g>
-            </Component></Chart>).toJSON();
-            expect(html1).toEqual(html2);
+            const renderer1 = create(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                <Component />
+            </Chart>);
+            const renderer2 = create(<Chart width={chartWidth} height={chartHeight} series={seriesObjects3x5}>
+                <Component>
+                    <g>
+                        <text />
+                    </g>
+                </Component>
+            </Chart>);
+            delay();
+            expect(renderer1.toJSON()).toEqual(renderer2.toJSON());
         });
 
     });

@@ -16,17 +16,6 @@ describe('RadialLines', () => {
     graphicsComponent(RadialLines, {
         colorProperty: 'stroke',
         oneDeepestTagPerSeries: true,
-        defaultProps: {
-            colors: 'category20',
-            seriesVisible: true,
-            lineVisible: true,
-            lineWidth: 3,
-            startAngle: 0,
-            endAngle: 2 * Math.PI,
-            innerRadius: 0,
-            position: 'center middle',
-            interpolation: 'cardinal-closed'
-        },
         visibleProperties: {
             seriesVisible: ['g', 'series'],
             lineVisible: ['path']

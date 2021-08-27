@@ -17,13 +17,6 @@ describe('Lines', () => {
     graphicsComponent(Lines, {
         colorProperty: 'stroke',
         oneDeepestTagPerSeries: true,
-        defaultProps: {
-            colors: 'category20',
-            interpolation: 'monotone',
-            seriesVisible: true,
-            lineVisible: true,
-            lineWidth: 3
-        },
         visibleProperties: {
             seriesVisible: ['g', 'series'],
             lineVisible: ['path']
