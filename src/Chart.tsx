@@ -6,7 +6,7 @@ import {scaleLinear} from 'd3-scale';
 
 import {isNumber, isUndefined, normalizeNumber, omitBy, proxyChildren} from './helpers';
 
-export type ChartProps = CommonProps & {
+export type ChartProps = {
     /**
      * Chart width (pixels or percents). In case of percents, layoutWidth or viewBox should be defined
      */
@@ -38,7 +38,7 @@ export type ChartProps = CommonProps & {
      * (i.e. `<defs>`, `<g>`, `<rect>`, `<circle>` etc)
      */
     children: ReactNode,
-} & Record<string, any>;
+} & CommonProps;
 
 /**
  * Every chart should start with `<Chart>` component. It serves to set sizes (`width` and `height`)

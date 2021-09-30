@@ -9,10 +9,10 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{json,yml,md,babelrc,eslintrc}]
+[*.{json,yml,md,mdx,babelrc,eslintrc}]
 indent_style = space
 indent_size = 2
 
-[*.md]
+[*.{md,mdx}]
 max_line_length = 120
 trim_trailing_whitespace = false

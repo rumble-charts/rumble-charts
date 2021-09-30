@@ -103,7 +103,7 @@ class Demo extends React.Component {
     render() {
         const {filter} = this.state;
 
-        return <Chart width={600} height={400} minY={0} {...this.props.args}>
+        return <Chart layerWidth={600} layerHeight={200} minY={0} {...this.props.args}>
             <Layer
                 width='80%' height='80%'
                 series={getSeriesByGroup(groups, 'country', filter)}
@@ -144,9 +144,6 @@ class Demo extends React.Component {
             <Layer
                 width='30%' height='30%' position='right bottom'
                 series={getSeriesByGroup(groups, 'title', filter)}>
-                {filter[0] === 'title' && <Title position='center middle'>
-                    <text style={{textAnchor: 'middle', dominantBaseline: 'middle'}}>{filter[1]}</text>
-                </Title>}
                 <Transform method={['transpose', 'stack']}>
                     <Animate ease='bounce' interpolateProps={['series', 'maxY']}>
                         <Pies
@@ -166,6 +163,9 @@ class Demo extends React.Component {
                         />
                     </Animate>
                 </Transform>
+                {filter[0] === 'title' && <Title position='center middle'>
+                    <text style={{textAnchor: 'middle', dominantBaseline: 'middle'}}>{filter[1]}</text>
+                </Title>}
             </Layer>
         </Chart>;
     }
