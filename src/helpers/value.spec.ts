@@ -8,8 +8,8 @@ describe('Helper value', () => {
     });
 
     it('should support functions', () => {
-        expect(value<number[]>(([a, b]: number[]) => a + b, [5, 3])).toEqual(8);
-        expect(value<Record<string, number>>(({a, b}: Record<string, number>) => a * b, {a: 5, b: 3})).toEqual(15);
+        expect(value<number>(([a, b]: number[]) => a + b, [5, 3])).toEqual(8);
+        expect(value<number>(({a, b}: Record<string, number>) => a * b, {a: 5, b: 3})).toEqual(15);
     });
 
     it('should support array of objects', () => {

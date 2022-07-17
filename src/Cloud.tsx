@@ -166,7 +166,11 @@ export function Cloud(props: CloudProps): ReactElement {
                 }
             }
 
-            const seriesAttributes = value(props.seriesAttributes, {seriesIndex, series, props});
+            const seriesAttributes = value<Record<string, unknown>>(props.seriesAttributes, {
+                seriesIndex,
+                series,
+                props
+            });
             const seriesStyle = value(props.seriesStyle, {seriesIndex, series, props});
 
             return <g
@@ -191,7 +195,7 @@ export function Cloud(props: CloudProps): ReactElement {
                         }
                     }
 
-                    const labelAttributes = value(props.labelAttributes, {
+                    const labelAttributes = value<Record<string, unknown>>(props.labelAttributes, {
                         seriesIndex, pointIndex, point, label, series, props
                     });
                     const labelStyle = value([point.style, series.style, props.labelStyle],

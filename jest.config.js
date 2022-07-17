@@ -17,7 +17,9 @@ module.exports = {
     roots: [
         '<rootDir>/src'
     ],
-    timers: 'fake',
+    'fakeTimers': {
+        'enableGlobally': true
+    },
     transformIgnorePatterns: [
         'node_modules/(?!(d3-|internmap/))'
     ],
