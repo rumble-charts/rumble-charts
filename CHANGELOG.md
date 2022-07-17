@@ -1,3 +1,7 @@
+# [5.0.0](https://github.com/rumble-charts/rumble-charts/compare/v4.0.0...v5.0.0) (2022-07-17)
+
+
+
 # [4.0.0](https://github.com/rumble-charts/rumble-charts/compare/v3.1.2...v4.0.0) (2021-08-27)
 
 ### Features and highlights

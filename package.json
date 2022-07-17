@@ -1,6 +1,6 @@
 {
   "name": "rumble-charts",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Truly declarative React charts components",
   "main": "cjs/index.js",
   "module": "es/index.js",
