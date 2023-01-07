@@ -1,5 +1,6 @@
 # <img src="https://raw.githubusercontent.com/rumble-charts/rumble-charts/master/images/logo.png" alt="Logo" width="48" height="48" /> rumble-charts
 
+[![Support Ukraine](https://img.shields.io/badge/Support-Ukraine-FFD500?style=flat&labelColor=005BBB)](https://opensource.fb.com/support-ukraine)
 [![Node.js CI](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/node.js.yml)
 [![CodeQL](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/rumble-charts/rumble-charts/actions/workflows/codeql-analysis.yml)
 [![codecov](https://codecov.io/gh/rumble-charts/rumble-charts/branch/master/graph/badge.svg)](https://codecov.io/gh/rumble-charts/rumble-charts)
